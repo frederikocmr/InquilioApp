@@ -1,0 +1,7 @@
+{
+  "name": "app-tcc",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
