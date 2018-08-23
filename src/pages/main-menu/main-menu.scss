@@ -1,0 +1,8 @@
+page-main-menu {
+	.main-menu-navbar {
+		background-color: color($colors, primary);
+	}
+	ion-navbar[hidebackbutton] button[menutoggle] {
+  	display: block !important;
+	}
+}

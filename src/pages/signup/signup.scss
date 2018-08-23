@@ -1,0 +1,23 @@
+page-signup {
+    .profile-button {
+        border: 1px solid;
+        border-radius: 5px;
+        color: color($colors, secondary);
+        margin: 1% 5%;
+        padding: 10%;
+    }
+    .profile-selected {
+        background-color: color($colors, secondary);
+        box-shadow: inset 0 0 10px #000000;
+        border: 1px;
+        border-radius: 5px;
+        color: color($colors, dark);
+        font-weight: bold;
+        margin: 1% 5%;
+        padding: 10%;
+    }
+    ion-content > div {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+}

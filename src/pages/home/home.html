@@ -1,10 +1,32 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Wellcome
-    </ion-title>
-  </ion-navbar>
+<ion-header text-center no-border>
+  <ion-toolbar transparent padding>
+    <img class="logo" src="../../assets/imgs/app-logo.png"/>
+  </ion-toolbar>
+  <ion-title style="font-weight: bold;">APSCORE</ion-title>
 </ion-header>
 
-<ion-content padding>
+<ion-content class="intro-background" text-center padding>
+  <ion-grid class="absolute-center">
+    <ion-row justify-content-center>
+      <ion-col>
+        <h3 ion-text color="light">Bem-vindo!</h3>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col padding-horizontal>
+        <ion-slides loop pager>
+          <ion-slide *ngFor="let appDescription of descriptions">
+            <p padding>{{ appDescription }}</p>
+          </ion-slide>        
+        </ion-slides>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
+
+<ion-footer text-center no-border>
+  <ion-toolbar transparent>
+    <button class="main-button" ion-button large round color="secondary" strong [navPush]="signupPage">Cadastre-se</button> 
+    <button ion-button clear color="light" [navPush]="loginPage">Já possui uma conta? Entre aqui.</button> 
+  </ion-toolbar>
+</ion-footer>

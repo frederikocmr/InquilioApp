@@ -14,3 +14,91 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+@import "../theme/icons";
+
+.absolute-center {
+	height: 100%;
+	justify-content: center !important;
+}
+
+.back-button, .toolbar-title {
+	color: color($colors, light);
+}
+
+.bg-owner-page {
+	background: color($colors, primary400);
+}
+
+.btn-side-menu {
+	color: color($colors, light);
+	background: color($colors, primary400);	
+}
+
+.intro-background {
+	background: color($colors, primary);
+	background: radial-gradient(circle farthest-corner at center center, color($colors, primary) 0%, color($colors, primary400) 100%);        
+	height: 100%;
+}
+
+.logo {
+	border: 1px;
+	border-radius: 50%;      
+	height: auto;
+	max-width: 40%;
+}
+
+.main-button {
+	padding-left: 20%;
+	padding-right: 20%;
+	margin-top: 5%;
+}
+
+.main-input {
+	width: 90%;
+	margin-left: 5%;
+	margin-top: 5%;
+	height: 8vh;
+	border-top-left-radius: 50px;
+	border-top-right-radius: 50px;
+	border-bottom-left-radius: 50px;
+	border-bottom-right-radius: 50px;
+}
+
+.menu-background {
+	background: color($colors, primary400);
+}
+
+.signup-form {
+	height: 80%;
+}
+
+.swiper-pagination {
+	padding: 0%;
+	.swiper-pagination-bullet {
+		background: color($colors, light);
+		margin: 0 5px;
+		top:20px;
+		bottom:inherit;
+	}
+}
+
+.swiper-pagination-bullet-active, .swiper-pagination-progressbar {
+	background: color($colors, secondary) !important;
+}
+
+h2, h5, h6, p {
+	color: color($colors, light) !important;
+}
+
+ion-icon {
+  &[class*="google-icon"] {
+    mask-size: contain;
+    mask-position: 50% 50%;
+    mask-repeat: no-repeat;
+    background: currentColor;
+    width: 1.7em;
+    height: 1.7em;
+    mask-image: url(../assets/imgs/google-icon.svg);
+  }
+}

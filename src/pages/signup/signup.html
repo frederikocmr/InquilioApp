@@ -1,0 +1,120 @@
+<ion-header no-border>
+  <ion-navbar transparent>
+    <ion-title>Cadastrar</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="intro-background" text-center padding>
+  <ion-slides class="signup-form" #slides pager paginationType="progress">
+    <ion-slide>
+      <!-- Page 1 -->
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <p>Antes de continuar, escolha seu perfil.</p>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <div [class]="ownerButtonClass" name="owner" (click)="profileSelected('owner')">Dono(a) de imóvel</div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <div [class]="tenantButtonClass" name="tenant" (click)="profileSelected('tenant')">Inquilino(a)</div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <p>Esta opção <b>pode</b> ser alterada depois.</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-slide>
+    <ion-slide>
+      <!-- Page 2 -->
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <p>Agora vamos precisar de algumas informações básicas.</p>  
+          </ion-col>        
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item class="main-input" text-center>
+              <ion-input type="text" name="name" round placeholder="Nome completo"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item class="main-input" text-center>
+              <ion-input type="text" name="cpf" round placeholder="CPF" [brmasker]="{mask:'000.000.000-00', len:14}"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item class="main-input" text-center>
+              <ion-input type="email" name="email" round placeholder="E-mail"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item class="main-input" text-center>
+              <ion-input type="password" name="password" round placeholder="Senha"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-slide>
+    <ion-slide>
+      <!-- Page 3 -->
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <p>Por último, só precisamos de mais alguns detalhes.</p>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item class="main-input">
+              <ion-input type="text" name="phone" round placeholder="Número do celular" [brmasker]="{phone: true}"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item class="main-input">
+              <ion-datetime
+                cancelText="Cancelar"
+                doneText="Confirmar"
+                displayFormat="DD/MMM/YYYY"
+                [max]="setMaxDate()"
+                monthShortNames="jan, fev, mar, abr, mai, jun, jul, ago, set, out, nov, dez"
+                name="birthday"
+                [(ngModel)]="today"
+                placeholder="Data de nascimento"></ion-datetime>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item class="main-input" text-center>
+              <ion-input type="text" name="sex" round placeholder="Sexo"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>    
+    </ion-slide>
+  </ion-slides> 
+</ion-content>
+ 
+<ion-footer text-center no-border>
+  <ion-toolbar transparent>
+    <button class="main-button" ion-button large round color="secondary" *ngIf="!isLastSlide()" (click)="slideNext()" strong>Continuar</button>
+    <button class="main-button" ion-button large round color="secondary" *ngIf="isLastSlide()" [navPush]="loginPage" strong>Confirmar</button> 
+    <button ion-button clear color="light" small>Ao confirmar aceito os Termos e Condições de Uso.</button>
+  </ion-toolbar>
+</ion-footer> 

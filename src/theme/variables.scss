@@ -23,6 +23,10 @@ $app-direction: ltr;
 // http://ionicframework.com/docs/theming/overriding-ionic-variables/
 
 
+$font-family-base: 'Rubik', sans-serif;
+$font-family-ios-base: 'Rubik', sans-serif;
+$font-family-md-base: 'Rubik', sans-serif;
+$font-family-wp-base: 'Rubik', sans-serif;
 
 
 // Named Color Variables
@@ -34,9 +38,20 @@ $app-direction: ltr;
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:    #488aff,
-  secondary:  #32db64,
-  danger:     #f53d3d,
+  primary50: #e3e4e8,
+  primary100: #b9bcc5,
+  primary200: #8A909E,
+  primary300: #5B6477,
+  primary400: #37425a,
+  primary:    #14213d,
+  primary600: #121d37,
+  primary700: #0e182f,
+  primary800: #0b1427,
+  primary900: #060b1a,
+  secondary:  #fdca40,
+  alternative:#44355b,
+  granted:    #1a936f,
+  danger:     #ff6663,
   light:      #f4f4f4,
   dark:       #222
 );
@@ -53,7 +68,7 @@ $colors: (
 // --------------------------------------------------
 // Material Design only Sass variables can go here
 
-
+$button-md-text-transform: none;
 
 
 // App Windows Variables
@@ -78,11 +93,25 @@ $colors: (
 // The premium icon font for Ionic. For more info, please see:
 // http://ionicframework.com/docs/ionicons/
 
-@import "ionic.ionicons";
+@import "ionicons";
 
+@mixin makeIcon($arg, $val) {
+  .ai-#{$arg}:before ,
+  .ion-ios-ai-#{$arg}:before ,
+  .ion-ios-ai-#{$arg}-outline:before ,
+  .ion-md-ai-#{$arg}:before ,
+  .ion-md-ai-#{$arg}-outline:before  {
+    content: $val;
+    font-size: 1.7em;
+  }
+}
 
 // Fonts
 // --------------------------------------------------
 
 @import "roboto";
 @import "noto-sans";
+@font-face {
+  font-family: Rubik;
+  src: url("../assets/fonts/Rubik-Regular.ttf");
+}
