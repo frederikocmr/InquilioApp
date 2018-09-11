@@ -42,28 +42,28 @@
         <ion-row>
           <ion-col>
             <ion-item class="main-input" text-center>
-              <ion-input type="text" name="name" round placeholder="Nome completo"></ion-input>
+              <ion-input type="text" name="name" [(ngModel)]="account.name" round placeholder="Nome completo"></ion-input>
             </ion-item>
           </ion-col>
         </ion-row>
         <ion-row>
           <ion-col>
             <ion-item class="main-input" text-center>
-              <ion-input type="text" name="cpf" round placeholder="CPF" [brmasker]="{mask:'000.000.000-00', len:14}"></ion-input>
+              <ion-input type="text" name="document"  [(ngModel)]="account.document" round placeholder="CPF"></ion-input>
             </ion-item>
           </ion-col>
         </ion-row>
         <ion-row>
           <ion-col>
             <ion-item class="main-input" text-center>
-              <ion-input type="email" name="email" round placeholder="E-mail"></ion-input>
+              <ion-input type="email" name="email" [(ngModel)]="account.email" round placeholder="E-mail"></ion-input>
             </ion-item>
           </ion-col>
         </ion-row>
         <ion-row>
           <ion-col>
             <ion-item class="main-input" text-center>
-              <ion-input type="password" name="password" round placeholder="Senha"></ion-input>
+              <ion-input type="password" name="password" [(ngModel)]="account.password" round placeholder="Senha"></ion-input>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -80,7 +80,7 @@
         <ion-row>
           <ion-col>
             <ion-item class="main-input">
-              <ion-input type="text" name="phone" round placeholder="Número do celular" [brmasker]="{phone: true}"></ion-input>
+              <ion-input type="text" name="phone" [(ngModel)]="account.phone" round placeholder="Número do celular"></ion-input>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -94,7 +94,7 @@
                 [max]="setMaxDate()"
                 monthShortNames="jan, fev, mar, abr, mai, jun, jul, ago, set, out, nov, dez"
                 name="birthday"
-                [(ngModel)]="today"
+                [(ngModel)]="account.birthdate"
                 placeholder="Data de nascimento"></ion-datetime>
             </ion-item>
           </ion-col>
@@ -102,7 +102,7 @@
         <ion-row>
           <ion-col>
             <ion-item class="main-input" text-center>
-              <ion-input type="text" name="sex" round placeholder="Sexo"></ion-input>
+              <ion-input type="text" name="genre"  [(ngModel)]="account.genre" round placeholder="Sexo"></ion-input>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -114,7 +114,7 @@
 <ion-footer text-center no-border>
   <ion-toolbar transparent>
     <button class="main-button" ion-button large round color="secondary" *ngIf="!isLastSlide()" (click)="slideNext()" strong>Continuar</button>
-    <button class="main-button" ion-button large round color="secondary" *ngIf="isLastSlide()" [navPush]="loginPage" strong>Confirmar</button> 
+    <button class="main-button" ion-button large round color="secondary" *ngIf="isLastSlide()"  (click)="doSignup()" strong>Confirmar</button> 
     <button ion-button clear color="light" small>Ao confirmar aceito os Termos e Condições de Uso.</button>
   </ion-toolbar>
 </ion-footer> 
