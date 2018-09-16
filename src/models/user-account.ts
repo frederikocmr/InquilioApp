@@ -1,5 +1,4 @@
 export class UserAccount {
-    public profile: string;
     public name: string;
     public document: string;
     public email: string;
@@ -7,7 +6,7 @@ export class UserAccount {
     public birthdate: string;
     public genre: string;
     public password: string;
-
+    public active: boolean;
 
     constructor(
         profile: string,
@@ -18,8 +17,6 @@ export class UserAccount {
         birthdate: string,
         genre: string,
         password: string) {
-
-        this.profile = profile;
         this.name = name;
         this.document = document; 
         this.email = email;
@@ -27,6 +24,7 @@ export class UserAccount {
         this.birthdate = birthdate;
         this.genre = genre;
         this.password = password;
+        this.active = true;
     }
 
 }

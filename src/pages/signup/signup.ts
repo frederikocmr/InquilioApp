@@ -14,17 +14,9 @@ export class SignupPage {
 	ownerButtonClass: string = 'profile-button';
 	tenantButtonClass: string = 'profile-button';
 	loginPage = LoginPage;
+	profile: any;
 
-	account: UserAccount = {
-		profile: "",
-		name: "",
-		document: "",
-		email: "",
-		phone: null,
-		birthdate: null,
-		genre: "",
-		password: ""
-	};
+	account = new UserAccount("","","","",null,null,"","");
 
 	constructor(
 		public navCtrl: NavController,
@@ -41,7 +33,7 @@ export class SignupPage {
 	}
 
 	profileSelected(profile: string) {
-		this.account.profile = profile;
+		this.profile = profile;
 
 		if (profile == 'owner') {
 			if (this.ownerButtonClass == 'profile-button') {
@@ -76,8 +68,7 @@ export class SignupPage {
 	}
 
 	doSignup() {
-
-		this.firebase.signUp(this.account).then((user) => {
+		this.firebase.signUp(this.account, this.profile).then((user) => {
 			let toast = this.toastCtrl.create({
 				message: this.firebase.message,
 				duration: 2000,
