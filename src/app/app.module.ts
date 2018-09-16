@@ -5,9 +5,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 //import { BrMaskerModule } from 'brmasker-ionic-3';
 
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -19,6 +19,7 @@ import { SettingsPage } from '../pages/settings/settings';
 import { MyRealEstatePage } from '../pages/my-real-estate/my-real-estate';
 
 import { FirebaseProvider } from '../providers';
+
 
 
 export const firebaseConfig = {

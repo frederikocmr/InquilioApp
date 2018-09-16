@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 import { UserAccount } from '../../models/user-account';
 import { OwnerAccount } from '../../models/owner-account';
