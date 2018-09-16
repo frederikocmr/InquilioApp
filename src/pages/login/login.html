@@ -5,24 +5,26 @@
 </ion-header>
 
 
-<ion-content class="intro-background" text-center padding>
+<ion-content class="intro-background absolute-center" text-center padding>
   <p>Escolha uma opção</p>
   <ion-grid fixed>
     <ion-row>
       <ion-col>
-        <button ion-button icon-start large round color="light"><span class="icon-google-icon" padding-right><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></span>Entrar com o Google</button>
+        <button ion-button icon-start large round color="light"><span class="icon-google-icon" padding-right><span
+                  class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></span>Entrar
+          com o Google</button>
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col>
+      <!-- <ion-col>
         <hr>
-      </ion-col>
+      </ion-col> -->
       <ion-col>
-        <p>ou</p>
+        <p style="font-size: 2rem">ou</p>
       </ion-col>
-      <ion-col>        
+      <!-- <ion-col>        
         <hr>
-      </ion-col>
+      </ion-col> -->
     </ion-row>
     <ion-row>
       <ion-col>
@@ -46,9 +48,15 @@
   </ion-grid>
 </ion-content>
 
-<ion-footer text-center no-border>
+<ion-footer no-border>
   <ion-toolbar transparent>
-    <button class="main-button" ion-button large round color="secondary" [navPush]="mainMenuPage" strong>Entrar</button>  
-    <button ion-button clear color="light" [navPush]="signupPage" small>Ainda não possui uma conta? Cadastre-se.</button>
+    <ion-grid>
+      <ion-row justify-content-center>
+        <button class="main-button" ion-button large round color="secondary" [navPush]="mainMenuPage" strong>Entrar</button>
+      </ion-row>
+      <ion-row justify-content-center>
+        <button ion-button clear color="light" [navPush]="signupPage" small>Ainda não possui uma conta? Cadastre-se.</button>
+      </ion-row>
+    </ion-grid>
   </ion-toolbar>
 </ion-footer>
