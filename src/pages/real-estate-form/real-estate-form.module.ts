@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { RealStateFormPage } from './real-state-form';
+import { RealEstateFormPage } from './real-estate-form';
 
 @NgModule({
   declarations: [
-    RealStateFormPage,
+    RealEstateFormPage,
   ],
   imports: [
-    IonicPageModule.forChild(RealStateFormPage),
+    IonicPageModule.forChild(RealEstateFormPage),
   ],
 })
 export class RealStateFormPageModule {}

@@ -17,10 +17,9 @@ import { SignupPage } from '../pages/signup/signup';
 import { SettingsService } from '../services/settings';
 import { SettingsPage } from '../pages/settings/settings';
 import { MyRealEstatePage } from '../pages/my-real-estate/my-real-estate';
+import { RealEstateFormPage } from '../pages/real-estate-form/real-estate-form';
 
 import { FirebaseProvider } from '../providers';
-
-
 
 export const firebaseConfig = {
   apiKey: "AIzaSyBppMFH3ZlpMoDB4RrDjNx94-ZyASl65-M",
@@ -39,7 +38,8 @@ export const firebaseConfig = {
     LoginPage,
     SettingsPage,
     SignupPage,
-    MyRealEstatePage
+    MyRealEstatePage,
+    RealEstateFormPage
   ],
   imports: [
     BrowserModule,
@@ -57,7 +57,8 @@ export const firebaseConfig = {
     LoginPage,
     SettingsPage,
     SignupPage,
-    MyRealEstatePage
+    MyRealEstatePage,
+    RealEstateFormPage
   ],
   providers: [
     StatusBar,

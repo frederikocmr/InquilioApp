@@ -5,7 +5,7 @@ export class TenantAccount extends UserAccount {
     public paymentScore: number;
     public carefulScore: number;
     public discretionScore: number;
-    public realStateHistory: string[];
+    public realEstateHistory: string[];
     public contracts: string[];
 
 }

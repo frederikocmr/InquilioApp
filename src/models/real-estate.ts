@@ -1,4 +1,4 @@
-export class RealState {
+export class RealEstate {
     public name: string;
     public description: string;
     public zip: string;

@@ -4,7 +4,7 @@ export class Contract {
     public duration: string;
     public tenantId: string;
     public ownerId: string;
-    public realStateId: string;
+    public realEstateId: string;
 
     constructor() {
     }

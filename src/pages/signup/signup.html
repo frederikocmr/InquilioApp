@@ -87,7 +87,7 @@
         <ion-row>
           <ion-col>
             <ion-item class="main-input">
-              <ion-label color="primary100">Data de nascimento</ion-label>
+              <ion-label>Data de nascimento</ion-label>
               <ion-datetime cancelText="Cancelar" doneText="Confirmar" displayFormat="DD/MMM/YYYY" [max]="setMaxDate()"
                             monthShortNames="jan, fev, mar, abr, mai, jun, jul, ago, set, out, nov, dez" name="birthdate"
                             [(ngModel)]="account.birthdate"></ion-datetime>
@@ -97,7 +97,7 @@
         <ion-row>
           <ion-col>
             <ion-item class="main-input">
-              <ion-label color="primary100">Sexo</ion-label>
+              <ion-label>Sexo</ion-label>
               <ion-select name="genre" interface="popover" [(ngModel)]="account.genre">
                 <ion-option value="f">Feminino</ion-option>
                 <ion-option value="m">Masculino</ion-option>
@@ -109,9 +109,7 @@
       </ion-grid>
     </ion-slide>
   </ion-slides>
-</ion-content>
 
-<ion-footer text-center no-border>
   <ion-toolbar transparent>
     <ion-row justify-content-center>
       <button class="main-button" ion-button large round color="secondary" *ngIf="!isLastSlide()" (click)="slideNext()"
@@ -125,4 +123,5 @@
       <button ion-button clear color="light" small>Ao confirmar aceito os Termos e Condições de Uso.</button>
     </ion-row>
   </ion-toolbar>
-</ion-footer>
+  
+</ion-content>
