@@ -76,7 +76,11 @@ export class SignupPage {
 			});
 			toast.present();
 
-			this.navCtrl.push(LoginPage);
+			if(this.firebase.validator) {
+				this.navCtrl.push(LoginPage);
+			}
+
+			
 		}).catch((error) => {
 				console.log(error);
 			});
