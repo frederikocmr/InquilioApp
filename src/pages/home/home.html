@@ -1,38 +1,30 @@
 <ion-header text-center no-border>
   <ion-toolbar transparent padding>
-    <img class="logo" src="../../assets/imgs/app-logo.png"/>
+    <img class="logo" src="../../assets/imgs/app-logo.png" />
   </ion-toolbar>
-  <ion-title style="font-weight: bold;">APSCORE</ion-title>
+  <ion-title strong>APSCORE</ion-title>
 </ion-header>
 
-<ion-content class="intro-background" text-center padding>
-  <ion-grid class="absolute-center">
-    <ion-row justify-content-center>
-      <ion-col>
-        <h3 ion-text color="light">Bem-vindo!</h3>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col padding-horizontal>
-        <ion-slides loop pager>
-          <ion-slide *ngFor="let appDescription of descriptions">
-            <p padding>{{ appDescription }}</p>
-          </ion-slide>        
-        </ion-slides>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-</ion-content>
+<ion-content class="intro-background absolute-center" overflow-scroll="false" padding text-center>
+  <h3 ion-text color="light">Bem-vindo!</h3>
 
-<ion-footer no-border>
-  <ion-toolbar transparent>
-    <ion-grid>
-      <ion-row justify-content-center>
-        <button class="main-button" ion-button large round color="secondary" strong [navPush]="loginPage">Entrar</button> 
-      </ion-row>
-      <ion-row justify-content-center>
-        <button ion-button clear color="light" [navPush]="signupPage" small>Ainda não possui uma conta? CADASTRE-SE.</button> 
-      </ion-row>
-    </ion-grid>
-  </ion-toolbar>
-</ion-footer>
+  <ion-row>
+    <ion-col padding-horizontal>
+      <ion-slides loop pager>
+        <ion-slide *ngFor="let appDescription of descriptions">
+          <p padding>{{ appDescription }}</p>
+        </ion-slide>
+      </ion-slides>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <button ion-button icon-start large round color="light" (click)="doLoginWithGoogle();"><span class="icon-google-icon"
+              padding-right><span class="path1"></span><span class="path2"></span><span class="path3"></span><span
+                class="path4"></span></span>Entrar com o Google</button>
+      <button class="main-button" ion-button large round color="secondary" strong [navPush]="loginPage">Entrar</button>
+      <button ion-button clear color="light" [navPush]="signupPage" small>Criar uma nova conta?</button>
+    </ion-col>
+  </ion-row>
+</ion-content>

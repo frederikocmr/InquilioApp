@@ -39,6 +39,16 @@
 	background: color($colors, primary);
 	background: radial-gradient(circle farthest-corner at center center, color($colors, primary) 0%, color($colors, primary400) 100%);        
 	height: 100%;
+	 
+	ion-row {
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+	}
+
+	.scroll-content {
+		overflow-y: hidden !important;
+	}
 }
 
 .logo {
@@ -49,8 +59,9 @@
 }
 
 .main-button {
-	padding-left: 20%;
-	padding-right: 20%;
+	width: 85%;
+	// padding-left: 20%;
+	// padding-right: 20%;
 	margin-top: 5%;
 }
 
