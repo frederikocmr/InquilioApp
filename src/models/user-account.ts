@@ -9,7 +9,6 @@ export class UserAccount {
     public active: boolean;
 
     constructor(
-        profile: string,
         name: string,
         document: string,
         email: string,

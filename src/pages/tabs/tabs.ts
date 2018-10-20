@@ -1,10 +1,12 @@
-import { Component } from "@angular/core";
-import { NavController } from "ionic-angular";
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { Tab1Root, Tab2Root, Tab3Root } from '../';
 
+@IonicPage()
 @Component({
-  templateUrl: "tabs.html"
+  selector: 'page-tabs',
+  templateUrl: 'tabs.html',
 })
 export class TabsPage {
   tab1Root: any = Tab1Root;
@@ -15,5 +17,11 @@ export class TabsPage {
   tab2Title = " ";
   tab3Title = " ";
 
-  constructor(public navCtrl: NavController) {}
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad TabsPage');
+  }
+
 }

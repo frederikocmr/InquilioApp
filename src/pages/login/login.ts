@@ -1,9 +1,9 @@
-import { Component, ViewChild } from '@angular/core';
-import { MainMenuPage } from '../main-menu/main-menu';
+import { Component } from '@angular/core';
 
 import { SignupPage } from '../signup/signup';
 import { FirebaseProvider } from '../../providers';
 import { ToastController, NavController, Loading, LoadingController, AlertController } from 'ionic-angular';
+import { MainPage } from '..';
 
 @Component({
   selector: 'page-login',
@@ -11,10 +11,8 @@ import { ToastController, NavController, Loading, LoadingController, AlertContro
 })
 export class LoginPage {
   loading: Loading;
-  mainMenuPage = MainMenuPage;
   signupPage = SignupPage;
   registerCredentials = { email: '', password: '' };
-  // TODO: Fix login with email and password
   email: string = "";
   password: string = "";
 
@@ -38,7 +36,7 @@ export class LoginPage {
       toast.present();
 
 			if(this.firebase.validator) {
-				this.navCtrl.push(MainMenuPage);
+				this.navCtrl.push(MainPage);
       }
       
     }).catch((error) => {
@@ -47,7 +45,7 @@ export class LoginPage {
   }
 
   doLoginWithEmail() {
-    this.firebase.signIn(this.email, this.password).then(() => {
+    this.firebase.signIn(this.registerCredentials.email, this.registerCredentials.password).then(() => {
 			let toast = this.toastCtrl.create({
 				message: this.firebase.message,
 				duration: 2000,
@@ -56,7 +54,7 @@ export class LoginPage {
       toast.present();
 
 			if(this.firebase.validator) {
-				this.navCtrl.push(MainMenuPage); // setRoot?
+				this.navCtrl.push(MainPage); // setRoot?
       }
       
     }).catch((error) => {

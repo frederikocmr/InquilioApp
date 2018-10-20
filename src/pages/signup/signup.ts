@@ -16,7 +16,7 @@ export class SignupPage {
 	loginPage = LoginPage;
 	profile: any;
 
-	account = new UserAccount("","","","",null,null,"","");
+	account = new UserAccount(null,null,null,null,null,null,null);
 
 	constructor(
 		public navCtrl: NavController,
