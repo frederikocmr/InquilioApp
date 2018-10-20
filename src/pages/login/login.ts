@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MainMenuPage } from '../main-menu/main-menu';
 
 import { SignupPage } from '../signup/signup';

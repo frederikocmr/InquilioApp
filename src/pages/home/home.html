@@ -2,29 +2,29 @@
   <ion-toolbar transparent padding>
     <img class="logo" src="../../assets/imgs/app-logo.png" />
   </ion-toolbar>
-  <ion-title strong>APSCORE</ion-title>
+  <ion-title strong>Aplicativo TCC</ion-title>
 </ion-header>
 
 <ion-content class="intro-background absolute-center" overflow-scroll="false" padding text-center>
   <h3 ion-text color="light">Bem-vindo!</h3>
 
-  <ion-row>
-    <ion-col padding-horizontal>
-      <ion-slides loop pager>
-        <ion-slide *ngFor="let appDescription of descriptions">
-          <p padding>{{ appDescription }}</p>
-        </ion-slide>
-      </ion-slides>
-    </ion-col>
-  </ion-row>
-
-  <ion-row>
-    <ion-col>
-      <button ion-button icon-start large round color="light" (click)="doLoginWithGoogle();"><span class="icon-google-icon"
-              padding-right><span class="path1"></span><span class="path2"></span><span class="path3"></span><span
-                class="path4"></span></span>Entrar com o Google</button>
-      <button class="main-button" ion-button large round color="secondary" strong [navPush]="loginPage">Entrar</button>
-      <button ion-button clear color="light" [navPush]="signupPage" small>Criar uma nova conta?</button>
-    </ion-col>
-  </ion-row>
+  <ion-slides loop pager style="height: 90%">
+    <ion-slide *ngFor="let description of descriptions">
+      <p padding>{{ description }}</p>
+    </ion-slide>
+  </ion-slides>
 </ion-content>
+
+<ion-footer no-border text-center>
+  <ion-row>
+    <button ion-button class="main-button" icon-start large round color="light" (click)="doLoginWithGoogle();"><span
+            class="icon-google-icon" padding-right><span class="path1"></span><span class="path2"></span><span class="path3"></span><span
+              class="path4"></span></span>Entrar com o Google</button>
+  </ion-row>
+  <ion-row>
+    <button class="main-button" ion-button large round color="secondary" strong [navPush]="loginPage">Entrar</button>
+  </ion-row>
+  <ion-row>
+    <button ion-button clear color="light" [navPush]="signupPage">Criar uma nova conta?</button>
+  </ion-row>
+</ion-footer>

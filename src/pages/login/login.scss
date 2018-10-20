@@ -1,2 +1,11 @@
-page-login {
+page-login {	
+	p {
+		font-size: 2rem;
+	}
+	
+	ion-list {
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+	}
 }

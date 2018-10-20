@@ -5,40 +5,37 @@
 </ion-header>
 
 
-<ion-content class="intro-background absolute-center" text-center padding>
-  <form (ngSubmit)="doLoginWithEmail()" #registerForm="ngForm">
-    <p>Escolha uma opção</p>
-    
-    <ion-row>
-      <ion-col>
-        <button ion-button icon-start large round color="light" (click)="doLoginWithGoogle();"><span class="icon-google-icon"
-                padding-right><span class="path1"></span><span class="path2"></span><span class="path3"></span><span
-                  class="path4"></span></span>Entrar com o Google</button>
-      </ion-col>
-    </ion-row>
+<ion-content class="intro-background" text-center padding>
+  <p>Escolha uma opção</p>
 
-    <p style="font-size: 2rem">ou</p>
+  <div padding>
+    <button ion-button class="main-button" icon-start large round color="light" (click)="doLoginWithGoogle();"><span
+            class="icon-google-icon" padding-right><span class="path1"></span><span class="path2"></span><span class="path3"></span><span
+              class="path4"></span></span>Entrar com o Google</button>
+  </div>
 
-    <ion-row>
-      <ion-col>
-        <ion-item class="main-input">
-          <ion-input type="email" placeholder="E-mail" name="email" [(ngModel)]="registerCredentials.email" required></ion-input>
-        </ion-item>
-        <ion-item class="main-input">
-          <ion-input type="password" placeholder="Senha" name="password" [(ngModel)]="registerCredentials.password"
-                     required></ion-input>
-        </ion-item>
+  <p>ou</p>
+
+  <form (ngSubmit)="doLoginWithEmail()" #registerForm="ngForm" style="height: 100%" padding-top>
+    <ion-list>
+      <ion-item class="main-input">
+        <ion-input type="email" placeholder="E-mail" name="email" [(ngModel)]="registerCredentials.email" required></ion-input>
+      </ion-item>
+      <ion-item class="main-input">
+        <ion-input type="password" placeholder="Senha" name="password" [(ngModel)]="registerCredentials.password"
+                   required></ion-input>
+      </ion-item>
+      <div padding-bottom>
         <button ion-button clear color="light" small>Esqueceu sua senha?</button>
-      </ion-col>
-    </ion-row>
-
-    <ion-row align-items-end>
-      <ion-col>
-        <button ion-button class="main-button" large round color="secondary" type="submit" [disabled]="!registerForm.form.valid"
-                strong>Entrar</button>
+      </div>
+      <div padding>
+        <div padding-top>
+          <button ion-button class="main-button" large round color="secondary" type="submit" [disabled]="!registerForm.form.valid"
+                  strong>Entrar</button>
+        </div>
         <button ion-button clear color="light" (click)="createAccount()">Criar uma nova conta?</button>
-      </ion-col>
-    </ion-row>
+      </div>
+    </ion-list>
   </form>
 
 </ion-content>

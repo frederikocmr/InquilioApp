@@ -18,6 +18,7 @@ import { SettingsService } from '../services/settings';
 import { SettingsPage } from '../pages/settings/settings';
 import { MyRealEstatePage } from '../pages/my-real-estate/my-real-estate';
 import { RealEstateFormPage } from '../pages/real-estate-form/real-estate-form';
+import { TabsPage } from '../pages/tabs/tabs';
 
 import { FirebaseProvider } from '../providers';
 
@@ -39,7 +40,8 @@ export const firebaseConfig = {
     SettingsPage,
     SignupPage,
     MyRealEstatePage,
-    RealEstateFormPage
+    RealEstateFormPage,
+    TabsPage
   ],
   imports: [
     BrowserModule,
@@ -58,7 +60,8 @@ export const firebaseConfig = {
     SettingsPage,
     SignupPage,
     MyRealEstatePage,
-    RealEstateFormPage
+    RealEstateFormPage,
+    TabsPage
   ],
   providers: [
     StatusBar,
