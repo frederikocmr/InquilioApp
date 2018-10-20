@@ -1,25 +1,18 @@
 <ion-header>
-  <ion-navbar>
-    <ion-buttons start>
-      <button ion-button menuToggle>
+  <ion-toolbar color="primary">
+    <ion-buttons start left>
+      <button ion-button icon-only menuToggle>
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title>Settings</ion-title>
-  </ion-navbar>
+    <ion-title>Configurações</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon name="notifications"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <ion-label>Alternative Background</ion-label>
-      </ion-col>
-      <ion-col>
-        <ion-toggle
-          (ionChange)="onToggle($event)"
-          [checked]="checkAltBackground()"></ion-toggle>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+<ion-content class="bg-owner-page" padding>
 </ion-content>

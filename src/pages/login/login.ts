@@ -3,7 +3,8 @@ import { Component } from '@angular/core';
 import { SignupPage } from '../signup/signup';
 import { FirebaseProvider } from '../../providers';
 import { ToastController, NavController, Loading, LoadingController, AlertController } from 'ionic-angular';
-import { MainPage } from '..';
+import { MainMenuPage } from '../main-menu/main-menu';
+import { TabsPage } from '../tabs/tabs';
 
 @Component({
   selector: 'page-login',
@@ -36,7 +37,7 @@ export class LoginPage {
       toast.present();
 
 			if(this.firebase.validator) {
-				this.navCtrl.push(MainPage);
+        this.navCtrl.setRoot(TabsPage);
       }
       
     }).catch((error) => {
@@ -54,7 +55,7 @@ export class LoginPage {
       toast.present();
 
 			if(this.firebase.validator) {
-				this.navCtrl.push(MainPage); // setRoot?
+        this.navCtrl.setRoot(TabsPage);
       }
       
     }).catch((error) => {

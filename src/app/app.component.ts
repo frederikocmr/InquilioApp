@@ -6,6 +6,7 @@ import { HomePage } from '../pages/home/home';
 import { SettingsPage } from '../pages/settings/settings';
 import { MyRealEstatePage } from '../pages/my-real-estate/my-real-estate';
 import { RealEstateFormPage } from '../pages/real-estate-form/real-estate-form';
+import { TabsPage } from '../pages/tabs/tabs';
 
 @Component({
   templateUrl: 'app.html'
@@ -23,7 +24,7 @@ export class MyApp {
     splashScreen: SplashScreen,
     private menuCtrl: MenuController) {
     platform.ready().then(() => {
-      statusBar.styleDefault();
+      // statusBar.styleDefault();
       splashScreen.hide();
     });
   }

@@ -8,7 +8,7 @@
 <ion-content class="intro-background" text-center padding>
   <p>Escolha uma opção</p>
 
-  <div padding>
+  <div padding-top padding-bottom>
     <button ion-button class="main-button" icon-start large round color="light" (click)="doLoginWithGoogle();"><span
             class="icon-google-icon" padding-right><span class="path1"></span><span class="path2"></span><span class="path3"></span><span
               class="path4"></span></span>Entrar com o Google</button>
@@ -28,8 +28,8 @@
       <div padding-bottom>
         <button ion-button clear color="light" small>Esqueceu sua senha?</button>
       </div>
-      <div padding>
-        <div padding-top>
+      <div padding-top padding-bottom>
+        <div>
           <button ion-button class="main-button" large round color="secondary" type="submit" [disabled]="!registerForm.form.valid"
                   strong>Entrar</button>
         </div>
