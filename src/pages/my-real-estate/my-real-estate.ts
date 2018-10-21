@@ -32,6 +32,15 @@ export class MyRealEstatePage {
     });
   }
 
+  newRealEstate() {
+    let modal = this.modalCtrl.create(RealEstateFormPage);
+    modal.present();
+
+    modal.onDidDismiss(data => {
+      console.log("Saiu da RealEstateFormPage");
+    });
+  }
+
   viewDetails() {
     let detailsModal = this.modalCtrl.create(RealEstateDetailsPage);
     detailsModal.present();

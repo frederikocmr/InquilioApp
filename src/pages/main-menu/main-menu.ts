@@ -1,25 +1,29 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the MainMenuPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams, ModalController } from "ionic-angular";
+import { SettingsPage } from "../settings/settings";
 
 @IonicPage()
 @Component({
-  selector: 'page-main-menu',
-  templateUrl: 'main-menu.html',
+  selector: "page-main-menu",
+  templateUrl: "main-menu.html"
 })
 export class MainMenuPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  constructor(
+    public modalCtrl: ModalController,
+    public navCtrl: NavController,
+    public navParams: NavParams
+  ) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad MainMenuPage');
+    console.log("ionViewDidLoad MainMenuPage");
   }
 
+  openSettings() {
+    let modal = this.modalCtrl.create(SettingsPage);
+    modal.present();
+
+    modal.onDidDismiss(data => {
+      console.log("Saiu da SettingsPage");
+    });
+  }
 }

@@ -1,14 +1,9 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-buttons start left>
-      <button ion-button icon-only menuToggle>
-        <ion-icon name="menu"></ion-icon>
-      </button>
-    </ion-buttons>
-    <ion-title>Início</ion-title>
+    <ion-title>Histórico</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only>
-        <ion-icon name="notifications"></ion-icon>
+      <button ion-button icon-only (click)="openSettings()">
+        <ion-icon name="settings"></ion-icon>
       </button>
     </ion-buttons>
   </ion-toolbar>

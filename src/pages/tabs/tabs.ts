@@ -9,9 +9,8 @@ import { MainMenuPage } from "../main-menu/main-menu";
   templateUrl: "tabs.html"
 })
 export class TabsPage {
-  tab1Root = MainMenuPage;
-  tab2Root = MyRealEstatePage;
-  tab3Root = SettingsPage;
+  mainMenuPage = MainMenuPage;
+  myRealEstatePage = MyRealEstatePage;
 
   constructor(private fb: FirebaseProvider) {}
 
