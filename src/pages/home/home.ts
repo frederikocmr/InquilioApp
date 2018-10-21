@@ -4,6 +4,7 @@ import { SignupPage } from '../signup/signup';
 import { LoginPage } from '../login/login';
 import { FirebaseProvider } from '../../providers';
 import { NavController, ToastController } from 'ionic-angular';
+import { TabsPage } from '../tabs/tabs';
 
 @Component({
   selector: 'page-home',
@@ -33,7 +34,7 @@ export class HomePage {
       toast.present();
 
       if (this.firebase.validator) {
-        this.navCtrl.push(MainMenuPage);
+        this.navCtrl.push(TabsPage);
       }
 
     }).catch((error) => {

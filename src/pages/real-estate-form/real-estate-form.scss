@@ -4,4 +4,21 @@ page-real-estate-form {
 		margin-top: 5%;
 		width: 100%;
 	}
+
+	.form-input {
+		margin-top: 1%;
+		border-top-left-radius: 15px;
+		border-top-right-radius: 15px;
+		border-bottom-left-radius: 15px;
+		border-bottom-right-radius: 15px;
+		padding-left: 1.2rem;
+		ion-label {
+			color: color($colors, primary200);
+		}
+
+	}
+
+  .scroll-content {
+    overflow-y: auto !important;
+  }
 }

@@ -21,6 +21,7 @@ import { RealEstateFormPage } from '../pages/real-estate-form/real-estate-form';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { FirebaseProvider } from '../providers';
+import { RealEstateDetailsPage } from '../pages/real-estate-details/real-estate-details';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyBppMFH3ZlpMoDB4RrDjNx94-ZyASl65-M",
@@ -40,6 +41,7 @@ export const firebaseConfig = {
     SettingsPage,
     SignupPage,
     MyRealEstatePage,
+    RealEstateDetailsPage,
     RealEstateFormPage,
     TabsPage
   ],
@@ -60,6 +62,7 @@ export const firebaseConfig = {
     SettingsPage,
     SignupPage,
     MyRealEstatePage,
+    RealEstateDetailsPage,
     RealEstateFormPage,
     TabsPage
   ],

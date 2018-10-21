@@ -1,8 +1,18 @@
 page-my-real-estate {
-	.item {
-		background: transparent !important;
-	}
-	.list-md .item-block .item-inner {
+  .item {
+    background: transparent !important;
+  }
+  .list-md .item-block .item-inner {
     border-bottom: 1px solid color($colors, secondary);
-	}
+  }
+  hr {
+	background: color($colors, secondary) !important;
+  }
+  ion-card {
+	border-radius: 10px !important;
+  }
+
+  .scroll-content {
+    overflow-y: auto !important;
+  }
 }

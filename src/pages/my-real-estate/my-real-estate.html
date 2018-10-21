@@ -5,20 +5,20 @@
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title>Meus Imóveis</ion-title>
+    <ion-title>Imóveis</ion-title>
   </ion-toolbar>
 </ion-header>
 
 
 <ion-content class="bg-owner-page">
-  <ion-list transparent>
+  <!-- <ion-list transparent>
     <ion-item>
       <ion-thumbnail item-start>
         <img src="../assets/imgs/logo.png">
       </ion-thumbnail>
       <h2>Imóvel 1</h2>
       <p>Descrição do imóvel 1 contendo provável link para anúncio.</p>
-      <button ion-button clear color="secondary" item-end strong>VER</button>
+      <button ion-button clear color="secondary" item-end strong (click)="viewDetails()">VER</button>
     </ion-item>
     <ion-item>
       <ion-thumbnail item-start>
@@ -28,8 +28,29 @@
       <p>Imóvel 2, descrição contendo provável link para anúncio.</p>
       <button ion-button clear color="secondary" item-end strong>VER</button>
     </ion-item>
-  </ion-list>
+  </ion-list> -->
+
+  <ion-card *ngFor="let realEstate of realEstates" color="primary" (click)="viewDetails()">
+    <ion-item>
+      <h2>{{realEstate.name}}</h2>
+      <p>Sem contrato</p>
+    </ion-item>
+    <img src="../assets/imgs/placeholder.jpg" style="max-height: 15rem;">
+    <ion-card-content>
+      <p>{{realEstate.description}}</p>
+      <ion-note>
+        {{realEstate.link}}
+      </ion-note>
+    </ion-card-content>
+    <hr>
+    <button ion-button clear block color="secondary">
+      ADICIONAR INQUILINO
+    </button>
+  </ion-card>
+
   <ion-fab right bottom>
-    <button ion-fab color="secondary" [navPush]="realEstateFormPage"><ion-icon name="add"></ion-icon></button>
+    <button ion-fab color="secondary" [navPush]="realEstateFormPage">
+      <ion-icon name="add"></ion-icon>
+    </button>
   </ion-fab>
 </ion-content>
