@@ -15,17 +15,4 @@ export class RealEstateDetailsPage {
     this.realEstate = navParams.get('realEstateObj');
   }
 
-  ionViewWillEnter(){
-
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad RealEstateDetailsPage');
-    this.ui.alertUi('Carregou','Sua pagina carrewgou');
-  }
-
-  goBack() {
-    this.navCtrl.pop();
-  }
-
 }

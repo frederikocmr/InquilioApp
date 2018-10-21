@@ -1,8 +1,9 @@
+import { UiProvider } from './../../providers/ui/ui';
 import { Component } from '@angular/core';
 
 import { SignupPage } from '../signup/signup';
 import { FirebaseProvider } from '../../providers';
-import { ToastController, NavController, Loading, LoadingController, AlertController } from 'ionic-angular';
+import { NavController, Loading, LoadingController, AlertController } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 
 @Component({
@@ -20,7 +21,7 @@ export class LoginPage {
               private firebase: FirebaseProvider,
               private loadingCtrl: LoadingController,
               private navCtrl: NavController,
-              private toastCtrl: ToastController){}
+              public ui: UiProvider){}
 
   public createAccount() {
     this.navCtrl.push(SignupPage);
@@ -29,13 +30,8 @@ export class LoginPage {
   doLoginWithGoogle() {
     this.showLoading();
     this.firebase.signInWithGoogle().then(() => {
-			let toast = this.toastCtrl.create({
-				message: this.firebase.message,
-				duration: 3000,
-				position: 'top'
-			});
-      toast.present();
       this.loading.dismiss();
+      this.ui.showToast(this.firebase.message, 3, 'top');
 
 			if(this.firebase.validator) {
         this.navCtrl.setRoot(TabsPage);
@@ -48,12 +44,7 @@ export class LoginPage {
 
   doLoginWithEmail() {
     this.firebase.signIn(this.registerCredentials.email, this.registerCredentials.password).then(() => {
-			let toast = this.toastCtrl.create({
-				message: this.firebase.message,
-				duration: 3000,
-				position: 'top'
-			});
-      toast.present();
+			this.ui.showToast(this.firebase.message, 3, 'top');
 
 			if(this.firebase.validator) {
         this.navCtrl.setRoot(TabsPage);

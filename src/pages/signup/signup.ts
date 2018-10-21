@@ -1,5 +1,6 @@
+import { UiProvider } from './../../providers/ui/ui';
 import { Component, ViewChild } from '@angular/core';
-import { Slides, NavController, ToastController } from 'ionic-angular';
+import { Slides, NavController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 
 import { UserAccount } from '../../models/user-account';
@@ -20,7 +21,7 @@ export class SignupPage {
 
 	constructor(
 		public navCtrl: NavController,
-		public toastCtrl: ToastController,
+		public ui: UiProvider,
 		private firebase: FirebaseProvider) {
 	}
 
@@ -69,17 +70,11 @@ export class SignupPage {
 
 	doSignup() {
 		this.firebase.signUp(this.account, this.profile).then((user) => {
-			let toast = this.toastCtrl.create({
-				message: this.firebase.message,
-				duration: 2000,
-				position: 'top'
-			});
-			toast.present();
+			this.ui.showToast(this.firebase.message, 3, 'top');
 
 			if (this.firebase.validator) {
 				this.navCtrl.push(LoginPage);
 			}
-
 
 		}).catch((error) => {
 			console.log(error);

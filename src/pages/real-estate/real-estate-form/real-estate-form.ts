@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FirebaseProvider, ViacepProvider } from './../../../providers';
 import { RealEstate } from './../../../models/real-estate';
+import { UiProvider } from '../../../providers/ui/ui';
 
 @IonicPage()
 @Component({
@@ -14,25 +15,22 @@ export class RealEstateFormPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public ui: UiProvider,
     private fb: FirebaseProvider,
-    private viacep: ViacepProvider,
-    private toastCtrl: ToastController) { }
+    private viacep: ViacepProvider) { }
 
   addRealEstate() {
+    this.ui.showLoading();
     this.realEstate.ownerId = this.fb.user.uid;
     this.fb.insertDataToCollection('RealEstate', this.realEstate).then((data) => {
-      let toast = this.toastCtrl.create({
-        message: this.fb.message,
-        duration: 2000,
-        position: 'top'
-      });
-      toast.present();
+      this.ui.closeLoading();
+      this.ui.showToast(this.fb.message, 2, 'top');
 
       if (this.fb.validator) {
         this.navCtrl.pop();
       }
     }).catch((error) => {
-      console.log(error);
+      this.ui.showAlert("Erro ao cadastrar", error);
     });
   }
 
@@ -41,14 +39,10 @@ export class RealEstateFormPage {
       this.viacep.callService(cep)
         .subscribe(
           data => {
-            if(data.erro){
-              let toast = this.toastCtrl.create({
-                message: "ATENÇÃO: CEP INVÁLIDO!",
-                duration: 2500,
-                position: 'bottom'
-              });
-              toast.present();
+            if (data.erro) {
+              this.ui.showToast("ATENÇÃO: CEP INVÁLIDO!", 2, 'bottom');
             } else {
+              // TODO: desabilitar estes campos para usuário não editar.
               this.realEstate.district = data.bairro;
               this.realEstate.street = data.logradouro;
               this.realEstate.city = data.localidade;
