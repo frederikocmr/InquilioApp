@@ -44,9 +44,9 @@ export class RealEstatePage {
     let modal = this.modalCtrl.create(RealEstateFormPage);
     modal.present();
 
-    modal.onDidDismiss(data => {
-      console.log("Saiu da RealEstateFormPage");
-    });
+    // modal.onDidDismiss(data => {
+    //   console.log("Saiu da RealEstateFormPage");
+    // });
   }
 
   viewDetails(realEstateObj) {

@@ -10,9 +10,12 @@ export class RealEstate {
     public state: string;
     public type: string;
     public link: string;
+    public imgLink: string;
     public active: boolean;
     public tenantHistory: string[];
     public ownerId: string;
+    
+    public contractId: string;
 
     constructor() {
         this.active = true;
@@ -30,6 +33,8 @@ export class RealEstate {
         this.active = true,
         this.tenantHistory = [],
         this.ownerId = null
+        this.contractId = null;
+        this.imgLink = "../assets/imgs/placeholder.jpg";
     }
 
 }

@@ -11,27 +11,40 @@ import { UiProvider } from '../../../providers/ui/ui';
 })
 export class RealEstateFormPage {
   public realEstate: RealEstate = new RealEstate();
+  public editing: boolean = false;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public ui: UiProvider,
     private fb: FirebaseProvider,
-    private viacep: ViacepProvider) { }
+    private viacep: ViacepProvider) { 
+      if(this.navParams.get('realEstateObj')){
+        this.realEstate = navParams.get('realEstateObj');
+        this.editing = true;
+      }
+    }
 
   addRealEstate() {
     this.ui.showLoading();
-    this.realEstate.ownerId = this.fb.user.uid;
-    this.fb.insertDataToCollection('RealEstate', this.realEstate).then((data) => {
+    if(!this.editing){
+      this.realEstate.ownerId = this.fb.user.uid;
+      this.fb.insertDataToCollection('RealEstate', this.realEstate).then((data) => {
+        this.ui.closeLoading();
+        this.ui.showToast(this.fb.message, 2, 'top');
+  
+        if (this.fb.validator) {
+          this.navCtrl.pop();
+        }
+      }).catch((error) => {
+        this.ui.showAlert("Erro ao cadastrar", error);
+      });
+    } else {
+      
       this.ui.closeLoading();
-      this.ui.showToast(this.fb.message, 2, 'top');
-
-      if (this.fb.validator) {
-        this.navCtrl.pop();
-      }
-    }).catch((error) => {
-      this.ui.showAlert("Erro ao cadastrar", error);
-    });
+      this.ui.showToast("Editar não implementado.", 2, 'top');
+    }
+    
   }
 
   getAddress(cep: string) {
