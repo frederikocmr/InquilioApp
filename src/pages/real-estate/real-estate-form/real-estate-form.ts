@@ -40,7 +40,8 @@ export class RealEstateFormPage {
         this.ui.showAlert("Erro ao cadastrar", error);
       });
     } else {
-      
+      // TODO: Criar função no Firebase Service para editar o documento a partir do id do objeto. 
+      // Implementar id do objeto para pegar e preencher e mandar na função de editar para aquele doc(idDoc).
       this.ui.closeLoading();
       this.ui.showToast("Editar não implementado.", 2, 'top');
     }
@@ -48,21 +49,24 @@ export class RealEstateFormPage {
   }
 
   getAddress(cep: string) {
-    if (cep.length == 8 && (/^\d+$/.test(cep))) {
-      this.viacep.callService(cep)
-        .subscribe(
-          data => {
-            if (data.erro) {
-              this.ui.showToast("ATENÇÃO: CEP INVÁLIDO!", 2, 'bottom');
-            } else {
-              // TODO: desabilitar estes campos para usuário não editar.
-              this.realEstate.district = data.bairro;
-              this.realEstate.street = data.logradouro;
-              this.realEstate.city = data.localidade;
-              this.realEstate.state = data.uf;
+    if (cep) {
+      if (cep.length == 8 && (/^\d+$/.test(cep))) {
+        this.viacep.callService(cep)
+          .subscribe(
+            data => {
+              if (data.erro) {
+                this.ui.showToast("ATENÇÃO: CEP INVÁLIDO!", 2, 'bottom');
+              } else {
+                // TODO: desabilitar estes campos para usuário não editar.
+                this.realEstate.district = data.bairro;
+                this.realEstate.street = data.logradouro;
+                this.realEstate.city = data.localidade;
+                this.realEstate.state = data.uf;
+              }
             }
-          }
-        );
+          );
+      }
+
     }
 
   }
