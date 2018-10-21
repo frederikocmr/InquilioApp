@@ -16,7 +16,7 @@ export class SignupPage {
 	loginPage = LoginPage;
 	profile: any;
 
-	account = new UserAccount(null,null,null,null,null,null,null);
+	account: UserAccount = new UserAccount();
 
 	constructor(
 		public navCtrl: NavController,
@@ -76,14 +76,14 @@ export class SignupPage {
 			});
 			toast.present();
 
-			if(this.firebase.validator) {
+			if (this.firebase.validator) {
 				this.navCtrl.push(LoginPage);
 			}
 
-			
+
 		}).catch((error) => {
-				console.log(error);
-			});
+			console.log(error);
+		});
 	};
 
 

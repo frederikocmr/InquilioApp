@@ -27,6 +27,7 @@ export class LoginPage {
   }
 
   doLoginWithGoogle() {
+    this.showLoading();
     this.firebase.signInWithGoogle().then(() => {
 			let toast = this.toastCtrl.create({
 				message: this.firebase.message,
@@ -34,13 +35,14 @@ export class LoginPage {
 				position: 'top'
 			});
       toast.present();
+      this.loading.dismiss();
 
 			if(this.firebase.validator) {
         this.navCtrl.setRoot(TabsPage);
       }
       
     }).catch((error) => {
-      console.log(error);
+      this.showError(error);
     });
   }
 
@@ -58,7 +60,7 @@ export class LoginPage {
       }
       
     }).catch((error) => {
-      console.log(error);
+      this.showError(error);
     });
   }  
 

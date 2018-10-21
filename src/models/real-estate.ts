@@ -16,6 +16,20 @@ export class RealEstate {
 
     constructor() {
         this.active = true;
+        this.name =  null,
+        this.description = null,
+        this.zip = null,
+        this.street =  null,
+        this.number = null,
+        this.complement = null,
+        this.district = null,
+        this.city = null,
+        this.state = null,
+        this.type = null,
+        this.link = null,
+        this.active = true,
+        this.tenantHistory = [],
+        this.ownerId = null
     }
 
 }

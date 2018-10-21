@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { RealEstate } from '../../../models/real-estate';
+import { UiProvider } from '../../../providers/ui/ui';
 
 @IonicPage()
 @Component({
@@ -7,16 +9,19 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'real-estate-details.html',
 })
 export class RealEstateDetailsPage {
-  realEstate = {name: "", description: "", link: ""};
+  realEstate: RealEstate = new RealEstate();
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.realEstate.name = "Imóvel teste 1";
-    this.realEstate.description = "Descrição de teste do imóvel 1."
-    this.realEstate.link = "imovel.com.br"
+  constructor(public navCtrl: NavController, public navParams: NavParams, public ui: UiProvider) {
+    this.realEstate = navParams.get('realEstateObj');
+  }
+
+  ionViewWillEnter(){
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RealEstateDetailsPage');
+    this.ui.alertUi('Carregou','Sua pagina carrewgou');
   }
 
   goBack() {

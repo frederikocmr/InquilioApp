@@ -94,14 +94,13 @@ export class FirebaseProvider {
     }
   }
 
-  public insertDataToCollection(collection, data){
+  public async insertDataToCollection(collection, data): Promise<void>{
     var parsedData = JSON.parse(JSON.stringify(data));
    
     try {
-      if (this.afDb.collection(collection).add(parsedData)){
+      await this.afDb.collection(collection).add(parsedData);
         this.message = "Dados gravados com sucesso!";
         this.validator = true; // ?
-      }
     }
     catch (error) {
       this.message = "Erro na gravação: " + error;

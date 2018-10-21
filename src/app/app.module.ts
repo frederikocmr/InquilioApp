@@ -3,6 +3,7 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { HttpClientModule } from '@angular/common/http'
 //import { BrMaskerModule } from 'brmasker-ionic-3';
 
 import { AngularFireModule } from '@angular/fire';
@@ -20,7 +21,7 @@ import { RealEstatePage } from '../pages/real-estate/real-estate';
 import { RealEstateFormPage } from '../pages/real-estate/real-estate-form/real-estate-form';
 import { TabsPage } from '../pages/tabs/tabs';
 
-import { FirebaseProvider, firebaseConfig } from '../providers';
+import { FirebaseProvider, firebaseConfig, ViacepProvider } from '../providers';
 import { RealEstateDetailsPage } from '../pages/real-estate/real-estate-details/real-estate-details';
 import { ContractPage } from '../pages/contract/contract';
 import { ContractFormPage } from '../pages/contract/contract-form/contract-form';
@@ -28,6 +29,7 @@ import { ContractDetailsPage } from '../pages/contract/contract-details/contract
 import { TenantPage } from '../pages/tenant/tenant';
 import { TenantFormPage } from '../pages/tenant/tenant-form/tenant-form';
 import { TenantDetailsPage } from '../pages/tenant/tenant-details/tenant-details';
+import { UiProvider } from '../providers/ui/ui';
 
 
 @NgModule({
@@ -55,7 +57,8 @@ import { TenantDetailsPage } from '../pages/tenant/tenant-details/tenant-details
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -81,7 +84,9 @@ import { TenantDetailsPage } from '../pages/tenant/tenant-details/tenant-details
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     SettingsService,
-    FirebaseProvider
+    FirebaseProvider,
+    ViacepProvider,
+    UiProvider 
   ]
 })
 export class AppModule {}

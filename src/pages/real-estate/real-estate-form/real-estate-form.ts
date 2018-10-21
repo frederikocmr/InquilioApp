@@ -1,7 +1,7 @@
-import { RealEstate } from './../../../models/real-estate';
-import { FirebaseProvider } from './../../../providers/firebase/firebase';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { FirebaseProvider, ViacepProvider } from './../../../providers';
+import { RealEstate } from './../../../models/real-estate';
 
 @IonicPage()
 @Component({
@@ -9,34 +9,55 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'real-estate-form.html',
 })
 export class RealEstateFormPage {
-  public realEstate: RealEstate;
+  public realEstate: RealEstate = new RealEstate();
 
   constructor(
-     public navCtrl: NavController,
-     public navParams: NavParams,
-     private fb: FirebaseProvider) {
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private fb: FirebaseProvider,
+    private viacep: ViacepProvider,
+    private toastCtrl: ToastController) { }
 
+  addRealEstate() {
+    this.realEstate.ownerId = this.fb.user.uid;
+    this.fb.insertDataToCollection('RealEstate', this.realEstate).then((data) => {
+      let toast = this.toastCtrl.create({
+        message: this.fb.message,
+        duration: 2000,
+        position: 'top'
+      });
+      toast.present();
+
+      if (this.fb.validator) {
+        this.navCtrl.pop();
+      }
+    }).catch((error) => {
+      console.log(error);
+    });
   }
 
-  addRealEstate(){
-    this.realEstate = {
-      name: "Meu AP", 
-      description: "Esta é o meu apartamento",
-      zip: "74305440", 
-      street: "Rua C-55", 
-      number: "SN", 
-      complement: "Apt 605", 
-      district: "Setor Sudoeste", 
-      city: "Goiania", 
-      state: "GO", 
-      type: "Apartamento", 
-      link: "www.meuapt.com.br", 
-      active: true, 
-      tenantHistory: [], 
-      ownerId: this.fb.user.uid
-    };
-    this.fb.insertDataToCollection('RealEstate', this.realEstate);
-    
+  getAddress(cep: string) {
+    if (cep.length == 8 && (/^\d+$/.test(cep))) {
+      this.viacep.callService(cep)
+        .subscribe(
+          data => {
+            if(data.erro){
+              let toast = this.toastCtrl.create({
+                message: "ATENÇÃO: CEP INVÁLIDO!",
+                duration: 2500,
+                position: 'bottom'
+              });
+              toast.present();
+            } else {
+              this.realEstate.district = data.bairro;
+              this.realEstate.street = data.logradouro;
+              this.realEstate.city = data.localidade;
+              this.realEstate.state = data.uf;
+            }
+          }
+        );
+    }
+
   }
 
 }
