@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-buttons left>
+      <button navPop ion-button icon-only style="margin: 0 6px; min-width: 36px;">
+        <ion-icon color="light" name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Detalhes do Imóvel</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content class="bg-owner-page" padding>
+  <div text-center>
+    <img src="../assets/imgs/app-logo.png" style="height: 15rem;">
+  </div>
+
+  <ion-list>
+    <div margin>
+      <h2>{{ realEstate.name }}</h2>
+    </div>
+    <div margin>
+      <p>{{ realEstate.description }}</p>
+    </div>
+
+    <div margin>
+      <p>{{ realEstate.link }}</p>
+    </div>
+
+    <div text-center>
+      <button class="main-button" ion-button large round color="secondary" strong>Adicionar Inquilino</button>
+    </div>
+
+    <div text-center>
+      <button class="main-button" ion-button large outline round color="secondary" strong [navPush]="realEstateFormPage">Editar Imóvel</button>
+    </div>
+  </ion-list>
+</ion-content>

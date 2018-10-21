@@ -8,7 +8,7 @@
 <ion-content class="intro-background" text-center padding>
   <p>Escolha uma opção</p>
 
-  <div padding-top padding-bottom>
+  <div padding-bottom>
     <button ion-button class="main-button" icon-start large round color="light" (click)="doLoginWithGoogle();"><span
             class="icon-google-icon" padding-right><span class="path1"></span><span class="path2"></span><span class="path3"></span><span
               class="path4"></span></span>Entrar com o Google</button>
@@ -16,7 +16,7 @@
 
   <p>ou</p>
 
-  <form (ngSubmit)="doLoginWithEmail()" #registerForm="ngForm" style="height: 100%" padding-top>
+  <form (ngSubmit)="doLoginWithEmail()" #registerForm="ngForm" style="height: 100%" margin-top>
     <ion-list>
       <ion-item class="main-input">
         <ion-input type="email" placeholder="E-mail" name="email" [(ngModel)]="registerCredentials.email" required></ion-input>
@@ -25,10 +25,10 @@
         <ion-input type="password" placeholder="Senha" name="password" [(ngModel)]="registerCredentials.password"
                    required></ion-input>
       </ion-item>
-      <div padding-bottom>
+      <div>
         <button ion-button clear color="light" small>Esqueceu sua senha?</button>
       </div>
-      <div padding-top padding-bottom>
+      <div margin-top margin-bottom>
         <div>
           <button ion-button class="main-button" large round color="secondary" type="submit" [disabled]="!registerForm.form.valid"
                   strong>Entrar</button>

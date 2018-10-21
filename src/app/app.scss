@@ -47,10 +47,10 @@
 		justify-content: center;
 		text-align: center;
 	}
+}
 
-	.scroll-content {
-		overflow-y: hidden !important;
-	}
+.scroll-content {
+	overflow-y: hidden !important;
 }
 
 .logo {
@@ -68,7 +68,7 @@
 	// margin-top: 5%;
 }
 
-.main-input, .item-input-has-focus, .input-has-focus {
+.main-input {
 	width: 90%;
 	margin-left: 5%;
 	margin-top: 5%;
@@ -109,6 +109,14 @@
 
 h2, h5, h6, p {
 	color: color($colors, light) !important;
+}
+
+.tabs-md[tabsLayout="icon-top"] .has-icon .tab-button-text {
+	margin-top: 0px !important;
+}
+
+.tabs-md .tab-button[aria-selected="true"], .tabs-md-primary .tab-button[aria-selected="true"], .tabs-md-primary .tab-button[aria-selected="true"] .tab-button-icon {
+	color: color($colors, secondary) !important;
 }
 
 ion-icon {

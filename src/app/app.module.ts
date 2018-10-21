@@ -21,6 +21,7 @@ import { RealEstateFormPage } from '../pages/real-estate-form/real-estate-form';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { FirebaseProvider, firebaseConfig } from '../providers';
+import { RealEstateDetailsPage } from '../pages/real-estate-details/real-estate-details';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { FirebaseProvider, firebaseConfig } from '../providers';
     SettingsPage,
     SignupPage,
     MyRealEstatePage,
+    RealEstateDetailsPage,
     RealEstateFormPage,
     TabsPage
   ],
@@ -52,6 +54,7 @@ import { FirebaseProvider, firebaseConfig } from '../providers';
     SettingsPage,
     SignupPage,
     MyRealEstatePage,
+    RealEstateDetailsPage,
     RealEstateFormPage,
     TabsPage
   ],
