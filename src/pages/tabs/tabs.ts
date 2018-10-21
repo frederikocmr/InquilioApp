@@ -1,3 +1,4 @@
+import { FirebaseProvider } from './../../providers/firebase/firebase';
 import { Component } from '@angular/core';
 
 import { MyRealEstatePage } from '../my-real-estate/my-real-estate';
@@ -13,7 +14,17 @@ export class TabsPage {
   tab2Root = MyRealEstatePage;
   tab3Root = SettingsPage;
 
-  constructor() {
+  constructor(private fb: FirebaseProvider) {
+    console.log('verificar..');
+    
+  }
 
+  ionViewCanEnter(){
+    if (this.fb.user) {
+      return true;
+    } else {
+      return false;
+    }
+    
   }
 }

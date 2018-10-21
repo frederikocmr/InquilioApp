@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { SignupPage } from '../signup/signup';
 import { FirebaseProvider } from '../../providers';
 import { ToastController, NavController, Loading, LoadingController, AlertController } from 'ionic-angular';
-import { MainMenuPage } from '../main-menu/main-menu';
 import { TabsPage } from '../tabs/tabs';
 
 @Component({
@@ -31,7 +30,7 @@ export class LoginPage {
     this.firebase.signInWithGoogle().then(() => {
 			let toast = this.toastCtrl.create({
 				message: this.firebase.message,
-				duration: 2000,
+				duration: 3000,
 				position: 'top'
 			});
       toast.present();
@@ -49,7 +48,7 @@ export class LoginPage {
     this.firebase.signIn(this.registerCredentials.email, this.registerCredentials.password).then(() => {
 			let toast = this.toastCtrl.create({
 				message: this.firebase.message,
-				duration: 2000,
+				duration: 3000,
 				position: 'top'
 			});
       toast.present();

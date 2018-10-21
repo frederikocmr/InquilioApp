@@ -20,16 +20,8 @@ import { MyRealEstatePage } from '../pages/my-real-estate/my-real-estate';
 import { RealEstateFormPage } from '../pages/real-estate-form/real-estate-form';
 import { TabsPage } from '../pages/tabs/tabs';
 
-import { FirebaseProvider } from '../providers';
+import { FirebaseProvider, firebaseConfig } from '../providers';
 
-export const firebaseConfig = {
-  apiKey: "AIzaSyBppMFH3ZlpMoDB4RrDjNx94-ZyASl65-M",
-  authDomain: "app-tcc1.firebaseapp.com",
-  databaseURL: "https://app-tcc1.firebaseio.com",
-  projectId: "app-tcc1",
-  storageBucket: "app-tcc1.appspot.com",
-  messagingSenderId: "306866070953"
-};
 
 @NgModule({
   declarations: [

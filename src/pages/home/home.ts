@@ -1,16 +1,15 @@
 import { Component } from '@angular/core';
-import { MainMenuPage } from '../main-menu/main-menu';
 import { SignupPage } from '../signup/signup';
 import { LoginPage } from '../login/login';
 import { FirebaseProvider } from '../../providers';
 import { NavController, ToastController } from 'ionic-angular';
+import { TabsPage } from '../tabs/tabs';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-  mainMenu = MainMenuPage;
   loginPage = LoginPage;
   signupPage = SignupPage;
   descriptions;
@@ -27,13 +26,13 @@ export class HomePage {
     this.firebase.signInWithGoogle().then(() => {
       let toast = this.toastCtrl.create({
         message: this.firebase.message,
-        duration: 2000,
+        duration: 3000,
         position: 'top'
       });
       toast.present();
 
       if (this.firebase.validator) {
-        this.navCtrl.push(MainMenuPage);
+        this.navCtrl.setRoot(TabsPage);
       }
 
     }).catch((error) => {

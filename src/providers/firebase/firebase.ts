@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
+import firebase from 'firebase/app';
 
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
-import firebase from 'firebase/app';
+
 
 import { UserAccount } from '../../models/user-account';
 import { OwnerAccount } from '../../models/owner-account';
@@ -13,17 +14,20 @@ export class FirebaseProvider {
 
   public message: string = "";
   public validator: boolean = false;
-  public displayName: string; 
-  user: firebase.auth.UserCredential;
+  public rootPage: string; 
+  public user: any;
 
   constructor(private afAuth: AngularFireAuth, private afDb: AngularFirestore) {
-    //checking user state.
+    //checking user state.  
+      
     afAuth.authState.subscribe(user => {
       if (!user) {
-        this.displayName = null;        
-        return;
-      }
-      this.displayName = user.displayName;      
+        this.rootPage = 'rootPage';   
+        this.user = null;    
+      } else {
+        this.rootPage = 'tabsPage';
+        this.user = user;
+      } 
     });
   }
 
@@ -32,7 +36,7 @@ export class FirebaseProvider {
     if(profile == 'owner'){
       account = account as OwnerAccount; 
     } else {
-      account = account as TenantAccount; 
+      account = account as TenantAccount;
     }
 
     try {
@@ -82,7 +86,7 @@ export class FirebaseProvider {
     try {
       this.user = await this.afAuth.auth
         .signInWithPopup(new firebase.auth.GoogleAuthProvider());
-      this.message = "Login efetuado com sucesso! Seja bem vindo, " + this.displayName + "!";
+      this.message = "Login efetuado com sucesso! Seja bem vindo!";
       this.validator = true;
     }
     catch (error) {
