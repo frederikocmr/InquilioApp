@@ -2,10 +2,10 @@ import { Component, ViewChild } from '@angular/core';
 import { Platform, NavController } from 'ionic-angular';
 import firebase from 'firebase/app';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { HomePage } from '../pages/home/home';
+import { WelcomePage } from '../pages/welcome/welcome';
 import { SettingsPage } from '../pages/settings/settings';
-import { MyRealEstatePage } from '../pages/my-real-estate/my-real-estate';
-import { RealEstateFormPage } from '../pages/real-estate-form/real-estate-form';
+import { RealEstatePage } from '../pages/real-estate/real-estate';
+import { RealEstateFormPage } from '../pages/real-estate/real-estate-form/real-estate-form';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { firebaseConfig } from '../providers';
@@ -14,7 +14,7 @@ import { firebaseConfig } from '../providers';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  myRealEstate: any = MyRealEstatePage;
+  myRealEstate: any = RealEstatePage;
   realEstateForm: any = RealEstateFormPage;
   rootPage: any;
   settingsPage: any = SettingsPage;
@@ -28,7 +28,7 @@ export class MyApp {
     firebase.auth().onAuthStateChanged((user) => {
       console.log("onAuthStateChanged");
       if (!user) {
-        this.rootPage = HomePage;
+        this.rootPage = WelcomePage;
       } else {
         this.rootPage = TabsPage;
       }

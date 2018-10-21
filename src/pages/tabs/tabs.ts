@@ -1,16 +1,21 @@
 import { FirebaseProvider } from "./../../providers/firebase/firebase";
 import { Component } from "@angular/core";
 
-import { MyRealEstatePage } from "../my-real-estate/my-real-estate";
+import { RealEstatePage } from "../real-estate/real-estate";
+import { TimelinePage } from "../timeline/timeline";
+import { ContractPage } from "../contract/contract";
+import { TenantPage } from "../tenant/tenant";
 import { SettingsPage } from "../settings/settings";
-import { MainMenuPage } from "../main-menu/main-menu";
 
 @Component({
   templateUrl: "tabs.html"
 })
 export class TabsPage {
-  mainMenuPage = MainMenuPage;
-  myRealEstatePage = MyRealEstatePage;
+  contractPage = ContractPage;
+  timelinePage = TimelinePage;
+  realEstatePage = RealEstatePage;
+  tenantPage = TenantPage;
+  settingsPage = SettingsPage;
 
   constructor(private fb: FirebaseProvider) {}
 

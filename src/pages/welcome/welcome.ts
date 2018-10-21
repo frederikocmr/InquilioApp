@@ -6,10 +6,10 @@ import { NavController, ToastController } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'page-welcome',
+  templateUrl: 'welcome.html'
 })
-export class HomePage {
+export class WelcomePage {
   loginPage = LoginPage;
   signupPage = SignupPage;
   descriptions;

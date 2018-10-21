@@ -1,4 +1,4 @@
-import { FirebaseProvider } from './../../providers/firebase/firebase';
+import { FirebaseProvider } from '../../providers/firebase/firebase';
 import { Component } from "@angular/core";
 import {
   IonicPage,
@@ -8,17 +8,17 @@ import {
 } from "ionic-angular";
 
 import { AngularFirestore } from '@angular/fire/firestore';
-import { RealEstateFormPage } from "../real-estate-form/real-estate-form";
-import { RealEstateDetailsPage } from "../real-estate-details/real-estate-details";
+import { RealEstateFormPage } from "../real-estate/real-estate-form/real-estate-form";
+import { RealEstateDetailsPage } from "../real-estate/real-estate-details/real-estate-details";
 import { RealEstate } from "../../models/real-estate";
 import { Observable } from "rxjs/Observable";
 
 @IonicPage()
 @Component({
-  selector: "page-my-real-estate",
-  templateUrl: "my-real-estate.html"
+  selector: "page-real-estate",
+  templateUrl: "real-estate.html"
 })
-export class MyRealEstatePage {
+export class RealEstatePage {
   realEstates: RealEstate[];
   items: Observable<RealEstate[]>;
 

@@ -1,18 +1,21 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-buttons start left>
+    <!-- <ion-buttons start left>
       <button ion-button icon-only menuToggle>
         <ion-icon name="menu"></ion-icon>
       </button>
-    </ion-buttons>
+    </ion-buttons> -->
     <ion-title>Configurações</ion-title>
-    <ion-buttons end>
+    <!-- <ion-buttons end>
       <button ion-button icon-only>
         <ion-icon name="notifications"></ion-icon>
       </button>
-    </ion-buttons>
+    </ion-buttons> -->
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="bg-owner-page" padding>
+  <div text-center>
+    <button class="main-button" ion-button large outline round color="danger" strong (click)="signOut()">Sair</button>
+  </div>
 </ion-content>

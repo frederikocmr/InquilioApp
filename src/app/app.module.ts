@@ -10,32 +10,44 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
-import { MainMenuPage } from '../pages/main-menu/main-menu';
+import { WelcomePage } from '../pages/welcome/welcome';
+import { TimelinePage } from '../pages/timeline/timeline';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 import { SettingsService } from '../services/settings';
 import { SettingsPage } from '../pages/settings/settings';
-import { MyRealEstatePage } from '../pages/my-real-estate/my-real-estate';
-import { RealEstateFormPage } from '../pages/real-estate-form/real-estate-form';
+import { RealEstatePage } from '../pages/real-estate/real-estate';
+import { RealEstateFormPage } from '../pages/real-estate/real-estate-form/real-estate-form';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { FirebaseProvider, firebaseConfig } from '../providers';
-import { RealEstateDetailsPage } from '../pages/real-estate-details/real-estate-details';
+import { RealEstateDetailsPage } from '../pages/real-estate/real-estate-details/real-estate-details';
+import { ContractPage } from '../pages/contract/contract';
+import { ContractFormPage } from '../pages/contract/contract-form/contract-form';
+import { ContractDetailsPage } from '../pages/contract/contract-details/contract-details';
+import { TenantPage } from '../pages/tenant/tenant';
+import { TenantFormPage } from '../pages/tenant/tenant-form/tenant-form';
+import { TenantDetailsPage } from '../pages/tenant/tenant-details/tenant-details';
 
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
-    MainMenuPage,
+    WelcomePage,
+    TimelinePage,
     LoginPage,
     SettingsPage,
     SignupPage,
-    MyRealEstatePage,
+    RealEstatePage,
     RealEstateDetailsPage,
     RealEstateFormPage,
-    TabsPage
+    TabsPage,
+    ContractPage,
+    ContractDetailsPage,
+    ContractFormPage,
+    TenantPage,
+    TenantFormPage,
+    TenantDetailsPage
   ],
   imports: [
     BrowserModule,
@@ -48,15 +60,21 @@ import { RealEstateDetailsPage } from '../pages/real-estate-details/real-estate-
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
-    MainMenuPage,
+    WelcomePage,
+    TimelinePage,
     LoginPage,
     SettingsPage,
     SignupPage,
-    MyRealEstatePage,
+    RealEstatePage,
     RealEstateDetailsPage,
     RealEstateFormPage,
-    TabsPage
+    TabsPage,
+    ContractPage,
+    ContractDetailsPage,
+    ContractFormPage,
+    TenantPage,
+    TenantFormPage,
+    TenantDetailsPage
   ],
   providers: [
     StatusBar,
