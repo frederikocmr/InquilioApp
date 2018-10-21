@@ -1,6 +1,5 @@
 // http://ionicframework.com/docs/theming/
 
-
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
@@ -18,105 +17,110 @@
 @import "../theme/icons";
 
 .absolute-center {
-	height: 100%;
-	justify-content: center !important;
-	align-items: center !important;
-	align-self: center !important;
+  height: 100%;
+  justify-content: center !important;
+  align-items: center !important;
+  align-self: center !important;
 }
 
-.back-button, .toolbar-title {
-	color: color($colors, light);
+.back-button,
+.toolbar-title {
+  color: color($colors, light);
 }
 
 .bg-owner-page {
-	background: color($colors, primary400);
+  background: color($colors, primary400);
 }
 
 .btn-side-menu {
-	color: color($colors, light);
-	background: color($colors, primary400);	
+  color: color($colors, light);
+  background: color($colors, primary400);
 }
 
 .intro-background {
-	background: color($colors, primary);
-	// background: radial-gradient(circle farthest-corner at center center, color($colors, primary) 0%, color($colors, primary400) 100%);        
-	height: 100%;
-	 
-	ion-row {
-		align-items: center;
-		justify-content: center;
-		text-align: center;
-	}
+  background: color($colors, primary);
+  // background: radial-gradient(circle farthest-corner at center center, color($colors, primary) 0%, color($colors, primary400) 100%);
+  height: 100%;
+
+  ion-row {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
 }
 
 .scroll-content {
-	overflow-y: hidden !important;
+  overflow-y: hidden !important;
 }
 
 .logo {
-	border: 1px;
-	border-radius: 50%;      
-	height: auto;
-	max-width: 12rem;
+  border: 1px;
+  border-radius: 50%;
+  height: auto;
+  max-width: 12rem;
 }
 
 .main-button {
-	width: 30rem;
-	// width: 85%;
-	// padding-left: 20%;
-	// padding-right: 20%;
-	// margin-top: 5%;
+  width: 30rem;
+  // width: 85%;
+  // padding-left: 20%;
+  // padding-right: 20%;
+  // margin-top: 5%;
 }
 
 .main-input {
-	width: 90%;
-	margin-left: 5%;
-	margin-top: 5%;
-	height: 8vh;
-	border-top-left-radius: 50px;
-	border-top-right-radius: 50px;
-	border-bottom-left-radius: 50px;
-	border-bottom-right-radius: 50px;
-	padding-left: 1.2rem;
-	ion-label {
-		color: color($colors, primary200);
-	}
+  width: 90%;
+  margin-left: 5%;
+  margin-top: 5%;
+  height: 8vh;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+  padding-left: 1.2rem;
+  ion-label {
+    color: color($colors, primary200);
+  }
 }
 
-
-
 .menu-background {
-	background: color($colors, primary400);
+  background: color($colors, primary400);
 }
 
 .signup-form {
-	height: 80%;
+  height: 75%;
 }
 
 .swiper-pagination {
-	padding: 0%;
-	.swiper-pagination-bullet {
-		background: color($colors, light);
-		margin: 0 5px;
-		top:20px;
-		bottom:inherit;
-	}
+  padding: 0%;
+  .swiper-pagination-bullet {
+    background: color($colors, light);
+    margin: 0 5px;
+    top: 20px;
+    bottom: inherit;
+  }
 }
 
-.swiper-pagination-bullet-active, .swiper-pagination-progressbar {
-	background: color($colors, secondary) !important;
+.swiper-pagination-bullet-active,
+.swiper-pagination-progressbar {
+  background: color($colors, secondary) !important;
 }
 
-h2, h5, h6, p {
-	color: color($colors, light) !important;
+h2,
+h5,
+h6,
+p {
+  color: color($colors, light) !important;
 }
 
 .tabs-md[tabsLayout="icon-top"] .has-icon .tab-button-text {
-	margin-top: 0px !important;
+  margin-top: 0px !important;
 }
 
-.tabs-md .tab-button[aria-selected="true"], .tabs-md-primary .tab-button[aria-selected="true"], .tabs-md-primary .tab-button[aria-selected="true"] .tab-button-icon {
-	color: color($colors, secondary) !important;
+.tabs-md .tab-button[aria-selected="true"],
+.tabs-md-primary .tab-button[aria-selected="true"],
+.tabs-md-primary .tab-button[aria-selected="true"] .tab-button-icon {
+  color: color($colors, secondary) !important;
 }
 
 ion-icon {
@@ -129,4 +133,11 @@ ion-icon {
     height: 1.7em;
     mask-image: url(../assets/imgs/google-icon.svg);
   }
+}
+
+.my-footer {
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
 }

@@ -1,84 +1,97 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
-import { SignupPage } from '../signup/signup';
-import { FirebaseProvider } from '../../providers';
-import { ToastController, NavController, Loading, LoadingController, AlertController } from 'ionic-angular';
-import { TabsPage } from '../tabs/tabs';
+import { SignupPage } from "../signup/signup";
+import { FirebaseProvider } from "../../providers";
+import {
+  ToastController,
+  NavController,
+  Loading,
+  LoadingController,
+  AlertController
+} from "ionic-angular";
+import { TabsPage } from "../tabs/tabs";
+import { Keyboard } from "@ionic-native/keyboard";
 
 @Component({
-  selector: 'page-login',
-  templateUrl: 'login.html',
+  selector: "page-login",
+  templateUrl: "login.html"
 })
 export class LoginPage {
   loading: Loading;
   signupPage = SignupPage;
-  registerCredentials = { email: '', password: '' };
+  registerCredentials = { email: "", password: "" };
   email: string = "";
   password: string = "";
 
-  constructor(private alertCtrl: AlertController,
-              private firebase: FirebaseProvider,
-              private loadingCtrl: LoadingController,
-              private navCtrl: NavController,
-              private toastCtrl: ToastController){}
+  constructor(
+    private keyboard: Keyboard,
+    private alertCtrl: AlertController,
+    private firebase: FirebaseProvider,
+    private loadingCtrl: LoadingController,
+    private navCtrl: NavController,
+    private toastCtrl: ToastController
+  ) {}
 
   public createAccount() {
     this.navCtrl.push(SignupPage);
   }
 
   doLoginWithGoogle() {
-    this.firebase.signInWithGoogle().then(() => {
-			let toast = this.toastCtrl.create({
-				message: this.firebase.message,
-				duration: 3000,
-				position: 'top'
-			});
-      toast.present();
+    this.firebase
+      .signInWithGoogle()
+      .then(() => {
+        let toast = this.toastCtrl.create({
+          message: this.firebase.message,
+          duration: 3000,
+          position: "top"
+        });
+        toast.present();
 
-			if(this.firebase.validator) {
-        this.navCtrl.setRoot(TabsPage);
-      }
-      
-    }).catch((error) => {
-      console.log(error);
-    });
+        if (this.firebase.validator) {
+          this.navCtrl.setRoot(TabsPage);
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   doLoginWithEmail() {
-    this.firebase.signIn(this.registerCredentials.email, this.registerCredentials.password).then(() => {
-			let toast = this.toastCtrl.create({
-				message: this.firebase.message,
-				duration: 3000,
-				position: 'top'
-			});
-      toast.present();
+    this.firebase
+      .signIn(this.registerCredentials.email, this.registerCredentials.password)
+      .then(() => {
+        let toast = this.toastCtrl.create({
+          message: this.firebase.message,
+          duration: 3000,
+          position: "top"
+        });
+        toast.present();
 
-			if(this.firebase.validator) {
-        this.navCtrl.setRoot(TabsPage);
-      }
-      
-    }).catch((error) => {
-      console.log(error);
-    });
-  }  
+        if (this.firebase.validator) {
+          this.navCtrl.setRoot(TabsPage);
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
 
   showError(text) {
     this.loading.dismiss();
- 
+
     let alert = this.alertCtrl.create({
-      title: 'Erro',
+      title: "Erro",
       subTitle: text,
-      buttons: ['OK']
+      buttons: ["OK"]
     });
     alert.present();
   }
 
   showLoading() {
     this.loading = this.loadingCtrl.create({
-      content: 'Carregando...',
+      content: "Carregando...",
       dismissOnPageChange: true
     });
     this.loading.present();
   }
-
 }

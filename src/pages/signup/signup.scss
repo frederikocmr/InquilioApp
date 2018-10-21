@@ -1,23 +1,62 @@
 page-signup {
-    .profile-button {
-        border: 1px solid;
-        border-radius: 5px;
-        color: color($colors, secondary);
-        margin: 1% 5%;
-        padding: 10%;
+  .profile-button {
+    border: 1px solid;
+    border-radius: 5px;
+    color: color($colors, secondary);
+    margin: 1% 5%;
+    padding: 10%;
+  }
+  .profile-selected {
+    background-color: color($colors, secondary);
+    box-shadow: inset 0 0 10px #000000;
+    border: 1px;
+    border-radius: 5px;
+    color: color($colors, dark);
+    font-weight: bold;
+    margin: 1% 5%;
+    padding: 10%;
+  }
+  ion-content > div {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  ion-slide {
+    margin: auto;
+  }
+  ion-list {
+    margin: 10px !important;
+  }
+  .swiper {
+    border-radius: 50px;
+    top: 50%;
+    margin-top: -22px;
+    background-position: center;
+    position: absolute;
+    z-index: 10;
+    width: 27px;
+    background-repeat: no-repeat;
+    background-size: 27px 44px;
+    cursor: pointer;
+
+    .btn-prev {
+      left: 10px;
+      right: auto;
     }
-    .profile-selected {
-        background-color: color($colors, secondary);
-        box-shadow: inset 0 0 10px #000000;
-        border: 1px;
-        border-radius: 5px;
-        color: color($colors, dark);
-        font-weight: bold;
-        margin: 1% 5%;
-        padding: 10%;
+    .btn-next {
+      left: auto;
+      right: 10px;
     }
-    ion-content > div {
-        padding: 0 !important;
-        margin: 0 !important;
+  }
+  .open-keyboard {
+    ion-slides {
+      margin-top: auto;
+      height: auto;
     }
+  }
+  .closed-keyboard {
+    ion-slides {
+      margin-top: 5rem;
+    //   height: 75%;
+    }
+  }
 }

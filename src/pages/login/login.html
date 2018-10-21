@@ -8,15 +8,13 @@
 <ion-content class="intro-background" text-center padding>
   <p>Escolha uma opção</p>
 
-  <div padding-bottom>
-    <button ion-button class="main-button" icon-start large round color="light" (click)="doLoginWithGoogle();"><span
-            class="icon-google-icon" padding-right><span class="path1"></span><span class="path2"></span><span class="path3"></span><span
-              class="path4"></span></span>Entrar com o Google</button>
-  </div>
+  <button ion-button class="main-button" icon-start large round color="light" (click)="doLoginWithGoogle();"><span
+          class="icon-google-icon" padding-right><span class="path1"></span><span class="path2"></span><span class="path3"></span><span
+            class="path4"></span></span>Entrar com o Google</button>
 
   <p>ou</p>
 
-  <form (ngSubmit)="doLoginWithEmail()" #registerForm="ngForm" style="height: 100%" margin-top>
+  <form (ngSubmit)="doLoginWithEmail()" #registerForm="ngForm" [class]="keyboard.isVisible ? 'open-keyboard' : 'closed-keyboard'">
     <ion-list>
       <ion-item class="main-input">
         <ion-input type="email" placeholder="E-mail" name="email" [(ngModel)]="registerCredentials.email" required></ion-input>
@@ -28,7 +26,7 @@
       <div>
         <button ion-button clear color="light" small>Esqueceu sua senha?</button>
       </div>
-      <div margin-top margin-bottom>
+      <div class="my-footer" *ngIf="!keyboard.isVisible;">
         <div>
           <button ion-button class="main-button" large round color="secondary" type="submit" [disabled]="!registerForm.form.valid"
                   strong>Entrar</button>

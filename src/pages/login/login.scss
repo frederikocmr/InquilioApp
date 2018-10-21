@@ -8,4 +8,14 @@ page-login {
 		justify-content: center;
 		text-align: center;
 	}
+  .open-keyboard {
+    ion-slides {
+      height: auto;
+    }
+  }
+  .closed-keyboard {
+    ion-slides {
+      height: 75%;
+    }
+  }
 }
