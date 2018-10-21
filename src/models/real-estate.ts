@@ -34,7 +34,7 @@ export class RealEstate {
         this.tenantHistory = [],
         this.ownerId = null
         this.contractId = null;
-        this.imgLink = "../assets/imgs/placeholder.jpg";
+        this.imgLink = "../assets/imgs/noimage.jpg";
     }
 
 }
