@@ -94,7 +94,7 @@ export class FirebaseProvider {
     }
   }
 
-  public insertData(collection, data){
+  public insertDataToCollection(collection, data){
     var parsedData = JSON.parse(JSON.stringify(data));
    
     try {

@@ -20,21 +20,22 @@ export class RealEstateFormPage {
 
   addRealEstate(){
     this.realEstate = {
-      name: "Teste", 
-      description: "Teste",
-      zip: "454", 
-      street: "55", 
-      number: "Testeas", 
-      complement: "11212", 
-      district: "3131", 
-      city: "3434", 
-      state: "5345", 
-      type: "644646", 
-      link: "7767", 
-      active: null, 
+      name: "Meu AP", 
+      description: "Esta é o meu apartamento",
+      zip: "74305440", 
+      street: "Rua C-55", 
+      number: "SN", 
+      complement: "Apt 605", 
+      district: "Setor Sudoeste", 
+      city: "Goiania", 
+      state: "GO", 
+      type: "Apartamento", 
+      link: "www.meuapt.com.br", 
+      active: true, 
       tenantHistory: [], 
-      ownerId: "123" };
-    this.fb.insertData('RealEstate', this.realEstate);
+      ownerId: this.fb.user.uid
+    };
+    this.fb.insertDataToCollection('RealEstate', this.realEstate);
     
   }
 
