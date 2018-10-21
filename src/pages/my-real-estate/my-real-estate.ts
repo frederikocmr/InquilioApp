@@ -1,3 +1,4 @@
+import { FirebaseProvider } from './../../providers/firebase/firebase';
 import { Component } from "@angular/core";
 import {
   IonicPage,
@@ -5,8 +6,12 @@ import {
   NavParams,
   ModalController
 } from "ionic-angular";
+
+import { AngularFirestore } from '@angular/fire/firestore';
 import { RealEstateFormPage } from "../real-estate-form/real-estate-form";
 import { RealEstateDetailsPage } from "../real-estate-details/real-estate-details";
+import { RealEstate } from "../../models/real-estate";
+import { Observable } from "rxjs/Observable";
 
 @IonicPage()
 @Component({
@@ -14,22 +19,25 @@ import { RealEstateDetailsPage } from "../real-estate-details/real-estate-detail
   templateUrl: "my-real-estate.html"
 })
 export class MyRealEstatePage {
-  realEstates = [
-    { name: "", description: "", link: "" },
-    { name: "", description: "", link: "" }
-  ];
-  realEstateFormPage = RealEstateFormPage;
+  realEstates: RealEstate[];
+  items: Observable<RealEstate[]>;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    private fb: FirebaseProvider,
+    private afDb: AngularFirestore
   ) {
-    this.realEstates.forEach(realEstate => {
-      realEstate.name = "Imóvel teste 1";
-      realEstate.description = "Descrição de teste do imóvel 1.";
-      realEstate.link = "imovel.com.br";
+    this.items = this.afDb.collection<RealEstate>(
+      'RealEstate',
+      ref => ref.where('ownerId', '==', this.fb.user.uid)
+    ).valueChanges();
+
+    this.items.subscribe((data) => {
+      this.realEstates = data
     });
+
   }
 
   newRealEstate() {

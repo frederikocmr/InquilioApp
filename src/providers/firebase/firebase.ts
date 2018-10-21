@@ -55,7 +55,6 @@ export class FirebaseProvider {
   public async createNewAccount(account: UserAccount, profile: String): Promise<void>  {
     //Parsing custom object
     var data = JSON.parse(JSON.stringify(account));
-    console.log(profile+"!!");
    
     try {
       if (await this.afDb.collection(profile + "Account").add(data)){
@@ -95,6 +94,21 @@ export class FirebaseProvider {
     }
   }
 
+  public insertDataToCollection(collection, data){
+    var parsedData = JSON.parse(JSON.stringify(data));
+   
+    try {
+      if (this.afDb.collection(collection).add(parsedData)){
+        this.message = "Dados gravados com sucesso!";
+        this.validator = true; // ?
+      }
+    }
+    catch (error) {
+      this.message = "Erro na gravação: " + error;
+      this.validator = false; //?
+    }
+
+  }
 
   public signOut() {
     this.afAuth.auth.signOut();

@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
-import { Platform, NavController, MenuController } from 'ionic-angular';
-import firebase from 'firebase';
+import { Platform, NavController } from 'ionic-angular';
+import firebase from 'firebase/app';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { SettingsPage } from '../pages/settings/settings';
@@ -22,8 +22,7 @@ export class MyApp {
 
   constructor(
     platform: Platform,
-    splashScreen: SplashScreen,
-    private menuCtrl: MenuController) {
+    splashScreen: SplashScreen) {
 
     firebase.initializeApp(firebaseConfig);
     firebase.auth().onAuthStateChanged((user) => {
