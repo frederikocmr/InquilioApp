@@ -15,8 +15,8 @@ import { RealEstateDetailsPage } from "../real-estate-details/real-estate-detail
 })
 export class MyRealEstatePage {
   realEstates = [
-    { name: "", description: "", link: "" },
-    { name: "", description: "", link: "" }
+    { name: "", description: "", link: "", img: "" },
+    { name: "", description: "", link: "", img: "" }
   ];
   realEstateFormPage = RealEstateFormPage;
 
@@ -29,6 +29,7 @@ export class MyRealEstatePage {
       realEstate.name = "Imóvel teste 1";
       realEstate.description = "Descrição de teste do imóvel 1.";
       realEstate.link = "imovel.com.br";
+      realEstate.img = "../assets/imgs/placeholder.jpg";
     });
   }
 

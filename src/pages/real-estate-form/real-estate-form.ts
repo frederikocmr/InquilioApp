@@ -1,3 +1,4 @@
+import { FirebaseProvider } from './../../providers/firebase/firebase';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
@@ -8,11 +9,15 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class RealEstateFormPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+     public navCtrl: NavController,
+     public navParams: NavParams,
+     private fb: FirebaseProvider) {
+
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad RealEstateFormPage');
+  addRealEstate(){
+    
   }
 
 }
