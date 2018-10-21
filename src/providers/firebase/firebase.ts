@@ -71,7 +71,7 @@ export class FirebaseProvider {
 
   public async signIn(email, password): Promise<void> {
     try {
-      this.user = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
+      await this.afAuth.auth.signInWithEmailAndPassword(email, password);
       this.message = "Login efetuado com sucesso!";
       this.validator = true;
     }
@@ -83,7 +83,7 @@ export class FirebaseProvider {
 
   public async signInWithGoogle(): Promise<void> {
     try {
-      this.user = await this.afAuth.auth
+      await this.afAuth.auth
         .signInWithPopup(new firebase.auth.GoogleAuthProvider());
       this.message = "Login efetuado com sucesso! Seja bem vindo!";
       this.validator = true;
@@ -94,14 +94,13 @@ export class FirebaseProvider {
     }
   }
 
-  public insertDataToCollection(collection, data){
+  public async insertDataToCollection(collection, data): Promise<void>{
     var parsedData = JSON.parse(JSON.stringify(data));
    
     try {
-      if (this.afDb.collection(collection).add(parsedData)){
+      await this.afDb.collection(collection).add(parsedData);
         this.message = "Dados gravados com sucesso!";
         this.validator = true; // ?
-      }
     }
     catch (error) {
       this.message = "Erro na gravação: " + error;

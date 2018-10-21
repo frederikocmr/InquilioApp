@@ -30,12 +30,12 @@
     </ion-item>
   </ion-list> -->
 
-  <ion-card *ngFor="let realEstate of realEstates" color="primary" (click)="viewDetails()">
+  <ion-card *ngFor="let realEstate of items | async" color="primary" (click)="viewDetails(realEstate)">
     <ion-item>
       <h2>{{realEstate.name}}</h2>
-      <p>Sem contrato</p>
+      <p>{{realEstate.contractId ? "Possui Contrato" : "Sem Contrato"}}</p>
     </ion-item>
-    <ion-img src="{{realEstate.img}}" style="width: 100%; height: 15rem;"></ion-img>
+    <img [src]="realEstate.imgLink" style="width: 100%; height: 15rem;"/>
     <ion-card-content>
       <p>{{realEstate.description}}</p>
       <ion-note>

@@ -19,7 +19,7 @@ import { Observable } from "rxjs/Observable";
   templateUrl: "real-estate.html"
 })
 export class RealEstatePage {
-  realEstates: RealEstate[];
+  //realEstates: RealEstate[];
   items: Observable<RealEstate[]>;
 
   constructor(
@@ -34,9 +34,9 @@ export class RealEstatePage {
       ref => ref.where('ownerId', '==', this.fb.user.uid)
     ).valueChanges();
 
-    this.items.subscribe((data) => {
-      this.realEstates = data
-    });
+    // this.items.subscribe((data) => {
+    //   this.realEstates = data
+    // });
 
   }
 
@@ -44,17 +44,15 @@ export class RealEstatePage {
     let modal = this.modalCtrl.create(RealEstateFormPage);
     modal.present();
 
-    modal.onDidDismiss(data => {
-      console.log("Saiu da RealEstateFormPage");
-    });
+    // modal.onDidDismiss(data => {
+    //   console.log("Saiu da RealEstateFormPage");
+    // });
   }
 
-  viewDetails() {
-    let detailsModal = this.modalCtrl.create(RealEstateDetailsPage);
+  viewDetails(realEstateObj) {
+    let detailsModal = this.modalCtrl.create(RealEstateDetailsPage, {realEstateObj: realEstateObj});
     detailsModal.present();
 
-    detailsModal.onDidDismiss(data => {
-      console.log(data);
-    });
+    // detailsModal.onDidDismiss(data => {});
   }
 }

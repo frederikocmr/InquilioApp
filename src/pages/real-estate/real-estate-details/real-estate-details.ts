@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { RealEstate } from '../../../models/real-estate';
+import { UiProvider } from '../../../providers/ui/ui';
+import { RealEstateFormPage } from './../real-estate-form/real-estate-form';
 
 @IonicPage()
 @Component({
@@ -7,20 +10,19 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'real-estate-details.html',
 })
 export class RealEstateDetailsPage {
-  realEstate = {name: "", description: "", link: ""};
+  realEstate: RealEstate = new RealEstate();
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.realEstate.name = "Imóvel teste 1";
-    this.realEstate.description = "Descrição de teste do imóvel 1."
-    this.realEstate.link = "imovel.com.br"
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams, 
+    public ui: UiProvider, 
+    private modalCtrl: ModalController) {
+    this.realEstate = navParams.get('realEstateObj');
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad RealEstateDetailsPage');
-  }
-
-  goBack() {
-    this.navCtrl.pop();
+  onEditRealEstate() {
+    let detailsModal = this.modalCtrl.create(RealEstateFormPage, { realEstateObj: this.realEstate });
+    detailsModal.present();
   }
 
 }

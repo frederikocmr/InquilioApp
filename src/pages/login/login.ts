@@ -1,9 +1,9 @@
+import { UiProvider } from "./../../providers/ui/ui";
 import { Component } from "@angular/core";
 
 import { SignupPage } from "../signup/signup";
 import { FirebaseProvider } from "../../providers";
 import {
-  ToastController,
   NavController,
   Loading,
   LoadingController,
@@ -24,12 +24,12 @@ export class LoginPage {
   password: string = "";
 
   constructor(
-    private keyboard: Keyboard,
+    public keyboard: Keyboard,
     private alertCtrl: AlertController,
     private firebase: FirebaseProvider,
     private loadingCtrl: LoadingController,
     private navCtrl: NavController,
-    private toastCtrl: ToastController
+    public ui: UiProvider
   ) {}
 
   public createAccount() {
@@ -37,22 +37,19 @@ export class LoginPage {
   }
 
   doLoginWithGoogle() {
+    this.showLoading();
     this.firebase
       .signInWithGoogle()
       .then(() => {
-        let toast = this.toastCtrl.create({
-          message: this.firebase.message,
-          duration: 3000,
-          position: "top"
-        });
-        toast.present();
+        this.loading.dismiss();
+        this.ui.showToast(this.firebase.message, 3, "top");
 
         if (this.firebase.validator) {
           this.navCtrl.setRoot(TabsPage);
         }
       })
       .catch(error => {
-        console.log(error);
+        this.showError(error);
       });
   }
 
@@ -60,19 +57,14 @@ export class LoginPage {
     this.firebase
       .signIn(this.registerCredentials.email, this.registerCredentials.password)
       .then(() => {
-        let toast = this.toastCtrl.create({
-          message: this.firebase.message,
-          duration: 3000,
-          position: "top"
-        });
-        toast.present();
+        this.ui.showToast(this.firebase.message, 3, "top");
 
         if (this.firebase.validator) {
           this.navCtrl.setRoot(TabsPage);
         }
       })
       .catch(error => {
-        console.log(error);
+        this.showError(error);
       });
   }
 

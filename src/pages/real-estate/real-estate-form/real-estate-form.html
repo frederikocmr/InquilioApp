@@ -9,53 +9,53 @@
 
 <ion-content class="bg-owner-page" padding>
 
-  <ion-label color="light">Detalhes</ion-label>
-  <ion-item class="form-input">
-    <ion-label>Título</ion-label>
-    <ion-input type="text"></ion-input>
-  </ion-item>
-  <ion-item class="form-input">
-    <ion-label>Tipo</ion-label>
-    <ion-select name="type" interface="popover" style="width: 100%;">
-      <ion-option value="a">Apartamento</ion-option>
-      <ion-option value="c">Casa</ion-option>
-      <ion-option value="k">Kitnet</ion-option>
-      <ion-option value="q">Quarto</ion-option>
-    </ion-select>
-  </ion-item>
-  <ion-item class="form-input">
-    <ion-label>Link do Anúncio</ion-label>
-    <ion-input type="text"></ion-input>
-  </ion-item>
-  <ion-item class="form-input">
-    <ion-label>Descrição</ion-label>
-    <ion-textarea rows="3"></ion-textarea>
-  </ion-item>
-<hr>
-  <ion-label color="light">Endereço</ion-label>
-  <ion-item class="form-input">
-    <ion-label>CEP</ion-label>
-    <ion-input type="text"></ion-input>
-  </ion-item>
-  <ion-item class="form-input">
-    <ion-label>Bairro</ion-label>
-    <ion-input type="text"></ion-input>
-  </ion-item>
-  <ion-item class="form-input">
-    <ion-label>Cidade</ion-label>
-    <ion-input type="text"></ion-input>
-  </ion-item>
-  <ion-item class="form-input">
-    <ion-label>UF</ion-label>
-    <ion-input type="text"></ion-input>
-  </ion-item>
+    <ion-label color="light">Detalhes</ion-label>
+    <ion-item class="form-input">
+      <ion-label>Título</ion-label>
+      <ion-input type="text" [(ngModel)]="realEstate.name" required></ion-input>
+    </ion-item>
+    <ion-item class="form-input">
+      <ion-label>Tipo</ion-label>
+      <ion-select name="type" interface="popover" [(ngModel)]="realEstate.type"  style="width: 100%;">
+        <ion-option value="a">Apartamento</ion-option>
+        <ion-option value="c">Casa</ion-option>
+        <ion-option value="k">Kitnet</ion-option>
+        <ion-option value="q">Quarto</ion-option>
+        <ion-option value="o">Outro</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item class="form-input">
+      <ion-label>Link do Anúncio</ion-label>
+      <ion-input type="text" [(ngModel)]="realEstate.link" placeholder="(opcional)"></ion-input>
+    </ion-item>
+    <ion-item class="form-input">
+      <ion-label>Descrição</ion-label>
+      <ion-textarea rows="3" [(ngModel)]="realEstate.description" required></ion-textarea>
+    </ion-item>
+    <hr>
+    <ion-label color="light">Endereço</ion-label>
+    <ion-item class="form-input">
+      <ion-label>CEP</ion-label>
+      <ion-input type="text" [(ngModel)]="realEstate.zip" (ionBlur)="getAddress(realEstate.zip)" required></ion-input>
+    </ion-item>
+    <ion-item class="form-input">
+      <ion-label>Bairro</ion-label>
+      <ion-input type="text" [(ngModel)]="realEstate.district" ></ion-input>
+    </ion-item>
+    <ion-item class="form-input">
+      <ion-label>Cidade</ion-label>
+      <ion-input type="text" [(ngModel)]="realEstate.city" ></ion-input>
+    </ion-item>
+    <ion-item class="form-input">
+      <ion-label>UF</ion-label>
+      <ion-input type="text" [(ngModel)]="realEstate.state" ></ion-input>
+    </ion-item>
 
-  <ion-toolbar transparent>
-    <ion-grid>
-      <ion-row justify-content-center>
-        <button class="main-button" ion-button large round color="secondary" navPop strong (click)="addRealEstate()">Salvar</button>
-      </ion-row>
-    </ion-grid>
-  </ion-toolbar>
-
+    <ion-toolbar transparent>
+      <ion-grid>
+        <ion-row justify-content-center>
+          <button class="main-button" ion-button large round color="secondary" strong (click)="addRealEstate()">Salvar</button>
+        </ion-row>
+      </ion-grid>
+    </ion-toolbar>
 </ion-content>

@@ -2,7 +2,7 @@
   <ion-navbar color="primary">
     <ion-buttons left>
       <button navPop ion-button icon-only style="margin: 0 6px; min-width: 36px;">
-        <ion-icon color="light" name="arrow-back"></ion-icon>
+        <ion-icon color="light" name="close"></ion-icon>
       </button>
     </ion-buttons>
     <ion-title>Detalhes do Imóvel</ion-title>
@@ -12,7 +12,7 @@
 
 <ion-content class="bg-owner-page" padding>
   <div text-center>
-    <ion-img src="../assets/imgs/placeholder.jpg" style="width: 100%; height: 15rem;"></ion-img>
+    <ion-img [src]="realEstate.imgLink" style="width: 100%; height: 15rem;"></ion-img>
   </div>
 
   <ion-list>
@@ -24,7 +24,7 @@
     </div>
 
     <div margin>
-      <p>{{ realEstate.link }}</p>
+      <p>{{ (realEstate.link ? realEstate.link : "Sem link cadastrado") }}</p>
     </div>
 
     <div text-center>
@@ -32,7 +32,7 @@
     </div>
 
     <div text-center>
-      <button class="main-button" ion-button large outline round color="secondary" strong [navPush]="realEstateFormPage">Editar Imóvel</button>
+      <button class="main-button" ion-button large outline round color="secondary" strong (click)="onEditRealEstate()">Editar Imóvel</button>
     </div>
   </ion-list>
 </ion-content>
