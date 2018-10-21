@@ -71,7 +71,7 @@ export class FirebaseProvider {
 
   public async signIn(email, password): Promise<void> {
     try {
-      this.user = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
+      await this.afAuth.auth.signInWithEmailAndPassword(email, password);
       this.message = "Login efetuado com sucesso!";
       this.validator = true;
     }
@@ -83,7 +83,7 @@ export class FirebaseProvider {
 
   public async signInWithGoogle(): Promise<void> {
     try {
-      this.user = await this.afAuth.auth
+      await this.afAuth.auth
         .signInWithPopup(new firebase.auth.GoogleAuthProvider());
       this.message = "Login efetuado com sucesso! Seja bem vindo!";
       this.validator = true;
