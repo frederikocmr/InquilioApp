@@ -23,16 +23,22 @@
         <ion-list padding-top>
           <p>Agora vamos precisar de algumas informações básicas.</p>
           <ion-item class="main-input" text-center>
-            <ion-input type="text" name="name" [(ngModel)]="account.name" round placeholder="Nome completo" required></ion-input>
+            <ion-label>Nome</ion-label>
+            <ion-input type="text" name="name" [(ngModel)]="account.name" round placeholder="Informe seu nome completo" required></ion-input>
           </ion-item>
           <ion-item class="main-input" text-center>
-            <ion-input type="text" name="document" [(ngModel)]="account.document" round placeholder="CPF" required></ion-input>
+            <ion-label>CPF</ion-label>
+            <ion-input type="text" name="document" [(ngModel)]="account.document" round placeholder="Informe seu CPF" style="
+            padding-left: 1.5rem;" required></ion-input>
           </ion-item>
           <ion-item class="main-input" text-center>
-            <ion-input type="email" name="email" [(ngModel)]="account.email" round placeholder="E-mail" required></ion-input>
+            <ion-label>E-mail</ion-label>
+            <ion-input type="email" name="email" [(ngModel)]="account.email" round placeholder="Informe seu e-mail" required></ion-input>
           </ion-item>
           <ion-item class="main-input" text-center>
-            <ion-input type="password" name="password" [(ngModel)]="account.password" round placeholder="Senha" required></ion-input>
+            <ion-label>Senha</ion-label>
+            <ion-input type="password" name="password" [(ngModel)]="account.password" round placeholder="Informe sua senha"
+                       required></ion-input>
           </ion-item>
         </ion-list>
       </ion-slide>
@@ -41,17 +47,19 @@
         <ion-list>
           <p>Por último, só precisamos de mais alguns detalhes.</p>
           <ion-item class="main-input">
-            <ion-input type="text" name="phone" [(ngModel)]="account.phone" placeholder="Celular" required></ion-input>
+            <ion-label>Celular</ion-label>
+            <ion-input type="text" name="phone" [(ngModel)]="account.phone" placeholder="Informe seu celular" style="
+            padding-left: 1.5rem;" required></ion-input>
           </ion-item>
           <ion-item class="main-input">
             <ion-label>Data de nascimento</ion-label>
             <ion-datetime cancelText="Cancelar" doneText="Confirmar" displayFormat="DD/MMM/YYYY" [max]="setMaxDate()"
                           monthShortNames="jan, fev, mar, abr, mai, jun, jul, ago, set, out, nov, dez" name="birthdate"
-                          [(ngModel)]="account.birthdate" required></ion-datetime>
+                          [(ngModel)]="account.birthdate" required placeholder="Selecione"></ion-datetime>
           </ion-item>
           <ion-item class="main-input">
             <ion-label>Sexo</ion-label>
-            <ion-select name="genre" interface="popover" [(ngModel)]="account.genre" required>
+            <ion-select name="genre" interface="popover" [(ngModel)]="account.genre" required placeholder="Selecione">
               <ion-option value="f">Feminino</ion-option>
               <ion-option value="m">Masculino</ion-option>
               <ion-option value="o">Outro</ion-option>
@@ -75,12 +83,12 @@
           </button>
         </ion-col>
       </ion-row>
-        <ion-row justify-content-center>
-          <button class="main-button" ion-button large round color="secondary" type="submit" strong [disabled]="!registerForm.form.valid">Confirmar</button>
-        </ion-row>
-        <ion-row justify-content-center>
-          <button ion-button clear color="light" small>Ao confirmar aceito os Termos e Condições de Uso.</button>
-        </ion-row>
+      <ion-row justify-content-center>
+        <button class="main-button" ion-button large round color="secondary" type="submit" strong [disabled]="!registerForm.form.valid">Confirmar</button>
+      </ion-row>
+      <ion-row justify-content-center>
+        <button ion-button clear color="light" small>Ao confirmar aceito os Termos e Condições de Uso.</button>
+      </ion-row>
     </div>
   </form>
 </ion-content>

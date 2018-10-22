@@ -6,34 +6,69 @@
 
 
 <ion-content class="intro-background" text-center padding>
-  <p>Escolha uma opção</p>
+  <!-- <p>Escolha uma opção</p>
 
   <button ion-button class="main-button" icon-start large round color="light" (click)="doLoginWithGoogle();"><span
           class="icon-google-icon" padding-right><span class="path1"></span><span class="path2"></span><span class="path3"></span><span
             class="path4"></span></span>Entrar com o Google</button>
 
-  <p>ou</p>
+  <p>ou</p> -->
 
-  <form (ngSubmit)="doLoginWithEmail()" #registerForm="ngForm" [class]="keyboard.isVisible ? 'open-keyboard' : 'closed-keyboard'">
-    <ion-list>
-      <ion-item class="main-input">
-        <ion-input type="email" placeholder="E-mail" name="email" [(ngModel)]="registerCredentials.email" required></ion-input>
-      </ion-item>
-      <ion-item class="main-input">
-        <ion-input type="password" placeholder="Senha" name="password" [(ngModel)]="registerCredentials.password"
-                   required></ion-input>
-      </ion-item>
-      <div>
+  <!-- <form (ngSubmit)="doLoginWithEmail()" #registerForm="ngForm" [class]="keyboard.isVisible ? 'open-keyboard' : 'closed-keyboard'"> -->
+  <!-- <ion-list style="height: 100%">
+    <form (ngSubmit)="doLoginWithEmail()" #registerForm="ngForm">
+      <div style="margin-top: 40%">
+        <p>Informe seu dados de Login.</p>
+        <ion-item class="main-input">
+          <ion-label>E-mail</ion-label>
+          <ion-input type="email" placeholder="Digite seu e-mail" name="email" [(ngModel)]="registerCredentials.email"
+                     required></ion-input>
+        </ion-item>
+        <ion-item class="main-input">
+          <ion-label>Senha</ion-label>
+          <ion-input type="password" placeholder="Digite sua senha" name="password" [(ngModel)]="registerCredentials.password"
+                     required></ion-input>
+        </ion-item>
         <button ion-button clear color="light" small>Esqueceu sua senha?</button>
       </div>
       <div class="my-footer" *ngIf="!keyboard.isVisible;">
-        <div>
+        <ion-row>
           <button ion-button class="main-button" large round color="secondary" type="submit" [disabled]="!registerForm.form.valid"
                   strong>Entrar</button>
-        </div>
-        <button ion-button clear color="light" (click)="createAccount()">Criar uma nova conta?</button>
+        </ion-row>
+        <ion-row>
+          <button ion-button clear color="light" (click)="createAccount()">Criar uma nova conta?</button>
+
+        </ion-row>
       </div>
-    </ion-list>
+    </form>
+  </ion-list> -->
+  <img *ngIf="!keyboard.isVisible;" src="../assets/imgs/logo.png" style="max-height: 23rem;"/>
+
+  <form (ngSubmit)="doLoginWithEmail()" #registerForm="ngForm" class="my-footer">    
+
+    <p>Informe seus dados.</p>
+
+    <ion-item class="main-input">
+      <ion-label>E-mail</ion-label>
+      <ion-input type="email" placeholder="Digite seu e-mail" name="email" [(ngModel)]="registerCredentials.email"
+                 required></ion-input>
+    </ion-item>
+    <ion-item class="main-input">
+      <ion-label>Senha</ion-label>
+      <ion-input type="password" placeholder="Digite sua senha" name="password" [(ngModel)]="registerCredentials.password"
+                 required></ion-input>
+    </ion-item>
+    <button ion-button clear color="light" small>Esqueceu sua senha?</button>
+
+    <ion-row>
+      <button ion-button class="main-button" large round color="secondary" type="submit" [disabled]="!registerForm.form.valid"
+              strong>Entrar</button>
+    </ion-row>
+    <ion-row>
+      <button ion-button clear color="light" (click)="createAccount()">Criar uma nova conta?</button>
+
+    </ion-row>
   </form>
 
 </ion-content>

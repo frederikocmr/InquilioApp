@@ -56,7 +56,7 @@ import { Keyboard } from "@ionic-native/keyboard";
     // BrMaskerModule,
     IonicModule.forRoot(MyApp, {
       scrollPadding: false,
-      scrollAssist: true,
+      scrollAssist: false,
       autoFocusAssist: false
     }),
     AngularFireModule.initializeApp(firebaseConfig),
