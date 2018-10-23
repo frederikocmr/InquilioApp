@@ -23,7 +23,10 @@ export class RealEstateFormPage {
         this.realEstate = navParams.get('realEstateObj');
         this.editing = true;
       }
-    }
+  }
+
+  // TODO: implementar método para capturar ou importar imagem
+  // exemplo em https://devdactic.com/ionic-2-images/
 
   addRealEstate() {
     this.ui.showLoading();

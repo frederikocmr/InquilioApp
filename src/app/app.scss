@@ -141,3 +141,8 @@ ion-icon {
   bottom: 0px;
   width: 100%;
 }
+
+.btn-secondary {
+  color: color($colors, dark);
+  background-image: linear-gradient(to right, color($colors, secondaryAlt) 0%, color($colors, secondary) 100%);
+}

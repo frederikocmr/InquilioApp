@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { RealEstate } from '../../../models/real-estate';
-import { UiProvider } from '../../../providers/ui/ui';
 import { RealEstateFormPage } from './../real-estate-form/real-estate-form';
 
 @IonicPage()
@@ -10,14 +9,27 @@ import { RealEstateFormPage } from './../real-estate-form/real-estate-form';
   templateUrl: 'real-estate-details.html',
 })
 export class RealEstateDetailsPage {
+  inquilino = false;
   realEstate: RealEstate = new RealEstate();
+  realEstateType: String = "";
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams, 
-    public ui: UiProvider, 
     private modalCtrl: ModalController) {
     this.realEstate = navParams.get('realEstateObj');
+    this.getRealEstateType();
+  }
+  
+  getRealEstateType() {
+    switch(this.realEstate.type) {
+      case 'a': this.realEstateType = "Apartamento"; break;
+      case 'c': this.realEstateType = "Casa"; break;
+      case 'k': this.realEstateType = "Kitnet"; break;
+      case 'q': this.realEstateType = "Quarto"; break;
+      case 'o': this.realEstateType = "Outro"; break;
+      default: this.realEstateType = "Outro"; break;
+    }
   }
 
   onEditRealEstate() {

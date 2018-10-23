@@ -6,19 +6,20 @@ page-real-estate-form {
 	}
 
 	.form-input {
-		margin-top: 1%;
+		margin-top: 0.5rem;
 		border-top-left-radius: 15px;
 		border-top-right-radius: 15px;
 		border-bottom-left-radius: 15px;
 		border-bottom-right-radius: 15px;
-		padding-left: 1.2rem;
+		padding-left: 1rem;
+		
 		ion-label {
 			color: color($colors, primary200);
 		}
-
 	}
 
   .scroll-content {
-    overflow-y: auto !important;
+		padding-top: 0rem !important;
+    // overflow-y: auto;
   }
 }

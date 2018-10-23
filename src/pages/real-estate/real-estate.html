@@ -35,7 +35,7 @@
       <ion-col no-padding>
         <ion-item>
           <h2>{{realEstate.name}}</h2>
-          <p>{{realEstate.contractId ? "Possui Contrato" : "Sem Contrato"}}</p>
+          <p>{{realEstate.contractId ? "Contrato até 00/00/0000" : "Sem Contrato"}}</p>
         </ion-item>
       </ion-col>
       <ion-col align-self-center no-padding text-right>
@@ -49,14 +49,12 @@
     <img [src]="realEstate.imgLink" style="width: 100%; height: 15rem;" />
     <ion-card-content>
       <p>{{realEstate.description}}</p>
-      <ion-note>
-        {{realEstate.link}}
-      </ion-note>
+      <ion-note>{{realEstate.link}}</ion-note>
     </ion-card-content>
     <ion-row justify-content-start text-left>
       <ion-col no-padding>
         <button ion-button clear color="secondary" icon-start>
-          <ion-icon name="person-add"></ion-icon>INQUILINO
+          <ion-icon name="add"></ion-icon>CONTRATO
         </button>
       </ion-col>
       <ion-col no-padding>
