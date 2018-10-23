@@ -12,6 +12,7 @@ import { RealEstateFormPage } from "../real-estate/real-estate-form/real-estate-
 import { RealEstateDetailsPage } from "../real-estate/real-estate-details/real-estate-details";
 import { RealEstate } from "../../models/real-estate";
 import { Observable } from "rxjs/Observable";
+import { UiProvider } from '../../providers/ui/ui';
 
 @IonicPage()
 @Component({
@@ -23,6 +24,7 @@ export class RealEstatePage {
   items: Observable<RealEstate[]>;
 
   constructor(
+    private ui: UiProvider,
     public navCtrl: NavController,
     public navParams: NavParams,
     public modalCtrl: ModalController,
@@ -54,5 +56,14 @@ export class RealEstatePage {
     detailsModal.present();
 
     // detailsModal.onDidDismiss(data => {});
+  }
+
+  removeRealEstate(realEstateObj) {
+    let modal = this.ui.alertCtrl.create({
+      title: "Remover",
+      subTitle: "Tem certeza que deseja remover este imóvel?",
+      buttons: ["Cancelar", "Remover"]});
+    
+    modal.present();
   }
 }

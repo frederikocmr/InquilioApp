@@ -30,22 +30,41 @@
     </ion-item>
   </ion-list> -->
 
-  <ion-card *ngFor="let realEstate of items | async" color="primary" (click)="viewDetails(realEstate)">
-    <ion-item>
-      <h2>{{realEstate.name}}</h2>
-      <p>{{realEstate.contractId ? "Possui Contrato" : "Sem Contrato"}}</p>
-    </ion-item>
-    <img [src]="realEstate.imgLink" style="width: 100%; height: 15rem;"/>
+  <ion-card *ngFor="let realEstate of items | async" color="primary700">
+    <ion-row>
+      <ion-col no-padding>
+        <ion-item>
+          <h2>{{realEstate.name}}</h2>
+          <p>{{realEstate.contractId ? "Possui Contrato" : "Sem Contrato"}}</p>
+        </ion-item>
+      </ion-col>
+      <ion-col align-self-center no-padding text-right>
+        <!-- <button ion-button clear color="danger">REMOVER
+          </button> -->
+        <button ion-button clear color="danger" (click)="removeRealEstate(realEstate)" icon-only>
+          <ion-icon name="trash"></ion-icon> <!-- remove-circle -->
+        </button>
+      </ion-col>
+    </ion-row>
+    <img [src]="realEstate.imgLink" style="width: 100%; height: 15rem;" />
     <ion-card-content>
       <p>{{realEstate.description}}</p>
       <ion-note>
         {{realEstate.link}}
       </ion-note>
     </ion-card-content>
-    <hr>
-    <button ion-button clear block color="secondary">
-      ADICIONAR INQUILINO
-    </button>
+    <ion-row justify-content-start text-left>
+      <ion-col no-padding>
+        <button ion-button clear color="secondary" icon-start>
+          <ion-icon name="person-add"></ion-icon>INQUILINO
+        </button>
+      </ion-col>
+      <ion-col no-padding>
+        <button ion-button clear color="secondary" (click)="viewDetails(realEstate)" icon-start>
+            <ion-icon name="information-circle"></ion-icon>DETALHES
+        </button>
+      </ion-col>
+    </ion-row>
   </ion-card>
 
   <ion-fab right bottom>

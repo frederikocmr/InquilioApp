@@ -31,8 +31,17 @@
       <button class="main-button" ion-button large round color="secondary" strong>Adicionar Inquilino</button>
     </div>
 
-    <div text-center>
-      <button class="main-button" ion-button large outline round color="secondary" strong (click)="onEditRealEstate()">Editar Imóvel</button>
-    </div>
+    <ion-row text-center>
+      <ion-col>
+        <button ion-button outline round color="secondary" strong (click)="onEditRealEstate()" icon-start style="width: 12rem;">
+          <ion-icon color="secondary" name="create"></ion-icon>Editar
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button outline round color="danger" strong icon-start style="width: 12rem;">
+          <ion-icon color="danger" name="trash"></ion-icon>Remover
+        </button>
+      </ion-col>
+    </ion-row>
   </ion-list>
 </ion-content>

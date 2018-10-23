@@ -23,6 +23,10 @@
   align-self: center !important;
 }
 
+.alert-title {
+  color: color($colors, primary) !important;
+}
+
 .back-button,
 .toolbar-title {
   color: color($colors, light);
