@@ -66,22 +66,17 @@ export class WelcomePage {
   }
 
 
-  async webGoogleLogin(): Promise<void> {
-    try {
-      this.firebase.signInWithGoogle().then(() => {
-        this.ui.showToast(this.firebase.message, 3, 'top');
+  webGoogleLogin() {
+    this.firebase.signInWithGoogle().then(() => {
+      this.ui.showToast(this.firebase.message, 3, 'top');
 
-        if (this.firebase.validator) {
-          this.navCtrl.setRoot(TabsPage);
-        }
+      if (this.firebase.validator) {
+        this.navCtrl.setRoot(TabsPage);
+      }
 
-      }).catch((error) => {
-        console.log(error);
-      });
-    } catch (error) {
-
-    }
-
+    }).catch((error) => {
+      console.log(error);
+    });
   }
 
 
