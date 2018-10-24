@@ -50,7 +50,7 @@ export class WelcomePage {
   }
 
   async nativeGoogleLogin(): Promise<firebase.User> {
-    
+
     try {
       const gPlusUser = await this.gplus.login({
         'webClientId': '306866070953-2m56s5983v0b17lh0hu51ckh1bo3urn0.apps.googleusercontent.com',
@@ -59,7 +59,7 @@ export class WelcomePage {
       });
 
       return await this.afAuth.auth.signInWithCredential(firebase.auth.GoogleAuthProvider.credential(gPlusUser.idToken));
-    
+
     } catch (error) {
       console.log(error);
     }
@@ -67,16 +67,20 @@ export class WelcomePage {
 
 
   async webGoogleLogin(): Promise<void> {
-    this.firebase.signInWithGoogle().then(() => {
-      this.ui.showToast(this.firebase.message, 3, 'top');
+    try {
+      this.firebase.signInWithGoogle().then(() => {
+        this.ui.showToast(this.firebase.message, 3, 'top');
 
-      if (this.firebase.validator) {
-        this.navCtrl.setRoot(TabsPage);
-      }
+        if (this.firebase.validator) {
+          this.navCtrl.setRoot(TabsPage);
+        }
 
-    }).catch((error) => {
-      console.log(error);
-    });
+      }).catch((error) => {
+        console.log(error);
+      });
+    } catch (error) {
+
+    }
 
   }
 
