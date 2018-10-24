@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.frederikofelipe.apptcc" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Aplicativo TCC</name>
-    <description>An awesome Ionic/Cordova app.</description>
+    <description>Um app para facilitar o controle de aluguéis.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
     <content src="index.html" />
     <access origin="*" />
@@ -86,10 +86,13 @@
     <plugin name="cordova-plugin-ionic-webview" spec="^2.0.0" />
     <plugin name="cordova-plugin-datepicker" spec="^0.9.3" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.1.2" />
-    <engine name="android" spec="7.0.0" />
-    <engine name="ios" spec="4.5.5" />
     <plugin name="cordova-plugin-googleplus" spec="^5.3.2">
         <variable name="WEB_APPLICATION_CLIENT_ID" value="306866070953-h9r4p5avi00ae1qq2vch0cgr6k2dtbon.apps.googleusercontent.com" />
         <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.306866070953-kgftcorrqt3c7sevvf7imm4e2ldkhmvv" />
     </plugin>
+    <plugin name="cordova-android-play-services-gradle-release" spec="^1.4.4">
+        <variable name="PLAY_SERVICES_VERSION" value="11.6.2" />
+    </plugin>
+    <engine name="android" spec="7.0.0" />
+    <engine name="ios" spec="4.5.5" />
 </widget>
