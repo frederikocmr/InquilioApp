@@ -32,7 +32,7 @@ export class RealEstateFormPage {
     this.ui.showLoading();
     if(!this.editing){
       this.realEstate.ownerId = this.fb.user.uid;
-      this.fb.insertDataToCollection('RealEstate', this.realEstate).then((data) => {
+      this.fb.insertDataToCollection('RealEstate', this.realEstate).then(() => {
         this.ui.closeLoading();
         this.ui.showToast(this.fb.message, 2, 'top');
   
@@ -40,13 +40,23 @@ export class RealEstateFormPage {
           this.navCtrl.pop();
         }
       }).catch((error) => {
+        this.ui.closeLoading();
         this.ui.showAlert("Erro ao cadastrar", error);
       });
     } else {
-      // TODO: Criar função no Firebase Service para editar o documento a partir do id do objeto. 
-      // Implementar id do objeto para pegar e preencher e mandar na função de editar para aquele doc(idDoc).
-      this.ui.closeLoading();
-      this.ui.showToast("Editar não implementado.", 2, 'top');
+
+      this.fb.updateDataFromCollection('RealEstate', this.realEstate).then(() => {
+        this.ui.closeLoading();
+        this.ui.showToast(this.fb.message, 2, 'top');
+  
+        if (this.fb.validator) {
+          this.navCtrl.pop();
+        }
+      }).catch((error) => {
+        this.ui.closeLoading();
+        this.ui.showAlert("Erro ao editar", error);
+      });
+
     }
     
   }

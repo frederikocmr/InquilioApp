@@ -19,7 +19,7 @@ export class FirebaseProvider {
 
   constructor(private afAuth: AngularFireAuth, private afDb: AngularFirestore) {
     //checking user state.  
-      
+    this.validator = false;  
     afAuth.authState.subscribe(user => {
       if (!user) {
         this.rootPage = 'rootPage';   
@@ -106,7 +106,33 @@ export class FirebaseProvider {
       this.message = "Erro na gravação: " + error;
       this.validator = false; //?
     }
+  }
 
+  public async updateDataFromCollection(collection, data): Promise<void>{
+    var parsedData = JSON.parse(JSON.stringify(data));
+   
+    try {
+      await this.afDb.collection(collection).doc(data.id).update(parsedData);
+        this.message = "Dados gravados com sucesso!";
+        this.validator = true; // ?
+    }
+    catch (error) {
+      this.message = "Erro na gravação: " + error;
+      this.validator = false; //?
+    }
+  }
+
+  public async deleteDataFromCollection(collection, id): Promise<void>{
+    try {
+      await this.afDb.collection(collection).doc(id).delete();
+        this.message = "Dados excluídos com sucesso!";
+        this.validator = true; 
+    }
+    catch (error) {
+      this.message = "Erro na exclusão: " + error;
+      this.validator = false; 
+      console.log(error);
+    }
   }
 
   public signOut() {

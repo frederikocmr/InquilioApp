@@ -1,4 +1,5 @@
 export class RealEstate {
+    public id: string;
     public name: string;
     public description: string;
     public zip: string;
@@ -14,11 +15,10 @@ export class RealEstate {
     public active: boolean;
     public tenantHistory: string[];
     public ownerId: string;
-    
     public contractId: string;
 
     constructor() {
-        this.active = true;
+        this.active = true,
         this.name =  null,
         this.description = null,
         this.zip = null,
@@ -33,8 +33,8 @@ export class RealEstate {
         this.active = true,
         this.tenantHistory = [],
         this.ownerId = null
-        this.contractId = null;
-        this.imgLink = "../assets/imgs/noimage.jpg";
+        this.contractId = null,
+        this.imgLink = "../assets/imgs/noimage.jpg"
     }
 
 }

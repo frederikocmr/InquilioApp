@@ -1,5 +1,7 @@
+import { FirebaseProvider } from './../../../providers/firebase/firebase';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { UiProvider } from './../../../providers/ui/ui';
 import { RealEstate } from '../../../models/real-estate';
 import { RealEstateFormPage } from './../real-estate-form/real-estate-form';
 
@@ -15,14 +17,16 @@ export class RealEstateDetailsPage {
 
   constructor(
     public navCtrl: NavController,
-    public navParams: NavParams, 
-    private modalCtrl: ModalController) {
-    this.realEstate = navParams.get('realEstateObj');
-    this.getRealEstateType();
+    public navParams: NavParams,
+    public ui: UiProvider,
+    private modalCtrl: ModalController,
+    private fb: FirebaseProvider) {
+      this.realEstate = navParams.get('realEstateObj');
+      this.getRealEstateType();
   }
-  
+
   getRealEstateType() {
-    switch(this.realEstate.type) {
+    switch (this.realEstate.type) {
       case 'a': this.realEstateType = "Apartamento"; break;
       case 'c': this.realEstateType = "Casa"; break;
       case 'k': this.realEstateType = "Kitnet"; break;
@@ -35,6 +39,30 @@ export class RealEstateDetailsPage {
   onEditRealEstate() {
     let detailsModal = this.modalCtrl.create(RealEstateFormPage, { realEstateObj: this.realEstate });
     detailsModal.present();
+  }
+
+  removeRealEstate() {
+    let modal = this.ui.alertCtrl.create({
+      title: "Remover",
+      subTitle: "Tem certeza que deseja remover este imóvel?",
+      buttons: ["Cancelar",
+        {
+          text: "Remover",
+          handler: () => {
+            this.fb.deleteDataFromCollection('RealEstate', this.realEstate.id).then(() => {
+              this.ui.showToast(this.fb.message, 2, 'top');
+              if (this.fb.validator) {
+                this.navCtrl.pop();
+              }
+            }).catch((error) => {
+              this.ui.showAlert("Erro ao editar", error);
+            });
+          }
+        }]
+    });
+
+    modal.present();
+
   }
 
 }
