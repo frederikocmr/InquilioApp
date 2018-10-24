@@ -87,8 +87,8 @@
     <plugin name="cordova-plugin-datepicker" spec="^0.9.3" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.1.2" />
     <plugin name="cordova-plugin-googleplus" spec="^5.3.2">
+        <variable name="WEB_APPLICATION_CLIENT_ID" value="306866070953-h9r4p5avi00ae1qq2vch0cgr6k2dtbon.apps.googleusercontent.com" />
         <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.306866070953-kgftcorrqt3c7sevvf7imm4e2ldkhmvv" />
-        <variable name="WEB_APPLICATION_CLIENT_ID" value="306866070953-2m56s5983v0b17lh0hu51ckh1bo3urn0.apps.googleusercontent.com" />
     </plugin>
     <plugin name="cordova-android-play-services-gradle-release" spec="^1.4.4">
         <variable name="PLAY_SERVICES_VERSION" value="11.6.2" />
