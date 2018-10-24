@@ -44,18 +44,18 @@ export class RealEstateDetailsPage {
   removeRealEstate() {
     let modal = this.ui.alertCtrl.create({
       title: "Remover",
-      subTitle: "Tem certeza que deseja remover este imóvel?",
+      subTitle: "Tem certeza que deseja remover/desativar este imóvel?",
       buttons: ["Cancelar",
         {
           text: "Remover",
           handler: () => {
-            this.fb.deleteDataFromCollection('RealEstate', this.realEstate.id).then(() => {
+            this.fb.deactivateDataFromCollection('RealEstate', this.realEstate).then(() => {
               this.ui.showToast(this.fb.message, 2, 'top');
               if (this.fb.validator) {
                 this.navCtrl.pop();
               }
             }).catch((error) => {
-              this.ui.showAlert("Erro ao editar", error);
+              this.ui.showAlert("Erro ao desativar", error);
             });
           }
         }]

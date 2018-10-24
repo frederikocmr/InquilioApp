@@ -122,6 +122,21 @@ export class FirebaseProvider {
     }
   }
 
+  public async deactivateDataFromCollection(collection, data): Promise<void>{
+    data.active = false;
+    var parsedData = JSON.parse(JSON.stringify(data));
+   
+    try {
+      await this.afDb.collection(collection).doc(data.id).update(parsedData);
+        this.message = "Dados desativados com sucesso!";
+        this.validator = true; // ?
+    }
+    catch (error) {
+      this.message = "Erro na gravação: " + error;
+      this.validator = false; //?
+    }
+  }
+
   public async deleteDataFromCollection(collection, id): Promise<void>{
     try {
       await this.afDb.collection(collection).doc(id).delete();

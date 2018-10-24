@@ -31,7 +31,7 @@ export class RealEstatePage {
   ) {
     this.items = this.afDb.collection<RealEstate>(
       'RealEstate',
-      ref => ref.where('ownerId', '==', this.fb.user.uid)
+      ref => ref.where('ownerId', '==', this.fb.user.uid).where("active", "==", true)
     ).snapshotChanges().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as RealEstate;
