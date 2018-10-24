@@ -45,6 +45,7 @@ export class WelcomePage {
       this.nativeGoogleLogin().then(() => {
         this.ui.showToast("Sucesso ao logar com o Google.", 3, 'top');
         this.navCtrl.setRoot(TabsPage);
+        this.ui.closeLoading();
 
         // TODO - Chamar função que cria usuário.
       }).catch((error) => {
@@ -57,7 +58,7 @@ export class WelcomePage {
   }
 
   async nativeGoogleLogin(): Promise<firebase.User> {
-
+    this.ui.showLoading();
     try {
       const gPlusUser = await this.gplus.login({
         'webClientId': '306866070953-h9r4p5avi00ae1qq2vch0cgr6k2dtbon.apps.googleusercontent.com',
