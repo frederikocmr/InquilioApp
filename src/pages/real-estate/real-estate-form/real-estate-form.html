@@ -18,13 +18,13 @@
       <ion-label color="light" text-left>Detalhes</ion-label>
 
       <ion-item class="form-input">
-        <ion-label>Título</ion-label>
+        <ion-label>Título:</ion-label>
         <ion-input type="text" [(ngModel)]="realEstate.name" name="name" placeholder="Informe um nome para o imóvel" style="padding-left: 0.5rem;"
                    required></ion-input>
       </ion-item>
 
       <ion-item class="form-input">
-        <ion-label style="-webkit-flex: none !important; flex: none !important;">Tipo</ion-label>
+        <ion-label style="-webkit-flex: none !important; flex: none !important;">Tipo:</ion-label>
         <ion-select name="type" interface="popover" [(ngModel)]="realEstate.type" name="type" style="padding-left: 2rem;"
                     placeholder="Selecione" required>
           <ion-option value="a">Apartamento</ion-option>
@@ -36,12 +36,12 @@
       </ion-item>
 
       <ion-item class="form-input">
-        <ion-label>Link</ion-label>
+        <ion-label>Link:</ion-label>
         <ion-input type="text" [(ngModel)]="realEstate.link" name="link" placeholder="Informe um link para o anúncio" style="padding-left: 1.5rem;"></ion-input>
       </ion-item>
 
       <ion-item class="form-input">
-        <ion-label>Descrição</ion-label>
+        <ion-label>Descrição:</ion-label>
         <ion-textarea [(ngModel)]="realEstate.description" name="description" placeholder="Informe uma breve descrição do imóvel" required rows="3"></ion-textarea>
       </ion-item>
 
@@ -66,23 +66,28 @@
       <ion-label color="light" text-left>Endereço</ion-label>
 
       <ion-item class="form-input">
-        <ion-label>CEP</ion-label>
+        <ion-label>CEP:</ion-label>
         <ion-input type="text" [(ngModel)]="realEstate.zip" name="zip" (ionBlur)="getAddress(realEstate.zip)" placeholder="Informe o CEP"
                    style="padding-left: 2rem;" required></ion-input>
       </ion-item>
 
       <ion-item class="form-input">
-        <ion-label>Bairro</ion-label>
+        <ion-label>Rua:</ion-label>
+        <ion-input type="text" [(ngModel)]="realEstate.street" name="street" placeholder="Informe a rua" style="padding-left: 0.7rem;"></ion-input>
+      </ion-item>
+
+      <ion-item class="form-input">
+        <ion-label>Bairro:</ion-label>
         <ion-input type="text" [(ngModel)]="realEstate.district" name="district" placeholder="Informe o bairro" style="padding-left: 0.7rem;"></ion-input>
       </ion-item>
 
       <ion-item class="form-input">
-        <ion-label>Cidade</ion-label>
+        <ion-label>Cidade:</ion-label>
         <ion-input type="text" [(ngModel)]="realEstate.city" name="city" placeholder="Informe a cidade"></ion-input>
       </ion-item>
 
       <ion-item class="form-input">
-        <ion-label>UF</ion-label>
+        <ion-label>UF:</ion-label>
         <ion-input type="text" [(ngModel)]="realEstate.state" name="state" placeholder="Informe o estado" style="padding-left: 3rem;"></ion-input>
       </ion-item>
 
