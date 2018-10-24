@@ -110,7 +110,7 @@ h2,
 h5,
 h6,
 p {
-  color: color($colors, light) !important;
+  color: color($colors, light);
 }
 
 .tabs-md[tabsLayout="icon-top"] .has-icon .tab-button-text {
@@ -124,6 +124,23 @@ p {
 }
 
 ion-icon {
+  &[class*="custom-"] {
+    mask-size: contain;
+    mask-position: 50% 50%;
+    mask-repeat: no-repeat;
+    background: currentColor;
+    width: 1em;
+    height: 1em;
+  }
+
+  &[class*="custom-home"] {
+    mask-image: url(../assets/icons/lnr-home.svg);
+  }
+
+  &[class*="custom-file-empty"] {
+    mask-image: url(../assets/icons/lnr-file-empty.svg);
+  }
+
   &[class*="google-icon"] {
     mask-size: contain;
     mask-position: 50% 50%;

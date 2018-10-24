@@ -7,6 +7,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'contract.html',
 })
 export class ContractPage {
+  contracts = null;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }

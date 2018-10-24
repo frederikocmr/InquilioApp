@@ -10,5 +10,29 @@
 </ion-header>
 
 
-<ion-content class="bg-owner-page" padding>
+<ion-content class="bg-owner-page">
+  <div *ngIf="!contracts" text-center style="margin-top: 25vh;">
+    <ion-icon name="custom-file-empty" color="light" style="font-size: 15rem;"></ion-icon>
+    <h5>Você ainda não adicionou um contrato.</h5>
+    <h6>Toque no + para criar um novo.</h6>
+  </div>
+
+  <div *ngIf="contracts" col-md-6 offset-md-3>
+    <ion-card *ngFor="let contract of contracts | async" color="primary700">
+      <ion-card-content>
+        <h2>{{ (contract.realEstateId.name ? contract.realEstateId.name : "Contrato sem imóvel") }}</h2>
+        <h3 padding-top>{{ contract.tenantId.name }}</h3>
+        <p>{{ (contract.endDate ? "Encerra em "+contract.endDate : "Sem data de encerramento.") }}</p>
+      </ion-card-content>
+      <button ion-button clear color="secondary" (click)="viewDetails(contract)">
+        VER DETALHES
+      </button>
+    </ion-card>
+  </div>
+
+  <ion-fab right bottom>
+    <button ion-fab color="secondary">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
 </ion-content>
