@@ -3,6 +3,7 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { GooglePlus } from '@ionic-native/google-plus';
 import { HttpClientModule } from '@angular/common/http'
 //import { BrMaskerModule } from 'brmasker-ionic-3';
 
@@ -91,7 +92,8 @@ import { Keyboard } from "@ionic-native/keyboard";
     FirebaseProvider,
     Keyboard,
     ViacepProvider,
-    UiProvider 
+    UiProvider,
+    GooglePlus
   ]
 })
 export class AppModule {}

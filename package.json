@@ -22,6 +22,7 @@
     "@angular/platform-browser": "5.2.11",
     "@angular/platform-browser-dynamic": "5.2.11",
     "@ionic-native/core": "~4.11.0",
+    "@ionic-native/google-plus": "^4.16.0",
     "@ionic-native/keyboard": "^4.16.0",
     "@ionic-native/splash-screen": "~4.11.0",
     "@ionic-native/status-bar": "~4.11.0",
@@ -31,6 +32,7 @@
     "cordova-ios": "4.5.5",
     "cordova-plugin-datepicker": "^0.9.3",
     "cordova-plugin-device": "^2.0.2",
+    "cordova-plugin-googleplus": "^5.3.2",
     "cordova-plugin-ionic-keyboard": "^2.1.2",
     "cordova-plugin-ionic-webview": "^2.1.4",
     "cordova-plugin-splashscreen": "^5.0.2",
@@ -57,7 +59,11 @@
         "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
       },
       "cordova-plugin-ionic-keyboard": {},
-      "cordova-plugin-datepicker": {}
+      "cordova-plugin-datepicker": {},
+      "cordova-plugin-googleplus": {
+        "REVERSED_CLIENT_ID": "com.googleusercontent.apps.306866070953-kgftcorrqt3c7sevvf7imm4e2ldkhmvv",
+        "WEB_APPLICATION_CLIENT_ID": "306866070953-2m56s5983v0b17lh0hu51ckh1bo3urn0.apps.googleusercontent.com"
+      }
     },
     "platforms": [
       "android",
