@@ -89,7 +89,7 @@
     <engine name="android" spec="7.0.0" />
     <engine name="ios" spec="4.5.5" />
     <plugin name="cordova-plugin-googleplus" spec="^5.3.2">
+        <variable name="WEB_APPLICATION_CLIENT_ID" value="306866070953-h9r4p5avi00ae1qq2vch0cgr6k2dtbon.apps.googleusercontent.com" />
         <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.306866070953-kgftcorrqt3c7sevvf7imm4e2ldkhmvv" />
-        <variable name="WEB_APPLICATION_CLIENT_ID" value="306866070953-2m56s5983v0b17lh0hu51ckh1bo3urn0.apps.googleusercontent.com" />
     </plugin>
 </widget>

@@ -61,8 +61,8 @@
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-datepicker": {},
       "cordova-plugin-googleplus": {
-        "REVERSED_CLIENT_ID": "com.googleusercontent.apps.306866070953-kgftcorrqt3c7sevvf7imm4e2ldkhmvv",
-        "WEB_APPLICATION_CLIENT_ID": "306866070953-2m56s5983v0b17lh0hu51ckh1bo3urn0.apps.googleusercontent.com"
+        "WEB_APPLICATION_CLIENT_ID": "306866070953-h9r4p5avi00ae1qq2vch0cgr6k2dtbon.apps.googleusercontent.com",
+        "REVERSED_CLIENT_ID": "com.googleusercontent.apps.306866070953-kgftcorrqt3c7sevvf7imm4e2ldkhmvv"
       }
     },
     "platforms": [
