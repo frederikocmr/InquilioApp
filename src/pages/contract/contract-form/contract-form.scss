@@ -1,3 +1,25 @@
 page-contract-form {
+	hr {        
+		border-bottom: 0.1rem solid color($colors, secondary);
+		margin-top: 5%;
+		width: 100%;
+	}
 
+	.form-input {
+		margin-top: 0.5rem;
+		border-top-left-radius: 15px;
+		border-top-right-radius: 15px;
+		border-bottom-left-radius: 15px;
+		border-bottom-right-radius: 15px;
+		padding-left: 1rem;
+		
+		ion-label {
+			color: color($colors, primary200);
+		}
+	}
+
+  .scroll-content {
+		padding-top: 0rem !important;
+    // overflow-y: auto;
+  }
 }

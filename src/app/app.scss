@@ -163,3 +163,12 @@ ion-icon {
   color: color($colors, dark);
   background-image: linear-gradient(to right, color($colors, secondaryAlt) 0%, color($colors, secondary) 100%);
 }
+
+.alert-wrapper, .popover-content {  
+  border-radius: 15px !important;
+}
+
+.alert-radio-label {
+  // Quebra a linha de uma opção dentro de um alert para exibir todo o seu conteúdo
+  white-space: pre-line !important;
+}
