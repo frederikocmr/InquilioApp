@@ -42,7 +42,14 @@ export class WelcomePage {
 
   doLoginWithGoogle() {
     if (this.platform.is('cordova')) {
-      this.nativeGoogleLogin();
+      this.nativeGoogleLogin().then(() => {
+        this.ui.showToast("Sucesso ao logar com o Google.", 3, 'top');
+        this.navCtrl.setRoot(TabsPage);
+
+        // TODO - Chamar função que cria usuário.
+      }).catch((error) => {
+        console.log(error);
+      });
     } else {
       this.webGoogleLogin();
     }
