@@ -10,5 +10,45 @@
 </ion-header>
 
 
-<ion-content class="bg-owner-page" padding>
+<ion-content class="bg-owner-page">
+  <div *ngIf="!tenants" text-center style="margin-top: 25vh;">
+    <ion-icon name="person" color="light" style="font-size: 15rem; line-height: 0px;"></ion-icon>
+    <h5>Você ainda não adicionou um inquilino.</h5>
+    <h6 style="margin-top: 0.5rem;">Toque no + no canto inferior direito para criar um novo.</h6>
+  </div>
+
+  <div *ngIf="tenants" col-md-6 offset-md-3>
+    <ion-card *ngFor="let tenant of tenants | async" color="primary700">
+      <ion-card-content>
+        <h2>{{ tenant.name }}</h2>
+        <div padding-bottom>
+          <h3 *ngIf="!tenant.overallScore">Inquilino sem avaliação.</h3>
+          <div *ngIf="tenant.overallScore">
+            <p>
+              <ion-icon *ngFor="let item of scores" [name]="item.starName" color="secondary"></ion-icon>
+              {{ tenant.overallScore }} ({{ tenant.scoresTotal }} avaliações)
+            </p>
+          </div>
+        </div>
+        <p>{{ (tenant.phone ? tenant.phone : "Nenhum telefone encontrado.") }}</p>
+        <p>{{ (tenant.email ? tenant.email : "Nenhum email encontrado.") }}</p>
+        <div *ngIf="realEstate">
+          <ion-label color="secondary" no-margin padding-top>Imóvel</ion-label>
+          <p>{{ realEstate }}</p>
+        </div>
+        <div *ngIf="!realEstate">
+          <p>Sem imóvel vinculado.</p>
+        </div>
+      </ion-card-content>
+      <button ion-button clear color="secondary" (click)="viewDetails(tenant)">
+        VER DETALHES
+      </button>
+    </ion-card>
+  </div>
+
+  <ion-fab right bottom>
+    <button ion-fab color="secondary" (click)="newTenant()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
 </ion-content>

@@ -141,6 +141,18 @@ ion-icon {
     mask-image: url(../assets/icons/lnr-file-empty.svg);
   }
 
+  &[class*="custom-star-full"] {
+    mask-image: url(../assets/icons/star-full.svg);
+  }
+
+  &[class*="custom-star-half"] {
+    mask-image: url(../assets/icons/star-half.svg);
+  }
+
+  &[class*="custom-star-border"] {
+    mask-image: url(../assets/icons/star-border.svg);
+  }
+
   &[class*="google-icon"] {
     mask-size: contain;
     mask-position: 50% 50%;
