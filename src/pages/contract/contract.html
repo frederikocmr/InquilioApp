@@ -14,15 +14,17 @@
   <div *ngIf="!contracts" text-center style="margin-top: 25vh;">
     <ion-icon name="custom-file-empty" color="light" style="font-size: 15rem;"></ion-icon>
     <h5>Você ainda não adicionou um contrato.</h5>
-    <h6>Toque no + para criar um novo.</h6>
+    <h6 style="margin-top: 0.5rem;">Toque no + no canto inferior direito para criar um novo.</h6>
   </div>
 
   <div *ngIf="contracts" col-md-6 offset-md-3>
     <ion-card *ngFor="let contract of contracts | async" color="primary700">
       <ion-card-content>
-        <h2>{{ (contract.realEstateId.name ? contract.realEstateId.name : "Contrato sem imóvel") }}</h2>
-        <h3 padding-top>{{ contract.tenantId.name }}</h3>
-        <p>{{ (contract.endDate ? "Encerra em "+contract.endDate : "Sem data de encerramento.") }}</p>
+        <h2>{{ (contract.realEstateId.name ? contract.realEstateId.name : "Sem imóvel associado.") }}</h2>
+        <h3 padding-top>{{ (contract.tenantId.name ? contract.tenantId.name : "Sem inquilino associado.") }}</h3>
+        <p>{{ (contract.beginDate ? "Início em "+contract.beginDate : "Sem data de início.") }}</p>
+        <p>{{ (contract.endDate ? "Válido até "+contract.endDate : "Sem data de encerramento.") }}</p>
+        <p>{{ (contract.duration ? "Duração de "+contract.duration : "Sem duração definida.") }}</p>
       </ion-card-content>
       <button ion-button clear color="secondary" (click)="viewDetails(contract)">
         VER DETALHES

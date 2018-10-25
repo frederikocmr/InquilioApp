@@ -5,8 +5,9 @@ import {
   NavParams,
   ModalController
 } from "ionic-angular";
-import { ContractFormPage } from "./contract-form/contract-form";
 import { Contract } from './../../models/contract';
+import { ContractDetailsPage } from "./contract-details/contract-details";
+import { ContractFormPage } from "./contract-form/contract-form";
 
 @IonicPage()
 @Component({
@@ -33,6 +34,7 @@ export class ContractPage {
   }
 
   viewDetails(contract){
-    
+    let detailsModal = this.modalCtrl.create(ContractDetailsPage, {contract: contract});
+    detailsModal.present();    
   }
 }

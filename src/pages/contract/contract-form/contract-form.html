@@ -25,9 +25,8 @@
       </ion-item>
 
       <ion-item class="form-input">
-        <ion-label>Data de término *</ion-label>
-        <ion-datetime cancelText="Cancelar" doneText="Confirmar" displayFormat="DD/MMM/YYYY" [min]="setMinDate()" [max]="setMaxDate()"
-                      [monthShortNames]="monthShortNames" name="endDate" [(ngModel)]="contract.endDate" required
+        <ion-label>Data de encerramento *</ion-label>
+        <ion-datetime cancelText="Cancelar" doneText="Confirmar" displayFormat="DD/MMM/YYYY" [min]="setMinDate()" [max]="setMaxDate()" [monthShortNames]="monthShortNames" name="endDate" [(ngModel)]="contract.endDate" required
                       placeholder="Selecione" (ionChange)="calculateDuration()"></ion-datetime>
       </ion-item>
 
