@@ -12,6 +12,13 @@ page-real-estate {
 	border-radius: 10px !important;
   }
 
+  .image {
+    width: 100%;
+    background-position: center center;
+    background-size: cover;
+    height: 8rem;
+  }
+
   .scroll-content {
     overflow-y: auto !important;
   }

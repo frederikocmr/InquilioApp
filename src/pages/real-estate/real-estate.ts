@@ -19,8 +19,7 @@ import { RealEstate } from "../../models/real-estate";
   templateUrl: "real-estate.html"
 })
 export class RealEstatePage {
-  //realEstates: RealEstate[];
-  items: Observable<RealEstate[]>;
+  realEstates: Observable<RealEstate[]>;
 
   constructor(
     public navCtrl: NavController,
@@ -29,7 +28,7 @@ export class RealEstatePage {
     private fb: FirebaseProvider,
     private afDb: AngularFirestore
   ) {
-    this.items = this.afDb.collection<RealEstate>(
+    this.realEstates = this.afDb.collection<RealEstate>(
       'RealEstate',
       ref => ref.where('ownerId', '==', this.fb.user.uid).where("active", "==", true)
     ).snapshotChanges().pipe(
@@ -41,7 +40,7 @@ export class RealEstatePage {
       }))
     );
     // Subscribing and acessing methods - not necessary when using a view async.
-    // this.items.subscribe((data) => {
+    // this.realEstates.subscribe((data) => {
     //   this.realEstates = data
     // });
 

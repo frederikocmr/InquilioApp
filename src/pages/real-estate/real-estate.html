@@ -11,48 +11,27 @@
 
 
 <ion-content class="bg-owner-page">
-  <!-- <ion-list transparent>
-    <ion-item>
-      <ion-thumbnail item-start>
-        <img src="../assets/imgs/logo.png">
-      </ion-thumbnail>
-      <h2>Imóvel 1</h2>
-      <p>Descrição do imóvel 1 contendo provável link para anúncio.</p>
-      <button ion-button clear color="secondary" item-end strong (click)="viewDetails()">VER</button>
-    </ion-item>
-    <ion-item>
-      <ion-thumbnail item-start>
-        <img src="../assets/imgs/logo.png">
-      </ion-thumbnail>
-      <h2>Imóvel 2</h2>
-      <p>Imóvel 2, descrição contendo provável link para anúncio.</p>
-      <button ion-button clear color="secondary" item-end strong>VER</button>
-    </ion-item>
-  </ion-list> -->
+  <div *ngIf="!realEstates" text-center style="margin-top: 25vh;">
+    <ion-icon name="home" color="light" style="font-size: 15rem; line-height: 0px;"></ion-icon>
+    <h5>Você ainda não adicionou um imóvel.</h5>
+    <h6 style="margin-top: 0.5rem;">Toque no + no canto inferior direito para criar um novo.</h6>
+  </div>
 
-  <ion-card *ngFor="let realEstate of items | async" color="primary700">
-    <ion-item>
-      <h2>{{realEstate.name}}</h2>
-      <p>{{realEstate.contractId ? "Contrato até 00/00/0000" : "Sem Contrato"}}</p>
-    </ion-item>
-    <img [src]="realEstate.imgLink" style="width: 100%; height: 15rem;" />
-    <ion-card-content>
-      <p>{{realEstate.description}}</p>
-      <ion-note>{{realEstate.link}}</ion-note>
-    </ion-card-content>
-    <ion-row justify-content-start text-left>
-      <ion-col no-padding>
-        <button ion-button clear color="secondary" icon-start>
-          <ion-icon name="add"></ion-icon>CONTRATO
-        </button>
-      </ion-col>
-      <ion-col no-padding>
-        <button ion-button clear color="secondary" (click)="viewDetails(realEstate)" icon-start>
-            <ion-icon name="information-circle"></ion-icon>VISUALIZAR
-        </button>
-      </ion-col>
-    </ion-row>
-  </ion-card>
+  <div *ngIf="realEstates" col-md-6 offset-md-3>
+    <ion-card *ngFor="let realEstate of realEstates | async" color="primary700">
+      <div class="image" [style.background-image]="'url(' + realEstate.imgLink + ')'"></div>
+      <ion-item>
+        <h2>{{realEstate.name}}</h2>
+        <p>{{realEstate.contractId ? "Contrato até 00/00/0000" : "Sem Contrato"}}</p>
+      </ion-item>
+      <ion-card-content>
+        <p>{{realEstate.description}}</p>
+        <ion-note>{{realEstate.link}}</ion-note>
+      </ion-card-content>
+      <button ion-button clear color="secondary" (click)="viewDetails(realEstate)">VER DETALHES
+      </button>
+    </ion-card>
+  </div>
 
   <ion-fab right bottom>
     <button ion-fab color="secondary" (click)="newRealEstate()">
