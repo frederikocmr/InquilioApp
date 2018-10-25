@@ -2,12 +2,8 @@
 <widget id="com.frederikofelipe.apptcc" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Aplicativo TCC</name>
     <description>Um app para facilitar o controle de aluguéis.</description>
-<<<<<<< HEAD
     <author email="felipefagyn@gmail.com" href="https://github.com/felipefa/">Felipe Fernandes Araujo</author>
     <author email="frederiko.cmr@gmail.com" href="https://github.com/frederikocmr/">Frederiko Cesar</author>
-=======
-    <author email="frederiko.cmr@gmail.com" href="http://ionicframework.com/">Frederiko e Felipe</author>
->>>>>>> 5111029cd75dd7429b8745015a59a4fdd580be15
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
