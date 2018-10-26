@@ -59,14 +59,14 @@
       <ion-input type="password" placeholder="Digite sua senha" name="password" [(ngModel)]="registerCredentials.password"
                  required></ion-input>
     </ion-item>
-    <button ion-button clear color="light" small>Esqueceu sua senha?</button>
+    <button ion-button clear color="light" type="button" small>Esqueceu sua senha?</button>
 
     <ion-row>
       <button ion-button class="main-button btn-secondary" large round color="secondary" type="submit" [disabled]="!registerForm.form.valid"
               strong>Entrar</button>
     </ion-row>
     <ion-row>
-      <button ion-button clear color="light" (click)="createAccount()">Criar uma nova conta?</button>
+      <button ion-button clear color="light" type="button" (click)="createAccount()">Criar uma nova conta?</button>
 
     </ion-row>
   </form>

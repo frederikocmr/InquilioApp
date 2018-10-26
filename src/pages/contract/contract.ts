@@ -22,11 +22,7 @@ export class ContractPage {
     public navCtrl: NavController,
     public navParams: NavParams
   ) {}
-
-  ionViewDidLoad() {
-    console.log("ionViewDidLoad ContractPage");
-  }
-
+  
   // TODO: verificar se o usuário possui imóveis e inquilinos cadastrados, se sim entra na modal para criar um contrato, senão mostra um alert pedindo que cadastre o que falta.
   newContract() {
     let modal = this.modalCtrl.create(ContractFormPage);

@@ -11,39 +11,44 @@ import { TenantAccount } from './../../models/tenant-account';
 
 @Injectable()
 export class FirebaseProvider {
-
+  // TODO: Criar modo de fazer login com email mesmo se já tiver conta google criada para aquele email e vice-versa;
   public message: string = "";
   public validator: boolean = false;
-  public rootPage: string; 
+  public rootPage: string;
   public user: any;
+  public account: UserAccount;
+  public profile: string;
 
   constructor(private afAuth: AngularFireAuth, private afDb: AngularFirestore) {
     //checking user state.  
-    this.validator = false;  
+    this.validator = false;
     afAuth.authState.subscribe(user => {
       if (!user) {
-        this.rootPage = 'rootPage';   
-        this.user = null;    
+        this.rootPage = 'rootPage';
+        this.user = null;
       } else {
         this.rootPage = 'tabsPage';
         this.user = user;
-      } 
+      }
     });
   }
 
-  public async signUp(account: UserAccount, profile: String): Promise<void> {
+  public async signUp(account: UserAccount, profile: string): Promise<void> {
     //Downcasting 
-    if(profile == 'owner'){
-      account = account as OwnerAccount; 
+    this.profile = profile;
+    if (profile == 'owner') {
+      this.account = account as OwnerAccount;
     } else {
-      account = account as TenantAccount;
+      this.account = account as TenantAccount;
     }
 
     try {
-      const user = await this.afAuth.auth.createUserWithEmailAndPassword(account.email, account.password);
-      this.createNewAccount(account, profile);
-      console.log(user);
-      this.validator = true;
+      await this.afAuth.auth.createUserWithEmailAndPassword(account.email, account.password).then(
+        (res) => {
+          this.createNewAccount(this.account, this.profile, res.user);
+          this.validator = true;
+        }
+      );
     }
     catch (error) {
       this.message = "Erro ao criar conta: " + error.message;
@@ -52,18 +57,19 @@ export class FirebaseProvider {
     }
   }
 
-  public async createNewAccount(account: UserAccount, profile: String): Promise<void>  {
+  public createNewAccount(account: UserAccount, profile: string, user: any) {
     //Parsing custom object
     var data = JSON.parse(JSON.stringify(account));
-   
+
     try {
-      if (await this.afDb.collection(profile + "Account").add(data)){
+      if (this.insertDataToDocument(profile + "Account", user.uid, data)) {
         this.message = "Conta criada com sucesso!";
         this.validator = true;
       }
     }
     catch (error) {
-      this.message = "Conta criada, porém com erro: " + error;
+      this.message = "Conta criada, porém não salvamos seus dados pessoais, " +
+        "por favor edite-os nas configurações!";
       this.validator = false;
     }
 
@@ -83,10 +89,20 @@ export class FirebaseProvider {
 
   public async signInWithGoogle(): Promise<void> {
     try {
-      await this.afAuth.auth
-        .signInWithPopup(new firebase.auth.GoogleAuthProvider());
-      this.message = "Login efetuado com sucesso! Seja bem vindo!";
-      this.validator = true;
+      await this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(
+        (res) => {
+          this.account = new OwnerAccount();
+          this.account.name = res.user.displayName;
+          this.account.email = res.user.email;
+          this.account.phone = res.user.phoneNumber;
+
+          this.createNewAccount(this.account, 'owner', res.user);
+          this.message = "Login efetuado com sucesso! Seja bem vindo " +
+            (res.user.displayName ? res.user.displayName : '') + "!";
+          this.validator = true;
+        }
+      );
+
     }
     catch (error) {
       this.message = "Erro ao tentar logar: " + error;
@@ -94,13 +110,27 @@ export class FirebaseProvider {
     }
   }
 
-  public async insertDataToCollection(collection, data): Promise<void>{
+  public async insertDataToDocument(collection, document, data): Promise<void> {
     var parsedData = JSON.parse(JSON.stringify(data));
-   
+
+    try {
+      await this.afDb.collection(collection).doc(document).set(parsedData);
+      this.message = "Dados gravados com sucesso!";
+      this.validator = true; // ?
+    }
+    catch (error) {
+      this.message = "Erro na gravação: " + error;
+      this.validator = false; //?
+    }
+  }
+
+  public async insertDataToCollection(collection, data): Promise<void> {
+    var parsedData = JSON.parse(JSON.stringify(data));
+
     try {
       await this.afDb.collection(collection).add(parsedData);
-        this.message = "Dados gravados com sucesso!";
-        this.validator = true; // ?
+      this.message = "Dados gravados com sucesso!";
+      this.validator = true; // ?
     }
     catch (error) {
       this.message = "Erro na gravação: " + error;
@@ -108,13 +138,13 @@ export class FirebaseProvider {
     }
   }
 
-  public async updateDataFromCollection(collection, data): Promise<void>{
+  public async updateDataFromCollection(collection, data): Promise<void> {
     var parsedData = JSON.parse(JSON.stringify(data));
-   
+
     try {
       await this.afDb.collection(collection).doc(data.id).update(parsedData);
-        this.message = "Dados gravados com sucesso!";
-        this.validator = true; // ?
+      this.message = "Dados gravados com sucesso!";
+      this.validator = true; // ?
     }
     catch (error) {
       this.message = "Erro na gravação: " + error;
@@ -122,14 +152,14 @@ export class FirebaseProvider {
     }
   }
 
-  public async deactivateDataFromCollection(collection, data): Promise<void>{
+  public async deactivateDataFromCollection(collection, data): Promise<void> {
     data.active = false;
     var parsedData = JSON.parse(JSON.stringify(data));
-   
+
     try {
       await this.afDb.collection(collection).doc(data.id).update(parsedData);
-        this.message = "Dados desativados com sucesso!";
-        this.validator = true; // ?
+      this.message = "Dados desativados com sucesso!";
+      this.validator = true; // ?
     }
     catch (error) {
       this.message = "Erro na gravação: " + error;
@@ -137,15 +167,15 @@ export class FirebaseProvider {
     }
   }
 
-  public async deleteDataFromCollection(collection, id): Promise<void>{
+  public async deleteDataFromCollection(collection, id): Promise<void> {
     try {
       await this.afDb.collection(collection).doc(id).delete();
-        this.message = "Dados excluídos com sucesso!";
-        this.validator = true; 
+      this.message = "Dados excluídos com sucesso!";
+      this.validator = true;
     }
     catch (error) {
       this.message = "Erro na exclusão: " + error;
-      this.validator = false; 
+      this.validator = false;
       console.log(error);
     }
   }

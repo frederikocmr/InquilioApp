@@ -1,11 +1,11 @@
 import { UiProvider } from './../../providers/ui/ui';
 import { Component, ViewChild } from '@angular/core';
 import { Slides, NavController } from 'ionic-angular';
-import { LoginPage } from '../login/login';
 import { Keyboard } from "@ionic-native/keyboard";
 
 import { UserAccount } from "../../models/user-account";
 import { FirebaseProvider } from "../../providers";
+import { TabsPage } from '../tabs/tabs';
 
 @Component({
   selector: "page-signup",
@@ -15,7 +15,6 @@ export class SignupPage {
 	@ViewChild('slides') slides: Slides;
 	ownerButtonClass: string = 'profile-selected';
 	tenantButtonClass: string = 'profile-button';
-	loginPage = LoginPage;
 	profile: any;
 
 	account: UserAccount = new UserAccount();
@@ -76,15 +75,16 @@ export class SignupPage {
 	}
 
 	doSignup() {
-		this.firebase.signUp(this.account, this.profile).then((user) => {
+		this.ui.showLoading();
+		this.firebase.signUp(this.account, (this.profile ? this.profile : 'owner')).then((user) => {
 			this.ui.showToast(this.firebase.message, 3, 'top');
-
+			this.ui.closeLoading();
 			if (this.firebase.validator) {
-				this.navCtrl.push(LoginPage);
+				this.navCtrl.setRoot(TabsPage);
 			}
-
 		}).catch((error) => {
 			console.log(error);
+			this.ui.closeLoading();
 		});
 	};
 

@@ -2,7 +2,7 @@ export class UserAccount {
     public name: string;
     public document: string;
     public email: string;
-    public phone: number;
+    public phone: string;
     public birthdate: string;
     public genre: string;
     public password: string;
