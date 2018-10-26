@@ -5,37 +5,39 @@
 </ion-header>
 
 <ion-content class="bg-owner-page" padding-top>
-  <ion-list>
-    <div text-center>
-      <img class="logo" padding src="../../assets/imgs/user-y500.png" />
-      <h5 no-padding>Nome do Usuário</h5>
-      <h6 no-padding>e-mail@email.com</h6>
-    </div>
-    <button class="btn-side-menu" ion-item (click)="onLoad(rootPage)">
-      <ion-icon name="home" item-left style="font-size: 1.3em;"></ion-icon>Início
-    </button>
-    <ion-list-header class="btn-side-menu">Aluguel</ion-list-header>
-    <button class="btn-side-menu" ion-item (click)="onLoad(rootPage)">
-      <ion-icon name="search" item-left style="font-size: 1.3em;"></ion-icon>Procurar imóvel
-    </button>
-    <button class="btn-side-menu" ion-item (click)="onLoad(rootPage)">
-      <ion-icon name="star" item-left style="font-size: 1.3em;"></ion-icon>Imóveis favoritos
-    </button>
-    <ion-list-header class="btn-side-menu">Imóveis</ion-list-header>
-    <button class="btn-side-menu" ion-item (click)="onLoad(realEstateForm)">
-      <ion-icon name="add" item-left style="font-size: 1.3em;"></ion-icon>Adicionar imóvel
-    </button>
-    <button class="btn-side-menu" ion-item (click)="onLoad(myRealEstate)">
-      <ion-icon name="home" item-left style="font-size: 1.3em;"></ion-icon>Meus imóveis
-    </button>
-    <button class="btn-side-menu" ion-item (click)="onLoad(settingsPage)">
-      <ion-icon name="settings" item-left style="font-size: 1.3em;"></ion-icon>Configurações
-    </button>
-    <div text-center padding-top>
-      <button class="main-button" ion-button large round color="danger" strong (click)="signOut()">Sair</button>
-      <p>Versão Dono de Imóvel</p>
-    </div>
-  </ion-list>
+  <form [formGroup]="form" *ngIf="settingsReady">
+    <ion-list>
+      <div text-center>
+        <img class="logo" padding [src]="user.photoURL" />
+        <h5 no-padding>{{user.displayName}}</h5>
+        <h6 no-padding>{{user.email}}</h6>
+      </div>
+      <br>
+      <ion-item>
+        <ion-label>Opção 1</ion-label>
+        <ion-toggle formControlName="option1"></ion-toggle>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Opção 2</ion-label>
+        <ion-input formControlName="option2"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Opção 3</ion-label>
+        <ion-select formControlName="option3">
+          <ion-option value="1" checked="true">1</ion-option>
+          <ion-option value="2">2</ion-option>
+          <ion-option value="3">3</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <div text-center padding-top>
+        <button class="main-button" ion-button large round color="danger" strong (click)="signOut()">Sair</button>
+        <p>Versão Dono de Imóvel</p>
+      </div>
+    </ion-list>
+  </form>
 </ion-content>
 
 <ion-footer text-center>

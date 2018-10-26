@@ -4,6 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { GooglePlus } from '@ionic-native/google-plus';
+import { IonicStorageModule, Storage } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http'
 //import { BrMaskerModule } from 'brmasker-ionic-3';
 
@@ -22,7 +23,7 @@ import { RealEstatePage } from '../pages/real-estate/real-estate';
 import { RealEstateFormPage } from '../pages/real-estate/real-estate-form/real-estate-form';
 import { TabsPage } from '../pages/tabs/tabs';
 
-import { FirebaseProvider, firebaseConfig, ViacepProvider } from '../providers';
+import { FirebaseProvider, firebaseConfig, ViacepProvider, SettingsProvider } from '../providers';
 import { RealEstateDetailsPage } from '../pages/real-estate/real-estate-details/real-estate-details';
 import { ContractPage } from '../pages/contract/contract';
 import { ContractFormPage } from '../pages/contract/contract-form/contract-form';
@@ -32,6 +33,22 @@ import { TenantFormPage } from '../pages/tenant/tenant-form/tenant-form';
 import { TenantDetailsPage } from '../pages/tenant/tenant-details/tenant-details';
 import { UiProvider } from '../providers/ui/ui';
 import { Keyboard } from "@ionic-native/keyboard";
+
+
+export function provideSettings(storage: Storage) {
+  /**
+   * The Settings provider takes a set of default settings for your app.
+   *
+   * You can add new settings options at any time. Once the settings are saved,
+   * these values will not overwrite the saved values (this can be done manually if desired).
+   */
+  return new SettingsProvider(storage, {
+    option1: true,
+    option2: 'Ionitron J. Framework',
+    option3: '3',
+    option4: 'Hello'
+  });
+}
 
 @NgModule({
   declarations: [
@@ -61,6 +78,10 @@ import { Keyboard } from "@ionic-native/keyboard";
       autoFocusAssist: false
     }),
     AngularFireModule.initializeApp(firebaseConfig),
+    IonicStorageModule.forRoot({
+      name: '__mydb',
+         driverOrder: ['indexeddb', 'sqlite', 'websql']
+    }),
     AngularFireAuthModule,
     AngularFirestoreModule,
     HttpClientModule
@@ -88,6 +109,7 @@ import { Keyboard } from "@ionic-native/keyboard";
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
+    { provide: SettingsProvider, useFactory: provideSettings, deps: [Storage] },
     SettingsService,
     FirebaseProvider,
     Keyboard,

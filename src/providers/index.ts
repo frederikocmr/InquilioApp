@@ -1,5 +1,6 @@
 export { FirebaseProvider } from './firebase/firebase'
-export {ViacepProvider } from './viacep/viacep';
+export { ViacepProvider } from './viacep/viacep';
+export { SettingsProvider  } from './settings/settings';
 
 export const firebaseConfig = {
     apiKey: "AIzaSyBppMFH3ZlpMoDB4RrDjNx94-ZyASl65-M",
