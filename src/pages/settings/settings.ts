@@ -12,6 +12,7 @@ import { User } from 'firebase';
 export class SettingsPage {
   options: any;
   user: User;
+  // TODO: Pegar dados do banco deste usuário logado... Por enquanto só está pegando do GoogleUser
 
   settingsReady = false;
 

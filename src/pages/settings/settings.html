@@ -8,7 +8,7 @@
   <form [formGroup]="form" *ngIf="settingsReady">
     <ion-list>
       <div text-center>
-        <img class="logo" padding [src]="user.photoURL" />
+        <img class="logo" padding [src]="user.photoURL ? user.photoURL : '../../assets/imgs/user-y500.png'" />
         <h5 no-padding>{{user.displayName}}</h5>
         <h6 no-padding>{{user.email}}</h6>
       </div>
