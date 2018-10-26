@@ -1,4 +1,5 @@
 export class Contract {
+  public id: string;
   public beginDate: Date;
   public endDate: Date;
   public duration: string;

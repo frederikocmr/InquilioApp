@@ -54,7 +54,35 @@ export class ContractFormPage {
       );
   }
 
-  calculateDuration() {}
+  calculateDuration() {
+    if(this.contract.endDate && this.contract.beginDate){ 
+      let timestamp = new Date(this.contract.endDate).getTime() - new Date(this.contract.beginDate).getTime();
+      let seconds = Math.floor((timestamp)/1000);
+      let minutes = Math.floor(seconds/60);
+      let hours = Math.floor(minutes/60);
+      let days = Math.floor(hours/24);
+      this.contract.duration = this.convertToString(days);
+    } else {
+      this.contract.duration = '';
+    }
+  }
+
+  convertToString(days) {
+    let y = 365;
+    let y2 = 31;
+    let remainder = days % y;
+    let day = remainder % y2;
+    let year = (days - remainder) / y;
+    let month = (remainder - day) / y2;
+
+    var result = 
+    (year > 1 ? year + " anos, " : (year == 1 ?  year + " ano" + (month ? ' , ' : (day ? ' e ' : ' ')) :''))  +
+    (month > 1 ? month + " meses " + (day && year ? 'e ' : (day ? 'e ' : '')) : (month == 1 ?  month + " mês " + (day ? 'e ' : '') : '')) + 
+    (day > 1 ? day + " dias" : (day == 1 ?  day + " dia" :''));
+
+    
+    return result;
+  }
 
   setMaxDate() {
     return this.today.getFullYear() + 20;
