@@ -16,19 +16,21 @@
 
 @import "../theme/icons";
 
-.absolute-center {
-  height: 100%;
-  justify-content: center !important;
-  align-items: center !important;
-  align-self: center !important;
+// Classes, attributes and pseudo-classes
+.alert-radio-label {
+  // Quebra a linha de uma opção dentro de um alert para exibir todo o seu conteúdo
+  white-space: pre-line !important;
 }
 
 .alert-title {
   color: color($colors, primary) !important;
 }
 
-.back-button,
-.toolbar-title {
+.alert-wrapper, .popover-content {  
+  border-radius: 2rem !important;
+}
+
+.back-button, .toolbar-title {
   color: color($colors, light);
 }
 
@@ -36,9 +38,22 @@
   background: color($colors, primary400);
 }
 
-.btn-side-menu {
-  color: color($colors, light);
-  background: color($colors, primary400);
+.btn-secondary {
+  color: color($colors, dark);
+  background-image: linear-gradient(to right, color($colors, secondaryAlt) 0%, color($colors, secondary) 100%);
+}
+
+.form-input {
+  margin-top: 0.5rem;
+  border-top-left-radius: 2rem;
+  border-top-right-radius: 2rem;
+  border-bottom-left-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+  padding-left: 1rem;
+  
+  ion-label {
+    color: color($colors, primary200);
+  }
 }
 
 .intro-background {
@@ -62,10 +77,6 @@
 
 .main-button {
   width: 30rem;
-  // width: 85%;
-  // padding-left: 20%;
-  // padding-right: 20%;
-  // margin-top: 5%;
 }
 
 .main-input {
@@ -83,8 +94,11 @@
   }
 }
 
-.menu-background {
-  background: color($colors, primary400);
+.my-footer {
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
 }
 
 .signup-form {
@@ -106,13 +120,6 @@
   background: color($colors, secondary) !important;
 }
 
-h2,
-h5,
-h6,
-p {
-  color: color($colors, light);
-}
-
 .tabs-md[tabsLayout="icon-top"] .has-icon .tab-button-text {
   margin-top: 0px !important;
 }
@@ -123,6 +130,22 @@ p {
   color: color($colors, secondary) !important;
 }
 
+// Elements and pseudo-elements
+h2, h3, h4, h5, h6, p {
+  color: color($colors, light);
+}
+
+hr {        
+  border-bottom: 0.1rem solid color($colors, secondary);
+  margin-top: 2rem;
+  width: 100%;
+}
+
+ion-card {
+  border-radius: 1rem !important;
+}
+
+// Custom icons
 ion-icon {
   &[class*="custom-"] {
     mask-size: contain;
@@ -162,25 +185,4 @@ ion-icon {
     height: 1.7em;
     mask-image: url(../assets/imgs/google-icon.svg);
   }
-}
-
-.my-footer {
-  position: fixed;
-  left: 0px;
-  bottom: 0px;
-  width: 100%;
-}
-
-.btn-secondary {
-  color: color($colors, dark);
-  background-image: linear-gradient(to right, color($colors, secondaryAlt) 0%, color($colors, secondary) 100%);
-}
-
-.alert-wrapper, .popover-content {  
-  border-radius: 15px !important;
-}
-
-.alert-radio-label {
-  // Quebra a linha de uma opção dentro de um alert para exibir todo o seu conteúdo
-  white-space: pre-line !important;
 }
