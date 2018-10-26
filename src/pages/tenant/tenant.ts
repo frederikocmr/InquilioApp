@@ -25,8 +25,9 @@ export class TenantPage {
   }
 
   newTenant() {
-    let modal = this.modalCtrl.create(TenantFormPage);
-    modal.present();
+    this.navCtrl.push(TenantFormPage);
+    // let modal = this.modalCtrl.create(TenantFormPage);
+    // modal.present();
   }
 
   viewDetails(tenant) {

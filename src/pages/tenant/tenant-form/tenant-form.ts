@@ -1,12 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the TenantFormPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { TenantAccount } from '../../../models/tenant-account';
 
 @IonicPage()
 @Component({
@@ -14,12 +8,22 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'tenant-form.html',
 })
 export class TenantFormPage {
+  editing: Boolean = false;
+  tenant: TenantAccount = new TenantAccount();
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams) { 
+    if(this.navParams.get('tenant')){
+      this.tenant = navParams.get('tenant');
+      this.editing = true;
+    }
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TenantFormPage');
+  }
+
+  addTenant() {
+    this.navCtrl.pop();
   }
 
 }

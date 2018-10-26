@@ -1,18 +1,61 @@
-<!--
-  Generated template for the TenantFormPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>tenant-form</ion-title>
+  <ion-navbar color="primary">
+    <!-- <ion-buttons left>
+      <button navPop ion-button icon-only style="margin: 0 6px; min-width: 36px;">
+        <ion-icon color="light" name="close"></ion-icon>
+      </button>
+    </ion-buttons> -->
+    <ion-title>{{(editing ? "Editar" : "Adicionar")}} Inquilino</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content class="bg-owner-page" padding>
+  <form (ngSubmit)="addTenant()" #registerForm="ngForm">
+    <ion-list text-center>
+      <ion-label color="light" text-left>Dados Pessoais do Inquilino</ion-label>
+
+      <ion-item class="form-input">
+        <ion-label>CPF *</ion-label>
+        <ion-input type="text" [(ngModel)]="tenant.cpf" name="cpf" placeholder="Informe o CPF" style="padding-left: 3.3rem;" required></ion-input>
+      </ion-item>
+
+      <ion-item class="form-input">
+        <ion-label>Nome *</ion-label>
+        <ion-input type="text" [(ngModel)]="tenant.name" name="name" placeholder="Informe o nome " style="padding-left: 2rem;" required></ion-input>
+      </ion-item>
+
+      <ion-item class="form-input">
+        <ion-label>Telefone *</ion-label>
+        <ion-input type="text" [(ngModel)]="tenant.phone" name="phone" placeholder="Informe um telefone" required></ion-input>
+      </ion-item>
+
+      <ion-item class="form-input">
+        <ion-label>Email *</ion-label>
+        <ion-input type="text" [(ngModel)]="tenant.email" name="email" placeholder="Informe o email" style="padding-left: 2.3rem;" required></ion-input>
+      </ion-item>
+      <ion-label color="light">* Item obrigatório.</ion-label>
+
+      <!-- Descomentar ao implementar captura ou importação de imagens
+      <hr>
+
+      <ion-label color="light" text-left>Imagens</ion-label>
+
+      <ion-toolbar transparent>
+        <ion-buttons>
+          <button ion-button icon-start clear color="secondary">
+            <ion-icon name="camera"></ion-icon>Selecionar Imagem
+          </button>
+          <button ion-button icon-start clear color="secondary">
+            <ion-icon name="cloud-upload"></ion-icon>Fazer Upload
+          </button>
+        </ion-buttons>
+      </ion-toolbar> -->
+
+      <button class="main-button btn-secondary" ion-button large round color="secondary" strong margin-top>Salvar</button>
+    </ion-list>
+  </form>
 
 </ion-content>
