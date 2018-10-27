@@ -132,7 +132,7 @@
 
 // Elements and pseudo-elements
 h2, h3, h4, h5, h6, p {
-  color: color($colors, light);
+  color: color($colors, light) !important;
 }
 
 hr {        
