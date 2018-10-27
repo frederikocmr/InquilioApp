@@ -1,10 +1,10 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-buttons left>
+    <!-- <ion-buttons left>
       <button navPop ion-button icon-only style="margin: 0 6px; min-width: 36px;">
         <ion-icon color="light" name="close"></ion-icon>
       </button>
-    </ion-buttons>
+    </ion-buttons> -->
     <ion-title>Detalhes do Imóvel</ion-title>
   </ion-navbar>
 </ion-header>
@@ -12,9 +12,10 @@
 
 <ion-content class="bg-owner-page">
   <ion-list>
-    <div text-center>
+    <div class="image" [style.background-image]="'url(' + realEstate.imgLink + ')'"></div>
+    <!-- <div text-center>
       <ion-img [src]="realEstate.imgLink" style="width: 100%; height: 15rem;"></ion-img>
-    </div>
+    </div> -->
 
     <div margin>
       <h2>{{ realEstate.name }}</h2>
@@ -45,23 +46,23 @@
       <ion-label color="secondary" no-margin>Inquilino</ion-label>
       <p>{{ (realEstate.contractId ? "Tiranossauro Rex" : "Sem contrato vinculado.") }}</p>
     </div>
+
+    <div text-center>
+      <button class="main-button btn-secondary" *ngIf="!realEstate.contractId" ion-button large round color="secondary"
+              strong (click)="newContract()">Adicionar Contrato</button>
+    
+      <ion-row justify-content-between>
+        <ion-col text-right>
+          <button ion-button round color="light" strong (click)="onEditRealEstate()" icon-start style="width: 12rem;">
+            <ion-icon name="create"></ion-icon>Editar
+          </button>
+        </ion-col>
+        <ion-col text-left>
+          <button ion-button round color="danger" strong (click)="removeRealEstate(realEstate)" icon-start style="width: 12rem;">
+            <ion-icon name="trash"></ion-icon>Remover
+          </button>
+        </ion-col>
+      </ion-row>
+    </div>
   </ion-list>
 </ion-content>
-
-<ion-footer text-center>
-  <button class="main-button btn-secondary" *ngIf="!realEstate.contractId" ion-button large round color="secondary"
-          strong>Adicionar Contrato</button>
-
-  <ion-row justify-content-between>
-    <ion-col text-right>
-      <button ion-button round color="light" strong (click)="onEditRealEstate()" icon-start style="width: 12rem;">
-        <ion-icon name="create"></ion-icon>Editar
-      </button>
-    </ion-col>
-    <ion-col text-left>
-      <button ion-button round color="danger" strong (click)="removeRealEstate(realEstate)" icon-start style="width: 12rem;">
-        <ion-icon name="trash"></ion-icon>Remover
-      </button>
-    </ion-col>
-  </ion-row>
-</ion-footer>

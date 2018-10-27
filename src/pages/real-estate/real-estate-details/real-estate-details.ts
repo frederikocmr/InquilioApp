@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angu
 import { UiProvider } from './../../../providers/ui/ui';
 import { RealEstate } from '../../../models/real-estate';
 import { RealEstateFormPage } from './../real-estate-form/real-estate-form';
+import { ContractFormPage } from '../../contract/contract-form/contract-form';
 
 @IonicPage()
 @Component({
@@ -36,6 +37,11 @@ export class RealEstateDetailsPage {
     }
   }
 
+  newContract() {
+    let modal = this.modalCtrl.create(ContractFormPage);
+    modal.present();
+  }
+
   onEditRealEstate() {
     let detailsModal = this.modalCtrl.create(RealEstateFormPage, { realEstateObj: this.realEstate });
     detailsModal.present();
@@ -44,7 +50,7 @@ export class RealEstateDetailsPage {
   removeRealEstate() {
     let modal = this.ui.alertCtrl.create({
       title: "Remover",
-      subTitle: "Tem certeza que deseja remover/desativar este imóvel?",
+      subTitle: "Tem certeza que deseja remover este imóvel?",
       buttons: ["Cancelar",
         {
           text: "Remover",

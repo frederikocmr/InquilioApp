@@ -25,13 +25,13 @@ export class TenantPage {
   }
 
   newTenant() {
-    this.navCtrl.push(TenantFormPage);
-    // let modal = this.modalCtrl.create(TenantFormPage);
-    // modal.present();
+    let modal = this.modalCtrl.create(TenantFormPage);
+    modal.present();
   }
 
   viewDetails(tenant) {
-    let detailsModal = this.modalCtrl.create(TenantDetailsPage, {tenant: tenant});
-    detailsModal.present();
+    this.navCtrl.push(TenantDetailsPage, {tenant: tenant});
+    // let detailsModal = this.modalCtrl.create(TenantDetailsPage, {tenant: tenant});
+    // detailsModal.present();
   }
 }

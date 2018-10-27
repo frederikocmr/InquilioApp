@@ -30,7 +30,8 @@ export class ContractPage {
   }
 
   viewDetails(contract){
-    let detailsModal = this.modalCtrl.create(ContractDetailsPage, {contract: contract});
-    detailsModal.present();    
+    this.navCtrl.push(ContractDetailsPage, {contract: contract});
+    // let detailsModal = this.modalCtrl.create(ContractDetailsPage, {contract: contract});
+    // detailsModal.present();    
   }
 }

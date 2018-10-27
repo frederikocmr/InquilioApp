@@ -56,8 +56,9 @@ export class RealEstatePage {
   }
 
   viewDetails(realEstateObj) {
-    let detailsModal = this.modalCtrl.create(RealEstateDetailsPage, {realEstateObj: realEstateObj});
-    detailsModal.present();
+    this.navCtrl.push(RealEstateDetailsPage, {realEstateObj: realEstateObj});
+    // let detailsModal = this.modalCtrl.create(RealEstateDetailsPage, {realEstateObj: realEstateObj});
+    // detailsModal.present();
     // detailsModal.onDidDismiss(data => {});
   }
 }
