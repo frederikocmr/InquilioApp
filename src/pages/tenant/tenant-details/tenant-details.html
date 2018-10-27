@@ -1,18 +1,52 @@
-<!--
-  Generated template for the TenantDetailsPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>tenant-details</ion-title>
+  <ion-navbar class="a" color="primary">
+    <!-- <ion-buttons left>
+      <button navPop ion-button icon-only style="margin: 0 6px; min-width: 36px;">
+        <ion-icon color="light" name="close"></ion-icon>
+      </button>
+    </ion-buttons> -->
+    <ion-title>Detalhes do Inquilino</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
-<ion-content padding>
+<ion-content class="bg-owner-page">
+  <ion-list>
+    <div margin>
+      <h2>Nome do Inquilino</h2>
+      <p>Sem contrato</p>
+    </div>
 
+    <div margin>
+      <ion-label color="secondary" no-margin>CPF</ion-label>
+      <p>000.000.000-00</p>
+    </div>
+
+    <div margin>
+      <ion-label color="secondary" no-margin>Telefone</ion-label>
+      <!-- <p>{{ (tenant.beginDate ? "Início em "+tenant.beginDate.toLocaleDateString() : "Sem data de início.") }}</p> -->
+      <p>(00) 9 8765-4321</p>
+    </div>
+
+    <div margin>
+      <ion-label color="secondary" no-margin>Email</ion-label>
+      <!-- <p>{{ (tenant.endDate ? "Válido até "+tenant.endDate.toLocaleDateString() : "Sem data de encerramento.") }}</p> -->
+      <p>inquilino@email.com</p>
+    </div>
+
+    <div class="my-footer" text-center>
+      <ion-row justify-content-between>
+        <ion-col text-right>
+          <button ion-button round color="light" strong (click)="onEditTenant()" icon-start style="width: 12rem;">
+            <ion-icon name="create"></ion-icon>Editar
+          </button>
+        </ion-col>
+        <ion-col text-left>
+          <button ion-button round color="danger" strong (click)="removeTenant(tenant)" icon-start style="width: 12rem;">
+            <ion-icon name="trash"></ion-icon>Remover
+          </button>
+        </ion-col>
+      </ion-row>
+    </div>
+  </ion-list>
 </ion-content>
