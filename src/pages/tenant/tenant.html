@@ -11,10 +11,10 @@
 
 
 <ion-content class="bg-owner-page">
-  <div *ngIf="!tenants" text-center style="margin-top: 25vh;">
+  <div *ngIf="!tenants" padding text-center style="margin-top: 25vh;">
     <ion-icon name="person" color="light" style="font-size: 15rem; line-height: 0px;"></ion-icon>
-    <h5>Você ainda não adicionou um inquilino.</h5>
-    <h6 style="margin-top: 0.5rem;">Toque no + no canto inferior direito para criar um novo.</h6>
+    <h5 no-margin>Você ainda não adicionou um inquilino.</h5>
+    <h6 no-margin>Toque no <ion-icon name="add"></ion-icon> no canto inferior direito para criar um novo.</h6>
   </div>
 
   <div *ngIf="tenants" col-md-6 offset-md-3>

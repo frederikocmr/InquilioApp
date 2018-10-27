@@ -23,10 +23,10 @@ $app-direction: ltr;
 // http://ionicframework.com/docs/theming/overriding-ionic-variables/
 
 
-$font-family-base: 'Rubik', sans-serif;
-$font-family-ios-base: 'Rubik', sans-serif;
-$font-family-md-base: 'Rubik', sans-serif;
-$font-family-wp-base: 'Rubik', sans-serif;
+$font-family-base: 'Roboto', sans-serif;
+$font-family-ios-base: 'Roboto', sans-serif;
+$font-family-md-base: 'Roboto', sans-serif;
+$font-family-wp-base: 'Roboto', sans-serif;
 
 
 // Named Color Variables
@@ -111,8 +111,8 @@ $button-md-text-transform: none;
 // --------------------------------------------------
 
 @import "roboto";
-@import "noto-sans";
-@font-face {
-  font-family: Rubik;
-  src: url("../assets/fonts/Rubik-Regular.ttf");
-}
+// @import "noto-sans";
+// @font-face {
+//   font-family: Rubik;
+//   src: url("../assets/fonts/Rubik-Regular.ttf");
+// }
