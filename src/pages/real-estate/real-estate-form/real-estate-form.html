@@ -15,17 +15,22 @@
 <ion-content class="bg-owner-page" padding>
   <form (ngSubmit)="addRealEstate()" #registerForm="ngForm">
     <ion-list text-center>
-      <ion-label color="light" text-left>Detalhes</ion-label>
+      <ion-label color="light" text-left>Detalhes do Imóvel</ion-label>
 
       <ion-item class="form-input">
-        <ion-label>Título:</ion-label>
-        <ion-input type="text" [(ngModel)]="realEstate.name" name="name" placeholder="Informe um nome para o imóvel" style="padding-left: 0.5rem;"
-                   required></ion-input>
+        <ion-label>Título *</ion-label>
+        <ion-input type="text" [(ngModel)]="realEstate.name" name="name" placeholder="Informe um nome para o imóvel" required></ion-input>
       </ion-item>
 
       <ion-item class="form-input">
-        <ion-label style="-webkit-flex: none !important; flex: none !important;">Tipo:</ion-label>
-        <ion-select name="type" interface="popover" [(ngModel)]="realEstate.type" name="type" style="padding-left: 2rem;"
+        <ion-label>Link</ion-label>
+        <ion-input type="text" [(ngModel)]="realEstate.link" name="link" placeholder="Informe um link para o anúncio" style="padding-left: 2.2rem;"></ion-input>
+      </ion-item>
+
+      <ion-item class="form-input">
+        <!-- <ion-label style="-webkit-flex: none !important; flex: none !important;">Tipo</ion-label> -->
+        <ion-label>Tipo *</ion-label>
+        <ion-select name="type" interface="popover" [(ngModel)]="realEstate.type" name="type"
                     placeholder="Selecione" required>
           <ion-option value="a">Apartamento</ion-option>
           <ion-option value="c">Casa</ion-option>
@@ -36,14 +41,10 @@
       </ion-item>
 
       <ion-item class="form-input">
-        <ion-label>Link:</ion-label>
-        <ion-input type="text" [(ngModel)]="realEstate.link" name="link" placeholder="Informe um link para o anúncio" style="padding-left: 1.5rem;"></ion-input>
-      </ion-item>
-
-      <ion-item class="form-input">
-        <ion-label>Descrição:</ion-label>
+        <ion-label>Descrição</ion-label>
         <ion-textarea [(ngModel)]="realEstate.description" name="description" placeholder="Informe uma breve descrição do imóvel" required rows="3"></ion-textarea>
       </ion-item>
+      <ion-label color="light">* Item obrigatório.</ion-label>
 
       <!-- Descomentar ao implementar captura ou importação de imagens
       <hr>
@@ -63,33 +64,33 @@
 
       <hr>
 
-      <ion-label color="light" text-left>Endereço</ion-label>
+      <ion-label color="light" text-left>Endereço do Imóvel</ion-label>
 
       <ion-item class="form-input">
-        <ion-label>CEP:</ion-label>
-        <ion-input type="text" [(ngModel)]="realEstate.zip" name="zip" (ionBlur)="getAddress(realEstate.zip)" placeholder="Informe o CEP"
-                   style="padding-left: 2rem;" required></ion-input>
+        <ion-label>CEP *</ion-label>
+        <ion-input type="text" [(ngModel)]="realEstate.zip" name="zip" (ionBlur)="getAddress(realEstate.zip)" placeholder="Informe o CEP" style="padding-left: 2rem;" required></ion-input>
       </ion-item>
 
       <ion-item class="form-input">
-        <ion-label>Rua:</ion-label>
-        <ion-input type="text" [(ngModel)]="realEstate.street" name="street" placeholder="Informe a rua" style="padding-left: 0.7rem;"></ion-input>
+        <ion-label>Rua *</ion-label>
+        <ion-input type="text" [(ngModel)]="realEstate.street" name="street" placeholder="Informe a rua" style="padding-left: 2.2rem;"></ion-input>
       </ion-item>
 
       <ion-item class="form-input">
-        <ion-label>Bairro:</ion-label>
+        <ion-label>Bairro *</ion-label>
         <ion-input type="text" [(ngModel)]="realEstate.district" name="district" placeholder="Informe o bairro" style="padding-left: 0.7rem;"></ion-input>
       </ion-item>
 
       <ion-item class="form-input">
-        <ion-label>Cidade:</ion-label>
+        <ion-label>Cidade *</ion-label>
         <ion-input type="text" [(ngModel)]="realEstate.city" name="city" placeholder="Informe a cidade"></ion-input>
       </ion-item>
 
       <ion-item class="form-input">
-        <ion-label>UF:</ion-label>
+        <ion-label>UF *</ion-label>
         <ion-input type="text" [(ngModel)]="realEstate.state" name="state" placeholder="Informe o estado" style="padding-left: 3rem;"></ion-input>
       </ion-item>
+      <ion-label color="light">* Item obrigatório.</ion-label>
 
       <button class="main-button btn-secondary" ion-button large round color="secondary" strong margin-top>Salvar</button>
     </ion-list>
