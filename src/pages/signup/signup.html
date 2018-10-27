@@ -7,21 +7,21 @@
 <ion-content class="intro-background" text-center padding>
   <form (ngSubmit)="doSignup()" #registerForm="ngForm" [class]="keyboard.isVisible ? 'open-keyboard' : 'closed-keyboard'">
     <ion-slides class="signup-form" #slides pager paginationType="progress">
-      <ion-slide>
+      <!-- <ion-slide> -->
         <!-- Page 1 -->
-        <ion-list>
-          <p>Antes de continuar, escolha seu perfil.</p>
-          <div [class]="ownerButtonClass" name="owner" margin-bottom>Don@ de imóvel</div>
+        <!-- <ion-list>
+          <p>Antes de continuar, escolha seu perfil.</p> -->
+          <!-- <div [class]="ownerButtonClass" name="owner" margin-bottom>Don@ de imóvel</div> -->
           <!-- <div [class]="ownerButtonClass" name="owner" (click)="profileSelected('owner')" margin-bottom>Don@ de imóvel</div> -->
-          <div [class]="tenantButtonClass" name="tenant" style="opacity: .4;" margin-top>Inquilin@</div>
+          <!-- <div [class]="tenantButtonClass" name="tenant" style="opacity: .4;" margin-top>Inquilin@</div> -->
           <!-- <div [class]="tenantButtonClass" name="tenant" (click)="profileSelected('tenant')" margin-top>Inquilin@</div> -->
-          <p>Esta opção <b>pode</b> ser alterada depois.</p>
+          <!-- <p>Esta opção <b>pode</b> ser alterada depois.</p>
         </ion-list>
-      </ion-slide>
+      </ion-slide> -->
       <ion-slide>
         <!-- Page 2 -->
         <ion-list padding-top>
-          <p>Agora vamos precisar de algumas informações básicas.</p>
+          <p>Vamos precisar de algumas informações básicas.</p>
           <ion-item class="main-input" text-center>
             <ion-label>Nome</ion-label>
             <ion-input type="text" name="name" [(ngModel)]="account.name" round placeholder="Informe seu nome completo" required></ion-input>
@@ -48,8 +48,7 @@
           <p>Por último, só precisamos de mais alguns detalhes.</p>
           <ion-item class="main-input">
             <ion-label>Celular</ion-label>
-            <ion-input type="text" name="phone" [(ngModel)]="account.phone" placeholder="Informe seu celular" style="
-            padding-left: 1.5rem;" required></ion-input>
+            <ion-input type="text" name="phone" [(ngModel)]="account.phone" placeholder="Informe seu celular" required></ion-input>
           </ion-item>
           <ion-item class="main-input">
             <ion-label>Data de nascimento</ion-label>

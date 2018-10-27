@@ -13,6 +13,7 @@ import { TabsPage } from '../tabs/tabs';
 })
 export class SignupPage {
 	@ViewChild('slides') slides: Slides;
+	isApp: Boolean;
 	ownerButtonClass: string = 'profile-selected';
 	tenantButtonClass: string = 'profile-button';
 	profile: any;
@@ -24,6 +25,7 @@ export class SignupPage {
 		public navCtrl: NavController,
 		public ui: UiProvider,
 		private firebase: FirebaseProvider) {
+			this.isApp = (!document.URL.startsWith('http') || document.URL.startsWith('http://localhost:8080'));
 	}
 
 	openCalendar() {
