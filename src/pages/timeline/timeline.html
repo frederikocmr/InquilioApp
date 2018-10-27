@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>Histórico</ion-title>
+    <ion-title>Atividades</ion-title>
     <!-- <ion-buttons end>
       <button ion-button icon-only (click)="openSettings()">
         <ion-icon name="settings"></ion-icon>
@@ -10,5 +10,10 @@
 </ion-header>
 
 
-<ion-content class="bg-owner-page" padding>
+<ion-content class="bg-owner-page">
+  <div *ngIf="true" padding text-center style="margin-top: 20vh;">
+    <ion-icon name="list-box" color="light" style="font-size: 15rem; line-height: 0px;"></ion-icon>
+    <h5 no-margin>Você ainda não possui um histórico de atividades.</h5>
+    <h6 no-margin>Assim que começar a usar o app ele aparecerá aqui.</h6>
+  </div>
 </ion-content>
