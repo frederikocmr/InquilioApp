@@ -26,8 +26,8 @@
   color: color($colors, primary) !important;
 }
 
-.alert-wrapper, .popover-content {  
-  border-radius: 2rem !important;
+.alert-wrapper {
+  border-radius: 1rem !important;
 }
 
 .back-button, .toolbar-title {
@@ -99,6 +99,10 @@
   left: 0px;
   bottom: 0px;
   width: 100%;
+}
+
+.popover-content {  
+  border-radius: 0.5rem !important;
 }
 
 .signup-form {
