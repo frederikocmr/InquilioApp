@@ -50,7 +50,7 @@
       <ion-item class="form-input">
         <ion-label>Inquilino *</ion-label>
         <ion-select name="tenantId" [(ngModel)]="contract.tenantId" placeholder="Selecione" style="max-width: 70%;">
-          <ion-option *ngFor="let tenant of tenants | async" [value]="tenant.id">{{ tenant.name }}</ion-option>
+          <!-- <ion-option *ngFor="let tenant of tenants | async" [value]="tenant.id">{{ tenant.name }}</ion-option> -->
         </ion-select>
       </ion-item>
       <ion-label color="light">* Item obrigatório.</ion-label>

@@ -19,7 +19,7 @@ import { RealEstate } from "../../models/real-estate";
   templateUrl: "real-estate.html"
 })
 export class RealEstatePage {
-  realEstates: Observable<RealEstate[]>;
+  public realEstates: Observable<RealEstate[]>;
 
   constructor(
     public navCtrl: NavController,
@@ -46,7 +46,7 @@ export class RealEstatePage {
 
   }
 
-  newRealEstate() {
+  public newRealEstate(): void {
     let modal = this.modalCtrl.create(RealEstateFormPage);
     modal.present();
 
@@ -55,7 +55,7 @@ export class RealEstatePage {
     // });
   }
 
-  viewDetails(realEstateObj) {
+  public viewDetails(realEstateObj): void {
     this.navCtrl.push(RealEstateDetailsPage, {realEstateObj: realEstateObj});
     // let detailsModal = this.modalCtrl.create(RealEstateDetailsPage, {realEstateObj: realEstateObj});
     // detailsModal.present();
