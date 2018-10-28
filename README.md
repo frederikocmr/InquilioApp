@@ -2,6 +2,6 @@
 TCC Project.
 IONIC
 
-*Principais funcionalidades*
+_Principais funcionalidades_
 
-*Documentação*
+_Documentação_
