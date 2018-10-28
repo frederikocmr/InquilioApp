@@ -4,4 +4,4 @@ IONIC
 
 **Principais funcionalidades**
 
-**Documentação_**
+**Documentação**
