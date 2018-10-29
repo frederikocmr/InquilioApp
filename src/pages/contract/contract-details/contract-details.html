@@ -13,8 +13,8 @@
 <ion-content class="bg-owner-page">
   <ion-list>
     <div margin>
-      <!-- <h2>{{ contract.realEstateId.name }}</h2> -->
-      <!-- <p>{{ contract.realEstateId.type }}</p> -->
+      <h2>{{ (currentRealEstate ? currentRealEstate.name : '') }}</h2>
+      <p>{{ (currentRealEstate ? currentRealEstate.type  : '') }}</p>
     </div>
 
     <div margin>
@@ -24,12 +24,12 @@
 
     <div margin>
       <ion-label color="secondary" no-margin>Data de Início</ion-label>
-      <p>{{ (contract.beginDate ? "Início em "+contract.beginDate.toLocaleDateString() : "Sem data de início.") }}</p>
+      <p>{{ (contract.beginDate ? "Início em "+contract.beginDate : "Sem data de início.") }}</p>
     </div>
 
     <div margin>
-      <ion-label color="secondary" no-margin>Data de Encerramento</ion-label>
-      <p>{{ (contract.endDate ? "Válido até "+contract.endDate.toLocaleDateString() : "Sem data de encerramento.") }}</p>
+      <ion-label color="secondary" no-margin>Data de Encerramento </ion-label>
+      <p>{{ (contract.endDate ? "Válido até "+ contract.endDate : "Sem data de encerramento.") }}</p>
     </div>
 
     <div margin>
@@ -47,7 +47,7 @@
       </button>
     </ion-col>
     <ion-col text-left>
-      <button ion-button round color="danger" strong (click)="removeContract(contract)" icon-start style="width: 12rem;">
+      <button ion-button round color="danger" strong (click)="removeContract()" icon-start style="width: 12rem;">
         <ion-icon name="trash"></ion-icon>Remover
       </button>
     </ion-col>

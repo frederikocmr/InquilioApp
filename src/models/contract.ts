@@ -1,4 +1,4 @@
-import { RealEstate } from './real-estate';
+// import { RealEstate } from './real-estate';
 export class Contract {
   public id: string;
   public active: boolean;
@@ -8,7 +8,7 @@ export class Contract {
   public tenantId: string;
   public ownerId: string;
   public realEstateId: string;
-  public realEstate: RealEstate;
+  // public realEstate: RealEstate;
 
   constructor() {
     this.active = true;
@@ -18,6 +18,6 @@ export class Contract {
     this.tenantId = null;
     this.ownerId = null;
     this.realEstateId = null;
-    this.realEstate = null;
+    // this.realEstate = null;
   }
 }

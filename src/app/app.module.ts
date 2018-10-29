@@ -23,7 +23,7 @@ import { RealEstatePage } from '../pages/real-estate/real-estate';
 import { RealEstateFormPage } from '../pages/real-estate/real-estate-form/real-estate-form';
 import { TabsPage } from '../pages/tabs/tabs';
 
-import { FirebaseProvider, firebaseConfig, ViacepProvider, SettingsProvider } from '../providers';
+import { FirebaseProvider, firebaseConfig, ViacepProvider, SettingsProvider, UiProvider } from '../providers';
 import { RealEstateDetailsPage } from '../pages/real-estate/real-estate-details/real-estate-details';
 import { ContractPage } from '../pages/contract/contract';
 import { ContractFormPage } from '../pages/contract/contract-form/contract-form';
@@ -31,7 +31,6 @@ import { ContractDetailsPage } from '../pages/contract/contract-details/contract
 import { TenantPage } from '../pages/tenant/tenant';
 import { TenantFormPage } from '../pages/tenant/tenant-form/tenant-form';
 import { TenantDetailsPage } from '../pages/tenant/tenant-details/tenant-details';
-import { UiProvider } from '../providers/ui/ui';
 import { Keyboard } from "@ionic-native/keyboard";
 
 

@@ -40,6 +40,8 @@ export class UiProvider {
   }
 
   closeLoading() {
-    this.loading.dismiss();
+    if (!this.loading.onDidDismiss){
+      this.loading.dismiss();
+    }
   }
 }

@@ -1,8 +1,6 @@
-import { UiProvider } from "./../../providers/ui/ui";
 import { Component } from "@angular/core";
-
 import { SignupPage } from "../signup/signup";
-import { FirebaseProvider } from "../../providers";
+import { FirebaseProvider, UiProvider } from "../../providers";
 import {
   NavController,
   Loading,

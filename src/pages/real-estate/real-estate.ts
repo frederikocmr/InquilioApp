@@ -1,4 +1,3 @@
-import { FirebaseProvider } from '../../providers/firebase/firebase';
 import { Component } from "@angular/core";
 import {
   IonicPage,
@@ -9,6 +8,7 @@ import {
 import { map } from 'rxjs/operators';
 import { Observable } from "rxjs/Observable";
 import { AngularFirestore } from '@angular/fire/firestore';
+import { UiProvider, FirebaseProvider } from '../../providers';
 import { RealEstateFormPage } from "../real-estate/real-estate-form/real-estate-form";
 import { RealEstateDetailsPage } from "../real-estate/real-estate-details/real-estate-details";
 import { RealEstate } from "../../models/real-estate";
@@ -25,9 +25,11 @@ export class RealEstatePage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public modalCtrl: ModalController,
+    public ui: UiProvider,
     private fb: FirebaseProvider,
     private afDb: AngularFirestore
   ) {
+    this.ui.showLoading();
     this.realEstates = this.afDb.collection<RealEstate>(
       'RealEstate',
       ref => ref.where('ownerId', '==', this.fb.user.uid).where("active", "==", true)
@@ -36,6 +38,7 @@ export class RealEstatePage {
         const data = a.payload.doc.data() as RealEstate;
         const id = a.payload.doc.id;
         data.id = id;
+        this.ui.closeLoading();
         return { id, ...data };
       }))
     );

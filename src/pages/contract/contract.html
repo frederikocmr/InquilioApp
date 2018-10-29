@@ -20,8 +20,8 @@
   <div *ngIf="contracts" col-md-6 offset-md-3>
     <ion-card *ngFor="let contract of contracts | async" color="primary700">
       <ion-card-content>
-        <h2>{{ (contract.realEstate ? contract.realEstate.name : "Sem imóvel associado.") }}</h2>
-        <!-- <h3 padding-top>{{ (contract.tenant ? contract.tenant.name : "Sem inquilino associado.") }}</h3> -->
+        <h2>{{ (contract.realEstateId ? "Possui imóvel associado." : "Sem imóvel associado.") }}</h2>
+        <h3 padding-top>{{ (contract.tenantId ? "Possui inquilino associado." : "Sem inquilino associado.") }}</h3>
         <p>{{ (contract.beginDate ? "Início em "+contract.beginDate : "Sem data de início.") }}</p>
         <p>{{ (contract.endDate ? "Válido até "+contract.endDate : "Sem data de encerramento.") }}</p>
         <p>{{ (contract.duration ? "Duração de "+contract.duration : "Sem duração definida.") }}</p>

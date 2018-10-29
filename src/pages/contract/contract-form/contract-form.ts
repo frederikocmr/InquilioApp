@@ -1,13 +1,12 @@
 import { TenantAccount } from './../../../models/tenant-account';
-import { UiProvider } from './../../../providers/ui/ui';
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { Contract } from "../../../models/contract";
 import { map } from 'rxjs/operators';
 import { Observable } from "rxjs";
-import { RealEstate } from "../../../models/real-estate";
-import { FirebaseProvider } from "../../../providers";
 import { AngularFirestore } from "@angular/fire/firestore";
+import { FirebaseProvider, UiProvider } from "../../../providers";
+import { RealEstate } from "../../../models/real-estate";
 
 @IonicPage()
 @Component({
@@ -32,6 +31,10 @@ export class ContractFormPage {
     private fb: FirebaseProvider,
     private afDb: AngularFirestore
   ) {
+    if(this.navParams.get('contract')){
+      this.contract = navParams.get('contract');
+      this.editing = true;
+    }
     this.realEstates = this.afDb
       .collection<RealEstate>("RealEstate", ref =>
         ref.where("ownerId", "==", this.fb.user.uid)
