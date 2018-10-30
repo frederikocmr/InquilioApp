@@ -11,10 +11,42 @@
 
 
 <ion-content class="bg-owner-page">
-  <div *ngIf="!tenantsExists" padding text-center style="margin-top: 25vh;">
+  <ion-searchbar animated="true" placeholder="Buscar inquilino..." showCancelButton="True"></ion-searchbar>
+
+  <div *ngIf="searchingTenants">
+    <ion-card *ngFor="let tenant of search | async" color="primary700">
+      <ion-card-content>
+        <h2>{{ tenant.name }}</h2>
+        <div padding-bottom>
+          <h3 *ngIf="!tenant.overallScore">Inquilino sem avaliação.</h3>
+          <div *ngIf="tenant.overallScore">
+            <!-- <p>
+                <ion-icon *ngFor="let item of scores" [name]="item.starName" color="secondary"></ion-icon>
+                {{ tenant.overallScore }} ({{ tenant.scoresTotal }} avaliações)
+              </p> -->
+          </div>
+        </div>
+        <p>{{ (tenant.phone ? tenant.phone : "Nenhum telefone encontrado.") }}</p>
+        <p>{{ (tenant.email ? tenant.email : "Nenhum email encontrado.") }}</p>
+        <!-- <div *ngIf="realEstate">
+            <ion-label color="secondary" no-margin padding-top>Imóvel</ion-label>
+            <p>{{ realEstate }}</p>
+          </div> -->
+        <!-- <div *ngIf="!realEstate">
+            <p>Sem imóvel vinculado.</p>
+          </div> -->
+      </ion-card-content>
+      <button ion-button clear color="secondary" (click)="viewDetails(tenant)">
+        VER DETALHES
+      </button>
+    </ion-card>
+  </div>
+
+  <div class="tenant-exists" *ngIf="!tenantsExists" padding text-center>
     <ion-icon name="person" color="light" style="font-size: 15rem; line-height: 0px;"></ion-icon>
-    <h5 no-margin>Você ainda não adicionou um inquilino.</h5>
-    <h6 no-margin>Toque no <ion-icon name="add"></ion-icon> no canto inferior direito para criar um novo.</h6>
+    <h5 no-margin>Você ainda não possui inquilinos.</h5>
+    <p no-margin>Assim que cadastrar um novo ou vincular um já existente em nossa base a um contrato seu, ele aparecerá
+      aqui.</p>
   </div>
 
   <div *ngIf="tenantsExists" col-md-6 offset-md-3>

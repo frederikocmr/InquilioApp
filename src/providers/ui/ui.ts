@@ -34,6 +34,7 @@ export class UiProvider {
   public showLoading(): void {
     this.loading = this.loadingCtrl.create({
       content: 'Carregando...',
+      cssClass: 'custom-loading',
       dismissOnPageChange: true
     });
     this.loading.present();

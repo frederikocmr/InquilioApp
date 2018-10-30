@@ -1,7 +1,18 @@
 page-tenant {
+	.searchbar-ios, .searchbar-md {
+		.searchbar-input {		
+			border-radius: 2rem;
+		}
+	}
+
+	.tenant-exists {
+		margin-top: 15vh;
+	}
+
   ion-card {
     border-radius: 1rem !important;
 	}
+
 	h2 {
 		font-size: 1.8rem !important;
 	}

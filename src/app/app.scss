@@ -22,7 +22,8 @@
   white-space: pre-line !important;
 }
 
-.alert-title, .alert-sub-title {
+.alert-title,
+.alert-sub-title {
   color: color($colors, primary) !important;
 }
 
@@ -30,7 +31,8 @@
   border-radius: 1rem !important;
 }
 
-.back-button, .toolbar-title {
+.back-button,
+.toolbar-title {
   color: color($colors, light);
 }
 
@@ -40,7 +42,11 @@
 
 .btn-secondary {
   color: color($colors, dark);
-  background-image: linear-gradient(to right, color($colors, secondaryAlt) 0%, color($colors, secondary) 100%);
+  background-image: linear-gradient(
+    to right,
+    color($colors, secondaryAlt) 0%,
+    color($colors, secondary) 100%
+  );
 }
 
 .form-input {
@@ -50,7 +56,7 @@
   border-bottom-left-radius: 2rem;
   border-bottom-right-radius: 2rem;
   padding-left: 1rem;
-  
+
   ion-label {
     color: color($colors, primary200);
   }
@@ -65,6 +71,12 @@
     align-items: center;
     justify-content: center;
     text-align: center;
+  }
+}
+
+ion-loading.custom-loading {
+  .loading-wrapper {
+    border-radius: 1rem !important;
   }
 }
 
@@ -101,7 +113,7 @@
   width: 100%;
 }
 
-.popover-content {  
+.popover-content {
   border-radius: 0.5rem !important;
 }
 
@@ -135,11 +147,16 @@
 }
 
 // Elements and pseudo-elements
-h2, h3, h4, h5, h6, p {
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
   color: color($colors, light) !important;
 }
 
-hr {        
+hr {
   border-bottom: 0.1rem solid color($colors, secondary);
   margin-top: 2rem;
   width: 100%;

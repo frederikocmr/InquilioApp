@@ -20,7 +20,7 @@ import { map } from 'rxjs/internal/operators/map';
 })
 export class TenantPage {
   public tenants: Observable<TenantAccount[]>;
-  public tenantsExists: boolean = true;
+  public tenantsExists: boolean = false;
 
   constructor(
     private modalCtrl: ModalController,
@@ -39,6 +39,7 @@ export class TenantPage {
         const data = a.payload.doc.data() as TenantAccount;
         const id = a.payload.doc.id;
         data.id = id;
+        this.tenantsExists = true;
         
         this.ui.closeLoading();
         return { id, ...data };
