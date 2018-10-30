@@ -5,9 +5,14 @@ import {
   NavParams,
   ModalController
 } from "ionic-angular";
-import { Contract } from './../../models/contract';
+import { Observable } from "rxjs/Observable";
+import { map } from "rxjs/operators";
+import { AngularFirestore } from "@angular/fire/firestore";
 import { ContractDetailsPage } from "./contract-details/contract-details";
 import { ContractFormPage } from "./contract-form/contract-form";
+import { FirebaseProvider, UiProvider } from "../../providers";
+import { Contract } from './../../models/contract';
+// import { RealEstate } from "../../models/real-estate";
 
 @IonicPage()
 @Component({
@@ -15,23 +20,49 @@ import { ContractFormPage } from "./contract-form/contract-form";
   templateUrl: "contract.html"
 })
 export class ContractPage {
-  contracts: Contract = null;
+  public contracts: Observable<Contract[]>;
+  // public currentRealEstate: RealEstate = null;
 
   constructor(
     private modalCtrl: ModalController,
     public navCtrl: NavController,
-    public navParams: NavParams
-  ) {}
-  
+    public navParams: NavParams,
+    public ui: UiProvider,
+    private fb: FirebaseProvider,
+    private afDb: AngularFirestore
+  ) {
+    this.ui.showLoading();
+    this.contracts = this.afDb.collection<Contract>(
+      'Contract',
+      ref => ref.where('ownerId', '==', this.fb.user.uid).where("active", "==", true)
+    ).snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data() as Contract;
+        const id = a.payload.doc.id;
+        data.id = id;
+        
+        this.ui.closeLoading();
+
+        // TODO: preciso consultar o realEstate depois que consulta o contrato pelo id que tá no contrato...
+        // Será que se eu mudar para salvar o objeto realEstate dentro do contrato no Firestore ficaria legal?
+
+        return { id, ...data };
+      }))
+    );
+
+  }
+
   // TODO: verificar se o usuário possui imóveis e inquilinos cadastrados, se sim entra na modal para criar um contrato, senão mostra um alert pedindo que cadastre o que falta.
-  newContract() {
+  public newContract(): void {
     let modal = this.modalCtrl.create(ContractFormPage);
     modal.present();
   }
 
-  viewDetails(contract){
-    this.navCtrl.push(ContractDetailsPage, {contract: contract});
+  public viewDetails(contract): void {
+    this.navCtrl.push(ContractDetailsPage, { contract: contract });
     // let detailsModal = this.modalCtrl.create(ContractDetailsPage, {contract: contract});
-    // detailsModal.present();    
+    // detailsModal.present();   
+    console.log(this.contracts);
+
   }
 }

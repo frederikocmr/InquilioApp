@@ -1,11 +1,12 @@
+import { TenantAccount } from './../../../models/tenant-account';
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { Contract } from "../../../models/contract";
 import { map } from 'rxjs/operators';
 import { Observable } from "rxjs";
-import { RealEstate } from "../../../models/real-estate";
-import { FirebaseProvider } from "../../../providers";
 import { AngularFirestore } from "@angular/fire/firestore";
+import { FirebaseProvider, UiProvider } from "../../../providers";
+import { RealEstate } from "../../../models/real-estate";
 
 @IonicPage()
 @Component({
@@ -13,30 +14,27 @@ import { AngularFirestore } from "@angular/fire/firestore";
   templateUrl: "contract-form.html"
 })
 export class ContractFormPage {
-  contract: Contract = new Contract();
-  monthShortNames: String[] = [
-    "jan",
-    "fev",
-    "mar",
-    "abr",
-    "mai",
-    "jun",
-    "jul",
-    "ago",
-    "set",
-    "out",
-    "nov",
-    "dez"
+  public contract: Contract = new Contract();
+  public monthShortNames: String[] = [
+    "jan","fev","mar","abr","mai","jun",
+    "jul","ago","set","out","nov","dez"
   ];
-  realEstates: Observable<RealEstate[]> = null;
-  today: Date = new Date();
+  public realEstates: Observable<RealEstate[]> = null;
+  public tenants: Observable<TenantAccount[]> = null;
+  public today: Date = new Date();
+  public editing: boolean = false;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public ui: UiProvider,
     private fb: FirebaseProvider,
     private afDb: AngularFirestore
   ) {
+    if(this.navParams.get('contract')){
+      this.contract = navParams.get('contract');
+      this.editing = true;
+    }
     this.realEstates = this.afDb
       .collection<RealEstate>("RealEstate", ref =>
         ref.where("ownerId", "==", this.fb.user.uid)
@@ -54,7 +52,7 @@ export class ContractFormPage {
       );
   }
 
-  calculateDuration() {
+  public calculateDuration(): void {
     if(this.contract.endDate && this.contract.beginDate){ 
       let timestamp = new Date(this.contract.endDate).getTime() - new Date(this.contract.beginDate).getTime();
       let seconds = Math.floor((timestamp)/1000);
@@ -67,7 +65,7 @@ export class ContractFormPage {
     }
   }
 
-  convertToString(days) {
+  public convertToString(days): string {
     let y = 365;
     let y2 = 31;
     let remainder = days % y;
@@ -84,11 +82,44 @@ export class ContractFormPage {
     return result;
   }
 
-  setMaxDate() {
+  public setMaxDate(): number {
     return this.today.getFullYear() + 20;
   }
 
-  setMinDate() {
+  public setMinDate(): string {
     return this.today.toISOString();
+  }
+
+  public addContract(): void {
+    this.ui.showLoading();
+    if(!this.editing){
+      this.contract.ownerId = this.fb.user.uid;
+      this.fb.insertDataToCollection('Contract', this.contract).then(() => {
+        this.ui.closeLoading();
+        this.ui.showToast(this.fb.message, 2, 'top');
+  
+        if (this.fb.validator) {
+          this.navCtrl.pop();
+        }
+      }).catch((error) => {
+        this.ui.closeLoading();
+        this.ui.showAlert("Erro ao cadastrar", error);
+      });
+    } else {
+
+      this.fb.updateDataFromCollection('Contract', this.contract).then(() => {
+        this.ui.closeLoading();
+        this.ui.showToast(this.fb.message, 2, 'top');
+  
+        if (this.fb.validator) {
+          this.navCtrl.pop();
+        }
+      }).catch((error) => {
+        this.ui.closeLoading();
+        this.ui.showAlert("Erro ao editar", error);
+      });
+
+    }
+    
   }
 }

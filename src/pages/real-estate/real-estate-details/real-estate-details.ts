@@ -1,7 +1,6 @@
-import { FirebaseProvider } from './../../../providers/firebase/firebase';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
-import { UiProvider } from './../../../providers/ui/ui';
+import { FirebaseProvider, UiProvider } from './../../../providers';
 import { RealEstate } from '../../../models/real-estate';
 import { RealEstateFormPage } from './../real-estate-form/real-estate-form';
 import { ContractFormPage } from '../../contract/contract-form/contract-form';
@@ -12,9 +11,9 @@ import { ContractFormPage } from '../../contract/contract-form/contract-form';
   templateUrl: 'real-estate-details.html',
 })
 export class RealEstateDetailsPage {
-  inquilino = false;
-  realEstate: RealEstate = new RealEstate();
-  realEstateType: String = "";
+  public inquilino = false;
+  public realEstate: RealEstate = new RealEstate();
+  public realEstateType: String = "";
 
   constructor(
     public navCtrl: NavController,
@@ -26,7 +25,7 @@ export class RealEstateDetailsPage {
       this.getRealEstateType();
   }
 
-  getRealEstateType() {
+  public getRealEstateType(): void {
     switch (this.realEstate.type) {
       case 'a': this.realEstateType = "Apartamento"; break;
       case 'c': this.realEstateType = "Casa"; break;
@@ -37,17 +36,17 @@ export class RealEstateDetailsPage {
     }
   }
 
-  newContract() {
+  public newContract(): void {
     let modal = this.modalCtrl.create(ContractFormPage);
     modal.present();
   }
 
-  onEditRealEstate() {
+  public onEditRealEstate(): void {
     let detailsModal = this.modalCtrl.create(RealEstateFormPage, { realEstateObj: this.realEstate });
     detailsModal.present();
   }
 
-  removeRealEstate() {
+  public removeRealEstate(): void {
     let modal = this.ui.alertCtrl.create({
       title: "Remover",
       subTitle: "Tem certeza que deseja remover este imóvel?",

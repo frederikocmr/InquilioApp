@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { AngularFirestore } from "@angular/fire/firestore";
 import { Contract } from '../../../models/contract';
+import { FirebaseProvider } from '../../../providers';
+import { UiProvider } from './../../../providers';
+import { RealEstate } from '../../../models/real-estate';
+import { ContractFormPage } from '../contract-form/contract-form';
 
 @IonicPage()
 @Component({
@@ -8,14 +13,52 @@ import { Contract } from '../../../models/contract';
   templateUrl: 'contract-details.html',
 })
 export class ContractDetailsPage {
-  contract: Contract = new Contract();
+  public contract: Contract = new Contract();
+  public currentRealEstate:  RealEstate = null;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public ui: UiProvider,
+    private modalCtrl: ModalController,
+    private afDb: AngularFirestore,
+    private fb: FirebaseProvider
+  ) {
     this.contract = navParams.get('contract');
+    this.afDb.doc<RealEstate>('RealEstate/' + this.contract.realEstateId).valueChanges().
+      subscribe((data) => {
+        this.currentRealEstate = data;
+        console.log(this.currentRealEstate);
+      });
+
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ContractDetailsPage');
+  public onEditContract(): void {
+    let detailsModal = this.modalCtrl.create(ContractFormPage, { contract: this.contract });
+    detailsModal.present();
   }
 
+  public removeContract(): void{
+    let modal = this.ui.alertCtrl.create({
+      title: "Remover",
+      subTitle: "Tem certeza que deseja remover este contrato?",
+      buttons: ["Cancelar",
+        {
+          text: "Remover",
+          handler: () => {
+            this.fb.deactivateDataFromCollection('Contract', this.contract).then(() => {
+              this.ui.showToast(this.fb.message, 2, 'top');
+              if (this.fb.validator) {
+                this.navCtrl.pop();
+              }
+            }).catch((error) => {
+              this.ui.showAlert("Erro ao desativar", error);
+            });
+          }
+        }]
+    });
+
+    modal.present();
+
+  }
 }

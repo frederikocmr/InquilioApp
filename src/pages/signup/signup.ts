@@ -1,10 +1,9 @@
-import { UiProvider } from './../../providers/ui/ui';
 import { Component, ViewChild } from '@angular/core';
 import { Slides, NavController } from 'ionic-angular';
 import { Keyboard } from "@ionic-native/keyboard";
 
 import { UserAccount } from "../../models/user-account";
-import { FirebaseProvider } from "../../providers";
+import { FirebaseProvider, UiProvider } from "../../providers";
 import { TabsPage } from '../tabs/tabs';
 
 @Component({

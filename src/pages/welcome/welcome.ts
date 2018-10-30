@@ -1,12 +1,11 @@
 import { GooglePlus } from '@ionic-native/google-plus';
-import * as firebase from 'firebase/app';
+import firebase from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs/Observable';
-import { UiProvider } from './../../providers/ui/ui';
 import { Component } from '@angular/core';
 import { SignupPage } from '../signup/signup';
 import { LoginPage } from '../login/login';
-import { FirebaseProvider } from '../../providers';
+import { FirebaseProvider, UiProvider } from '../../providers';
 import { NavController, Platform } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 

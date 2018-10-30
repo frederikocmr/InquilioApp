@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FirebaseProvider, ViacepProvider } from './../../../providers';
+import { FirebaseProvider, ViacepProvider, UiProvider } from './../../../providers';
 import { RealEstate } from './../../../models/real-estate';
-import { UiProvider } from '../../../providers/ui/ui';
 
 @IonicPage()
 @Component({
