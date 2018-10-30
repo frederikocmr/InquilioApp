@@ -1,4 +1,5 @@
 export class UserAccount {
+    public id: string;
     public name: string;
     public document: string;
     public email: string;
@@ -9,6 +10,7 @@ export class UserAccount {
     public active: boolean;
 
     constructor() {
+        this.id = null;
         this.name = null;
         this.document = null; 
         this.email = null;

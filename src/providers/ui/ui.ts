@@ -13,7 +13,7 @@ export class UiProvider {
     public toastCtrl: ToastController
   ) { }
 
-  showAlert(title: string, message: string) {
+  public showAlert(title: string, message: string): void {
     this.alert = this.alertCtrl.create({
       title: title,
       subTitle: message,
@@ -22,7 +22,7 @@ export class UiProvider {
     this.alert.present();
   }
 
-  showToast(message: string, seconds: number, position: string) {
+  public showToast(message: string, seconds: number, position: string): void {
     this.toast = this.toastCtrl.create({
       message: message,
       duration: seconds*1000,
@@ -31,7 +31,7 @@ export class UiProvider {
     this.toast.present();
   }
 
-  showLoading() {
+  public showLoading(): void {
     this.loading = this.loadingCtrl.create({
       content: 'Carregando...',
       dismissOnPageChange: true
@@ -39,7 +39,7 @@ export class UiProvider {
     this.loading.present();
   }
 
-  closeLoading() {
+  public closeLoading(): void {
     if (!this.loading.onDidDismiss){
       this.loading.dismiss();
     }
