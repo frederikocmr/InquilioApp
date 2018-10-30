@@ -1,5 +1,72 @@
 page-tenant-form {
   .scroll-content {
-		padding-top: 0rem !important;
+    padding-top: 0rem !important;
+  }
+
+  .item-input .label-md, .item-select .label-md, .item-datetime .label-md {
+    color: color($colors, light);
+  }
+
+  .item-input-has-focus .label-md[stacked],
+  .input-has-focus .label-md[stacked],
+  .item-input-has-focus .label-md[floating],
+  .input-has-focus .label-md[floating] {
+    color: color($colors, secondary);
+  }
+
+  .item-md {
+    background: none;
+    color: color($colors, light);
+    padding: 0 1rem 0 1rem;
+  }
+
+  .item-md.item-input.item-input-has-focus .item-inner {
+    border-bottom-color: color($colors, secondary);
+    -webkit-box-shadow: inset 0 -1px 0 0 color($colors, secondary);
+    box-shadow: inset 0 -1px 0 0 color($colors, secondary);
+  }
+
+  .item-md.item-block .item-inner {
+    padding: 0;
+  }
+
+  .validator-error {
+    color: color($colors, danger);
+    margin-top: 1rem;
   }
 }
+
+// .ios, .md {
+ 
+//   page-tenant-form {
+
+//       p {
+//           font-size: 0.8em;
+//           color: #d2d2d2;
+//       }
+
+//       .swiper-slide {
+//           display: block;
+//       }
+
+//       .item-md {
+//         padding: 0;
+//         border-radius: 1rem;
+//       }
+
+//       ion-label, .select-text {
+//           margin-left: 10px;
+//       }
+
+//       ion-input, ion-select, ion-textarea {
+//           background-color: #f2f2f2;
+//           // padding: 5px 10px;
+//       }
+
+//       .validator-error {
+//           border: 1px solid #ea6153;
+//       }
+
+//   }
+
+// }

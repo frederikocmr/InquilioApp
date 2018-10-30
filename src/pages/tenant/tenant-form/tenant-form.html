@@ -13,30 +13,41 @@
 
 
 <ion-content class="bg-owner-page" padding>
-  <form (ngSubmit)="addTenant()" #registerForm="ngForm">
+  <form [formGroup]="tenantForm">
     <ion-list text-center>
-      <ion-label color="light" text-left>Dados Pessoais do Inquilino</ion-label>
+      <ion-label color="light" text-left>Dados Pessoais do seu Inquilino</ion-label>
 
-      <ion-item class="form-input">
-        <ion-label>CPF *</ion-label>
-        <ion-input type="text" [(ngModel)]="tenant.cpf" name="cpf" placeholder="Informe o CPF" style="padding-left: 3.3rem;" required></ion-input>
+      <ion-item no-margin>
+        <ion-label floating>Informe o CPF</ion-label>
+        <ion-input type="text" [formControl]="tenantForm.controls['document']" name="document"></ion-input>
       </ion-item>
+      <div *ngIf="!tenantForm.controls.document.valid && tenantForm.controls.document.dirty" class="validator-error">
+        Por favor, informe um CPF válido.
+      </div>
 
-      <ion-item class="form-input">
-        <ion-label>Nome *</ion-label>
-        <ion-input type="text" [(ngModel)]="tenant.name" name="name" placeholder="Informe o nome " style="padding-left: 2rem;" required></ion-input>
+      <ion-item>
+        <ion-label floating>Informe o Nome e Sobrenome</ion-label>
+        <ion-input type="text" [formControl]="tenantForm.controls['name']" name="name"></ion-input>
       </ion-item>
+      <div *ngIf="!tenantForm.controls.name.valid && tenantForm.controls.name.dirty" class="validator-error">
+        Por favor, informe um nome.
+      </div>
 
-      <ion-item class="form-input">
-        <ion-label>Telefone *</ion-label>
-        <ion-input type="text" [(ngModel)]="tenant.phone" name="phone" placeholder="Informe um telefone" required></ion-input>
+      <ion-item>
+        <ion-label floating>Informe o Telefone</ion-label>
+        <ion-input type="number" [formControl]="tenantForm.controls['phone']" name="phone"></ion-input>
       </ion-item>
+      <div *ngIf="!tenantForm.controls.phone.valid && tenantForm.controls.phone.dirty" class="validator-error">
+        Por favor, informe um telefone válido.
+      </div>
 
-      <ion-item class="form-input">
-        <ion-label>Email *</ion-label>
-        <ion-input type="text" [(ngModel)]="tenant.email" name="email" placeholder="Informe o email" style="padding-left: 2.3rem;" required></ion-input>
+      <ion-item>
+        <ion-label floating>Informe o Email</ion-label>
+        <ion-input type="email" [formControl]="tenantForm.controls['email']" name="email"></ion-input>
       </ion-item>
-      <ion-label color="light">* Item obrigatório.</ion-label>
+      <div *ngIf="!tenantForm.controls.email.valid && tenantForm.controls.email.dirty" class="validator-error">
+        Por favor, informe um email válido.
+      </div>
 
       <!-- Descomentar ao implementar captura ou importação de imagens
       <hr>
@@ -54,7 +65,8 @@
         </ion-buttons>
       </ion-toolbar> -->
 
-      <button class="main-button btn-secondary" ion-button large round color="secondary" strong margin-top>Salvar</button>
+      <button class="main-button btn-secondary" ion-button large round color="secondary" strong margin-top [disabled]="!tenantForm.valid"
+              (click)="addTenant()">Salvar</button>
     </ion-list>
   </form>
 
