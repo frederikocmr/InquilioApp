@@ -13,36 +13,34 @@
 <ion-content class="bg-owner-page">
   <ion-list>
     <div margin>
-      <h2>Nome do Inquilino</h2>
+      <h2>{{ tenant.name }}</h2>
       <p>Sem contrato</p>
     </div>
 
     <div margin>
       <ion-label color="secondary" no-margin>CPF</ion-label>
-      <p>000.000.000-00</p>
+      <p>{{tenant.document}}</p>
     </div>
 
     <div margin>
       <ion-label color="secondary" no-margin>Telefone</ion-label>
-      <!-- <p>{{ (tenant.beginDate ? "Início em "+tenant.beginDate.toLocaleDateString() : "Sem data de início.") }}</p> -->
-      <p>(00) 9 8765-4321</p>
+      <p>{{tenant.phone}}</p>
     </div>
 
     <div margin>
       <ion-label color="secondary" no-margin>Email</ion-label>
-      <!-- <p>{{ (tenant.endDate ? "Válido até "+tenant.endDate.toLocaleDateString() : "Sem data de encerramento.") }}</p> -->
-      <p>inquilino@email.com</p>
+      <p>{{tenant.email}}</p>
     </div>
 
     <div class="my-footer" text-center>
       <ion-row justify-content-between>
         <ion-col text-right>
-          <button ion-button round color="light" strong (click)="onEditTenant()" icon-start style="width: 12rem;">
+          <button ion-button round color="light" strong icon-start style="width: 12rem;">
             <ion-icon name="custom-edit"></ion-icon>Editar
           </button>
         </ion-col>
         <ion-col text-left>
-          <button ion-button round color="danger" strong (click)="removeTenant(tenant)" icon-start style="width: 12rem;">
+          <button ion-button round color="danger" strong icon-start style="width: 12rem;">
             <ion-icon name="custom-delete"></ion-icon>Remover
           </button>
         </ion-col>

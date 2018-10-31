@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { TenantAccount } from '../../../models/tenant-account';
 
 @IonicPage()
 @Component({
@@ -7,19 +8,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'tenant-details.html',
 })
 export class TenantDetailsPage {
+  public tenant: TenantAccount;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad TenantDetailsPage');
-  }
-  
-  onEditTenant() {
-
-  }
-
-  removeTenant() {
-    
+    this.tenant = navParams.get('tenant');
   }
 }
