@@ -32,6 +32,7 @@ import { TenantPage } from '../pages/tenant/tenant';
 import { TenantFormPage } from '../pages/tenant/tenant-form/tenant-form';
 import { TenantDetailsPage } from '../pages/tenant/tenant-details/tenant-details';
 import { Keyboard } from "@ionic-native/keyboard";
+import { TenantTabsPage } from '../pages/tenant-tabs/tenant-tabs';
 
 
 export function provideSettings(storage: Storage) {
@@ -61,6 +62,7 @@ export function provideSettings(storage: Storage) {
     RealEstateDetailsPage,
     RealEstateFormPage,
     TabsPage,
+    TenantTabsPage,
     ContractPage,
     ContractDetailsPage,
     ContractFormPage,
@@ -97,6 +99,7 @@ export function provideSettings(storage: Storage) {
     RealEstateDetailsPage,
     RealEstateFormPage,
     TabsPage,
+    TenantTabsPage,
     ContractPage,
     ContractDetailsPage,
     ContractFormPage,
