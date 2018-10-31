@@ -20,6 +20,7 @@ import { RealEstate } from "../../models/real-estate";
 })
 export class RealEstatePage {
   public realEstates: Observable<RealEstate[]>;
+  public realEstatesExists: boolean = false;
 
   constructor(
     public navCtrl: NavController,
@@ -38,6 +39,8 @@ export class RealEstatePage {
         const data = a.payload.doc.data() as RealEstate;
         const id = a.payload.doc.id;
         data.id = id;
+        this.realEstatesExists = true;
+
         this.ui.closeLoading();
         return { id, ...data };
       }))

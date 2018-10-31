@@ -21,6 +21,7 @@ import { Contract } from './../../models/contract';
 })
 export class ContractPage {
   public contracts: Observable<Contract[]>;
+  public contractsExists: boolean = false;
   // public currentRealEstate: RealEstate = null;
 
   constructor(
@@ -40,6 +41,7 @@ export class ContractPage {
         const data = a.payload.doc.data() as Contract;
         const id = a.payload.doc.id;
         data.id = id;
+        this.contractsExists = true;
         
         this.ui.closeLoading();
 

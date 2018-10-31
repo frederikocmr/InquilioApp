@@ -19,6 +19,7 @@ import { map } from 'rxjs/internal/operators/map';
   templateUrl: "tenant.html"
 })
 export class TenantPage {
+  public searchingTenants: boolean = false;
   public tenants: Observable<TenantAccount[]>;
   public tenantsExists: boolean = false;
 
