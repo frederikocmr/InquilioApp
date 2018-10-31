@@ -11,13 +11,13 @@
 
 
 <ion-content class="bg-owner-page">
-  <div class="empty-state-active" *ngIf="!realEstatesExists" padding text-center>
+  <div class="empty-state-active" [hidden]="realEstatesExists" padding text-center>
     <ion-icon class="empty-state-icon" color="light" name="custom-home"></ion-icon>
     <h5 no-margin>Você ainda não adicionou um imóvel.</h5>
     <p no-margin>Assim que cadastrar um imóvel ele aparecerá aqui.</p>
   </div>
 
-  <div *ngIf="realEstatesExists" col-md-6 offset-md-3>
+  <div [hidden]="!realEstatesExists" col-md-6 offset-md-3>
     <ion-card *ngFor="let realEstate of realEstates | async" color="primary700">
       <div class="image" [style.background-image]="'url(' + realEstate.imgLink + ')'"></div>
       <ion-item>

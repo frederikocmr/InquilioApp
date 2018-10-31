@@ -43,7 +43,7 @@ export class ContractPage {
         data.id = id;
         this.contractsExists = true;
         
-        this.ui.closeLoading();
+        this.ui.closeLoading(true);
 
         // TODO: preciso consultar o realEstate depois que consulta o contrato pelo id que tá no contrato...
         // Será que se eu mudar para salvar o objeto realEstate dentro do contrato no Firestore ficaria legal?

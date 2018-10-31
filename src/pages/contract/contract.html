@@ -11,13 +11,13 @@
 
 
 <ion-content class="bg-owner-page">
-  <div class="empty-state-active" *ngIf="!contractsExists" padding text-center>
+  <div class="empty-state-active" [hidden]="contractsExists"  padding text-center>
     <ion-icon class="empty-state-icon" color="light" name="custom-contract" margin></ion-icon>
     <h5 no-margin>Você ainda não adicionou um contrato.</h5>
     <p no-margin>Assim que cadastrar um contrato ele aparecerá aqui.</p>
   </div>
 
-  <div *ngIf="contractsExists" col-md-6 offset-md-3>
+  <div [hidden]="!contractsExists"  col-md-6 offset-md-3>
     <ion-card *ngFor="let contract of contracts | async" color="primary700">
       <ion-card-content>
         <h2>{{ (contract.realEstateId ? "Possui imóvel associado." : "Sem imóvel associado.") }}</h2>

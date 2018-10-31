@@ -5,8 +5,8 @@ import {
   NavParams,
   ModalController
 } from "ionic-angular";
-import { map } from 'rxjs/operators';
 import { Observable } from "rxjs/Observable";
+import { map } from "rxjs/operators";
 import { AngularFirestore } from '@angular/fire/firestore';
 import { UiProvider, FirebaseProvider } from '../../providers';
 import { RealEstateFormPage } from "../real-estate/real-estate-form/real-estate-form";
@@ -39,15 +39,20 @@ export class RealEstatePage {
         const data = a.payload.doc.data() as RealEstate;
         const id = a.payload.doc.id;
         data.id = id;
+
         this.realEstatesExists = true;
 
-        this.ui.closeLoading();
+        this.ui.closeLoading(true);
         return { id, ...data };
       }))
     );
     // Subscribing and acessing methods - not necessary when using a view async.
     // this.realEstates.subscribe((data) => {
-    //   this.realEstates = data
+    //   if(data){
+    //     this.realEstatesExists = true;
+    //   } else {
+    //     this.realEstatesExists = false;
+    //   }
     // });
 
   }

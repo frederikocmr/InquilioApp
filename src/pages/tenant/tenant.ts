@@ -42,7 +42,7 @@ export class TenantPage {
         data.id = id;
         this.tenantsExists = true;
         
-        this.ui.closeLoading();
+        this.ui.closeLoading(true);
         return { id, ...data };
       }))
     );

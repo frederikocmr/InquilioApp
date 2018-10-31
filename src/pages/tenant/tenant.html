@@ -43,14 +43,14 @@
   </div>
 
   <div *ngIf="!searchingTenants">
-    <div class="empty-state-active" *ngIf="!tenantsExists" padding text-center>
+    <div class="empty-state-active" [hidden]="tenantsExists" padding text-center>
       <ion-icon class="empty-state-icon" color="light" name="custom-users"></ion-icon>
       <h5 no-margin>Você ainda não adicionou um inquilino.</h5>
       <p no-margin>Assim que cadastrar um inquilino ou vincular um já existente em nossa base a um contrato seu, ele
         aparecerá aqui.</p>
     </div>
 
-    <div *ngIf="tenantsExists" col-md-6 offset-md-3>
+    <div [hidden]="!tenantsExists"  col-md-6 offset-md-3>
       <ion-card *ngFor="let tenant of tenants | async" color="primary700">
         <ion-card-content>
           <h2>{{ tenant.name }}</h2>

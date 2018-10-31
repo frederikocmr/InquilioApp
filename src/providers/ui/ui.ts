@@ -40,8 +40,10 @@ export class UiProvider {
     this.loading.present();
   }
 
-  public closeLoading(): void {
-    if (!this.loading.onDidDismiss){
+  public closeLoading(removeView?: boolean): void {
+    if (!this.loading.onDidDismiss && removeView){
+      this.loading.dismiss();
+    } else if (!removeView){
       this.loading.dismiss();
     }
   }
