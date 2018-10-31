@@ -5,6 +5,8 @@ import { Keyboard } from "@ionic-native/keyboard";
 import { UserAccount } from "../../models/user-account";
 import { FirebaseProvider, UiProvider } from "../../providers";
 import { TabsPage } from '../tabs/tabs';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { regexValidators } from '../../validators/validator';
 
 @Component({
   selector: "page-signup",
@@ -12,19 +14,43 @@ import { TabsPage } from '../tabs/tabs';
 })
 export class SignupPage {
 	@ViewChild('slides') slides: Slides;
-	isApp: Boolean;
-	ownerButtonClass: string = 'profile-selected';
-	tenantButtonClass: string = 'profile-button';
-	profile: any;
+  public monthShortNames: String[] = [
+    "jan","fev","mar","abr","mai","jun",
+    "jul","ago","set","out","nov","dez"
+  ];
+	public ownerButtonClass: string = 'profile-selected';
+	public tenantButtonClass: string = 'profile-button';
+	public profile: any;
+	signupForm: FormGroup;
 
 	account: UserAccount = new UserAccount();
 
 	constructor(
+    public formBuilder: FormBuilder,
     public keyboard: Keyboard,
 		public navCtrl: NavController,
 		public ui: UiProvider,
 		private firebase: FirebaseProvider) {
-			this.isApp = (!document.URL.startsWith('http') || document.URL.startsWith('http://localhost:8080'));
+		this.signupForm = this.formBuilder.group({
+			document: ['', Validators.compose([Validators.pattern(regexValidators.cpfCpnj), Validators.required])],
+			name: ['', Validators.required],
+			email: ['', Validators.compose([Validators.pattern(regexValidators.email), Validators.required])],
+			password: ['', Validators.required],
+			phone: ['', Validators.compose([Validators.pattern(regexValidators.phone), Validators.required])],
+			birthdate: ['', Validators.required],
+			genre: ['', Validators.required]
+		});
+	}
+	
+	public getValuesFromForm(){
+		let newObject = this.signupForm.value as UserAccount;
+		this.account.document = newObject.document;
+		this.account.name = newObject.name;
+		this.account.email = newObject.email;
+		this.account.password = newObject.password;
+		this.account.phone = newObject.phone;
+		this.account.birthdate = newObject.password;
+		this.account.genre = newObject.genre;
 	}
 
 	openCalendar() {

@@ -1,31 +1,44 @@
 page-signup {
+  .btn-slides-pagination {
+    width: 10rem;
+  }
+
   .profile-button {
     border: 1px solid;
-    border-radius: 5px;
+    border-radius: 1rem;
     color: color($colors, secondary);
-    margin: 1% 5%;
-    padding: 10%;
+    cursor: pointer;
+    margin: 1rem auto 1rem auto;
+    padding: 5rem;
+    width: 30rem;
   }
+
   .profile-selected {
     background-color: color($colors, secondary);
     box-shadow: inset 0 0 10px #000000;
     border: 1px;
-    border-radius: 5px;
+    border-radius: 1rem;
     color: color($colors, dark);
+    cursor: pointer;
     font-weight: bold;
-    margin: 1% 5%;
-    padding: 10%;
+    margin: 1rem auto 1rem auto;
+    padding: 5rem;
+    width: 30rem;
   }
+
   ion-content > div {
     padding: 0 !important;
     margin: 0 !important;
   }
+
   ion-slide {
     margin: auto;
   }
+
   ion-list {
     margin: 10px !important;
   }
+
   .swiper {
     border-radius: 50px;
     top: 50%;
@@ -47,16 +60,18 @@ page-signup {
       right: 10px;
     }
   }
+
   .open-keyboard {
     ion-slides {
       margin-top: auto;
       height: auto;
     }
   }
+  
   .closed-keyboard {
     ion-slides {
       margin-top: 5rem;
-    //   height: 75%;
+      //   height: 75%;
     }
   }
 }

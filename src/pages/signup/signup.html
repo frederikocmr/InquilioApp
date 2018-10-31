@@ -5,40 +5,62 @@
 </ion-header>
 
 <ion-content class="intro-background" text-center padding>
-  <form (ngSubmit)="doSignup()" #registerForm="ngForm" [class]="keyboard.isVisible ? 'open-keyboard' : 'closed-keyboard'">
-    <ion-slides class="signup-form" #slides pager paginationType="progress">
-      <!-- <ion-slide> -->
+  <form [formGroup]="signupForm" [class]="keyboard.isVisible ? 'open-keyboard' : 'closed-keyboard'">
+    <ion-slides class="custom-form" #slides pager paginationType="progress">
+      <ion-slide>
         <!-- Page 1 -->
-        <!-- <ion-list>
-          <p>Antes de continuar, escolha seu perfil.</p> -->
+        <ion-list>
+          <p>Antes de continuar, escolha seu perfil.</p>
           <!-- <div [class]="ownerButtonClass" name="owner" margin-bottom>Don@ de imóvel</div> -->
-          <!-- <div [class]="ownerButtonClass" name="owner" (click)="profileSelected('owner')" margin-bottom>Don@ de imóvel</div> -->
+          <div [class]="ownerButtonClass" name="owner" (click)="profileSelected('owner')">Don@ de
+            imóvel</div>
           <!-- <div [class]="tenantButtonClass" name="tenant" style="opacity: .4;" margin-top>Inquilin@</div> -->
-          <!-- <div [class]="tenantButtonClass" name="tenant" (click)="profileSelected('tenant')" margin-top>Inquilin@</div> -->
-          <!-- <p>Esta opção <b>pode</b> ser alterada depois.</p>
+          <div [class]="tenantButtonClass" name="tenant" (click)="profileSelected('tenant')">Inquilin@</div>
         </ion-list>
-      </ion-slide> -->
+      </ion-slide>
       <ion-slide>
         <!-- Page 2 -->
         <ion-list padding-top>
-          <p>Vamos precisar de algumas informações básicas.</p>
-          <ion-item class="main-input" text-center>
-            <ion-label>Nome</ion-label>
-            <ion-input type="text" name="name" [(ngModel)]="account.name" round placeholder="Informe seu nome completo" required></ion-input>
+          <p>Agora vamos precisar de algumas informações básicas.</p>
+
+          <ion-item>
+            <ion-label floating>Informe seu CPF</ion-label>
+            <ion-input type="text" [formControl]="signupForm.controls['document']" name="document"></ion-input>
           </ion-item>
-          <ion-item class="main-input" text-center>
-            <ion-label>CPF</ion-label>
-            <ion-input type="text" name="document" [(ngModel)]="account.document" round placeholder="Informe seu CPF" style="
-            padding-left: 1.5rem;" required></ion-input>
+          <div *ngIf="!signupForm.controls.document.valid && signupForm.controls.document.dirty" class="validator-error">
+            Por favor, informe um CPF válido.
+          </div>
+
+          <ion-item>
+            <ion-label floating>Informe seu nome completo</ion-label>
+            <ion-input type="text" [formControl]="signupForm.controls['name']" name="name"></ion-input>
           </ion-item>
-          <ion-item class="main-input" text-center>
-            <ion-label>E-mail</ion-label>
-            <ion-input type="email" name="email" [(ngModel)]="account.email" round placeholder="Informe seu e-mail" required></ion-input>
+          <div *ngIf="!signupForm.controls.name.valid && signupForm.controls.name.dirty" class="validator-error">
+            Por favor, informe um nome.
+          </div>
+
+          <ion-item>
+            <ion-label floating>Selecione sua data de nascimento</ion-label>
+            <ion-datetime cancelText="Cancelar" doneText="Confirmar" displayFormat="DD/MMM/YYYY" [max]="setMaxDate()"
+                          [monthShortNames]="monthShortNames" [formControl]="signupForm.controls['birthdate']" name="birthdate"></ion-datetime>
           </ion-item>
-          <ion-item class="main-input" text-center>
-            <ion-label>Senha</ion-label>
-            <ion-input type="password" name="password" [(ngModel)]="account.password" round placeholder="Informe sua senha"
-                       required></ion-input>
+          <div *ngIf="!signupForm.controls.birthdate.valid && signupForm.controls.birthdate.dirty" class="validator-error">
+            Por favor, selecione uma data de nascimento.
+          </div>
+
+          <ion-item>
+            <ion-label floating>Selecione seu sexo</ion-label>
+            <ion-select name="genre" interface="popover" [formControl]="signupForm.controls['genre']">
+              <ion-option value="f">Feminino</ion-option>
+              <ion-option value="m">Masculino</ion-option>
+              <ion-option value="o">Prefiro não informar</ion-option>
+            </ion-select>
+          </ion-item>
+          <div *ngIf="!signupForm.controls.genre.valid && signupForm.controls.genre.dirty" class="validator-error">
+            Por favor, selecione seu sexo.
+          </div>
+
+          <ion-item hidden="true">
           </ion-item>
         </ion-list>
       </ion-slide>
@@ -46,23 +68,31 @@
         <!-- Page 3 -->
         <ion-list>
           <p>Por último, só precisamos de mais alguns detalhes.</p>
-          <ion-item class="main-input">
-            <ion-label>Celular</ion-label>
-            <ion-input type="text" name="phone" [(ngModel)]="account.phone" placeholder="Informe seu celular" required></ion-input>
+          <ion-item>
+            <ion-label floating>Informe seu número de celular</ion-label>
+            <ion-input type="text" [formControl]="signupForm.controls['phone']" name="phone"></ion-input>
           </ion-item>
-          <ion-item class="main-input">
-            <ion-label>Data de nascimento</ion-label>
-            <ion-datetime cancelText="Cancelar" doneText="Confirmar" displayFormat="DD/MMM/YYYY" [max]="setMaxDate()"
-                          monthShortNames="jan, fev, mar, abr, mai, jun, jul, ago, set, out, nov, dez" name="birthdate"
-                          [(ngModel)]="account.birthdate" required placeholder="Selecione"></ion-datetime>
+          <div *ngIf="!signupForm.controls.phone.valid && signupForm.controls.phone.dirty" class="validator-error">
+            Por favor, informe um número válido.
+          </div>
+
+          <ion-item>
+            <ion-label floating>Informe seu email</ion-label>
+            <ion-input type="email" [formControl]="signupForm.controls['email']" name="email"></ion-input>
           </ion-item>
-          <ion-item class="main-input">
-            <ion-label>Sexo</ion-label>
-            <ion-select name="genre" interface="popover" [(ngModel)]="account.genre" required placeholder="Selecione">
-              <ion-option value="f">Feminino</ion-option>
-              <ion-option value="m">Masculino</ion-option>
-              <ion-option value="o">Outro</ion-option>
-            </ion-select>
+          <div *ngIf="!signupForm.controls.email.valid && signupForm.controls.email.dirty" class="validator-error">
+            Por favor, informe um email válido.
+          </div>
+          
+          <ion-item>
+            <ion-label floating>Informe uma senha</ion-label>
+            <ion-input type="password" [formControl]="signupForm.controls['password']" name="password"></ion-input>
+          </ion-item>
+          <div *ngIf="!signupForm.controls.password.valid && signupForm.controls.password.dirty" class="validator-error">
+            Por favor, informe uma senha.
+          </div>
+
+          <ion-item hidden="true">
           </ion-item>
         </ion-list>
       </ion-slide>
@@ -71,19 +101,15 @@
     <div class="my-footer" *ngIf="!keyboard.isVisible;">
       <ion-row>
         <ion-col>
-          <button type="button" ion-button outline round color="secondary" (click)="slidePrev()" [disabled]="isFirstSlide()"
-                  icon-end style="width: 12rem;">Voltar <ion-icon name="custom-arrow-left"></ion-icon>
-          </button>
+          <button class="btn-slides-pagination" type="button" ion-button outline round color="secondary" (click)="slidePrev()" [disabled]="isFirstSlide()">Voltar</button>
         </ion-col>
         <ion-col>
-          <button type="button" ion-button outline round color="secondary" (click)="slideNext()" [disabled]="isLastSlide()"
-                  icon-start style="width: 12rem;">
-            <ion-icon name="custom-arrow-right"></ion-icon> Continuar
-          </button>
+          <button class="btn-slides-pagination" type="button" ion-button outline round color="secondary" (click)="slideNext()" [disabled]="isLastSlide()">Próximo</button>
         </ion-col>
       </ion-row>
       <ion-row justify-content-center>
-        <button class="main-button btn-secondary" ion-button large round color="secondary" type="submit" strong [disabled]="!registerForm.form.valid">Confirmar</button>
+        <button class="main-button btn-secondary" ion-button large round color="secondary" type="submit" strong
+                [disabled]="!signupForm.valid" (click)="doSignup()">Confirmar</button>
       </ion-row>
       <ion-row justify-content-center>
         <button ion-button clear color="light" small>Ao confirmar aceito os Termos e Condições de Uso.</button>
