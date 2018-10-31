@@ -34,7 +34,16 @@ export class TenantFormPage {
     });
   }
 
+  public getValuesFromForm(){
+    let newObject = this.tenantForm.value as TenantAccount;
+    this.tenant.name = newObject.name;
+    this.tenant.phone = newObject.phone;
+    this.tenant.document = newObject.document;
+    this.tenant.email = newObject.email;
+  }
+
   public addTenant(): void {
+    this.getValuesFromForm();
     this.ui.showLoading();
     if (!this.editing) {
       this.tenant.relHistory = [{ownerId: this.fb.user.uid, realEstateId: '' }];
@@ -66,5 +75,4 @@ export class TenantFormPage {
 
     }
   }
-
 }
