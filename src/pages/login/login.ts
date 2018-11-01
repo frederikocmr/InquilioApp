@@ -9,6 +9,8 @@ import {
 } from "ionic-angular";
 import { TabsPage } from "../tabs/tabs";
 import { Keyboard } from "@ionic-native/keyboard";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { regexValidators } from "../../validators/validator";
 
 @Component({
   selector: "page-login",
@@ -16,19 +18,25 @@ import { Keyboard } from "@ionic-native/keyboard";
 })
 export class LoginPage {
   loading: Loading;
+  isKeyboardVisible: boolean = false;
   signupPage = SignupPage;
+  loginForm: FormGroup;
   registerCredentials = { email: "", password: "" };
-  email: string = "";
-  password: string = "";
 
   constructor(
+    public formBuilder: FormBuilder,
     public keyboard: Keyboard,
     private alertCtrl: AlertController,
     private firebase: FirebaseProvider,
     private loadingCtrl: LoadingController,
     private navCtrl: NavController,
     public ui: UiProvider
-  ) {}
+  ) {
+		this.loginForm = this.formBuilder.group({
+      email: ['', Validators.compose([Validators.pattern(regexValidators.email), Validators.required])],
+      password: ['', Validators.required]
+    });
+  }
 
   public createAccount() {
     this.navCtrl.push(SignupPage);
@@ -53,7 +61,7 @@ export class LoginPage {
 
   doLoginWithEmail() {
     this.firebase
-      .signIn(this.registerCredentials.email, this.registerCredentials.password)
+      .signIn(this.loginForm.value.email, this.loginForm.value.password)
       .then(() => {
         this.ui.showToast(this.firebase.message, 3, "top");
 
@@ -83,5 +91,9 @@ export class LoginPage {
       dismissOnPageChange: true
     });
     this.loading.present();
+  }
+
+  toggleKeyboard() {
+
   }
 }

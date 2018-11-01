@@ -73,11 +73,12 @@ export function provideSettings(storage: Storage) {
   imports: [
     BrowserModule,
     // BrMaskerModule,
-    IonicModule.forRoot(MyApp, {
-      scrollPadding: false,
-      scrollAssist: false,
-      autoFocusAssist: false
-    }),
+    IonicModule.forRoot(MyApp),
+    // IonicModule.forRoot(MyApp, {
+    //   scrollPadding: true,
+    //   scrollAssist: true,
+    //   autoFocusAssist: true
+    // }),
     AngularFireModule.initializeApp(firebaseConfig),
     IonicStorageModule.forRoot({
       name: '__mydb',

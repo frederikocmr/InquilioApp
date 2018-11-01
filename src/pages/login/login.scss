@@ -1,23 +1,16 @@
 page-login {
+
+  .vertical-center {
+    margin-top: 20vh;
+  }
+
+  // ion-list {
+  //   align-items: center;
+  //   justify-content: center;
+  //   text-align: center;
+  // }
+  
   p {
     font-size: 2rem;
-  }
-
-  ion-list {
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-  }
-
-  .open-keyboard {
-    ion-slides {
-      height: auto;
-    }
-  }
-
-  .closed-keyboard {
-    ion-slides {
-      height: 75%;
-    }
   }
 }

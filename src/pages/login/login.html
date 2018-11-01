@@ -43,32 +43,43 @@
       </div>
     </form>
   </ion-list> -->
-  <img *ngIf="!keyboard.isVisible;" src="../assets/imgs/logo.png" style="max-height: 23rem;"/>
 
-  <form (ngSubmit)="doLoginWithEmail()" #registerForm="ngForm" class="my-footer">    
+  <!-- <ion-icon class="empty-state-icon" color="secondary" name="custom-user-ok" *ngIf="!isKeyboardVisible"></ion-icon> -->
+  <!-- <img *ngIf="!keyboard.isVisible;" src="../assets/imgs/logo.png" style="max-height: 23rem;" /> -->
 
-    <p>Informe seus dados.</p>
+  <form [formGroup]="loginForm">
 
-    <ion-item class="main-input">
-      <ion-label>E-mail</ion-label>
-      <ion-input type="email" placeholder="Digite seu e-mail" name="email" [(ngModel)]="registerCredentials.email"
-                 required></ion-input>
-    </ion-item>
-    <ion-item class="main-input">
-      <ion-label>Senha</ion-label>
-      <ion-input type="password" placeholder="Digite sua senha" name="password" [(ngModel)]="registerCredentials.password"
-                 required></ion-input>
-    </ion-item>
-    <button ion-button clear color="light" type="button" small>Esqueceu sua senha?</button>
+    <div class="custom-form vertical-center">
+      <p>Informe os dados cadastrados anteriormente.</p>
 
-    <ion-row>
-      <button ion-button class="main-button btn-secondary" large round color="secondary" type="submit" [disabled]="!registerForm.form.valid"
-              strong>Entrar</button>
-    </ion-row>
-    <ion-row>
-      <button ion-button clear color="light" type="button" (click)="createAccount()">Criar uma nova conta?</button>
+      <ion-item>
+        <ion-label floating>Informe seu email</ion-label>
+        <ion-input type="email" [formControl]="loginForm.controls['email']" name="email"></ion-input>
+      </ion-item>
+      <div *ngIf="!loginForm.controls.email.valid && loginForm.controls.email.dirty" class="validator-error">
+        Por favor, informe um email válido.
+      </div>
 
-    </ion-row>
+      <ion-item>
+        <ion-label floating>Informe sua senha</ion-label>
+        <ion-input type="password" [formControl]="loginForm.controls['password']" name="password"></ion-input>
+      </ion-item>
+      <div *ngIf="!loginForm.controls.password.valid && loginForm.controls.password.dirty" class="validator-error">
+        Por favor, informe uma senha.
+      </div>
+
+      <button ion-button clear color="light" type="button" small>Esqueceu sua senha?</button>
+
+      <div class="my-footer">
+        <ion-row>
+          <button ion-button class="main-button btn-secondary" large round color="secondary" [disabled]="!loginForm.valid"
+                  (click)="doLoginWithEmail()" type="submit" strong>Entrar</button>
+        </ion-row>
+        <ion-row>
+          <button ion-button clear color="light" type="button" (click)="createAccount()">Criar uma nova conta?</button>
+        </ion-row>
+      </div>
+    </div>
   </form>
 
 </ion-content>
