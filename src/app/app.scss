@@ -38,6 +38,7 @@
 
 .bg-owner-page {
   background: color($colors, primary400);
+  height: 100%;
 }
 
 .btn-secondary {
@@ -126,11 +127,11 @@ ion-loading.custom-loading {
   }
 }
 
-.keyboard-is-open {
+.keyboard-is-open .tabbar {
   display: none;
 }
 
-.keyboard-is-open scroll-content {
+.keyboard-is-open .scroll-content {
   margin-bottom: 0 !important;
 }
 
@@ -161,9 +162,9 @@ ion-loading.custom-loading {
 }
 
 .my-footer {
-  position: fixed;
-  left: 0px;
-  bottom: 0px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
   width: 100%;
 }
 

@@ -11,7 +11,6 @@
 
 
 <ion-content class="bg-owner-page">
-  <ion-searchbar animated="true" placeholder="Buscar inquilino..." showCancelButton="True" (ionClear)="searchingTenants = false;" (ionInput)="searchingTenants = true;"></ion-searchbar>
 
   <div *ngIf="searchingTenants">
     <ion-card *ngFor="let tenant of search | async" color="primary700">
@@ -46,11 +45,11 @@
     <div class="empty-state-active" [hidden]="tenantsExists" padding text-center>
       <ion-icon class="empty-state-icon" color="light" name="custom-users"></ion-icon>
       <h5 no-margin>Você ainda não adicionou um inquilino.</h5>
-      <p no-margin>Assim que cadastrar um inquilino ou vincular um já existente em nossa base a um contrato seu, ele
+      <p no-margin>Assim que vincular um inquilino a um contrato seu, ele
         aparecerá aqui.</p>
     </div>
 
-    <div [hidden]="!tenantsExists"  col-md-6 offset-md-3>
+    <div [hidden]="!tenantsExists" col-md-6 offset-md-3>
       <ion-card *ngFor="let tenant of tenants | async" color="primary700">
         <ion-card-content>
           <h2>{{ tenant.name }}</h2>
@@ -79,10 +78,13 @@
       </ion-card>
     </div>
 
-    <ion-fab right bottom>
+    <!-- <ion-fab right bottom>
       <button ion-fab color="secondary" (click)="newTenant()">
         <ion-icon name="custom-add"></ion-icon>
       </button>
-    </ion-fab>
+    </ion-fab> -->
   </div>
+  
+  <ion-searchbar animated="true" class="my-footer" placeholder="Buscar inquilino..." showCancelButton="True" (ionClear)="searchingTenants = false;"
+                 (ionInput)="searchingTenants = true;"></ion-searchbar>
 </ion-content>
