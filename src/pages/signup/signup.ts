@@ -42,6 +42,24 @@ export class SignupPage {
 		});
 	}
 	
+  showListener() {
+    document.getElementById('footer').classList.add('keyboard-is-open');
+	}
+	
+  hideListener() {
+    document.getElementById('footer').classList.remove('keyboard-is-open');
+  }
+
+  ionViewDidEnter() {
+    window.addEventListener('keyboardWillShow', this.showListener);
+    window.addEventListener('keyboardDidHide', this.hideListener);
+  }
+
+  ionViewWillLeave() {
+    window.removeEventListener('keyboardWillShow', this.showListener);
+    window.removeEventListener('keyboardDidHide', this.hideListener);
+  }
+	
 	public getValuesFromForm(){
 		let newObject = this.signupForm.value as UserAccount;
 		this.account.document = newObject.document;

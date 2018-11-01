@@ -6,7 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { IonicStorageModule, Storage } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http'
-//import { BrMaskerModule } from 'brmasker-ionic-3';
+import { BrMaskerModule } from 'brmasker-ionic-3';
 
 import { AngularFireModule } from "@angular/fire";
 import { AngularFireAuthModule } from "@angular/fire/auth";
@@ -72,13 +72,13 @@ export function provideSettings(storage: Storage) {
   ],
   imports: [
     BrowserModule,
-    // BrMaskerModule,
-    IonicModule.forRoot(MyApp),
-    // IonicModule.forRoot(MyApp, {
-    //   scrollPadding: true,
-    //   scrollAssist: true,
-    //   autoFocusAssist: true
-    // }),
+    BrMaskerModule,
+    // IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {
+      scrollPadding: false,
+      scrollAssist: true,
+      autoFocusAssist: false
+    }),
     AngularFireModule.initializeApp(firebaseConfig),
     IonicStorageModule.forRoot({
       name: '__mydb',

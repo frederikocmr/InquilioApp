@@ -37,6 +37,24 @@ export class LoginPage {
       password: ['', Validators.required]
     });
   }
+	
+  showListener() {
+    document.getElementById('footer').classList.add('keyboard-is-open');
+	}
+	
+  hideListener() {
+    document.getElementById('footer').classList.remove('keyboard-is-open');
+  }
+
+  ionViewDidEnter() {
+    window.addEventListener('keyboardWillShow', this.showListener);
+    window.addEventListener('keyboardDidHide', this.hideListener);
+  }
+
+  ionViewWillLeave() {
+    window.removeEventListener('keyboardWillShow', this.showListener);
+    window.removeEventListener('keyboardDidHide', this.hideListener);
+  }
 
   public createAccount() {
     this.navCtrl.push(SignupPage);

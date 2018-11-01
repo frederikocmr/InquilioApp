@@ -126,6 +126,14 @@ ion-loading.custom-loading {
   }
 }
 
+.keyboard-is-open {
+  display: none;
+}
+
+.keyboard-is-open scroll-content {
+  margin-bottom: 0 !important;
+}
+
 .logo {
   border: 1px;
   border-radius: 50%;
