@@ -25,14 +25,14 @@ export class RealEstateDetailsPage {
       this.getRealEstateType();
   }
 
-  public getRealEstateType(): void {
+  public getRealEstateType(): string {
     switch (this.realEstate.type) {
-      case 'a': this.realEstateType = "Apartamento"; break;
-      case 'c': this.realEstateType = "Casa"; break;
-      case 'k': this.realEstateType = "Kitnet"; break;
-      case 'q': this.realEstateType = "Quarto"; break;
-      case 'o': this.realEstateType = "Outro"; break;
-      default: this.realEstateType = "Outro"; break;
+      case 'a': return "Apartamento";
+      case 'c': return "Casa";
+      case 'k': return "Kitnet";
+      case 'q': return "Quarto";
+      case 'o': return "Outro";
+      default: return "Outro";
     }
   }
 
@@ -48,8 +48,8 @@ export class RealEstateDetailsPage {
 
   public removeRealEstate(): void {
     let modal = this.ui.alertCtrl.create({
-      title: "Remover",
-      subTitle: "Tem certeza que deseja remover este imóvel?",
+      title: "Remover Imóvel?",
+      subTitle: "Essa ação é permanente e não pode ser desfeita.",
       buttons: ["Cancelar",
         {
           text: "Remover",

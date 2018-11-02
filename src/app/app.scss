@@ -41,6 +41,24 @@
   height: 100%;
 }
 
+.btn-danger {
+  color: color($colors, light);
+  background-image: linear-gradient(
+    to right,
+    color($colors, dangerAlt) 0%,
+    color($colors, danger) 100%
+  );
+}
+
+.btn-light {
+  color: color($colors, dark);
+  background-image: linear-gradient(
+    to right,
+    color($colors, primary50) 0%,
+    color($colors, light) 100%
+  );
+}
+
 .btn-secondary {
   color: color($colors, dark);
   background-image: linear-gradient(

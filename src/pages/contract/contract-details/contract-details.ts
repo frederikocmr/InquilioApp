@@ -6,6 +6,7 @@ import { FirebaseProvider } from '../../../providers';
 import { UiProvider } from './../../../providers';
 import { RealEstate } from '../../../models/real-estate';
 import { ContractFormPage } from '../contract-form/contract-form';
+import { TenantAccount } from '../../../models/tenant-account';
 
 @IonicPage()
 @Component({
@@ -15,6 +16,7 @@ import { ContractFormPage } from '../contract-form/contract-form';
 export class ContractDetailsPage {
   public contract: Contract = new Contract();
   public currentRealEstate:  RealEstate = null;
+  public currentTenant: TenantAccount = null;
 
   constructor(
     public navCtrl: NavController,
@@ -33,6 +35,21 @@ export class ContractDetailsPage {
 
   }
 
+  public getDateString(date): string {
+    return new Date(date).toLocaleDateString('pt-BR', {timeZone: 'UTC'});
+  }
+
+  public getRealEstateType(): string {
+    switch (this.currentRealEstate.type) {
+      case 'a': return "Apartamento";
+      case 'c': return "Casa";
+      case 'k': return "Kitnet";
+      case 'q': return "Quarto";
+      case 'o': return "Outro";
+      default: return "Outro";
+    }
+  }
+
   public onEditContract(): void {
     let detailsModal = this.modalCtrl.create(ContractFormPage, { contract: this.contract });
     detailsModal.present();
@@ -40,8 +57,8 @@ export class ContractDetailsPage {
 
   public removeContract(): void{
     let modal = this.ui.alertCtrl.create({
-      title: "Remover",
-      subTitle: "Tem certeza que deseja remover este contrato?",
+      title: "Remover Contrato?",
+      subTitle: "Essa ação é permanente e não pode ser desfeita.",
       buttons: ["Cancelar",
         {
           text: "Remover",

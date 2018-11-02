@@ -54,6 +54,10 @@ export class ContractPage {
 
   }
 
+  public getDateString(date): string {
+    return new Date(date).toLocaleDateString('pt-BR', {timeZone: 'UTC'});
+  }
+
   // TODO: verificar se o usuário possui imóveis e inquilinos cadastrados, se sim entra na modal para criar um contrato, senão mostra um alert pedindo que cadastre o que falta.
   public newContract(): void {
     let modal = this.modalCtrl.create(ContractFormPage);

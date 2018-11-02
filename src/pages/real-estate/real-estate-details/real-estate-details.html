@@ -19,12 +19,12 @@
 
     <div margin>
       <h2>{{ realEstate.name }}</h2>
-      <p>{{ realEstateType }}</p>
+      <p>{{ (realEstate.type ? getRealEstateType() : '') }}</p>
     </div>
 
     <div margin>
       <ion-label color="secondary" no-margin>Descrição</ion-label>
-      <p>{{ realEstate.description }}</p>
+      <p>{{ (realEstate.description ? realEstate.description : "Nenhuma descrição informada.") }}</p>
     </div>
 
     <div margin>
@@ -34,7 +34,9 @@
 
     <div margin>
       <ion-label color="secondary" no-margin>Endereço</ion-label>
-      <p>{{ realEstate.street }} - {{ realEstate.district }}, {{ realEstate.city }} - {{ realEstate.state }}</p>
+      <p class="address-p">{{ realEstate.street }} - {{ realEstate.district }}</p>
+      <p class="address-p">{{ realEstate.city }} - {{ realEstate.state }}</p>
+      <p>{{ realEstate.zip }}</p>
     </div>
 
     <div margin>
@@ -44,24 +46,23 @@
 
     <div margin>
       <ion-label color="secondary" no-margin>Inquilino</ion-label>
-      <p>{{ (realEstate.contractId ? "Tiranossauro Rex" : "Sem contrato vinculado.") }}</p>
+      <p>{{ (realEstate.contractId ? "Nome do Inquilino" : "Sem inquilino vinculado.") }}</p>
     </div>
 
-    <div text-center>
-      <button class="main-button btn-secondary" *ngIf="!realEstate.contractId" ion-button large round color="secondary"
-              strong (click)="newContract()">Adicionar Contrato</button>
-    
-      <ion-row justify-content-between>
-        <ion-col text-right>
-          <button ion-button round color="light" strong (click)="onEditRealEstate()" icon-start style="width: 12rem;">
-            <ion-icon name="custom-edit"></ion-icon>Editar
-          </button>
-        </ion-col>
-        <ion-col text-left>
-          <button ion-button round color="danger" strong (click)="removeRealEstate(realEstate)" icon-start style="width: 12rem;">
-            <ion-icon name="custom-delete"></ion-icon>Remover
-          </button>
-        </ion-col>
+    <div margin-top>
+      <ion-row>
+        <button class="main-button btn-secondary" *ngIf="!realEstate.contractId" ion-button large round color="secondary"
+          strong (click)="newContract()">Adicionar Contrato</button>
+      </ion-row>
+      <ion-row>
+        <button class="main-button btn-light" ion-button large round color="light" strong (click)="onEditRealEstate()">
+          <ion-icon name="custom-edit"></ion-icon>Editar
+        </button>
+      </ion-row>
+      <ion-row>
+        <button class="main-button btn-danger" ion-button large round color="danger" strong (click)="removeRealEstate(realEstate)">
+          <ion-icon name="custom-delete"></ion-icon>Remover
+        </button>
       </ion-row>
     </div>
   </ion-list>

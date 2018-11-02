@@ -22,8 +22,8 @@
       <ion-card-content>
         <h2>{{ (contract.realEstateId ? "Possui imóvel associado." : "Sem imóvel associado.") }}</h2>
         <h3 padding-top>{{ (contract.tenantId ? "Possui inquilino associado." : "Sem inquilino associado.") }}</h3>
-        <p>{{ (contract.beginDate ? "Início em "+contract.beginDate : "Sem data de início.") }}</p>
-        <p>{{ (contract.endDate ? "Válido até "+contract.endDate : "Sem data de encerramento.") }}</p>
+        <p>{{ (contract.beginDate ? "Início em "+getDateString(contract.beginDate) : "Sem data de início.") }}</p>
+        <p>{{ (contract.endDate ? "Válido até "+getDateString(contract.endDate) : "Sem data de encerramento.") }}</p>
         <p>{{ (contract.duration ? "Duração de "+contract.duration : "Sem duração definida.") }}</p>
       </ion-card-content>
       <button ion-button clear color="secondary" (click)="viewDetails(contract)">
