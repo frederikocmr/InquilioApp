@@ -1,5 +1,4 @@
 <ion-header>
-
   <ion-navbar color="primary">
     <ion-buttons left>
       <button navPop ion-button icon-only style="margin: 0 6px; min-width: 36px;">
@@ -8,54 +7,65 @@
     </ion-buttons>
     <ion-title>{{(editing ? "Editar" : "Adicionar")}} Contrato</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
 <ion-content class="bg-owner-page" padding>
-  <form (ngSubmit)="addContract()" #registerForm="ngForm">
-    <ion-list text-center>
-      <ion-label color="light" text-left>Detalhes</ion-label>
 
-      <ion-item class="form-input">
-        <ion-label>Data de início *</ion-label>
-        <ion-datetime cancelText="Cancelar" doneText="Confirmar" displayFormat="DD/MMM/YYYY" [max]="setMaxDate()"
-                      [monthShortNames]="monthShortNames" name="beginDate" [(ngModel)]="contract.beginDate" required
-                      placeholder="Selecione" (ionChange)="calculateDuration()"></ion-datetime>
+  <form [formGroup]="contractForm">
+    <ion-list class="custom-form" text-center>
+      <ion-label color="light" text-left>Período</ion-label>
+
+      <ion-item>
+        <ion-label floating>Selecione a data de início</ion-label>
+        <ion-datetime cancelText="Cancelar" doneText="Confirmar"
+                      [formControl]="contractForm.controls['beginDate']" name="beginDate" 
+                      displayFormat="DD/MMM/YYYY" [max]="setMaxDate()" [monthShortNames]="monthShortNames" 
+                      (ionChange)="calculateDuration()"></ion-datetime>
       </ion-item>
+      <div *ngIf="!contractForm.controls.beginDate.valid && contractForm.controls.beginDate.dirty" class="validator-error">
+        Por favor, selecione a data de início.
+      </div>
 
-      <ion-item class="form-input">
-        <ion-label>Data de encerramento *</ion-label>
-        <ion-datetime cancelText="Cancelar" doneText="Confirmar" displayFormat="DD/MMM/YYYY" [min]="setMinDate()" [max]="setMaxDate()" [monthShortNames]="monthShortNames" name="endDate" [(ngModel)]="contract.endDate" required
-                      placeholder="Selecione" (ionChange)="calculateDuration()"></ion-datetime>
+      <ion-item>
+        <ion-label floating>Selecione a data de encerramento</ion-label>
+        <ion-datetime cancelText="Cancelar" doneText="Confirmar" displayFormat="DD/MMM/YYYY"
+                      [formControl]="contractForm.controls['endDate']" name="endDate" 
+                      [min]="setMinDate()" [max]="setMaxDate()" [monthShortNames]="monthShortNames"
+                      (ionChange)="calculateDuration()"></ion-datetime>
       </ion-item>
+      <div *ngIf="!contractForm.controls.endDate.valid && contractForm.controls.endDate.dirty" class="validator-error">
+        Por favor, selecione a data de encerramento.
+      </div>
 
-      <ion-item class="form-input">
-        <ion-label>Duração</ion-label>
-        <ion-input [(ngModel)]="contract.duration" name="duration" placeholder="Calculada automaticamente" disabled
-                   required></ion-input>
+      <ion-item>
+        <ion-label floating>Duração (Calculada automaticamente)</ion-label>
+        <ion-input [formControl]="contractForm.controls['duration']" name="duration" [(ngModel)]="contract.duration" readonly></ion-input>
       </ion-item>
 
       <hr>
 
       <ion-label color="light" text-left>Vínculos</ion-label>
 
-      <ion-item class="form-input">
-        <ion-label>Imóvel *</ion-label>
-        <ion-select name="realEstateId" [(ngModel)]="contract.realEstateId" placeholder="Selecione" style="max-width: 75%;">
+      <ion-item>
+        <ion-label floating>Selecione um imóvel</ion-label>
+        <ion-select [formControl]="contractForm.controls['realEstateId']" name="realEstateId">
           <ion-option *ngFor="let realEstate of realEstates | async" [value]="realEstate.id">{{ realEstate.name }}</ion-option>
         </ion-select>
       </ion-item>
+      <div *ngIf="!contractForm.controls.realEstateId.valid && contractForm.controls.realEstateId.dirty" class="validator-error">
+        Por favor, selecione um imóvel.
+      </div>
 
-      <ion-item class="form-input">
-        <ion-label>Inquilino *</ion-label>
-        <ion-select name="tenantId" [(ngModel)]="contract.tenantId" placeholder="Selecione" style="max-width: 70%;">
+      <ion-item>
+        <ion-label floating>Selecione um inquilino (Opcional)</ion-label>
+        <ion-select [formControl]="contractForm.controls['tenantId']" name="tenantId">
           <!-- <ion-option *ngFor="let tenant of tenants | async" [value]="tenant.id">{{ tenant.name }}</ion-option> -->
         </ion-select>
       </ion-item>
-      <ion-label color="light">* Item obrigatório.</ion-label>
 
-      <button class="main-button btn-secondary" ion-button large round color="secondary" strong margin-top>Salvar</button>
+      <button class="main-button btn-secondary" ion-button large round color="secondary"
+              [disabled]="!contractForm.valid" (click)="addContract()" type="submit" strong margin-top>Salvar</button>
     </ion-list>
   </form>
 
