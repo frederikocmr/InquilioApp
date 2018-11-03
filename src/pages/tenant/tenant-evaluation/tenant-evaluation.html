@@ -1,0 +1,54 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-buttons left>
+      <button navPop ion-button icon-only style="margin: 0 6px; min-width: 36px;">
+        <ion-icon color="light" name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Avaliar Inquilino</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="bg-owner-page">
+  <form [formGroup]="evaluationForm">
+    <ion-list class="custom-form" text-center>
+      <div margin>
+        <h2>{{ tenant.name }}</h2>
+        <p class="tenant-details-p">Título do Imóvel</p>
+        <p class="tenant-details-p">Contrato de 00/00/0000 a 11/11/1111</p>
+      </div>
+
+      <div class="div-hr">
+        <hr>
+      </div>
+
+      <div margin>
+        <h3>Como foi o período de aluguel?</h3>
+        <ion-label color="light">Toque nas estrelas para classificar de 1 a 5.</ion-label>
+        <div text-center>
+          <ion-icon class="evaluation-star" color="secondary" (click)="getStarName(star.value)" [name]="star.name"
+            *ngFor="let star of stars"></ion-icon>
+        </div>
+
+        <div *ngIf="overallScore > 0 && overallScore < 5">
+          <p>Selecione o que pode melhorar</p>
+        </div>
+
+        <hr>
+
+        <ion-item>
+          <ion-label floating>Deixe um comentário (Opcional)</ion-label>
+          <ion-textarea></ion-textarea>
+        </ion-item>
+
+        <p>Sua contribuição é importante para termos uma base cada vez mais confiável.</p>
+      </div>
+
+      <button class="main-button btn-secondary" ion-button large round color="secondary" strong margin-top [disabled]="!evaluationForm.valid"
+        (click)="saveEvaluation()">Salvar Avaliação</button>
+    </ion-list>
+  </form>
+</ion-content>

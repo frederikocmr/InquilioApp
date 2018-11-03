@@ -332,3 +332,12 @@ ion-icon {
     mask-image: url(../assets/imgs/google-icon.svg);
   }
 }
+
+body {
+  background: color($colors, dark);
+}
+
+ion-app.ios, ion-app.md, .modal-wrapper {
+  background: color($colors, dark);
+  border-radius: 1rem !important;
+}

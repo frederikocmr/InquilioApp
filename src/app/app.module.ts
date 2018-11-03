@@ -33,6 +33,7 @@ import { TenantFormPage } from '../pages/tenant/tenant-form/tenant-form';
 import { TenantDetailsPage } from '../pages/tenant/tenant-details/tenant-details';
 import { Keyboard } from "@ionic-native/keyboard";
 import { TenantTabsPage } from '../pages/tenant-tabs/tenant-tabs';
+import { TenantEvaluationPage } from '../pages/tenant/tenant-evaluation/tenant-evaluation';
 
 
 export function provideSettings(storage: Storage) {
@@ -68,7 +69,8 @@ export function provideSettings(storage: Storage) {
     ContractFormPage,
     TenantPage,
     TenantFormPage,
-    TenantDetailsPage
+    TenantDetailsPage,
+    TenantEvaluationPage
   ],
   imports: [
     BrowserModule,
@@ -106,7 +108,8 @@ export function provideSettings(storage: Storage) {
     ContractFormPage,
     TenantPage,
     TenantFormPage,
-    TenantDetailsPage
+    TenantDetailsPage,
+    TenantEvaluationPage
   ],
   providers: [
     StatusBar,
