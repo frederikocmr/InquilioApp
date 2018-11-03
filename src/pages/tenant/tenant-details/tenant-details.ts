@@ -10,15 +10,15 @@ import { TenantEvaluationPage } from '../tenant-evaluation/tenant-evaluation';
 })
 export class TenantDetailsPage {
   public tenant: TenantAccount;
-  public isEvaluationTime: boolean = false;
-  public isTenantAssociated: boolean = false;
+  // public isEvaluationTime: boolean = false;
+  public isTenantAssociated: boolean = true;
 
   constructor(private modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams) {
     this.tenant = navParams.get('tenant');
   }
 
   // Allows the owner to associate a tenant with a real estate or a contract
-  public associateTenant(): void {}
+  // public associateTenant(): void {}
 
   // Shows the tenant evaluation modal (page)
   public evaluateTenant(): void {

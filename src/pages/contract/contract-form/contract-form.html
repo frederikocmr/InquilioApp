@@ -18,10 +18,9 @@
 
       <ion-item>
         <ion-label floating>Selecione a data de início</ion-label>
-        <ion-datetime cancelText="Cancelar" doneText="Confirmar"
-                      [formControl]="contractForm.controls['beginDate']" name="beginDate" 
-                      displayFormat="DD/MMM/YYYY" [max]="setMaxDate()" [monthShortNames]="monthShortNames" 
-                      (ionChange)="calculateDuration()"></ion-datetime>
+        <ion-datetime cancelText="Cancelar" doneText="Confirmar" [formControl]="contractForm.controls['beginDate']"
+          name="beginDate" displayFormat="DD/MMM/YYYY" [max]="setMaxDate()" [monthShortNames]="monthShortNames"
+          (ionChange)="calculateDuration()"></ion-datetime>
       </ion-item>
       <div *ngIf="!contractForm.controls.beginDate.valid && contractForm.controls.beginDate.dirty" class="validator-error">
         Por favor, selecione a data de início.
@@ -29,10 +28,8 @@
 
       <ion-item>
         <ion-label floating>Selecione a data de encerramento</ion-label>
-        <ion-datetime cancelText="Cancelar" doneText="Confirmar" displayFormat="DD/MMM/YYYY"
-                      [formControl]="contractForm.controls['endDate']" name="endDate" 
-                      [min]="setMinDate()" [max]="setMaxDate()" [monthShortNames]="monthShortNames"
-                      (ionChange)="calculateDuration()"></ion-datetime>
+        <ion-datetime cancelText="Cancelar" doneText="Confirmar" displayFormat="DD/MMM/YYYY" [formControl]="contractForm.controls['endDate']"
+          name="endDate" [min]="setMinDate()" [max]="setMaxDate()" [monthShortNames]="monthShortNames" (ionChange)="calculateDuration()"></ion-datetime>
       </ion-item>
       <div *ngIf="!contractForm.controls.endDate.valid && contractForm.controls.endDate.dirty" class="validator-error">
         Por favor, selecione a data de encerramento.
@@ -40,7 +37,8 @@
 
       <ion-item>
         <ion-label floating>Duração (Calculada automaticamente)</ion-label>
-        <ion-input [formControl]="contractForm.controls['duration']" name="duration" [(ngModel)]="contract.duration" readonly></ion-input>
+        <ion-input [formControl]="contractForm.controls['duration']" name="duration" [(ngModel)]="contract.duration"
+          readonly></ion-input>
       </ion-item>
 
       <hr>
@@ -64,8 +62,10 @@
         </ion-select>
       </ion-item>
 
-      <button class="main-button btn-secondary" ion-button large round color="secondary"
-              [disabled]="!contractForm.valid" (click)="addContract()" type="submit" strong margin-top>Salvar</button>
+      <button class="main-button btn-secondary" ion-button large round color="secondary" [disabled]="!contractForm.valid"
+        (click)="addContract()" type="submit" strong margin-top icon-start>
+        <ion-icon name="custom-save"></ion-icon>Salvar
+      </button>
     </ion-list>
   </form>
 

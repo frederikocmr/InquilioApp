@@ -88,8 +88,8 @@
         <ion-input type="text" [formControl]="realEstateForm.controls['state']" name="state" [(ngModel)]="realEstate.state"></ion-input>
       </ion-item>
 
-      <button class="main-button btn-secondary" ion-button large round color="secondary" strong (click)="addRealEstate()"
-        margin-top>Salvar</button>
+      <button class="main-button btn-secondary" ion-button large round color="secondary" strong [disabled]="!realEstateForm.valid" (click)="addRealEstate()"
+        margin-top icon-start><ion-icon name="custom-save"></ion-icon>Salvar</button>
     </ion-list>
   </form>
 

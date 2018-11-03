@@ -13,38 +13,47 @@
 <ion-content class="bg-owner-page">
   <ion-list>
     <div margin>
-      <h2>{{ tenant.name }}</h2>
+      <!-- <h2>{{ tenant.name }}</h2> -->
+      <h2>Nome do Inquilino</h2>
       <p>{{( contract ? contract : "Sem contrato" )}}</p>
     </div>
 
     <div margin>
       <ion-label color="secondary" no-margin>CPF</ion-label>
       <!-- Format example: <p>***.***.*00-00</p> -->
-      <p>{{tenant.document}}</p>
+      <!-- <p>{{tenant.document}}</p> -->
+      <p>***.***.*00-00</p>
     </div>
 
     <div margin>
       <ion-label color="secondary" no-margin>Telefone</ion-label>
       <!-- Format example: <p>(00) 9 8765-4321</p> -->
-      <p>{{tenant.phone}}</p>
+      <!-- <p>{{tenant.phone}}</p> -->
+      <p>(00) 9 8765-4321</p>
     </div>
 
     <div margin>
       <ion-label color="secondary" no-margin>Email</ion-label>
-      <p>{{tenant.email}}</p>
+      <!-- <p>{{tenant.email}}</p> -->
+      <p>email@teste.com</p>
     </div>
 
     <div margin-top>
-      <ion-row *ngIf="!isTenantAssociated">
-        <button class="main-button btn-secondary" ion-button large round color="secondary" strong (click)="associateTenant()">Vincular
+      <!-- <ion-row *ngIf="!isTenantAssociated">
+        <button class="main-button btn-secondary" ion-button large round color="secondary" strong (click)="associateTenant()"
+          icon-start>
+          <ion-icon name="custom-group-add"></ion-icon>Vincular
+        </button>
+      </ion-row> -->
+      <ion-row *ngIf="!isEvaluationTime">
+        <button class="main-button btn-secondary" ion-button large round color="secondary" strong (click)="evaluateTenant()" icon-start>
+          <ion-icon name="custom-done"></ion-icon>Avaliar
         </button>
       </ion-row>
-      <ion-row *ngIf="isEvaluationTime">
-        <button class="main-button btn-secondary" ion-button large round color="secondary" strong (click)="evaluateTenant()">Avaliar
-        </button>
-      </ion-row>
-      <ion-row>
-        <button class="main-button btn-danger" ion-button large round color="danger" strong (click)="removeTenant()" icon-start><ion-icon name="custom-delete"></ion-icon>Remover
+      <ion-row *ngIf="isTenantAssociated">
+        <button class="main-button btn-danger" ion-button large round color="danger" strong (click)="removeTenant()"
+          icon-start>
+          <ion-icon name="custom-delete"></ion-icon>Remover
         </button>
       </ion-row>
     </div>

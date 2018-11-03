@@ -7,7 +7,7 @@
 <ion-content class="bg-owner-page" padding-top>
   <form [formGroup]="form" *ngIf="settingsReady">
     <ion-list>
-      <div text-center>        
+      <div text-center>
         <ion-icon class="empty-state-icon" color="secondary" name="custom-account-circle" *ngIf="!user.photoURL"></ion-icon>
         <img class="logo" *ngIf="user.photoURL" padding [src]="user.photoURL ? user.photoURL : '../../assets/imgs/user-y500.png'" />
         <h5 no-padding>{{user.displayName}}</h5>
@@ -34,7 +34,10 @@
       </ion-item>
 
       <div text-center padding-top>
-        <button class="main-button btn-danger" ion-button large round color="danger" strong (click)="signOut()">Sair</button>
+        <button class="main-button btn-danger" ion-button large round color="danger" strong (click)="signOut()"
+          icon-start>
+          <ion-icon name="custom-exit"></ion-icon>Sair
+        </button>
         <p>Versão Dono de Imóvel</p>
       </div>
     </ion-list>

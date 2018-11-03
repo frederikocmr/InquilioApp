@@ -270,12 +270,24 @@ ion-icon {
     mask-image: url(../assets/icons/contract.svg);
   }
 
+  &[class*="custom-contract-add"] {
+    mask-image: url(../assets/icons/contract-add.svg);
+  }
+
   &[class*="custom-delete"] {
     mask-image: url(../assets/icons/delete.svg);
   }
 
+  &[class*="custom-done"] {
+    mask-image: url(../assets/icons/done.svg);
+  }
+
   &[class*="custom-edit"] {
     mask-image: url(../assets/icons/edit.svg);
+  }
+
+  &[class*="custom-exit"] {
+    mask-image: url(../assets/icons/exit.svg);
   }
 
   &[class*="custom-group-add"] {
@@ -288,6 +300,10 @@ ion-icon {
 
   &[class*="custom-home"] {
     mask-image: url(../assets/icons/home.svg);
+  }
+
+  &[class*="custom-save"] {
+    mask-image: url(../assets/icons/save.svg);
   }
 
   &[class*="custom-settings"] {

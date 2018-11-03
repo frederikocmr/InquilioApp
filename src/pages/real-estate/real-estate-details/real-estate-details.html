@@ -52,15 +52,18 @@
     <div margin-top>
       <ion-row>
         <button class="main-button btn-secondary" *ngIf="!realEstate.contractId" ion-button large round color="secondary"
-          strong (click)="newContract()">Adicionar Contrato</button>
+          strong (click)="newContract()" icon-start>
+          <ion-icon name="custom-contract-add"></ion-icon>Vincular Contrato</button>
       </ion-row>
       <ion-row>
-        <button class="main-button btn-light" ion-button large round color="light" strong (click)="onEditRealEstate()">
+        <button class="main-button btn-light" ion-button large round color="light" strong (click)="onEditRealEstate()"
+          icon-start>
           <ion-icon name="custom-edit"></ion-icon>Editar
         </button>
       </ion-row>
       <ion-row>
-        <button class="main-button btn-danger" ion-button large round color="danger" strong (click)="removeRealEstate(realEstate)">
+        <button class="main-button btn-danger" ion-button large round color="danger" strong (click)="removeRealEstate(realEstate)"
+          icon-start>
           <ion-icon name="custom-delete"></ion-icon>Remover
         </button>
       </ion-row>

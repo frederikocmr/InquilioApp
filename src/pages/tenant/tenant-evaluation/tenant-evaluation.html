@@ -16,7 +16,8 @@
   <form [formGroup]="evaluationForm">
     <ion-list class="custom-form" text-center>
       <div margin>
-        <h2>{{ tenant.name }}</h2>
+        <!-- <h2>{{ tenant.name }}</h2> -->
+        <h2>Nome do Inquilino</h2>
         <p class="tenant-details-p">Título do Imóvel</p>
         <p class="tenant-details-p">Contrato de 00/00/0000 a 11/11/1111</p>
       </div>
@@ -48,7 +49,7 @@
       </div>
 
       <button class="main-button btn-secondary" ion-button large round color="secondary" strong margin-top [disabled]="!evaluationForm.valid"
-        (click)="saveEvaluation()">Salvar Avaliação</button>
+        (click)="saveEvaluation()" icon-start><ion-icon name="custom-save"></ion-icon>Salvar</button>
     </ion-list>
   </form>
 </ion-content>
