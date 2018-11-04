@@ -69,18 +69,19 @@
 }
 
 .custom-form {
-  .item-input .label-md, .item-select .label-md, .item-datetime .label-md {
+  .item-input .label-md, .item-select .label-md, .item-datetime .label-md,
+  .item-input .label-ios, .item-select .label-ios, .item-datetime .label-ios {
     color: color($colors, light);
   }
 
-  .item-input-has-focus .label-md[stacked],
-  .input-has-focus .label-md[stacked],
-  .item-input-has-focus .label-md[floating],
-  .input-has-focus .label-md[floating] {
+  .item-input-has-focus .label-md[stacked], .item-input-has-focus .label-ios[stacked],
+  .input-has-focus .label-md[stacked], .input-has-focus .label-ios[stacked],
+  .item-input-has-focus .label-md[floating], .item-input-has-focus .label-ios[floating],
+  .input-has-focus .label-md[floating], .input-has-focus .label-ios[floating] {
     color: color($colors, secondary);
   }
 
-  .item-md {
+  .item-md, .item-ios {
     background: none;
     color: color($colors, light);
     padding: 0 1rem 0 1rem;
@@ -88,13 +89,15 @@
     margin: auto;
   }
 
-  .item-md.item-input.item-input-has-focus .item-inner {
+  .item-md.item-input.item-input-has-focus .item-inner,
+  .item-ios.item-input.item-input-has-focus .item-inner {
     border-bottom-color: color($colors, secondary);
     -webkit-box-shadow: inset 0 -1px 0 0 color($colors, secondary);
     box-shadow: inset 0 -1px 0 0 color($colors, secondary);
   }
 
-  .item-md.item-block .item-inner {
+  .item-md.item-block .item-inner,
+  .item-ios.item-block .item-inner {
     padding: 0;
   }
 
@@ -125,6 +128,11 @@
   ion-label {
     color: color($colors, primary200);
   }
+}
+
+ion-app.ios, ion-app.md, .modal-wrapper {
+  background: color($colors, dark);
+  border-radius: 1rem !important;
 }
 
 .intro-background {
@@ -209,17 +217,25 @@ ion-loading.custom-loading {
   background: color($colors, secondary) !important;
 }
 
-.tabs-md[tabsLayout="icon-top"] .has-icon .tab-button-text {
+.tabs-md[tabsLayout="icon-top"] .has-icon .tab-button-text,
+.tabs-ios[tabsLayout="icon-top"] .has-icon .tab-button-text {
   margin-top: 0px !important;
 }
 
 .tabs-md .tab-button[aria-selected="true"],
 .tabs-md-primary .tab-button[aria-selected="true"],
-.tabs-md-primary .tab-button[aria-selected="true"] .tab-button-icon {
+.tabs-md-primary .tab-button[aria-selected="true"] .tab-button-icon,
+.tabs-ios .tab-button[aria-selected="true"],
+.tabs-ios-primary .tab-button[aria-selected="true"],
+.tabs-ios-primary .tab-button[aria-selected="true"] .tab-button-icon  {
   color: color($colors, secondary) !important;
 }
 
 // Elements and pseudo-elements
+body {
+  background: color($colors, dark);
+}
+
 h2,
 h3,
 h4,
@@ -347,13 +363,4 @@ ion-icon {
     height: 1.7em;
     mask-image: url(../assets/imgs/google-icon.svg);
   }
-}
-
-body {
-  background: color($colors, dark);
-}
-
-ion-app.ios, ion-app.md, .modal-wrapper {
-  background: color($colors, dark);
-  border-radius: 1rem !important;
 }
