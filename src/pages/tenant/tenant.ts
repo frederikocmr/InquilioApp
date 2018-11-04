@@ -31,7 +31,7 @@ export class TenantPage {
     public navParams: NavParams,
     public ui: UiProvider
   ) {
-    
+
   }
 
   public newTenant(): void {
@@ -40,24 +40,26 @@ export class TenantPage {
   }
 
   public search(): void {
-    //TODO: Quando ativar esta funcao, criar um loading na tela sem ser o do ui...
-    this.tenants = this.afDb.collection<TenantAccount>(
-      'tenantAccount',
-      ref => ref.where("document", "==", this.searchString).where("active", "==", true)
-    ).snapshotChanges().pipe(
-      map(actions => actions.map(a => {
-        const data = a.payload.doc.data() as TenantAccount;
-        const id = a.payload.doc.id;
-        data.id = id;
-        this.tenantsExists = true;
-        
-        return { id, ...data };
-      })) 
-    );
+    if (this.searchString.length == 14) {
+      //TODO: Quando ativar esta funcao, criar um loading na tela sem ser o do ui...
+      this.tenants = this.afDb.collection<TenantAccount>(
+        'tenantAccount',
+        ref => ref.where("document", "==", this.searchString).where("active", "==", true)
+      ).snapshotChanges().pipe(
+        map(actions => actions.map(a => {
+          const data = a.payload.doc.data() as TenantAccount;
+          const id = a.payload.doc.id;
+          data.id = id;
+          this.tenantsExists = true;
+
+          return { id, ...data };
+        }))
+      );
+    }
   }
 
   public viewDetails(tenant): void {
-    this.navCtrl.push(TenantDetailsPage, {tenant: tenant});
+    this.navCtrl.push(TenantDetailsPage, { tenant: tenant });
     // let detailsModal = this.modalCtrl.create(TenantDetailsPage, {tenant: tenant});
     // detailsModal.present();
   }
