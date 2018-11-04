@@ -7,7 +7,6 @@ import { Component, Input } from '@angular/core';
 export class TimelineComponent {
   @Input('endIcon') endIcon = "ionic";
   constructor() {
-
   }
 
 }
@@ -22,14 +21,15 @@ export class TimelineItemComponent{
   }
 }
 
-
 @Component({
   selector:'timeline-time',
-  template: '<span>{{time.subtitle}}</span> <span>{{time.title}}</span>'
+  template: '<span>{{ datetime | date:"EEEE" }}</span>' + 
+  '<span>{{ datetime | date:"medium" }}</span>'
 })
 export class TimelineTimeComponent{
-  @Input('time') time = {subtitle: '', title: ''};
-  constructor(){
+  @Input('datetime') datetime: number; 
+  public day = new Date(this.datetime).getDate() ;
 
+  constructor(){
   }
 }
