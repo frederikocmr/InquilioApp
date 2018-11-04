@@ -9,12 +9,24 @@ import { TenantEvaluationPage } from '../tenant-evaluation/tenant-evaluation';
   templateUrl: 'tenant-details.html',
 })
 export class TenantDetailsPage {
-  public tenant: TenantAccount;
+  public tenant = {
+    document: "***.***.*00-00",
+    email: "email@teste.com",
+    phone: "(00) 9 8765-4321"    
+  };
+  overallScore = "4.5";
   // public isEvaluationTime: boolean = false;
   public isTenantAssociated: boolean = true;
+  chips = [
+    {label: "Paga sempre em dia"},
+    {label: "Conserva bem o imóvel"},
+    {label: "Tem bom relacionamento com os vizinhos"}
+  ];
 
   constructor(private modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams) {
-    this.tenant = navParams.get('tenant');
+    if (navParams.get('tenant')) {
+      this.tenant = navParams.get('tenant');
+    }
   }
 
   // Allows the owner to associate a tenant with a real estate or a contract

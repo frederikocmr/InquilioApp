@@ -15,27 +15,35 @@
     <div margin>
       <!-- <h2>{{ tenant.name }}</h2> -->
       <h2>Nome do Inquilino</h2>
-      <p>{{( contract ? contract : "Sem contrato" )}}</p>
+      <ion-row justify-content-start>
+        <ion-icon class="evaluation-star" color="secondary" name="custom-star-full"></ion-icon>
+        <p>{{overallScore}} (2 avaliações)</p>
+      </ion-row>
+      <p class="content-p">{{( contract ? contract : "Atualmente sem contrato" )}}</p>
     </div>
 
     <div margin>
       <ion-label color="secondary" no-margin>CPF</ion-label>
-      <!-- Format example: <p>***.***.*00-00</p> -->
-      <!-- <p>{{tenant.document}}</p> -->
-      <p>***.***.*00-00</p>
+      <!-- Format example: ***.***.*00-00 -->
+      <p class="content-p">{{tenant.document}}</p>
     </div>
 
     <div margin>
       <ion-label color="secondary" no-margin>Telefone</ion-label>
-      <!-- Format example: <p>(00) 9 8765-4321</p> -->
-      <!-- <p>{{tenant.phone}}</p> -->
-      <p>(00) 9 8765-4321</p>
+      <!-- Format example: (00) 9 8765-4321 -->
+      <p class="content-p">{{tenant.phone}}</p>
     </div>
 
     <div margin>
       <ion-label color="secondary" no-margin>Email</ion-label>
-      <!-- <p>{{tenant.email}}</p> -->
-      <p>email@teste.com</p>
+      <p class="content-p">{{tenant.email}}</p>
+    </div>
+
+    <div margin *ngIf="chips">
+      <ion-label color="secondary">Destaques</ion-label>
+      <ion-chip color="primary" *ngFor="let chip of chips">
+        <ion-label>{{chip.label}}</ion-label>
+      </ion-chip>
     </div>
 
     <div margin-top>
@@ -46,7 +54,8 @@
         </button>
       </ion-row> -->
       <ion-row *ngIf="!isEvaluationTime">
-        <button class="main-button btn-secondary" ion-button large round color="secondary" strong (click)="evaluateTenant()" icon-start>
+        <button class="main-button btn-secondary" ion-button large round color="secondary" strong (click)="evaluateTenant()"
+          icon-start>
           <ion-icon name="custom-done"></ion-icon>Avaliar
         </button>
       </ion-row>
