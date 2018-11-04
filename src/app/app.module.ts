@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
+import { ErrorHandler, NgModule, LOCALE_ID } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -7,6 +7,9 @@ import { GooglePlus } from '@ionic-native/google-plus';
 import { IonicStorageModule, Storage } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http'
 import { BrMaskerModule } from 'brmasker-ionic-3';
+
+import { registerLocaleData } from '@angular/common';
+import localePtBr from '@angular/common/locales/pt';
 
 import { AngularFireModule } from "@angular/fire";
 import { AngularFireAuthModule } from "@angular/fire/auth";
@@ -36,6 +39,7 @@ import { TenantTabsPage } from '../pages/tenant-tabs/tenant-tabs';
 import { TenantEvaluationPage } from '../pages/tenant/tenant-evaluation/tenant-evaluation';
 import { TimelineComponent, TimelineItemComponent, TimelineTimeComponent } from '../components/timeline/timeline';
 
+registerLocaleData(localePtBr);
 
 export function provideSettings(storage: Storage) {
   /**
@@ -121,6 +125,7 @@ export function provideSettings(storage: Storage) {
   providers: [
     StatusBar,
     SplashScreen,
+    { provide: LOCALE_ID, useValue: "pt" },
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     { provide: SettingsProvider, useFactory: provideSettings, deps: [Storage] },
     SettingsService,
