@@ -7,6 +7,8 @@ import { FirebaseProvider, UiProvider } from "../../providers";
 import { TabsPage } from '../tabs/tabs';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { regexValidators } from '../../validators/validator';
+import { TenantTabsPage } from '../tenant-tabs/tenant-tabs';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: "page-signup",
@@ -21,16 +23,17 @@ export class SignupPage {
 	public ownerButtonClass: string = 'profile-selected';
 	public tenantButtonClass: string = 'profile-button';
 	public profile: any;
-	signupForm: FormGroup;
+	public signupForm: FormGroup;
 
-	account: UserAccount = new UserAccount();
+	public account: UserAccount = new UserAccount();
 
 	constructor(
     public formBuilder: FormBuilder,
     public keyboard: Keyboard,
 		public navCtrl: NavController,
 		public ui: UiProvider,
-		private firebase: FirebaseProvider) {
+		private firebase: FirebaseProvider,
+		private afDb: AngularFirestore) {
 		this.signupForm = this.formBuilder.group({
 			document: ['', Validators.compose([Validators.pattern(regexValidators.cpfCpnj), Validators.required])],
 			name: ['', Validators.required],
@@ -42,20 +45,20 @@ export class SignupPage {
 		});
 	}
 	
-  showListener() {
+  public showListener() {
     document.getElementById('footer').classList.add('keyboard-is-open');
 	}
 	
-  hideListener() {
+  public hideListener() {
     document.getElementById('footer').classList.remove('keyboard-is-open');
   }
 
-  ionViewDidEnter() {
+  public ionViewDidEnter() {
     window.addEventListener('keyboardWillShow', this.showListener);
     window.addEventListener('keyboardDidHide', this.hideListener);
   }
 
-  ionViewWillLeave() {
+  public ionViewWillLeave() {
     window.removeEventListener('keyboardWillShow', this.showListener);
     window.removeEventListener('keyboardDidHide', this.hideListener);
   }
@@ -67,19 +70,19 @@ export class SignupPage {
 		this.account.email = newObject.email;
 		this.account.password = newObject.password;
 		this.account.phone = newObject.phone;
-		this.account.birthdate = newObject.password;
+		this.account.birthdate = newObject.birthdate;
 		this.account.genre = newObject.genre;
 	}
 
-	openCalendar() {
+	public openCalendar() {
 		this.account.birthdate = new Date().toISOString();
 	}
 
-	setMaxDate() {
+	public setMaxDate(): number {
 		return new Date().getFullYear() - 18;
 	}
 
-	profileSelected(profile: string) {
+	public profileSelected(profile: string): void {
 		this.profile = profile;
 
 		if (profile == 'owner') {
@@ -99,33 +102,34 @@ export class SignupPage {
 		}
 	}
 
-	slideNext() {
+	public slideNext(): void {
 		this.slides.slideNext();
 	}
 
-	slidePrev() {
+	public slidePrev(): void  {
 		this.slides.slidePrev();
 	}
 
-  isFirstSlide() {
+  public isFirstSlide(): boolean  {
     if (this.slides.isBeginning()) return true;
     else return false;
   }
 
-	isLastSlide() {
+	public isLastSlide(): boolean  {
 		if (this.slides.isEnd()) {
 			return true;
 		}
 		return false;
 	}
 
-	doSignup() {
+	public doSignup(): void {
 		this.ui.showLoading();
+		this.getValuesFromForm();
 		this.firebase.signUp(this.account, (this.profile ? this.profile : 'owner')).then((user) => {
 			this.ui.showToast(this.firebase.message, 3, 'top');
-			this.ui.closeLoading();
+
 			if (this.firebase.validator) {
-				this.navCtrl.setRoot(TabsPage);
+				this.chooseRoot();
 			}
 		}).catch((error) => {
 			console.log(error);
@@ -133,5 +137,17 @@ export class SignupPage {
 		});
 	};
 
+	public chooseRoot(): void {
+    this.afDb.collection('ownerAccount').doc(this.firebase.user.uid).snapshotChanges().subscribe(res => {
 
+      if (res.payload.exists) {
+        this.ui.closeLoading();
+        console.log('usuário é owner.');
+        this.navCtrl.setRoot(TabsPage);
+      } else {
+        this.ui.closeLoading();
+        this.navCtrl.setRoot(TenantTabsPage);
+      }
+    });
+  }
 }

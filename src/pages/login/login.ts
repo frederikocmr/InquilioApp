@@ -1,15 +1,12 @@
+import { TenantTabsPage } from './../tenant-tabs/tenant-tabs';
 import { Component } from "@angular/core";
-import { SignupPage } from "../signup/signup";
 import { FirebaseProvider, UiProvider } from "../../providers";
-import {
-  NavController,
-  Loading,
-  LoadingController,
-  AlertController
-} from "ionic-angular";
-import { TabsPage } from "../tabs/tabs";
+import { NavController } from "ionic-angular";
 import { Keyboard } from "@ionic-native/keyboard";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { AngularFirestore } from "@angular/fire/firestore";
+import { SignupPage } from "../signup/signup";
+import { TabsPage } from "../tabs/tabs";
 import { regexValidators } from "../../validators/validator";
 
 @Component({
@@ -17,101 +14,91 @@ import { regexValidators } from "../../validators/validator";
   templateUrl: "login.html"
 })
 export class LoginPage {
-  loading: Loading;
-  isKeyboardVisible: boolean = false;
-  signupPage = SignupPage;
-  loginForm: FormGroup;
-  registerCredentials = { email: "", password: "" };
+  public isKeyboardVisible: boolean = false;
+  public signupPage = SignupPage;
+  public loginForm: FormGroup;
+  public registerCredentials = { email: "", password: "" };
 
   constructor(
     public formBuilder: FormBuilder,
     public keyboard: Keyboard,
-    private alertCtrl: AlertController,
     private firebase: FirebaseProvider,
-    private loadingCtrl: LoadingController,
     private navCtrl: NavController,
+    private afDb: AngularFirestore,
     public ui: UiProvider
   ) {
-		this.loginForm = this.formBuilder.group({
+    this.loginForm = this.formBuilder.group({
       email: ['', Validators.compose([Validators.pattern(regexValidators.email), Validators.required])],
       password: ['', Validators.required]
     });
   }
-	
-  showListener() {
+
+  public showListener(): void {
     document.getElementById('footer').classList.add('keyboard-is-open');
-	}
-	
-  hideListener() {
+  }
+
+  public hideListener(): void {
     document.getElementById('footer').classList.remove('keyboard-is-open');
   }
 
-  ionViewDidEnter() {
+  public ionViewDidEnter(): void {
     window.addEventListener('keyboardWillShow', this.showListener);
     window.addEventListener('keyboardDidHide', this.hideListener);
   }
 
-  ionViewWillLeave() {
+  public ionViewWillLeave(): void {
     window.removeEventListener('keyboardWillShow', this.showListener);
     window.removeEventListener('keyboardDidHide', this.hideListener);
   }
 
-  public createAccount() {
+  public createAccount(): void {
     this.navCtrl.push(SignupPage);
   }
 
-  doLoginWithGoogle() {
-    this.showLoading();
+  public doLoginWithGoogle(): void {
+    this.ui.showLoading();
     this.firebase
       .signInWithGoogle()
       .then(() => {
-        this.loading.dismiss();
         this.ui.showToast(this.firebase.message, 3, "top");
 
         if (this.firebase.validator) {
-          this.navCtrl.setRoot(TabsPage);
+          this.chooseRoot();
         }
       })
       .catch(error => {
-        this.showError(error);
+        this.ui.showToast(error, 3, 'top');
       });
   }
 
-  doLoginWithEmail() {
+  public doLoginWithEmail(): void {
+    this.ui.showLoading();
     this.firebase
       .signIn(this.loginForm.value.email, this.loginForm.value.password)
       .then(() => {
         this.ui.showToast(this.firebase.message, 3, "top");
 
         if (this.firebase.validator) {
-          this.navCtrl.setRoot(TabsPage);
+          this.chooseRoot();
         }
       })
       .catch(error => {
-        this.showError(error);
+        this.ui.showToast(error, 3, 'top');
       });
   }
 
-  showError(text) {
-    this.loading.dismiss();
+  public chooseRoot(): void {
+    this.afDb.collection('ownerAccount').doc(this.firebase.user.uid).snapshotChanges().subscribe(res => {
 
-    let alert = this.alertCtrl.create({
-      title: "Erro",
-      subTitle: text,
-      buttons: ["OK"]
+      if (res.payload.exists) {
+        this.ui.closeLoading();
+        this.navCtrl.setRoot(TabsPage);
+      } else {
+        this.ui.closeLoading();
+        this.navCtrl.setRoot(TenantTabsPage);
+      }
     });
-    alert.present();
   }
 
-  showLoading() {
-    this.loading = this.loadingCtrl.create({
-      content: "Carregando...",
-      dismissOnPageChange: true
-    });
-    this.loading.present();
-  }
-
-  toggleKeyboard() {
-
-  }
+  public toggleKeyboard() { }
 }

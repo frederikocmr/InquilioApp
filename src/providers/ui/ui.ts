@@ -40,6 +40,7 @@ export class UiProvider {
     this.loading.present();
   }
 
+  // TODO: Verificar: removeView was not found
   public closeLoading(removeView?: boolean): void {
     if (!this.loading.onDidDismiss && removeView){
       this.loading.dismiss();
