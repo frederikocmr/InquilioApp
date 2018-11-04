@@ -33,9 +33,9 @@ export class WelcomePage {
     private platform: Platform) {
 
     this.descriptions = [
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel lacinia diam. Fusce sed imperdiet neque, sed posuere sapien.',
-      'Quisque ornare, tortor vitae accumsan facilisis, tortor ipsum convallis enim, eu volutpat tortor dui eget risus.',
-      'Aenean nulla urna, malesuada ut magna eget, lobortis vestibulum est.'
+      'Para donos de imóveis e inquilinos, gerencie seus aluguéis, tenha controle sobre o período de contrato.',
+      'Faça uma avaliação sobre o período do aluguel e encontre usuários bem avaliados.',
+      'Alugue de forma mais segura, encontrando bons usuários prontos para alugar.'
     ];
 
     this.user = this.afAuth.authState;
