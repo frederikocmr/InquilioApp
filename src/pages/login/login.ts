@@ -91,10 +91,10 @@ export class LoginPage {
     this.afDb.collection('ownerAccount').doc(this.firebase.user.uid).snapshotChanges().subscribe(res => {
 
       if (res.payload.exists) {
-        this.ui.closeLoading();
+        this.ui.closeLoading(true);
         this.navCtrl.setRoot(TabsPage);
       } else {
-        this.ui.closeLoading();
+        this.ui.closeLoading(true);
         this.navCtrl.setRoot(TenantTabsPage);
       }
     });
