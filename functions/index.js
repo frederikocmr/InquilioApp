@@ -12,10 +12,10 @@ exports.createRealEstateHistory = functions.firestore.document('RealEstate/{wild
 
         const newValue = snap.data();
         let newData = {
-            title: 'Adicionado novo imóvel: ' + newValue.name,
-            description: 'Descrição da timeline aqui, pode acessar o objeto...',
-            datetime: new Date(),
-            type: 'RealEstate'
+            title: 'Adicionado novo imóvel',
+            description: 'Nome:' + newValue.name,
+            datetime: + new Date(),
+            type: 'home'
         };
         
         let historyCollectionRef = firestoreDB.collection('History').doc(newValue.ownerId);
@@ -52,10 +52,10 @@ exports.createContractHistory = functions.firestore.document('Contract/{wildcard
 
         const newValue = snap.data();
         let newData = {
-            title: 'Adicionado novo contrato de ' + newValue.duration,
-            description: 'Descrição da timeline aqui, pode acessar o objeto...',
-            datetime: new Date(),
-            type: 'Contract'
+            title: 'Adicionado novo contrato',
+            description: 'Duração: '  + newValue.duration,
+            datetime: + new Date(),
+            type: 'document'
         };
 
         let historyCollectionRef = firestoreDB.collection('History').doc(newValue.ownerId);

@@ -14,15 +14,15 @@
 
   <div *ngIf="items" padding>
     <timeline endIcon="download">
-      <timeline-item *ngFor="let item of items">
-        <timeline-time [time]="item.time"></timeline-time>
-        <ion-icon color="light" [name]="item.icon"></ion-icon>
+      <timeline-item *ngFor="let item of (items | async)?.HistoryArray">
+        <timeline-time [datetime]="item.datetime"></timeline-time>
+        <ion-icon color="light" [name]="item.type"></ion-icon>
         <ion-card color="primary700">
           <ion-card-header>
             {{item.title}}
           </ion-card-header>
           <ion-card-content>
-            {{item.content}}
+            {{item.description}} 
           </ion-card-content>
         </ion-card>
       </timeline-item>
