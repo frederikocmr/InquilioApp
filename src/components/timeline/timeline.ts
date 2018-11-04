@@ -28,7 +28,7 @@ export class TimelineItemComponent{
   template: '<span>{{time.subtitle}}</span> <span>{{time.title}}</span>'
 })
 export class TimelineTimeComponent{
-  @Input('time') time = {};
+  @Input('time') time = {subtitle: '', title: ''};
   constructor(){
 
   }
