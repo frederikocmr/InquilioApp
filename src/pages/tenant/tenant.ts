@@ -9,7 +9,7 @@ import { TenantFormPage } from "./tenant-form/tenant-form";
 import { TenantDetailsPage } from "./tenant-details/tenant-details";
 import { Observable } from "rxjs/Observable";
 import { TenantAccount } from "../../models/tenant-account";
-import { UiProvider, FirebaseProvider } from "../../providers";
+import { UiProvider } from "../../providers";
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/internal/operators/map';
 
@@ -22,19 +22,28 @@ export class TenantPage {
   public searchingTenants: boolean = false;
   public tenants: Observable<TenantAccount[]>;
   public tenantsExists: boolean = false;
+  public searchString: string = '';
 
   constructor(
     private modalCtrl: ModalController,
-    private fb: FirebaseProvider,
     private afDb: AngularFirestore,
     public navCtrl: NavController,
     public navParams: NavParams,
     public ui: UiProvider
   ) {
-    this.ui.showLoading();
+    
+  }
+
+  public newTenant(): void {
+    let modal = this.modalCtrl.create(TenantFormPage);
+    modal.present();
+  }
+
+  public search(): void {
+    //TODO: Quando ativar esta funcao, criar um loading na tela sem ser o do ui...
     this.tenants = this.afDb.collection<TenantAccount>(
-      'TenantAccount',
-      ref => ref.where("ownerHistory", "array-contains", this.fb.user.uid).where("active", "==", true)
+      'tenantAccount',
+      ref => ref.where("document", "==", this.searchString).where("active", "==", true)
     ).snapshotChanges().pipe(
       map(actions => actions.map(a => {
         const data = a.payload.doc.data() as TenantAccount;
@@ -42,16 +51,9 @@ export class TenantPage {
         data.id = id;
         this.tenantsExists = true;
         
-        this.ui.closeLoading(true);
         return { id, ...data };
-      }))
+      })) 
     );
-
-  }
-
-  public newTenant(): void {
-    let modal = this.modalCtrl.create(TenantFormPage);
-    modal.present();
   }
 
   public viewDetails(tenant): void {
