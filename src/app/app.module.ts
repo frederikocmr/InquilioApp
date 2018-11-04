@@ -46,9 +46,9 @@ export function provideSettings(storage: Storage) {
    */
   return new SettingsProvider(storage, {
     option1: true,
-    option2: 'Ionitron J. Framework',
+    option2: 'Opção',
     option3: '3',
-    option4: 'Hello'
+    option4: '...'
   });
 }
 

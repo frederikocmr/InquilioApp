@@ -8,6 +8,8 @@ import { LoginPage } from '../login/login';
 import { FirebaseProvider, UiProvider } from '../../providers';
 import { NavController, Platform } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { TenantTabsPage } from '../tenant-tabs/tenant-tabs';
 
 
 
@@ -16,10 +18,10 @@ import { TabsPage } from '../tabs/tabs';
   templateUrl: 'welcome.html'
 })
 export class WelcomePage {
-  loginPage = LoginPage;
-  signupPage = SignupPage;
-  descriptions;
-  user: Observable<firebase.User>;
+  public loginPage = LoginPage;
+  public signupPage = SignupPage;
+  public descriptions;
+  public user: Observable<firebase.User>;
 
   constructor(
     public ui: UiProvider,
@@ -27,6 +29,7 @@ export class WelcomePage {
     private navCtrl: NavController,
     private afAuth: AngularFireAuth,
     private gplus: GooglePlus,
+    private afDb: AngularFirestore,
     private platform: Platform) {
 
     this.descriptions = [
@@ -39,12 +42,12 @@ export class WelcomePage {
 
   }
 
-  doLoginWithGoogle() {
+  public doLoginWithGoogle(): void {
+    this.ui.showLoading();
     if (this.platform.is('cordova')) {
       this.nativeGoogleLogin().then(() => {
         this.ui.showToast("Sucesso ao logar com o Google.", 3, 'top');
-        this.navCtrl.setRoot(TabsPage);
-        this.ui.closeLoading();
+        this.chooseRoot();
 
         // TODO - Chamar função que cria usuário.
       }).catch((error) => {
@@ -57,7 +60,7 @@ export class WelcomePage {
   }
 
   async nativeGoogleLogin(): Promise<firebase.User> {
-    this.ui.showLoading();
+    
     try {
       const gPlusUser = await this.gplus.login({
         'webClientId': '306866070953-h9r4p5avi00ae1qq2vch0cgr6k2dtbon.apps.googleusercontent.com',
@@ -73,16 +76,30 @@ export class WelcomePage {
   }
 
 
-  webGoogleLogin() {
+  public webGoogleLogin(): void {
     this.firebase.signInWithGoogle().then(() => {
       this.ui.showToast(this.firebase.message, 3, 'top');
 
       if (this.firebase.validator) {
-        this.navCtrl.setRoot(TabsPage);
+        this.chooseRoot();
       }
 
     }).catch((error) => {
       console.log(error);
+    });
+  }
+
+  public chooseRoot(): void {
+    this.afDb.collection('ownerAccount').doc(this.firebase.user.uid).snapshotChanges().subscribe(res => {
+
+      if (res.payload.exists) {
+        this.ui.closeLoading();
+        console.log('usuário é owner.');
+        this.navCtrl.setRoot(TabsPage);
+      } else {
+        this.ui.closeLoading();
+        this.navCtrl.setRoot(TenantTabsPage);
+      }
     });
   }
 
