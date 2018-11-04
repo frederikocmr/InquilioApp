@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { TimelinePage } from './timeline';
 
@@ -9,5 +9,6 @@ import { TimelinePage } from './timeline';
   imports: [
     IonicPageModule.forChild(TimelinePage),
   ],
+	schemas: [ NO_ERRORS_SCHEMA ]
 })
 export class TimelinePageModule {}
