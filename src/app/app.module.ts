@@ -34,6 +34,7 @@ import { TenantDetailsPage } from '../pages/tenant/tenant-details/tenant-details
 import { Keyboard } from "@ionic-native/keyboard";
 import { TenantTabsPage } from '../pages/tenant-tabs/tenant-tabs';
 import { TenantEvaluationPage } from '../pages/tenant/tenant-evaluation/tenant-evaluation';
+import { TimelineComponent, TimelineItemComponent, TimelineTimeComponent } from '../components/timeline/timeline';
 
 
 export function provideSettings(storage: Storage) {
@@ -70,7 +71,10 @@ export function provideSettings(storage: Storage) {
     TenantPage,
     TenantFormPage,
     TenantDetailsPage,
-    TenantEvaluationPage
+    TenantEvaluationPage,
+    TimelineComponent,
+    TimelineItemComponent,
+    TimelineTimeComponent
   ],
   imports: [
     BrowserModule,
@@ -109,7 +113,10 @@ export function provideSettings(storage: Storage) {
     TenantPage,
     TenantFormPage,
     TenantDetailsPage,
-    TenantEvaluationPage
+    TenantEvaluationPage,
+    TimelineComponent,
+    TimelineItemComponent,
+    TimelineTimeComponent
   ],
   providers: [
     StatusBar,

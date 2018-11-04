@@ -1,19 +1,31 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-title>Atividades</ion-title>
-    <!-- <ion-buttons end>
-      <button ion-button icon-only (click)="openSettings()">
-        <ion-icon name="settings"></ion-icon>
-      </button>
-    </ion-buttons> -->
   </ion-toolbar>
 </ion-header>
 
 
 <ion-content class="bg-owner-page">
-  <div class="empty-state-active" *ngIf="true" padding text-center>
+  <div class="empty-state-active" *ngIf="!items" padding text-center>
     <ion-icon class="empty-state-icon" color="light" name="custom-timeline"></ion-icon>
     <h5 no-margin>Você ainda não possui atividades.</h5>
     <p no-margin>Assim que começar a usar as funcionalidades do app elas aparecerão aqui.</p>
+  </div>
+
+  <div *ngIf="items" padding>
+    <timeline endIcon="download">
+      <timeline-item *ngFor="let item of items">
+        <timeline-time [time]="item.time"></timeline-time>
+        <ion-icon color="light" [name]="item.icon"></ion-icon>
+        <ion-card color="primary700">
+          <ion-card-header>
+            {{item.title}}
+          </ion-card-header>
+          <ion-card-content>
+            {{item.content}}
+          </ion-card-content>
+        </ion-card>
+      </timeline-item>
+    </timeline>
   </div>
 </ion-content>
