@@ -1,3 +1,30 @@
 page-timeline {
+
+	.round-div {
+		color: #fff;
+		background: color($colors, primary);
+		width: 40px;
+		height: 40px;
+		font-size: 1em;
+		position: absolute;
+		border-radius: 50%;
+		box-shadow: 0 0 0 8px color($colors, secondaryAlt);
+		text-align: center;
+		left: 0.5rem;
+		top: 0;
+		line-height: 40px;
+		&:after {
+			left: 4.5rem;
+			border: solid transparent;
+			content: " ";
+			height: 0;
+			width: 0;
+			position: absolute;
+			pointer-events: none;
+			border-left-color: color($colors, secondaryAlt);
+			border-width: 10px;
+			top: 10px;
+		}
+	}
 	
 }

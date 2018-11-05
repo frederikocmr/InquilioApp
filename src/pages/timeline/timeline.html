@@ -13,16 +13,18 @@
   </div>
 
   <div *ngIf="items" padding>
-    <timeline endIcon="download">
+    <timeline endIcon="md-arrow-round-up">
       <timeline-item *ngFor="let item of (items | async)?.HistoryArray">
         <timeline-time [datetime]="item.datetime"></timeline-time>
-        <ion-icon color="light" [name]="item.type"></ion-icon>
+        <div class="round-div">
+          <div [class]="item.type"></div>
+        </div>
         <ion-card color="primary700">
           <ion-card-header>
             {{item.title}}
           </ion-card-header>
           <ion-card-content>
-            {{item.description}} 
+            {{item.description}}
           </ion-card-content>
         </ion-card>
       </timeline-item>

@@ -255,7 +255,50 @@ ion-card {
   border-radius: 1rem !important;
 }
 
-// Custom icons
+// Timeline icons
+div {
+  &[class*="custom-border"] {
+    mask-size: contain;
+    mask-position: 50% 50%;
+    mask-repeat: no-repeat;
+    background: currentColor;
+    width: 1.6em;
+    height: 1.6em;
+    margin: 0.9rem;
+  }
+
+  // User icon
+  &[class*="custom-border-account-circle"] {
+    mask-image: url(../assets/icons/account-circle.svg);
+  }
+
+  // Contract icon
+  &[class*="custom-border-contract"] {
+    mask-image: url(../assets/icons/contract.svg);
+  }
+
+  // Real Estate icon
+  &[class*="custom-border-home"] {
+    mask-image: url(../assets/icons/home.svg);
+  }
+
+  // Evaluation pending icon
+  &[class*="custom-border-star-border"] {
+    mask-image: url(../assets/icons/star-border.svg);
+  }
+
+  // Evaluation done icon
+  &[class*="custom-border-star-full"] {
+    mask-image: url(../assets/icons/star-full.svg);
+  }
+
+  // Tenant icon
+  &[class*="custom-border-users"] {
+    mask-image: url(../assets/icons/users.svg);
+  }
+}
+
+// Custom Material rounded icons
 ion-icon {
   &[class*="custom-"] {
     mask-size: contain;
