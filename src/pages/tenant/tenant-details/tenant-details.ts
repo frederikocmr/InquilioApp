@@ -9,11 +9,7 @@ import { TenantEvaluationPage } from '../tenant-evaluation/tenant-evaluation';
   templateUrl: 'tenant-details.html',
 })
 export class TenantDetailsPage {
-  public tenant = {
-    document: "***.***.*00-00",
-    email: "email@teste.com",
-    phone: "(00) 9 8765-4321"    
-  };
+  public tenant = new TenantAccount;
   overallScore = "4.5";
   // public isEvaluationTime: boolean = false;
   public isTenantAssociated: boolean = true;
