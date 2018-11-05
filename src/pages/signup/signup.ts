@@ -125,16 +125,18 @@ export class SignupPage {
 	public doSignup(): void {
 		this.ui.showLoading();
 		this.getValuesFromForm();
-		this.firebase.signUp(this.account, (this.profile ? this.profile : 'owner')).then((user) => {
-			this.ui.showToast(this.firebase.message, 3, 'top');
-
-			if (this.firebase.validator) {
-				this.chooseRoot();
-			}
-		}).catch((error) => {
-			console.log(error);
-			this.ui.closeLoading();
-		});
+		if(this.firebase.checkIfDocumentExists(this.account.document, this.profile ? this.profile : 'owner')){
+			this.firebase.signUp(this.account, (this.profile ? this.profile : 'owner')).then((user) => {
+				this.ui.showToast(this.firebase.message, 3, 'top');
+	
+				if (this.firebase.validator) {
+					this.chooseRoot();
+				}
+			}).catch((error) => {
+				console.log(error);
+				this.ui.closeLoading();
+			});
+		}
 	};
 
 	public chooseRoot(): void {
