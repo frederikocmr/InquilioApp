@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FirebaseProvider, SettingsProvider  } from '../../providers';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { User } from 'firebase';
+import { ProfileFormPage } from '../profile-form/profile-form';
 
 @IonicPage()
 @Component({
@@ -84,6 +85,10 @@ export class SettingsPage {
 
       this._buildForm();
     });
+  }
+
+  editUser() {
+    this.navCtrl.push(ProfileFormPage, {user: this.user});
   }
 
   ngOnChanges() {

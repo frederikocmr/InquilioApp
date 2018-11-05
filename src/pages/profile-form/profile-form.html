@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Editar Perfil</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="bg-owner-page" padding>
+  <form [formGroup]="profileForm">
+    <ion-list class="custom-form" text-center>
+      <ion-item>
+        <ion-label floating>Informe seu CPF</ion-label>
+        <ion-input type="text" [formControl]="profileForm.controls['document']" name="document" [brmasker]="{person: true}" disabled></ion-input>
+      </ion-item>
+      <div *ngIf="!profileForm.controls.document.valid && profileForm.controls.document.dirty" class="validator-error">
+        Por favor, informe um CPF válido.
+      </div>
+
+      <ion-item>
+        <ion-label floating>Informe seu nome completo</ion-label>
+        <ion-input type="text" [formControl]="profileForm.controls['name']" name="name" disabled></ion-input>
+      </ion-item>
+      <div *ngIf="!profileForm.controls.name.valid && profileForm.controls.name.dirty" class="validator-error">
+        Por favor, informe um nome.
+      </div>
+
+      <ion-item>
+        <ion-label floating>Selecione sua data de nascimento</ion-label>
+        <ion-datetime cancelText="Cancelar" doneText="Confirmar" displayFormat="DD/MMM/YYYY" [max]="setMaxDate()"
+          [monthShortNames]="monthShortNames" [formControl]="profileForm.controls['birthdate']" name="birthdate"></ion-datetime>
+      </ion-item>
+      <div *ngIf="!profileForm.controls.birthdate.valid && profileForm.controls.birthdate.dirty" class="validator-error">
+        Por favor, selecione uma data de nascimento.
+      </div>
+
+      <ion-item>
+        <ion-label floating>Selecione seu sexo</ion-label>
+        <ion-select name="genre" interface="popover" [formControl]="profileForm.controls['genre']">
+          <ion-option value="f">Feminino</ion-option>
+          <ion-option value="m">Masculino</ion-option>
+          <ion-option value="o">Prefiro não informar</ion-option>
+        </ion-select>
+      </ion-item>
+      <div *ngIf="!profileForm.controls.genre.valid && profileForm.controls.genre.dirty" class="validator-error">
+        Por favor, selecione seu sexo.
+      </div>
+      <ion-item>
+        <ion-label floating>Informe seu número de celular</ion-label>
+        <ion-input type="text" [formControl]="profileForm.controls['phone']" name="phone" [brmasker]="{phone: true}"></ion-input>
+      </ion-item>
+      <div *ngIf="!profileForm.controls.phone.valid && profileForm.controls.phone.dirty" class="validator-error">
+        Por favor, informe um número válido.
+      </div>
+
+      <ion-item>
+        <ion-label floating>Informe seu email</ion-label>
+        <ion-input type="email" [formControl]="profileForm.controls['email']" name="email" disabled></ion-input>
+      </ion-item>
+      <div *ngIf="!profileForm.controls.email.valid && profileForm.controls.email.dirty" class="validator-error">
+        Por favor, informe um email válido.
+      </div>
+
+      <ion-item hidden></ion-item>
+
+      <button class="main-button btn-secondary" ion-button large round color="secondary" type="submit" strong
+        [disabled]="!profileForm.valid" (click)="saveProfile()" margin-top icon-start>
+        <ion-icon name="custom-save"></ion-icon>Salvar
+      </button>
+    </ion-list>
+  </form>
+</ion-content>

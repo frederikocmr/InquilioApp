@@ -38,6 +38,7 @@ import { Keyboard } from "@ionic-native/keyboard";
 import { TenantTabsPage } from '../pages/tenant-tabs/tenant-tabs';
 import { TenantEvaluationPage } from '../pages/tenant/tenant-evaluation/tenant-evaluation';
 import { TimelineComponent, TimelineItemComponent, TimelineTimeComponent } from '../components/timeline/timeline';
+import { ProfileFormPage } from '../pages/profile-form/profile-form';
 
 registerLocaleData(localePtBr);
 
@@ -78,7 +79,8 @@ export function provideSettings(storage: Storage) {
     TenantEvaluationPage,
     TimelineComponent,
     TimelineItemComponent,
-    TimelineTimeComponent
+    TimelineTimeComponent,
+    ProfileFormPage
   ],
   imports: [
     BrowserModule,
@@ -120,7 +122,8 @@ export function provideSettings(storage: Storage) {
     TenantEvaluationPage,
     TimelineComponent,
     TimelineItemComponent,
-    TimelineTimeComponent
+    TimelineTimeComponent,
+    ProfileFormPage
   ],
   providers: [
     StatusBar,

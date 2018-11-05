@@ -4,17 +4,17 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="bg-owner-page" padding-top>
+<ion-content class="bg-owner-page" padding>
   <form [formGroup]="form" *ngIf="settingsReady">
-    <ion-list>
+    <ion-list class="custom-form">
       <div text-center>
-        <ion-icon class="empty-state-icon" color="secondary" name="custom-account-circle" *ngIf="!user.photoURL"></ion-icon>
+        <ion-icon class="account-icon" color="secondary" name="custom-account-circle" *ngIf="!user.photoURL"></ion-icon>
         <img class="logo" *ngIf="user.photoURL" padding [src]="user.photoURL ? user.photoURL : '../../assets/imgs/user-y500.png'" />
-        <h5 no-padding>{{user.displayName}}</h5>
+        <h5 no-padding>{{(user.displayName?user.displayName:"Nome do Usuário")}}</h5>
         <h6 no-padding>{{user.email}}</h6>
       </div>
-      <br>
-      <ion-item>
+      <hr>
+      <!-- <ion-item>
         <ion-label>Opção 1</ion-label>
         <ion-toggle formControlName="option1"></ion-toggle>
       </ion-item>
@@ -31,9 +31,13 @@
           <ion-option value="2">2</ion-option>
           <ion-option value="3">3</ion-option>
         </ion-select>
+      </ion-item> -->
+
+      <ion-item>
+        <ion-label (click)="editUser()">Editar Perfil</ion-label>
       </ion-item>
 
-      <div text-center padding-top>
+      <div class="my-footer" text-center padding-top>
         <button class="main-button btn-danger" ion-button large round color="danger" strong (click)="signOut()"
           icon-start>
           <ion-icon name="custom-exit"></ion-icon>Sair
