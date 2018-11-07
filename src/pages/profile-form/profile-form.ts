@@ -16,6 +16,7 @@ export class ProfileFormPage {
   iconColor: string;
   textColor: string;
   user: User;
+  userType: string;
   profileForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder, public navCtrl: NavController, public navParams: NavParams) {
@@ -31,14 +32,14 @@ export class ProfileFormPage {
       birthdate: ['', Validators.required],
       genre: ['', Validators.required]
     });
+
+    if (navParams.get('userType')) this.userType = navParams.get('userType');
+    else this.userType = "owner";
+    this.changeLayout(this.userType);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProfileFormPage');
-  }
-
-  ionViewDidEnter() {    
-    this.changeLayout("tenant");
   }
 
   // Changes the color of some elements depending on the type of user

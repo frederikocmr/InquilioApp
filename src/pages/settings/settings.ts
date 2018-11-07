@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FirebaseProvider, SettingsProvider  } from '../../providers';
+import { FirebaseProvider, SettingsProvider } from '../../providers';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { User } from 'firebase';
 import { ProfileFormPage } from '../profile-form/profile-form';
@@ -18,6 +18,7 @@ export class SettingsPage {
   textColor: string;
   options: any;
   user: User;
+  userType: string;
   version: string;
   // TODO: Pegar dados do banco deste usuário logado... Por enquanto só está pegando do GoogleUser
 
@@ -36,12 +37,16 @@ export class SettingsPage {
   subSettings: any = SettingsPage;
 
   constructor(
-    private fb: FirebaseProvider,  
+    private fb: FirebaseProvider,
     public navCtrl: NavController,
-    public settings: SettingsProvider ,
+    public settings: SettingsProvider,
     public formBuilder: FormBuilder,
     public navParams: NavParams) {
-      this.user = this.fb.user;
+    this.user = this.fb.user;
+
+    if (navParams.get('userType')) this.userType = navParams.get('userType');
+    else this.userType = "owner";
+    this.changeLayout(this.userType);
   }
 
   signOut() {
@@ -82,7 +87,7 @@ export class SettingsPage {
     this.form = this.formBuilder.group({});
 
     this.page = this.page;
-    this.pageTitleKey =  this.pageTitleKey;
+    this.pageTitleKey = this.pageTitleKey;
 
 
     this.settings.load().then(() => {
@@ -91,10 +96,6 @@ export class SettingsPage {
 
       this._buildForm();
     });
-  }
-
-  ionViewDidEnter() {    
-    this.changeLayout("tenant");
   }
 
   // Changes the color of some elements depending on the type of user
@@ -117,7 +118,7 @@ export class SettingsPage {
   }
 
   editUser() {
-    this.navCtrl.push(ProfileFormPage, {user: this.user});
+    this.navCtrl.push(ProfileFormPage, { user: this.user, userType: this.userType });
   }
 
   ngOnChanges() {

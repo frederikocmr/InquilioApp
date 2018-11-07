@@ -19,6 +19,7 @@ export class TimelinePage {
   textColor: string;
   items: Observable<any>;
   itemsData: History[];
+  userType: string;
 
   constructor(
     public modalCtrl: ModalController,
@@ -38,10 +39,13 @@ export class TimelinePage {
       }
     )
 
+    if (navParams.get('userType')) this.userType = navParams.get('userType');
+    else this.userType = "owner";
+
   }
 
   ionViewDidEnter() {
-    this.changeLayout("tenant");
+    this.changeLayout(this.userType);
   }
 
   // Changes the color of some elements depending on the type of user

@@ -1,5 +1,13 @@
 page-contract-details {
 
+	.primary-text {
+		color: color($colors, primary) !important;
+	}
+
+	.light-text {
+		color: color($colors, light) !important;
+	}
+
   h2 {
     margin-top: 0.5rem;
     margin-bottom: 0rem;

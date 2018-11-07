@@ -14,9 +14,13 @@ import { TenantAccount } from '../../../models/tenant-account';
   templateUrl: 'contract-details.html',
 })
 export class ContractDetailsPage {
+  public backgroundClass: string;
+  public labelColor: string;
+  public textColor: string;
   public contract: Contract = new Contract();
-  public currentRealEstate:  RealEstate = null;
+  public currentRealEstate: RealEstate = null;
   public currentTenant: TenantAccount = null;
+  public userType: string;
 
   constructor(
     public navCtrl: NavController,
@@ -26,17 +30,36 @@ export class ContractDetailsPage {
     private afDb: AngularFirestore,
     private fb: FirebaseProvider
   ) {
-    this.contract = navParams.get('contract');
-    this.afDb.doc<RealEstate>('RealEstate/' + this.contract.realEstateId).valueChanges().
-      subscribe((data) => {
-        this.currentRealEstate = data;
-        console.log(this.currentRealEstate);
-      });
+    if (navParams.get('contract')) {
+      this.contract = navParams.get('contract');
 
+      this.afDb.doc<RealEstate>('RealEstate/' + this.contract.realEstateId).valueChanges().
+        subscribe((data) => {
+          this.currentRealEstate = data;
+          console.log(this.currentRealEstate);
+        });
+    }
+
+    if (navParams.get('userType')) this.userType = navParams.get('userType');
+    else this.userType = "owner";
+    this.changeLayout();
+  }
+
+  // Changes the color of some elements depending on the type of user
+  changeLayout() {
+    if (this.userType === "owner") {
+      this.backgroundClass = "bg-owner-page";
+      this.labelColor = "secondary"
+      this.textColor = "light-text";
+    } else {
+      this.backgroundClass = "bg-tenant-page";
+      this.labelColor = "dark"
+      this.textColor = "primary-text";
+    }
   }
 
   public getDateString(date): string {
-    return new Date(date).toLocaleDateString('pt-BR', {timeZone: 'UTC'});
+    return new Date(date).toLocaleDateString('pt-BR', { timeZone: 'UTC' });
   }
 
   public getRealEstateType(): string {
@@ -55,7 +78,7 @@ export class ContractDetailsPage {
     detailsModal.present();
   }
 
-  public removeContract(): void{
+  public removeContract(): void {
     let modal = this.ui.alertCtrl.create({
       title: "Remover Contrato?",
       subTitle: "Essa ação é permanente e não pode ser desfeita.",

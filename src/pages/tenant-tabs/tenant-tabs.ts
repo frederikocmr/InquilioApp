@@ -6,13 +6,18 @@ import { UiProvider, FirebaseProvider } from "../../providers";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { TabsPage } from "../tabs/tabs";
 import { NavController } from "ionic-angular";
+import { ContractDetailsPage } from "../contract/contract-details/contract-details";
 
 @Component({
   templateUrl: "tenant-tabs.html"
 })
 export class TenantTabsPage {
   timelinePage = TimelinePage;
+  contractDetailsPage = ContractDetailsPage;
   settingsPage = SettingsPage;
+  paramData = {
+    userType: "tenant"
+  };
 
   constructor(
     private fb: FirebaseProvider,
@@ -20,7 +25,8 @@ export class TenantTabsPage {
     private afDb: AngularFirestore,
     private navCtrl: NavController) {
     this.ui.showLoading();
-    setTimeout(() => { this.chooseRoot() }, 2000);
+    // TODO: melhorar tempo de loading, funcionou com 500ms (antes era 2000ms) e no ionViewCanEnter...
+    setTimeout(() => { this.chooseRoot() }, 500);
   }
 
   public chooseRoot(): void {

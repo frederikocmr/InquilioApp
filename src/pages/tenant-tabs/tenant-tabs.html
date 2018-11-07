@@ -1,4 +1,5 @@
 <ion-tabs color="primary">
-	<ion-tab [root]="timelinePage" tabTitle="Atividades" tabIcon="custom-timeline"></ion-tab>
-	<ion-tab [root]="settingsPage" tabTitle="Ajustes" tabIcon="custom-settings"></ion-tab>
+	<ion-tab [root]="timelinePage" [rootParams]="paramData" tabTitle="Atividades" tabIcon="custom-timeline"></ion-tab>
+	<ion-tab [root]="contractDetailsPage" [rootParams]="paramData" tabTitle="Meu Contrato" tabIcon="custom-contract"></ion-tab>
+	<ion-tab [root]="settingsPage" [rootParams]="paramData" tabTitle="Ajustes" tabIcon="custom-settings"></ion-tab>
 </ion-tabs>
