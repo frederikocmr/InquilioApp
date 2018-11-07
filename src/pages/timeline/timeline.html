@@ -12,22 +12,26 @@
     <p [class]="textColor" no-margin>Assim que começar a usar as funcionalidades do app elas aparecerão aqui.</p>
   </div>
 
-  <div *ngIf="items" padding>
-    <timeline endIcon="md-arrow-round-up">
-      <timeline-item *ngFor="let item of (items | async)?.HistoryArray">
-        <timeline-time [id]="item.datetime" [datetime]="item.datetime"></timeline-time>
-        <div class="round-div">
-          <div [class]="item.type"></div>
-        </div>
-        <ion-card [color]="cardColor">
-          <ion-card-header>
-            {{item.title}}
-          </ion-card-header>
-          <ion-card-content>
-            {{item.description}}
-          </ion-card-content>
-        </ion-card>
-      </timeline-item>
-    </timeline>
+  <div *ngIf="items">
+    <ion-row justify-content-center>
+      <ion-col col-12 padding>
+        <timeline endIcon="md-arrow-round-up">
+          <timeline-item *ngFor="let item of (items | async)?.HistoryArray">
+            <timeline-time [id]="item.datetime" [datetime]="item.datetime"></timeline-time>
+            <div class="round-div">
+              <div [class]="item.type"></div>
+            </div>
+            <ion-card [color]="cardColor">
+              <ion-card-header>
+                {{item.title}}
+              </ion-card-header>
+              <ion-card-content>
+                {{item.description}}
+              </ion-card-content>
+            </ion-card>
+          </timeline-item>
+        </timeline>
+      </ion-col>
+    </ion-row>
   </div>
 </ion-content>
