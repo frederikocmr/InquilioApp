@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { FirebaseProvider, UiProvider } from './../../../providers';
 import { RealEstate } from '../../../models/real-estate';
 import { RealEstateFormPage } from './../real-estate-form/real-estate-form';
 import { ContractFormPage } from '../../contract/contract-form/contract-form';
 
-@IonicPage()
 @Component({
   selector: 'page-real-estate-details',
   templateUrl: 'real-estate-details.html',

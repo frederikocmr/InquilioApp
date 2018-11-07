@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { AngularFirestore } from "@angular/fire/firestore";
 import { Contract } from '../../../models/contract';
 import { FirebaseProvider } from '../../../providers';
@@ -8,7 +8,6 @@ import { RealEstate } from '../../../models/real-estate';
 import { ContractFormPage } from '../contract-form/contract-form';
 import { TenantAccount } from '../../../models/tenant-account';
 
-@IonicPage()
 @Component({
   selector: 'page-contract-details',
   templateUrl: 'contract-details.html',
@@ -46,7 +45,7 @@ export class ContractDetailsPage {
   }
 
   // Changes the color of some elements depending on the type of user
-  changeLayout() {
+  private changeLayout(): void {
     if (this.userType === "owner") {
       this.backgroundClass = "bg-owner-page";
       this.labelColor = "secondary"

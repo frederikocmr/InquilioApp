@@ -1,6 +1,5 @@
 import { Component } from "@angular/core";
 import {
-  IonicPage,
   NavController,
   NavParams,
   ModalController
@@ -13,7 +12,6 @@ import { RealEstateFormPage } from "../real-estate/real-estate-form/real-estate-
 import { RealEstateDetailsPage } from "../real-estate/real-estate-details/real-estate-details";
 import { RealEstate } from "../../models/real-estate";
 
-@IonicPage()
 @Component({
   selector: "page-real-estate",
   templateUrl: "real-estate.html"
@@ -67,7 +65,7 @@ export class RealEstatePage {
   }
 
   public viewDetails(realEstateObj): void {
-    this.navCtrl.push(RealEstateDetailsPage, {realEstateObj: realEstateObj});
+    this.navCtrl.push(RealEstateDetailsPage, { realEstateObj: realEstateObj });
     // let detailsModal = this.modalCtrl.create(RealEstateDetailsPage, {realEstateObj: realEstateObj});
     // detailsModal.present();
     // detailsModal.onDidDismiss(data => {});

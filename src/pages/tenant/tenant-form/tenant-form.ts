@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { TenantAccount } from '../../../models/tenant-account';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { regexValidators } from '../../../validators/validator';
 import { UiProvider, FirebaseProvider } from '../../../providers';
 
-@IonicPage()
 @Component({
   selector: 'page-tenant-form',
   templateUrl: 'tenant-form.html',

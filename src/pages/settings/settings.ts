@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { FirebaseProvider, SettingsProvider } from '../../providers';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { User } from 'firebase';
 import { ProfileFormPage } from '../profile-form/profile-form';
 
-@IonicPage()
 @Component({
   selector: 'page-settings',
   templateUrl: 'settings.html',
@@ -99,7 +98,7 @@ export class SettingsPage {
   }
 
   // Changes the color of some elements depending on the type of user
-  changeLayout(user: string) {
+  private changeLayout(user: string): void {
     if (user == "owner") {
       this.backgroundClass = "bg-owner-page";
       this.cardColor = "primary700";

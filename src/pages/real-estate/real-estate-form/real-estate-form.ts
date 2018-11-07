@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { FirebaseProvider, ViacepProvider, UiProvider } from './../../../providers';
 import { RealEstate } from './../../../models/real-estate';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-@IonicPage()
 @Component({
   selector: 'page-real-estate-form',
   templateUrl: 'real-estate-form.html',

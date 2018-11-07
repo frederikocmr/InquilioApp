@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { IonicPage, NavController, NavParams, ModalController } from "ionic-angular";
+import { NavController, NavParams, ModalController } from "ionic-angular";
 import { Observable } from "rxjs/Observable";
 import { map, withLatestFrom } from "rxjs/operators";
 import { AngularFirestore } from "@angular/fire/firestore";
@@ -7,7 +7,6 @@ import { UiProvider, FirebaseProvider } from "../../providers";
 import { History } from "../../models/history";
 import { async } from "rxjs/internal/scheduler/async";
 
-@IonicPage()
 @Component({
   selector: "page-timeline",
   templateUrl: "timeline.html"

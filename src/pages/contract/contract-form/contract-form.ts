@@ -1,6 +1,6 @@
 import { TenantAccount } from "./../../../models/tenant-account";
 import { Component } from "@angular/core";
-import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { NavController, NavParams } from "ionic-angular";
 import { Contract } from "../../../models/contract";
 import { map } from "rxjs/operators";
 import { Observable } from "rxjs";
@@ -9,7 +9,6 @@ import { FirebaseProvider, UiProvider } from "../../../providers";
 import { RealEstate } from "../../../models/real-estate";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
-@IonicPage()
 @Component({
   selector: "page-contract-form",
   templateUrl: "contract-form.html"

@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { User } from 'firebase';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { regexValidators } from '../../validators/validator';
 
-@IonicPage()
 @Component({
   selector: 'page-profile-form',
   templateUrl: 'profile-form.html',
@@ -43,7 +42,7 @@ export class ProfileFormPage {
   }
 
   // Changes the color of some elements depending on the type of user
-  changeLayout(user: string) {
+  private changeLayout(user: string): void {
     if (user == "owner") {
       this.backgroundClass = "bg-owner-page";
       this.cardColor = "primary700";
@@ -60,7 +59,7 @@ export class ProfileFormPage {
   }
 
   // TODO: Criar método para salvar alterações no perfil
-  saveProfile() {
+  public saveProfile(): void {
     this.navCtrl.pop();
   }
 

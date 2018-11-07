@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { TenantAccount } from '../../../models/tenant-account';
 import { TenantEvaluationPage } from '../tenant-evaluation/tenant-evaluation';
 
-@IonicPage()
 @Component({
   selector: 'page-tenant-details',
   templateUrl: 'tenant-details.html',

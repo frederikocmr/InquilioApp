@@ -1,6 +1,5 @@
 import { Component } from "@angular/core";
 import {
-  IonicPage,
   NavController,
   NavParams,
   ModalController
@@ -14,7 +13,6 @@ import { FirebaseProvider, UiProvider } from "../../providers";
 import { Contract } from './../../models/contract';
 // import { RealEstate } from "../../models/real-estate";
 
-@IonicPage()
 @Component({
   selector: "page-contract",
   templateUrl: "contract.html"

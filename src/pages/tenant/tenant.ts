@@ -1,6 +1,5 @@
 import { Component } from "@angular/core";
 import {
-  IonicPage,
   NavController,
   NavParams,
   ModalController
@@ -13,7 +12,6 @@ import { UiProvider } from "../../providers";
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/internal/operators/map';
 
-@IonicPage()
 @Component({
   selector: "page-tenant",
   templateUrl: "tenant.html"

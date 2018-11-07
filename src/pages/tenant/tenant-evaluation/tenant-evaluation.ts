@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { UiProvider, FirebaseProvider } from '../../../providers';
 
-@IonicPage()
 @Component({
   selector: 'page-tenant-evaluation',
   templateUrl: 'tenant-evaluation.html',
