@@ -49,34 +49,36 @@
         aparecerá aqui.</p>
     </div>
 
-    <div [hidden]="!tenantsExists" col-md-6 offset-md-3>
-      <ion-card *ngFor="let tenant of tenants | async" color="primary700">
-        <ion-card-content>
-          <h2>{{ tenant.name }}</h2>
-          <div padding-bottom>
-            <h3 *ngIf="!tenant.overallScore">Inquilino sem avaliação.</h3>
-            <div *ngIf="tenant.overallScore">
-              <!-- <p>
+    <ion-row [hidden]="!tenantsExists" justify-content-center>
+      <ion-col *ngFor="let tenant of tenants | async" col-12 col-sm-6 col-md-4 col-lg-3 no-padding>
+        <ion-card color="primary700">
+          <ion-card-content>
+            <h2>{{ tenant.name }}</h2>
+            <div padding-bottom>
+              <h3 *ngIf="!tenant.overallScore">Inquilino sem avaliação.</h3>
+              <div *ngIf="tenant.overallScore">
+                <!-- <p>
               <ion-icon *ngFor="let item of scores" [name]="item.starName" color="secondary"></ion-icon>
               {{ tenant.overallScore }} ({{ tenant.scoresTotal }} avaliações)
             </p> -->
+              </div>
             </div>
-          </div>
-          <p>{{ (tenant.phone ? tenant.phone : "Nenhum telefone encontrado.") }}</p>
-          <p>{{ (tenant.email ? tenant.email : "Nenhum email encontrado.") }}</p>
-          <!-- <div *ngIf="realEstate">
+            <p>{{ (tenant.phone ? tenant.phone : "Nenhum telefone encontrado.") }}</p>
+            <p>{{ (tenant.email ? tenant.email : "Nenhum email encontrado.") }}</p>
+            <!-- <div *ngIf="realEstate">
           <ion-label color="secondary" no-margin padding-top>Imóvel</ion-label>
           <p>{{ realEstate }}</p>
         </div> -->
-          <!-- <div *ngIf="!realEstate">
+            <!-- <div *ngIf="!realEstate">
           <p>Sem imóvel vinculado.</p>
         </div> -->
-        </ion-card-content>
-        <button ion-button clear color="secondary" (click)="viewDetails(tenant)">
-          VER DETALHES
-        </button>
-      </ion-card>
-    </div>
+          </ion-card-content>
+          <button ion-button clear color="secondary" (click)="viewDetails(tenant)">
+            VER DETALHES
+          </button>
+        </ion-card>
+      </ion-col>
+    </ion-row>
 
     <!-- <ion-fab right bottom>
       <button ion-fab color="secondary" (click)="newTenant()">
@@ -84,9 +86,8 @@
       </button>
     </ion-fab> -->
   </div>
-  
-  <ion-searchbar animated="true" class="my-footer" [(ngModel)]="searchString" 
-    placeholder="Buscar inquilino pelo CPF..." showCancelButton="True" name="document" [brmasker]="{mask:'000.000.000-00', len:14}"
-                 (ionInput)="search()">
+
+  <ion-searchbar animated="true" class="my-footer" [(ngModel)]="searchString" placeholder="Buscar inquilino pelo CPF..."
+    showCancelButton="True" name="document" [brmasker]="{mask:'000.000.000-00', len:14}" (ionInput)="search()">
   </ion-searchbar>
 </ion-content>

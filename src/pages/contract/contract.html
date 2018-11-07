@@ -11,26 +11,28 @@
 
 
 <ion-content class="bg-owner-page">
-  <div class="empty-state-active" [hidden]="contractsExists"  padding text-center>
+  <div class="empty-state-active" [hidden]="contractsExists" padding text-center>
     <ion-icon class="empty-state-icon" color="light" name="custom-contract" margin></ion-icon>
     <h5 no-margin>Você ainda não adicionou um contrato.</h5>
     <p no-margin>Assim que cadastrar um contrato ele aparecerá aqui.</p>
   </div>
 
-  <div [hidden]="!contractsExists"  col-md-6 offset-md-3>
-    <ion-card *ngFor="let contract of contracts | async" color="primary700">
-      <ion-card-content>
-        <h2>{{ (contract.realEstateId ? "Possui imóvel associado." : "Sem imóvel associado.") }}</h2>
-        <h3 padding-top>{{ (contract.tenantId ? "Possui inquilino associado." : "Sem inquilino associado.") }}</h3>
-        <p>{{ (contract.beginDate ? "Início em "+getDateString(contract.beginDate) : "Sem data de início.") }}</p>
-        <p>{{ (contract.endDate ? "Válido até "+getDateString(contract.endDate) : "Sem data de encerramento.") }}</p>
-        <p>{{ (contract.duration ? "Duração de "+contract.duration : "Sem duração definida.") }}</p>
-      </ion-card-content>
-      <button ion-button clear color="secondary" (click)="viewDetails(contract)">
-        VER DETALHES
-      </button>
-    </ion-card>
-  </div>
+  <ion-row [hidden]="!contractsExists" justify-content-center>
+    <ion-col *ngFor="let contract of contracts | async" col-12 col-sm-6 col-md-4 col-lg-3 no-padding>
+      <ion-card color="primary700">
+        <ion-card-content>
+          <h2>{{ (contract.realEstateId ? "Possui imóvel associado." : "Sem imóvel associado.") }}</h2>
+          <h3 padding-top>{{ (contract.tenantId ? "Possui inquilino associado." : "Sem inquilino associado.") }}</h3>
+          <p>{{ (contract.beginDate ? "Início em "+getDateString(contract.beginDate) : "Sem data de início.") }}</p>
+          <p>{{ (contract.endDate ? "Válido até "+getDateString(contract.endDate) : "Sem data de encerramento.") }}</p>
+          <p>{{ (contract.duration ? "Duração de "+contract.duration : "Sem duração definida.") }}</p>
+        </ion-card-content>
+        <button ion-button clear color="secondary" (click)="viewDetails(contract)">
+          VER DETALHES
+        </button>
+      </ion-card>
+    </ion-col>
+  </ion-row>
 
   <ion-fab right bottom>
     <button ion-fab color="secondary" (click)="newContract()">
