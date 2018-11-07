@@ -1,3 +1,11 @@
 page-profile-form {
 
+	.primary-text {
+		color: color($colors, primary) !important;
+	}
+
+	.light-text {
+		color: color($colors, light) !important;
+	}
+
 }

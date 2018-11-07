@@ -1,10 +1,11 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams, ModalController } from "ionic-angular";
 import { Observable } from "rxjs/Observable";
-import { map } from "rxjs/operators";
+import { map, withLatestFrom } from "rxjs/operators";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { UiProvider, FirebaseProvider } from "../../providers";
 import { History } from "../../models/history";
+import { async } from "rxjs/internal/scheduler/async";
 
 @IonicPage()
 @Component({
@@ -12,6 +13,10 @@ import { History } from "../../models/history";
   templateUrl: "timeline.html"
 })
 export class TimelinePage {
+  backgroundClass: string;
+  cardColor: string;
+  iconColor: string;
+  textColor: string;
   items: Observable<any>;
   itemsData: History[];
 
@@ -24,7 +29,7 @@ export class TimelinePage {
     private afDb: AngularFirestore
   ) {
 
-    this.items = this.afDb.doc<any>('History/' +this.fb.user.uid).valueChanges();
+    this.items = this.afDb.doc<any>('History/' + this.fb.user.uid).valueChanges();
 
     this.items.subscribe(
       (data) => {
@@ -32,11 +37,41 @@ export class TimelinePage {
         console.log(data);
       }
     )
-    
+
   }
 
-  ionViewDidLoad() {
-    console.log("ionViewDidLoad TimelinePage");
+  ionViewDidEnter() {
+    this.changeLayout("tenant");
+  }
+
+  // Changes the color of some elements depending on the type of user
+  changeLayout(user: string) {
+    if (user == "owner") {
+      this.backgroundClass = "bg-owner-page";
+      this.cardColor = "primary700";
+      this.iconColor = "light";
+      this.textColor = "light-text";
+    } else {
+      this.backgroundClass = "bg-tenant-page";
+      this.cardColor = "light";
+      this.iconColor = "primary"
+      this.textColor = "primary-text";
+      this.changeTimeColor();
+    }
+  }
+
+  // Add the class "primary-text" to all span elements inside timeline-time to change
+  // the color of the text to primary
+  changeTimeColor() {
+    let timelineTime = document.getElementsByTagName("timeline-time");
+    let length = timelineTime.length;
+    for (let i = 0; i < length; i++) {
+      let el = timelineTime[i].children;
+      let spanLength = el.length;
+      for (let j = 0; j < spanLength; j++) {
+        el[j].className = "primary-text";
+      }
+    }
   }
 
 }

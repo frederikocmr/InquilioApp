@@ -5,21 +5,21 @@
 </ion-header>
 
 
-<ion-content class="bg-owner-page">
+<ion-content [class]="backgroundClass">
   <div class="empty-state-active" *ngIf="!items" padding text-center>
-    <ion-icon class="empty-state-icon" color="light" name="custom-timeline"></ion-icon>
-    <h5 no-margin>Você ainda não possui atividades.</h5>
-    <p no-margin>Assim que começar a usar as funcionalidades do app elas aparecerão aqui.</p>
+    <ion-icon class="empty-state-icon" [color]="iconColor" name="custom-timeline"></ion-icon>
+    <h5 [class]="textColor" no-margin>Você ainda não possui atividades.</h5>
+    <p [class]="textColor" no-margin>Assim que começar a usar as funcionalidades do app elas aparecerão aqui.</p>
   </div>
 
   <div *ngIf="items" padding>
     <timeline endIcon="md-arrow-round-up">
       <timeline-item *ngFor="let item of (items | async)?.HistoryArray">
-        <timeline-time [datetime]="item.datetime"></timeline-time>
+        <timeline-time [id]="item.datetime" [datetime]="item.datetime"></timeline-time>
         <div class="round-div">
           <div [class]="item.type"></div>
         </div>
-        <ion-card color="primary700">
+        <ion-card [color]="cardColor">
           <ion-card-header>
             {{item.title}}
           </ion-card-header>

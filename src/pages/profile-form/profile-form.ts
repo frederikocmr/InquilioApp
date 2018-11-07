@@ -10,6 +10,11 @@ import { regexValidators } from '../../validators/validator';
   templateUrl: 'profile-form.html',
 })
 export class ProfileFormPage {
+  backgroundClass: string;
+  cardColor: string;
+  formClass: string;
+  iconColor: string;
+  textColor: string;
   user: User;
   profileForm: FormGroup;
 
@@ -30,6 +35,27 @@ export class ProfileFormPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProfileFormPage');
+  }
+
+  ionViewDidEnter() {    
+    this.changeLayout("tenant");
+  }
+
+  // Changes the color of some elements depending on the type of user
+  changeLayout(user: string) {
+    if (user == "owner") {
+      this.backgroundClass = "bg-owner-page";
+      this.cardColor = "primary700";
+      this.formClass = "custom-form";
+      this.iconColor = "light";
+      this.textColor = "light-text";
+    } else {
+      this.backgroundClass = "bg-tenant-page";
+      this.cardColor = "light";
+      this.formClass = "custom-form-tenant";
+      this.iconColor = "primary"
+      this.textColor = "primary-text";
+    }
   }
 
   // TODO: Criar método para salvar alterações no perfil

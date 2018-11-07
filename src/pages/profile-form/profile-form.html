@@ -4,9 +4,9 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content class="bg-owner-page" padding>
+<ion-content [class]="backgroundClass" padding>
   <form [formGroup]="profileForm">
-    <ion-list class="custom-form" text-center>
+    <ion-list [class]="formClass" text-center>
       <ion-item>
         <ion-label floating>Informe seu CPF</ion-label>
         <ion-input type="text" [formControl]="profileForm.controls['document']" name="document" [brmasker]="{person: true}" disabled></ion-input>

@@ -11,8 +11,14 @@ import { ProfileFormPage } from '../profile-form/profile-form';
   templateUrl: 'settings.html',
 })
 export class SettingsPage {
+  backgroundClass: string;
+  cardColor: string;
+  formClass: string;
+  iconColor: string;
+  textColor: string;
   options: any;
   user: User;
+  version: string;
   // TODO: Pegar dados do banco deste usuário logado... Por enquanto só está pegando do GoogleUser
 
   settingsReady = false;
@@ -85,6 +91,29 @@ export class SettingsPage {
 
       this._buildForm();
     });
+  }
+
+  ionViewDidEnter() {    
+    this.changeLayout("tenant");
+  }
+
+  // Changes the color of some elements depending on the type of user
+  changeLayout(user: string) {
+    if (user == "owner") {
+      this.backgroundClass = "bg-owner-page";
+      this.cardColor = "primary700";
+      this.formClass = "custom-form";
+      this.iconColor = "light";
+      this.textColor = "light-text";
+      this.version = "Versão Dono de Imóvel";
+    } else {
+      this.backgroundClass = "bg-tenant-page";
+      this.cardColor = "light";
+      this.formClass = "custom-form-tenant";
+      this.iconColor = "primary"
+      this.textColor = "primary-text";
+      this.version = "Versão Inquilino";
+    }
   }
 
   editUser() {

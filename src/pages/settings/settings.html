@@ -4,14 +4,14 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="bg-owner-page" padding>
+<ion-content [class]="backgroundClass" padding>
   <form [formGroup]="form" *ngIf="settingsReady">
-    <ion-list class="custom-form">
+    <ion-list [class]="formClass">
       <div text-center>
         <ion-icon class="account-icon" color="secondary" name="custom-account-circle" *ngIf="!user.photoURL"></ion-icon>
         <img class="logo" *ngIf="user.photoURL" padding [src]="user.photoURL ? user.photoURL : '../../assets/imgs/user-y500.png'" />
-        <h5 no-padding>{{(user.displayName?user.displayName:"Nome do Usuário")}}</h5>
-        <h6 no-padding>{{user.email}}</h6>
+        <h5 [class]="textColor" no-padding>{{(user.displayName?user.displayName:"Nome do Usuário")}}</h5>
+        <h6 [class]="textColor" no-padding>{{user.email}}</h6>
       </div>
       <hr>
       <!-- <ion-item>
@@ -42,7 +42,7 @@
           icon-start>
           <ion-icon name="custom-exit"></ion-icon>Sair
         </button>
-        <p>Versão Dono de Imóvel</p>
+        <p [class]="textColor">{{version}}</p>
       </div>
     </ion-list>
   </form>

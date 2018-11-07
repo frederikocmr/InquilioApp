@@ -1,5 +1,13 @@
 page-timeline {
 
+	.primary-text {
+		color: color($colors, primary) !important;
+	}
+
+	.light-text {
+		color: color($colors, light) !important;
+	}
+
 	.round-div {
 		color: #fff;
 		background: color($colors, primary);

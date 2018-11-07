@@ -41,6 +41,11 @@
   height: 100%;
 }
 
+.bg-tenant-page {
+  background: color($colors, primary50);
+  height: 100%;
+}
+
 .btn-danger {
   color: color($colors, light);
   background-image: linear-gradient(
@@ -99,6 +104,47 @@
   .item-md.item-block .item-inner,
   .item-ios.item-block .item-inner {
     padding: 0;
+  }
+
+  .validator-error {
+    color: color($colors, danger);
+    font-size: 1.5rem;
+    margin-top: 1rem;
+  }
+}
+
+.custom-form-tenant {
+  .item-input .label-md, .item-select .label-md, .item-datetime .label-md,
+  .item-input .label-ios, .item-select .label-ios, .item-datetime .label-ios {
+    color: color($colors, dark);
+  }
+
+  .item-input-has-focus .label-md[stacked], .item-input-has-focus .label-ios[stacked],
+  .input-has-focus .label-md[stacked], .input-has-focus .label-ios[stacked],
+  .item-input-has-focus .label-md[floating], .item-input-has-focus .label-ios[floating],
+  .input-has-focus .label-md[floating], .input-has-focus .label-ios[floating] {
+    color: color($colors, primary);
+  }
+
+  .item-md, .item-ios {
+    background: none;
+    color: color($colors, primary);
+    padding: 0 1rem 0 1rem;
+    max-width: 50rem;
+    margin: auto;
+  }
+
+  .item-md.item-input.item-input-has-focus .item-inner,
+  .item-ios.item-input.item-input-has-focus .item-inner {
+    border-bottom-color: color($colors, primary);
+    -webkit-box-shadow: inset 0 -1px 0 0 color($colors, primary);
+    box-shadow: inset 0 -1px 0 0 color($colors, primary);
+  }
+
+  .item-md.item-block .item-inner,
+  .item-ios.item-block .item-inner {
+    padding: 0;
+    border-bottom: 1px solid color($colors, primary);
   }
 
   .validator-error {
