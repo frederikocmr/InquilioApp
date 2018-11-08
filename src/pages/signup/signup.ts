@@ -16,6 +16,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class SignupPage {
 	@ViewChild('slides') slides: Slides;
+	public isTextFieldType: boolean;
   public monthShortNames: String[] = [
     "jan","fev","mar","abr","mai","jun",
     "jul","ago","set","out","nov","dez"
@@ -44,6 +45,10 @@ export class SignupPage {
 			genre: ['', Validators.required]
 		});
 	}
+
+  public togglePasswordFieldType(): void {
+    this.isTextFieldType = !this.isTextFieldType;
+  }
 	
   public showListener() {
     document.getElementById('footer').classList.add('keyboard-is-open');

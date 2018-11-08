@@ -16,6 +16,7 @@ import { regexValidators } from "../../validators/validator";
 export class LoginPage {
   public isKeyboardVisible: boolean = false;
   public signupPage = SignupPage;
+  public isTextFieldType: boolean;
   public loginForm: FormGroup;
   public registerCredentials = { email: "", password: "" };
 
@@ -31,6 +32,10 @@ export class LoginPage {
       email: ['', Validators.compose([Validators.pattern(regexValidators.email), Validators.required])],
       password: ['', Validators.required]
     });
+  }
+
+  public togglePasswordFieldType(): void {
+    this.isTextFieldType = !this.isTextFieldType;
   }
 
   public showListener(): void {

@@ -455,6 +455,14 @@ ion-icon {
     mask-image: url(../assets/icons/users-circle.svg);
   }
 
+  &[class*="custom-visibility"] {
+    mask-image: url(../assets/icons/visibility.svg);
+  }
+
+  &[class*="custom-visibility-off"] {
+    mask-image: url(../assets/icons/visibility-off.svg);
+  }
+
   &[class*="google-icon"] {
     mask-size: contain;
     mask-position: 50% 50%;

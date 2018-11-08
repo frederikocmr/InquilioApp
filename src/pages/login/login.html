@@ -62,7 +62,10 @@
 
       <ion-item>
         <ion-label floating>Informe sua senha</ion-label>
-        <ion-input type="password" [formControl]="loginForm.controls['password']" name="password"></ion-input>
+        <ion-input [type]="isTextFieldType ? 'text' : 'password'" [formControl]="loginForm.controls['password']" name="password"></ion-input>
+        <button class="visibility-icon" clear (click)="togglePasswordFieldType()" icon-only ion-button item-right>
+          <ion-icon color="light" [name]="isTextFieldType ? 'custom-visibility-off' : 'custom-visibility'"></ion-icon>
+        </button>
       </ion-item>
       <div *ngIf="!loginForm.controls.password.valid && loginForm.controls.password.dirty" class="validator-error">
         Por favor, informe uma senha.
@@ -73,7 +76,7 @@
       <div id="footer" class="my-footer">
         <ion-row>
           <button ion-button class="main-button btn-secondary" large round color="secondary" [disabled]="!loginForm.valid"
-                  (click)="doLoginWithEmail()" type="submit" strong>Entrar</button>
+            (click)="doLoginWithEmail()" type="submit" strong>Entrar</button>
         </ion-row>
         <ion-row>
           <button ion-button clear color="light" type="button" (click)="createAccount()">Criar uma nova conta?</button>

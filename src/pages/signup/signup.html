@@ -44,7 +44,7 @@
             <ion-item>
               <ion-label floating>Selecione sua data de nascimento</ion-label>
               <ion-datetime cancelText="Cancelar" doneText="Confirmar" displayFormat="DD/MMM/YYYY" [max]="setMaxDate()"
-                            [monthShortNames]="monthShortNames" [formControl]="signupForm.controls['birthdate']" name="birthdate"></ion-datetime>
+                [monthShortNames]="monthShortNames" [formControl]="signupForm.controls['birthdate']" name="birthdate"></ion-datetime>
             </ion-item>
             <div *ngIf="!signupForm.controls.birthdate.valid && signupForm.controls.birthdate.dirty" class="validator-error">
               Por favor, selecione uma data de nascimento.
@@ -89,7 +89,11 @@
 
             <ion-item>
               <ion-label floating>Informe uma senha</ion-label>
-              <ion-input type="password" [formControl]="signupForm.controls['password']" name="password"></ion-input>
+              <ion-input [type]="isTextFieldType ? 'text' : 'password'" [formControl]="signupForm.controls['password']"
+                name="password"></ion-input>
+              <button class="visibility-icon" clear (click)="togglePasswordFieldType()" icon-only ion-button item-right>
+                <ion-icon color="light" [name]="isTextFieldType ? 'custom-visibility-off' : 'custom-visibility'"></ion-icon>
+              </button>
             </ion-item>
             <div *ngIf="!signupForm.controls.password.valid && signupForm.controls.password.dirty" class="validator-error">
               Por favor, informe uma senha.
@@ -105,16 +109,16 @@
         <ion-row>
           <ion-col>
             <button class="btn-slides-pagination" type="button" ion-button outline round color="secondary" (click)="slidePrev()"
-                    [disabled]="isFirstSlide()">Anterior</button>
+              [disabled]="isFirstSlide()">Anterior</button>
           </ion-col>
           <ion-col>
             <button class="btn-slides-pagination" type="button" ion-button outline round color="secondary" (click)="slideNext()"
-                    [disabled]="isLastSlide()">Próximo</button>
+              [disabled]="isLastSlide()">Próximo</button>
           </ion-col>
         </ion-row>
         <ion-row justify-content-center>
           <button class="main-button btn-secondary" ion-button large round color="secondary" type="submit" strong
-                  [disabled]="!signupForm.valid" (click)="doSignup()">Confirmar</button>
+            [disabled]="!signupForm.valid" (click)="doSignup()">Confirmar</button>
         </ion-row>
         <ion-row justify-content-center>
           <button ion-button clear color="light" small>Ao confirmar aceito os Termos e Condições de Uso.</button>
