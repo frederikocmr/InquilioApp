@@ -20,7 +20,6 @@ import { WelcomePage } from '../pages/welcome/welcome';
 import { TimelinePage } from '../pages/timeline/timeline';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
-import { SettingsService } from '../services/settings';
 import { SettingsPage } from '../pages/settings/settings';
 import { RealEstatePage } from '../pages/real-estate/real-estate';
 import { RealEstateFormPage } from '../pages/real-estate/real-estate-form/real-estate-form';
@@ -94,12 +93,13 @@ export function provideSettings(storage: Storage) {
       autoFocusAssist: false
     }),
     AngularFireModule.initializeApp(firebaseConfig),
-    IonicStorageModule.forRoot({
-      name: '__mydb',
-         driverOrder: ['indexeddb', 'sqlite', 'websql']
-    }),
+    AngularFirestoreModule.enablePersistence(),
     AngularFireAuthModule,
     AngularFirestoreModule,
+    IonicStorageModule.forRoot({
+      name: '__mydb',
+          driverOrder: ['indexeddb', 'sqlite', 'websql']
+    }),
     HttpClientModule
   ],
   bootstrap: [IonicApp],
@@ -134,7 +134,6 @@ export function provideSettings(storage: Storage) {
     { provide: LOCALE_ID, useValue: "pt" },
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     { provide: SettingsProvider, useFactory: provideSettings, deps: [Storage] },
-    SettingsService,
     FirebaseProvider,
     Keyboard,
     ViacepProvider,

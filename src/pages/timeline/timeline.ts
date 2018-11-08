@@ -12,13 +12,13 @@ import { async } from "rxjs/internal/scheduler/async";
   templateUrl: "timeline.html"
 })
 export class TimelinePage {
-  backgroundClass: string;
-  cardColor: string;
-  iconColor: string;
-  textColor: string;
-  items: Observable<any>;
-  itemsData: History[];
-  userType: string;
+  public backgroundClass: string;
+  public cardColor: string;
+  public iconColor: string;
+  public textColor: string;
+  public items: Observable<any>;
+  public itemsData: History[];
+  public userType: string;
 
   constructor(
     public modalCtrl: ModalController,
@@ -43,12 +43,12 @@ export class TimelinePage {
 
   }
 
-  ionViewDidEnter() {
+  public ionViewDidEnter(): void {
     this.changeLayout(this.userType);
   }
 
   // Changes the color of some elements depending on the type of user
-  changeLayout(user: string) {
+  public changeLayout(user: string): void {
     if (user == "owner") {
       this.backgroundClass = "bg-owner-page";
       this.cardColor = "primary700";
@@ -65,7 +65,7 @@ export class TimelinePage {
 
   // Add the class "primary-text" to all span elements inside timeline-time to change
   // the color of the text to primary
-  changeTimeColor() {
+  public changeTimeColor(): void {
     let timelineTime = document.getElementsByTagName("timeline-time");
     let length = timelineTime.length;
     for (let i = 0; i < length; i++) {
@@ -74,6 +74,25 @@ export class TimelinePage {
       for (let j = 0; j < spanLength; j++) {
         el[j].className = "primary-text";
       }
+    }
+  }
+
+  public getIconName(type: string): string {
+    switch (type) {
+      case 'ownerAccount':
+        return 'custom-border-account-circle';
+      case 'tenantAccount':
+        return 'custom-border-users';  
+      case 'Contract':
+        return 'custom-border-contract';
+      case 'RealEstate':
+        return 'custom-border-home';
+      case 'EvaluationPending':
+        return 'custom-border-star-border';
+      case 'EvaluationDone':
+        return 'custom-border-star-full';
+      default:
+        return 'custom-border-timeline';
     }
   }
 

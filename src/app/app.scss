@@ -342,6 +342,10 @@ div {
   &[class*="custom-border-users"] {
     mask-image: url(../assets/icons/users.svg);
   }
+
+  &[class*="custom-border-timeline"] {
+    mask-image: url(../assets/icons/timeline.svg);
+  }
 }
 
 // Custom Material rounded icons

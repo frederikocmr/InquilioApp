@@ -15,7 +15,7 @@ exports.createRealEstateHistory = functions.firestore.document('RealEstate/{wild
             title: 'Adicionado novo imóvel',
             description: 'Nome:' + newValue.name,
             datetime: + new Date(),
-            type: 'home'
+            type: 'RealEstate'
         };
         
         let historyCollectionRef = firestoreDB.collection('History').doc(newValue.ownerId);
@@ -55,7 +55,7 @@ exports.createContractHistory = functions.firestore.document('Contract/{wildcard
             title: 'Adicionado novo contrato',
             description: 'Duração: '  + newValue.duration,
             datetime: + new Date(),
-            type: 'document'
+            type: 'Contract'
         };
 
         let historyCollectionRef = firestoreDB.collection('History').doc(newValue.ownerId);
