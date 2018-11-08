@@ -16,10 +16,9 @@
   <form [formGroup]="evaluationForm">
     <ion-list class="custom-form" text-center>
       <div margin>
-        <!-- <h2>{{ tenant.name }}</h2> -->
-        <h2>Nome do Inquilino</h2>
-        <p class="tenant-details-p">Título do Imóvel</p>
-        <p class="tenant-details-p">Contrato de 00/00/0000 a 11/11/1111</p>
+        <h2>{{ (tenant ? tenant.name : "Nome do Inquilino") }}</h2>
+        <p class="tenant-details-p">{{(realEstate ? realEstate.name : "Título do Imóvel")}}</p>
+        <p class="tenant-details-p">Contrato de {{(contract ? contract.beginDate + " a " + contract.endDate : "00/00/0000 a 11/11/1111")}}</p>
       </div>
 
       <div class="div-hr">
@@ -27,7 +26,7 @@
       </div>
 
       <div margin>
-        <h3>Como foi o período de aluguel?</h3>
+        <h4>Avalie o inquilino durante o aluguel.</h4>
         <ion-label color="light">Toque nas estrelas para classificar de 1 a 5.</ion-label>
         <div text-center>
           <ion-icon class="evaluation-star" color="secondary" (click)="getStarName(star.value)" [name]="star.name"
@@ -35,96 +34,14 @@
         </div>
 
         <div *ngIf="overallScore > 0 && overallScore < 6" margin-top>
-          <div *ngIf="overallScore == 1">
-            <p>Nossa, o que aconteceu?</p>
-            <ion-note>Selecione quantas opções quiser.</ion-note>
-            <ion-list>
-              <ion-item>
-                <ion-label>Não pagou em dia</ion-label>
-                <ion-checkbox color="secondary" checked="false"></ion-checkbox>
-              </ion-item>
-              <ion-item>
-                <ion-label>Não conservou o imóvel</ion-label>
-                <ion-checkbox color="secondary" checked="false"></ion-checkbox>
-              </ion-item>
-              <ion-item>
-                <ion-label>Péssimo relacionamento com os vizinhos</ion-label>
-                <ion-checkbox color="secondary" checked="false"></ion-checkbox>
-              </ion-item>
-            </ion-list>
-          </div>
-          <div *ngIf="overallScore == 2">
-            <p>Ué, qual foi o problema?</p>
-            <ion-note>Selecione quantas opções quiser.</ion-note>
-            <ion-list>
-              <ion-item>
-                <ion-label>Não pagou em dia</ion-label>
-                <ion-checkbox color="secondary" checked="false"></ion-checkbox>
-              </ion-item>
-              <ion-item>
-                <ion-label>Não conservou o imóvel</ion-label>
-                <ion-checkbox color="secondary" checked="false"></ion-checkbox>
-              </ion-item>
-              <ion-item>
-                <ion-label>Péssimo relacionamento com os vizinhos</ion-label>
-                <ion-checkbox color="secondary" checked="false"></ion-checkbox>
-              </ion-item>
-            </ion-list>
-          </div>
-          <div *ngIf="overallScore == 3">
-            <p>O que pode melhorar?</p>
-            <ion-note>Selecione quantas opções quiser.</ion-note>
-            <ion-list>
-              <ion-item>
-                <ion-label>Dia do pagamento</ion-label>
-                <ion-checkbox color="secondary" checked="false"></ion-checkbox>
-              </ion-item>
-              <ion-item>
-                <ion-label>Conservação do imóvel</ion-label>
-                <ion-checkbox color="secondary" checked="false"></ion-checkbox>
-              </ion-item>
-              <ion-item>
-                <ion-label>Relacionamento com os vizinhos</ion-label>
-                <ion-checkbox color="secondary" checked="false"></ion-checkbox>
-              </ion-item>
-            </ion-list>
-          </div>
-          <div *ngIf="overallScore == 4">
-            <p>O que tornaria a experiência melhor?</p>
-            <ion-note>Selecione quantas opções quiser.</ion-note>
-            <ion-list>
-              <ion-item>
-                <ion-label>Pagar em dia</ion-label>
-                <ion-checkbox color="secondary" checked="false"></ion-checkbox>
-              </ion-item>
-              <ion-item>
-                <ion-label>Conservar bem o imóvel</ion-label>
-                <ion-checkbox color="secondary" checked="false"></ion-checkbox>
-              </ion-item>
-              <ion-item>
-                <ion-label>Bom relacionamento com os vizinhos</ion-label>
-                <ion-checkbox color="secondary" checked="false"></ion-checkbox>
-              </ion-item>
-            </ion-list>
-          </div>
-          <div *ngIf="overallScore == 5">
-            <p>Gostaria de destacar algo?</p>
-            <ion-note>Selecione quantas opções quiser.</ion-note>
-            <ion-list>
-              <ion-item>
-                <ion-label>Pagou sempre em dia</ion-label>
-                <ion-checkbox color="secondary" checked="false"></ion-checkbox>
-              </ion-item>
-              <ion-item>
-                <ion-label>Conservou muito bem o imóvel</ion-label>
-                <ion-checkbox color="secondary" checked="false"></ion-checkbox>
-              </ion-item>
-              <ion-item>
-                <ion-label>Ótimo relacionamento com os vizinhos</ion-label>
-                <ion-checkbox color="secondary" checked="false"></ion-checkbox>
-              </ion-item>
-            </ion-list>
-          </div>
+          <h5>{{scoreQuestion}}</h5>
+          <ion-note>Selecione quantas opções quiser.</ion-note>
+          <ion-list>
+            <ion-item *ngFor="let item of scoreItems">
+              <ion-label>{{item}}</ion-label>
+              <ion-checkbox color="secondary" checked="false"></ion-checkbox>
+            </ion-item>
+          </ion-list>
         </div>
 
         <hr>
