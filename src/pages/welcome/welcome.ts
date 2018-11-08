@@ -12,7 +12,6 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { TenantTabsPage } from '../tenant-tabs/tenant-tabs';
 
 
-
 @Component({
   selector: 'page-welcome',
   templateUrl: 'welcome.html'
@@ -33,9 +32,9 @@ export class WelcomePage {
     private platform: Platform) {
 
     this.descriptions = [
-      'Para donos de imóveis e inquilinos, gerencie seus aluguéis, tenha controle sobre o período de contrato.',
-      'Faça uma avaliação sobre o período do aluguel e encontre usuários bem avaliados.',
-      'Alugue de forma mais segura, encontrando bons usuários prontos para alugar.'
+      "Para donos de imóveis e inquilinos, gerencie seus aluguéis e tenha controle sobre o período de contrato.",
+      "Faça uma avaliação sobre o período do aluguel e encontre usuários bem avaliados."
+      // 'Alugue de forma mais segura, encontrando bons usuários prontos para alugar.'
     ];
 
     this.user = this.afAuth.authState;
@@ -102,10 +101,4 @@ export class WelcomePage {
       }
     });
   }
-
-
-
-
-
-
 }
