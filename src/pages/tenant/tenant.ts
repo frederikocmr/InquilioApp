@@ -2,7 +2,8 @@ import { Component } from "@angular/core";
 import {
   NavController,
   NavParams,
-  ModalController
+  ModalController,
+  PopoverController
 } from "ionic-angular";
 import { TenantFormPage } from "./tenant-form/tenant-form";
 import { TenantDetailsPage } from "./tenant-details/tenant-details";
@@ -11,6 +12,7 @@ import { TenantAccount } from "../../models/tenant-account";
 import { UiProvider } from "../../providers";
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/internal/operators/map';
+import { ListOptionsComponent } from "../../components/list-options/list-options";
 
 @Component({
   selector: "page-tenant",
@@ -23,6 +25,7 @@ export class TenantPage {
   public searchString: string = '';
 
   constructor(
+    private popoverCtrl: PopoverController,
     private modalCtrl: ModalController,
     private afDb: AngularFirestore,
     public navCtrl: NavController,
@@ -30,6 +33,13 @@ export class TenantPage {
     public ui: UiProvider
   ) {
 
+  }
+
+  public presentPopover(myEvent): void {
+    let popover = this.popoverCtrl.create(ListOptionsComponent, {type: 'tenant'});
+    popover.present({
+      ev: myEvent
+    });
   }
 
   public newTenant(): void {

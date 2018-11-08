@@ -39,6 +39,7 @@ import { TenantTabsPage } from '../pages/tenant-tabs/tenant-tabs';
 import { TenantEvaluationPage } from '../pages/tenant/tenant-evaluation/tenant-evaluation';
 import { TimelineComponent, TimelineItemComponent, TimelineTimeComponent } from '../components/timeline/timeline';
 import { ProfileFormPage } from '../pages/profile-form/profile-form';
+import { ListOptionsComponent } from '../components/list-options/list-options';
 
 registerLocaleData(localePtBr);
 
@@ -80,7 +81,8 @@ export function provideSettings(storage: Storage) {
     TimelineComponent,
     TimelineItemComponent,
     TimelineTimeComponent,
-    ProfileFormPage
+    ProfileFormPage,
+    ListOptionsComponent
   ],
   imports: [
     BrowserModule,
@@ -123,7 +125,8 @@ export function provideSettings(storage: Storage) {
     TimelineComponent,
     TimelineItemComponent,
     TimelineTimeComponent,
-    ProfileFormPage
+    ProfileFormPage,
+    ListOptionsComponent
   ],
   providers: [
     StatusBar,

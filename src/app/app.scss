@@ -395,6 +395,10 @@ ion-icon {
     mask-image: url(../assets/icons/exit.svg);
   }
 
+  &[class*="custom-filter-list"] {
+    mask-image: url(../assets/icons/filter-list.svg);
+  }
+
   &[class*="custom-group-add"] {
     mask-image: url(../assets/icons/group-add.svg);
   }
@@ -405,6 +409,14 @@ ion-icon {
 
   &[class*="custom-home"] {
     mask-image: url(../assets/icons/home.svg);
+  }
+
+  &[class*="custom-more-android"] {
+    mask-image: url(../assets/icons/more-android.svg);
+  }
+
+  &[class*="custom-more-ios"] {
+    mask-image: url(../assets/icons/more-ios.svg);
   }
 
   &[class*="custom-save"] {
