@@ -11,35 +11,41 @@
 
 
 <ion-content [class]="backgroundClass">
-  <ion-list>
+  <div class="empty-state-active" *ngIf="!contractExists" padding text-center>
+    <ion-icon class="empty-state-icon" [color]="iconColor" name="custom-contract" margin></ion-icon>
+    <h5 [class]="textClass" no-margin>Você ainda não possui um contrato.</h5>
+    <p [class]="textClass" no-margin>Assim que você for vinculado a um contrato ele aparecerá aqui.</p>
+  </div>
+
+  <ion-list *ngIf="contractExists">
     <div margin>
-      <h2 [class]="textColor">{{ (currentRealEstate ? currentRealEstate.name : 'Nome do Imóvel') }}</h2>
-      <p [class]="textColor">{{ (currentRealEstate ? getRealEstateType() : 'Tipo do Imóvel') }}</p>
+      <h2 [class]="textClass">{{ (currentRealEstate ? currentRealEstate.name : 'Nome do Imóvel') }}</h2>
+      <p [class]="textClass">{{ (currentRealEstate ? getRealEstateType() : 'Tipo do Imóvel') }}</p>
     </div>
 
     <div margin *ngIf="userType === 'owner'">
-      <ion-label [color]="labelColor" no-margin>Inquilino</ion-label>
-      <p [class]="textColor">{{ (currentTenant ? currentTenant.name : 'Sem inquilino associado.') }}</p>
+      <ion-label [color]="itemColor" no-margin>Inquilino</ion-label>
+      <p [class]="textClass">{{ (currentTenant ? currentTenant.name : 'Sem inquilino associado.') }}</p>
     </div>
 
     <div margin *ngIf="userType === 'tenant'">
-      <ion-label [color]="labelColor" no-margin>Proprietário</ion-label>
-      <p [class]="textColor">{{ (currentOwner ? currentOwner.name : 'Nome do dono do imóvel.') }}</p>
+      <ion-label [color]="itemColor" no-margin>Proprietário</ion-label>
+      <p [class]="textClass">{{ (currentOwner ? currentOwner.name : 'Nome do dono do imóvel.') }}</p>
     </div>
 
     <div margin>
-      <ion-label [color]="labelColor" no-margin>Data de Início</ion-label>
-      <p [class]="textColor">{{ (contract.beginDate ? "Início em "+getDateString(contract.beginDate) : "Sem data de início.") }}</p>
+      <ion-label [color]="itemColor" no-margin>Data de Início</ion-label>
+      <p [class]="textClass">{{ (contract.beginDate ? "Início em "+getDateString(contract.beginDate) : "Sem data de início.") }}</p>
     </div>
 
     <div margin>
-      <ion-label [color]="labelColor" no-margin>Data de Encerramento </ion-label>
-      <p [class]="textColor">{{ (contract.endDate ? "Válido até "+getDateString(contract.endDate) : "Sem data de encerramento.") }}</p>
+      <ion-label [color]="itemColor" no-margin>Data de Encerramento </ion-label>
+      <p [class]="textClass">{{ (contract.endDate ? "Válido até "+getDateString(contract.endDate) : "Sem data de encerramento.") }}</p>
     </div>
 
     <div margin>
-      <ion-label [color]="labelColor" no-margin>Duração</ion-label>
-      <p [class]="textColor">{{ (contract.duration ? contract.duration : "Sem duração definida.") }}</p>
+      <ion-label [color]="itemColor" no-margin>Duração</ion-label>
+      <p [class]="textClass">{{ (contract.duration ? contract.duration : "Sem duração definida.") }}</p>
     </div>
 
     <div margin-top *ngIf="userType === 'owner'">

@@ -14,9 +14,11 @@ import { TenantAccount } from '../../../models/tenant-account';
 })
 export class ContractDetailsPage {
   public backgroundClass: string;
-  public labelColor: string;
-  public textColor: string;
+  public iconColor: string;
+  public itemColor: string;
+  public textClass: string;
   public contract: Contract = new Contract();
+  public contractExists: boolean = false;
   public currentRealEstate: RealEstate = null;
   public currentTenant: TenantAccount = null;
   public userType: string;
@@ -31,6 +33,7 @@ export class ContractDetailsPage {
   ) {
     if (navParams.get('contract')) {
       this.contract = navParams.get('contract');
+      this.contractExists = true;
 
       this.afDb.doc<RealEstate>('RealEstate/' + this.contract.realEstateId).valueChanges().
         subscribe((data) => {
@@ -48,12 +51,14 @@ export class ContractDetailsPage {
   private changeLayout(): void {
     if (this.userType === "owner") {
       this.backgroundClass = "bg-owner-page";
-      this.labelColor = "secondary"
-      this.textColor = "light-text";
+      this.iconColor = "secondary";
+      this.itemColor = "secondary"
+      this.textClass = "light-text";
     } else {
       this.backgroundClass = "bg-tenant-page";
-      this.labelColor = "dark"
-      this.textColor = "primary-text";
+      this.iconColor = "primary";
+      this.itemColor = "dark";
+      this.textClass = "primary-text";
     }
   }
 
