@@ -16,7 +16,7 @@
     <ion-row justify-content-center>
       <ion-col col-12 padding>
         <timeline endIcon="md-arrow-round-up">
-          <timeline-item *ngFor="let item of (items | async)?.HistoryArray">
+          <timeline-item *ngFor="let item of (items | async)?.HistoryArray.reverse()">
             <timeline-time [id]="item.datetime" [datetime]="item.datetime"></timeline-time>
             <div class="round-div">
               <div [class]="getIconName(item.type)"></div>
