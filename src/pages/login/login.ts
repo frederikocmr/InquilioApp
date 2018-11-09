@@ -18,7 +18,6 @@ export class LoginPage {
   public signupPage = SignupPage;
   public isTextFieldType: boolean;
   public loginForm: FormGroup;
-  public registerCredentials = { email: "", password: "" };
 
   constructor(
     public formBuilder: FormBuilder,
@@ -86,6 +85,8 @@ export class LoginPage {
         if (this.firebase.validator) {
           this.chooseRoot();
         }
+        
+        this.ui.closeLoading();
       })
       .catch(error => {
         this.ui.showToast(error, 3, 'top');
@@ -94,7 +95,6 @@ export class LoginPage {
 
   public chooseRoot(): void {
     this.afDb.collection('ownerAccount').doc(this.firebase.user.uid).snapshotChanges().subscribe(res => {
-
       if (res.payload.exists) {
         this.ui.closeLoading(true);
         this.navCtrl.setRoot(TabsPage);
@@ -105,5 +105,4 @@ export class LoginPage {
     });
   }
 
-  public toggleKeyboard() { }
 }
