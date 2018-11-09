@@ -13,8 +13,8 @@ exports.createRealEstateHistory = functions.firestore.document('RealEstate/{wild
 
         const newValue = snap.data();
         let newData = {
-            title: 'Adicionado novo imóvel',
-            description: 'Nome:' + newValue.name,
+            title: 'Novo imóvel adicionado',
+            description: newValue.name,
             datetime: + new Date(),
             type: 'RealEstate'
         };
@@ -24,7 +24,7 @@ exports.createRealEstateHistory = functions.firestore.document('RealEstate/{wild
         return historyCollectionRef.update({
             HistoryArray: admin.firestore.FieldValue.arrayUnion(newData)
         }).then(() => {
-            return console.log('Adicionado novo imóvel ao histórico', newValue.ownerId)
+            return console.log('Novo imóvel adicionado ao histórico', newValue.ownerId)
         })
 
     });
@@ -35,8 +35,8 @@ exports.createContractHistory = functions.firestore.document('Contract/{wildcard
 
         const newValue = snap.data();
         let newData = {
-            title: 'Adicionado novo contrato',
-            description: 'Duração: ' + newValue.duration,
+            title: 'Novo contrato adicionado',
+            description: 'Duração de ' + newValue.duration,
             datetime: + new Date(),
             type: 'Contract'
         };
@@ -46,7 +46,7 @@ exports.createContractHistory = functions.firestore.document('Contract/{wildcard
         return historyCollectionRef.update({
             HistoryArray: admin.firestore.FieldValue.arrayUnion(newData)
         }).then(() => {
-            return console.log('Adicionado novo contrato ao histórico', newValue.ownerId)
+            return console.log('Novo contrato adicionado ao histórico', newValue.ownerId)
         })
 
     });
@@ -54,8 +54,8 @@ exports.createContractHistory = functions.firestore.document('Contract/{wildcard
 exports.createNewUserHistory = functions.auth.user().onCreate((user) => {
 
     let newData = {
-        title: 'Começou a usar o App',
-        description: 'Seja Bem Vindo ao App!',
+        title: 'Seja bem-vindo!',
+        description: 'Você se cadastrou no app',
         datetime: + new Date(),
         type: 'User'
     };
@@ -70,7 +70,7 @@ exports.createNewUserHistory = functions.auth.user().onCreate((user) => {
                         HistoryArray: admin.firestore.FieldValue.arrayUnion(newData)
                     }
                 ).then(() => {
-                    return console.log('Usuário novo cadastrado', user.uid)
+                    return console.log('Novo usuário cadastrado', user.uid)
                 })
             } else {
                 return historyCollectionRef.set(
@@ -78,7 +78,7 @@ exports.createNewUserHistory = functions.auth.user().onCreate((user) => {
                         HistoryArray: admin.firestore.FieldValue.arrayUnion(newData)
                     }
                 ).then(() => {
-                    return console.log('Usuário novo cadastrado', user.uid)
+                    return console.log('Novo usuário cadastrado', user.uid)
                 })
             }
         });
