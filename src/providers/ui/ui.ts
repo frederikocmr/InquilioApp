@@ -66,7 +66,7 @@ export class UiProvider {
 
   // TODO: Verificar: removeView was not found
   public closeLoading(removeView?: boolean): void {
-    console.log("tentou fechar o loading");
+
     if (!this.loading.onDidDismiss && removeView) {
       this.loading.dismiss();
     } else if (!removeView) {

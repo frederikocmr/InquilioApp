@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { NavController, NavParams, ModalController } from "ionic-angular";
 import { AngularFirestore } from "@angular/fire/firestore";
-import { UiProvider, FirebaseProvider } from "../../providers";
+import { FirebaseProvider } from "../../providers";
 import { History } from "../../models/history";
 
 @Component({
@@ -13,7 +13,6 @@ export class TimelinePage {
   public cardColor: string;
   public iconColor: string;
   public textColor: string;
-  // public items: Observable<any>;
   public itemsData: History[];
   public userType: string;
 
@@ -21,7 +20,6 @@ export class TimelinePage {
     public modalCtrl: ModalController,
     public navCtrl: NavController,
     public navParams: NavParams,
-    public ui: UiProvider,
     private fb: FirebaseProvider,
     private afDb: AngularFirestore
   ) {
@@ -32,13 +30,8 @@ export class TimelinePage {
       (data) => {
         if(data) {
           this.itemsData = data.HistoryArray.reverse();
-          console.log(data);
-
         }
-      }
-    );
-    
-
+      });
   }
 
   public ionViewDidEnter(): void {

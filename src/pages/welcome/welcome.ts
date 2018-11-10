@@ -111,11 +111,11 @@ export class WelcomePage {
 
       if (res.payload.exists) {
         console.log('usuário é owner.');
-        this.ui.closeLoading();
+        this.ui.closeLoading(true);
         
         this.navCtrl.setRoot(TabsPage);
       } else {
-        this.ui.closeLoading();
+        this.ui.closeLoading(true);
         this.navCtrl.setRoot(TenantTabsPage);
       }
     });
