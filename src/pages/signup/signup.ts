@@ -40,7 +40,7 @@ export class SignupPage {
 			name: ['', Validators.required],
 			email: ['', Validators.compose([Validators.pattern(regexValidators.email), Validators.required])],
 			password: ['', Validators.required],
-			phone: ['', Validators.compose([Validators.pattern(regexValidators.phone), Validators.required])],
+			phone: ['', Validators.required],
 			birthdate: ['', Validators.required],
 			genre: ['', Validators.required]
 		});
@@ -149,11 +149,11 @@ export class SignupPage {
     this.afDb.collection('ownerAccount').doc(this.firebase.user.uid).snapshotChanges().subscribe(res => {
 
       if (res.payload.exists) {
-        this.ui.closeLoading();
+        this.ui.closeLoading(true);
         console.log('usuário é owner.');
         this.navCtrl.setRoot(TabsPage);
       } else {
-        this.ui.closeLoading();
+        this.ui.closeLoading(true);
         this.navCtrl.setRoot(TenantTabsPage);
       }
     });

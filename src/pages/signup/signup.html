@@ -26,11 +26,11 @@
             <p>Agora vamos precisar de algumas informações básicas.</p>
 
             <ion-item>
-              <ion-label floating>Informe seu CPF</ion-label>
+              <ion-label floating>Informe seu documento (CPF ou CNPJ)</ion-label>
               <ion-input type="text" [formControl]="signupForm.controls['document']" name="document" [brmasker]="{person: true}"></ion-input>
             </ion-item>
             <div *ngIf="!signupForm.controls.document.valid && signupForm.controls.document.dirty" class="validator-error">
-              Por favor, informe um CPF válido.
+              Por favor, informe um documento válido.
             </div>
 
             <ion-item>
