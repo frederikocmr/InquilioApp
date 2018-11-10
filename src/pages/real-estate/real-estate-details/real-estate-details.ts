@@ -36,7 +36,7 @@ export class RealEstateDetailsPage {
   }
 
   public newContract(): void {
-    let modal = this.modalCtrl.create(ContractFormPage);
+    let modal = this.modalCtrl.create(ContractFormPage, { realEstateObj: this.realEstate });
     modal.present();
   }
 

@@ -111,45 +111,7 @@ export class FirebaseProvider {
           //verificar através do res se isnew, se for então manda prompt
           //através do prompt definir se é owner ou não e pegar para criar nova conta..
           if (!(this.checkIfDocumentExists(res.user.uid, 'owner') && this.checkIfDocumentExists(res.user.uid, 'tenant'))) {
-            this.ui.alert = this.ui.alertCtrl.create({
-              title: 'Infos...',
-              subTitle: 'Informar...',
-              inputs: [
-                {
-                  id: 'document',
-                  name: 'Documento',
-                  placeholder: 'CPF ou CNPJ (somente números)',
-                  type: 'number'
-                }
-              ],
-              buttons: [
-                {
-                  text: 'Sou Dono de Imóvel',
-                  handler: data => {
-                    this.account = new OwnerAccount();
-                    this.account.name = res.user.displayName;
-                    this.account.email = res.user.email;
-                    this.account.phone = res.user.phoneNumber;
-                    console.log(data);
-                    this.account.document = data.Documento; 
-                    this.createNewAccount(this.account, 'owner', res.user);
-                  }
-                },
-                {
-                  text: 'Sou Inquilino',
-                  handler: data => {
-                    this.account = new OwnerAccount();
-                    this.account.name = res.user.displayName;
-                    this.account.email = res.user.email;
-                    this.account.phone = res.user.phoneNumber;
-                    this.account.document = data.Documento; 
-                    this.createNewAccount(this.account, 'tenant', res.user);
-
-                  }
-                }
-              ]
-            });
-            this.ui.alert.present();
+            console.log('ok');
           }
 
           this.message = "Login efetuado com sucesso! Seja bem vindo " +
