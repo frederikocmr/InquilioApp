@@ -1,4 +1,13 @@
 page-tenant {
+	.scroll-content {
+		margin-bottom: 12rem !important;
+	}
+
+	.my-footer {
+		bottom: 6rem;
+		z-index: 999;
+	}
+
 	.searchbar-ios, .searchbar-md {
 		.searchbar-input {		
 			border-radius: 2rem;

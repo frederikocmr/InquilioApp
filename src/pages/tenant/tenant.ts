@@ -35,6 +35,10 @@ export class TenantPage {
 
   }
 
+  public cancelSearch(): void {
+    this.searchingTenants = false;
+  }
+
   public presentPopover(myEvent): void {
     let popover = this.popoverCtrl.create(ListOptionsComponent, {type: 'tenant'});
     popover.present({
