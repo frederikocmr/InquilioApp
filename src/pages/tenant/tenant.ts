@@ -3,7 +3,9 @@ import {
   NavController,
   NavParams,
   ModalController,
-  PopoverController
+  PopoverController,
+  ActionSheetController,
+  AlertController
 } from "ionic-angular";
 import { TenantFormPage } from "./tenant-form/tenant-form";
 import { TenantDetailsPage } from "./tenant-details/tenant-details";
@@ -13,18 +15,23 @@ import { UiProvider } from "../../providers";
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/internal/operators/map';
 import { ListOptionsComponent } from "../../components/list-options/list-options";
+import { ContractFormPage } from "../contract/contract-form/contract-form";
 
 @Component({
   selector: "page-tenant",
   templateUrl: "tenant.html"
 })
 export class TenantPage {
+  evaluationNumber = 1;
+  overallScore = "4.8"
   public searchingTenants: boolean = false;
   public tenants: Observable<TenantAccount[]>;
   public tenantsExists: boolean = false;
   public searchString: string = '';
 
   constructor(
+    public alertCtrl: AlertController,
+    public actionSheetCtrl: ActionSheetController,
     private popoverCtrl: PopoverController,
     private modalCtrl: ModalController,
     private afDb: AngularFirestore,
@@ -48,6 +55,11 @@ export class TenantPage {
     });
   }
 
+  public newContract(tenantId): void {
+    let modal = this.modalCtrl.create(ContractFormPage, {tenantId: tenantId});
+    modal.present();
+  }
+
   public newTenant(): void {
     let modal = this.modalCtrl.create(TenantFormPage);
     modal.present();
@@ -64,6 +76,7 @@ export class TenantPage {
           const data = a.payload.doc.data() as TenantAccount;
           const id = a.payload.doc.id;
           data.id = id;
+          this.searchingTenants = true;
           this.tenantsExists = true;
 
           return { id, ...data };
@@ -72,9 +85,56 @@ export class TenantPage {
     }
   }
 
+  public selectContract(): void {
+    let alert = this.alertCtrl.create();
+    alert.setTitle('Selecione o contrato');
+
+    alert.addInput({
+      type: 'radio',
+      label: 'Casa',
+      value: 'casa',
+      checked: false
+    });
+
+    alert.addButton('Cancelar');
+    alert.addButton({
+      text: 'Confirmar',
+      handler: data => {
+        console.log(data)
+      }
+    });
+    alert.present();
+  }
+
+  public tenantOptions(tenant: TenantAccount): void {
+    const actionSheet = this.actionSheetCtrl.create({
+      title: 'Escolha uma opção',
+      buttons: [
+        {
+          text: 'Ver detalhes',
+          handler: () => {
+            this.viewDetails(tenant);
+          }
+        },{
+          text: 'Vincular contrato existente',
+          handler: () => {
+            this.selectContract();
+          }
+        },{
+          text: 'Vincular novo contrato',
+          handler: () => {
+            this.newContract(tenant.id);
+          }
+        },{
+          text: 'Cancelar',
+          role: 'cancel'
+        }
+      ]
+    });
+    actionSheet.present();
+  }
+
   public viewDetails(tenant): void {
     this.navCtrl.push(TenantDetailsPage, { tenant: tenant });
-    // let detailsModal = this.modalCtrl.create(TenantDetailsPage, {tenant: tenant});
-    // detailsModal.present();
   }
 }

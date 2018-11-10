@@ -12,36 +12,24 @@
 
 <ion-content class="bg-owner-page">
 
-  <div *ngIf="searchingTenants">
-    <ion-card *ngFor="let tenant of search | async" color="primary700">
-      <ion-card-content>
-        <h2>{{ tenant.name }}</h2>
-        <div padding-bottom>
-          <h3 *ngIf="!tenant.overallScore">Inquilino sem avaliação.</h3>
-          <div *ngIf="tenant.overallScore">
-            <!-- <p>
-                <ion-icon *ngFor="let item of scores" [name]="item.starName" color="secondary"></ion-icon>
-                {{ tenant.overallScore }} ({{ tenant.scoresTotal }} avaliações)
-              </p> -->
-          </div>
-        </div>
-        <p>{{ (tenant.phone ? tenant.phone : "Nenhum telefone encontrado.") }}</p>
-        <p>{{ (tenant.email ? tenant.email : "Nenhum email encontrado.") }}</p>
-        <!-- <div *ngIf="realEstate">
-            <ion-label color="secondary" no-margin padding-top>Imóvel</ion-label>
-            <p>{{ realEstate }}</p>
-          </div> -->
-        <!-- <div *ngIf="!realEstate">
-            <p>Sem imóvel vinculado.</p>
-          </div> -->
-      </ion-card-content>
-      <button ion-button clear color="secondary" (click)="viewDetails(tenant)">
-        VER DETALHES
-      </button>
-    </ion-card>
+  <div [hidden]="!searchingTenants">
+    <ion-list>
+      <ion-item class="search-list" *ngFor="let tenant of tenants | async" (click)="tenantOptions(tenant)">
+        <ion-avatar item-start>
+          <img [src]="tenant.photoURL ? tenant.photoURL : '../../assets/imgs/user-y500.png'">
+        </ion-avatar>
+        <h2>{{tenant.name}}</h2>
+        <ion-row justify-content-start>
+          <ion-icon class="evaluation-star" color="secondary" name="custom-star-full"></ion-icon>
+          <p>{{( evaluationNumber > 1 ? overallScore+" ("+evaluationNumber+" avaliações)" : "Sem avaliações
+            suficientes." )}}</p>
+        </ion-row>
+        <button ion-button clear color="secondary" item-end>OPÇÕES</button>
+      </ion-item>
+    </ion-list>
   </div>
 
-  <div *ngIf="!searchingTenants">
+  <div [hidden]="searchingTenants">
     <div class="empty-state-active" [hidden]="tenantsExists" padding text-center>
       <ion-icon class="empty-state-icon" color="light" name="custom-users"></ion-icon>
       <h5 no-margin>Você ainda não adicionou um inquilino.</h5>

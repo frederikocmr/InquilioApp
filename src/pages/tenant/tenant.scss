@@ -1,11 +1,15 @@
 page-tenant {
-	.scroll-content {
-		margin-bottom: 12rem !important;
+	.my-footer {
+		bottom: 5rem;
+		z-index: 999;
 	}
 
-	.my-footer {
-		bottom: 6rem;
-		z-index: 999;
+	.search-list {
+		background: transparent;
+	}
+
+	.scroll-content {
+		margin-bottom: 12rem !important;
 	}
 
 	.searchbar-ios, .searchbar-md {
