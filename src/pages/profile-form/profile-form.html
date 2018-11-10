@@ -9,7 +9,7 @@
     <ion-list [class]="formClass" text-center>
       <ion-item>
         <ion-label floating>Informe seu CPF</ion-label>
-        <ion-input type="text" [formControl]="profileForm.controls['document']" name="document" [brmasker]="{person: true}" disabled></ion-input>
+        <ion-input type="text" [formControl]="profileForm.controls['document']" name="document" [brmasker]="{person: true}"></ion-input>
       </ion-item>
       <div *ngIf="!profileForm.controls.document.valid && profileForm.controls.document.dirty" class="validator-error">
         Por favor, informe um CPF válido.
@@ -17,10 +17,10 @@
 
       <ion-item>
         <ion-label floating>Informe seu nome completo</ion-label>
-        <ion-input type="text" [formControl]="profileForm.controls['name']" name="name" disabled></ion-input>
+        <ion-input type="text" [formControl]="profileForm.controls['name']" name="name"></ion-input>
       </ion-item>
       <div *ngIf="!profileForm.controls.name.valid && profileForm.controls.name.dirty" class="validator-error">
-        Por favor, informe um nome.
+        Por favor, informe um nome. 
       </div>
 
       <ion-item>
@@ -53,7 +53,7 @@
 
       <ion-item>
         <ion-label floating>Informe seu email</ion-label>
-        <ion-input type="email" [formControl]="profileForm.controls['email']" name="email" disabled></ion-input>
+        <ion-input type="email" [formControl]="profileForm.controls['email']" name="email" ></ion-input>
       </ion-item>
       <div *ngIf="!profileForm.controls.email.valid && profileForm.controls.email.dirty" class="validator-error">
         Por favor, informe um email válido.
