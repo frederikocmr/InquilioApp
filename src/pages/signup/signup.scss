@@ -44,6 +44,27 @@ page-signup {
     padding: 0 1rem 0 1rem;
   }
 
+	@media screen and (min-height: '768px'){
+    ion-slide {
+      margin-top: 10rem;
+    }
+    .my-footer {      
+      bottom: 2rem;
+    }
+	}
+
+	@media screen and (min-height: '992px'){
+    ion-slide {
+      margin-top: 15rem;
+    }
+	}
+
+	@media screen and (min-height: '1200px'){
+    ion-slide {
+      margin-top: 20rem;
+    }
+	}
+
   // ion-list {
   //   margin: 10px !important;
   // }

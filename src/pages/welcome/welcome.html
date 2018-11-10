@@ -7,7 +7,7 @@
   <ion-list style="height: 100vh" margin-top>
     <h1 ion-text color="light" margin-top>Bem-vindo!</h1>
 
-    <ion-slides autoplay="3500" loop pager style="height: 30vh">
+    <ion-slides class="description-slides" autoplay="3500" loop pager>
       <ion-slide *ngFor="let description of descriptions" padding>
         <p padding>{{ description }}</p>
       </ion-slide>
