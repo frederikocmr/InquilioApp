@@ -42,7 +42,6 @@ export class ContractPage {
         const data = a.payload.doc.data() as Contract;
         const id = a.payload.doc.id;
         data.id = id;
-        this.contractsExists = true;
         
         this.ui.closeLoading(true);
 
@@ -52,6 +51,10 @@ export class ContractPage {
         return { id, ...data };
       }))
     );
+
+    this.contracts.subscribe((data) => {
+      this.contractsExists = (data.length>0 ? true : false);
+    });
 
   }
 

@@ -6,17 +6,17 @@
 
 
 <ion-content [class]="backgroundClass">
-  <div class="empty-state-active" *ngIf="!items" padding text-center>
+  <div class="empty-state-active" *ngIf="!this.itemsData" padding text-center>
     <ion-icon class="empty-state-icon" [color]="iconColor" name="custom-timeline"></ion-icon>
     <h5 [class]="textColor" no-margin>Você ainda não possui atividades.</h5>
     <p [class]="textColor" no-margin>Assim que começar a usar as funcionalidades do app elas aparecerão aqui.</p>
   </div>
 
-  <div *ngIf="items">
+  <div *ngIf="itemsData">
     <ion-row justify-content-center>
       <ion-col col-12 padding>
         <timeline endIcon="md-arrow-round-up">
-          <timeline-item *ngFor="let item of (items | async)?.HistoryArray.reverse()">
+          <timeline-item *ngFor="let item of itemsData">
             <timeline-time [id]="item.datetime" [datetime]="item.datetime"></timeline-time>
             <div class="round-div">
               <div [class]="getIconName(item.type)"></div>

@@ -24,7 +24,7 @@ export class WelcomePage {
 
   constructor(
     public ui: UiProvider,
-    private firebase: FirebaseProvider,
+    private fb: FirebaseProvider,
     private navCtrl: NavController,
     private afAuth: AngularFireAuth,
     private gplus: GooglePlus,
@@ -36,9 +36,20 @@ export class WelcomePage {
       "Faça uma avaliação sobre o período do aluguel e encontre usuários bem avaliados."
       // 'Alugue de forma mais segura, encontrando bons usuários prontos para alugar.'
     ];
-
+    this.ui.showLoading();
     this.user = this.afAuth.authState;
 
+
+  }
+
+  ionViewWillEnter(){
+    this.user.subscribe((user) => {
+      if(user){
+        this.chooseRoot(user.uid);
+      } else {
+        this.ui.closeLoading();
+      }
+    });
   }
 
   public doLoginWithGoogle(): void {
@@ -47,9 +58,9 @@ export class WelcomePage {
       this.nativeGoogleLogin().then((user) => {
         console.log(user);
         this.ui.showToast("Sucesso ao logar com o Google.", 3, 'top');
-        this.chooseRoot();
+        this.chooseRoot(this.fb.user.uid);
 
-        // this.firebase.createNewAccount(objeto user, 'prompt ');
+        // this.fb.createNewAccount(objeto user, 'prompt ');
         // TODO - Chamar função que cria usuário.
       }).catch((error) => {
         this.ui.closeLoading();
@@ -79,8 +90,8 @@ export class WelcomePage {
 
 
   public webGoogleLogin(): void {
-    this.firebase.signInWithGoogle().then(() => {
-      this.ui.showToast(this.firebase.message, 3, 'top');
+    this.fb.signInWithGoogle().then(() => {
+      this.ui.showToast(this.fb.message, 3, 'top');
       
       // aqui usuário escolhe com o prompt se ele quer ser owner ou tenant, nao precisa do choose root
       // if (this.firebase.validator) {
@@ -95,12 +106,13 @@ export class WelcomePage {
     });
   }
 
-  public chooseRoot(): void {
-    this.afDb.collection('ownerAccount').doc(this.firebase.user.uid).snapshotChanges().subscribe(res => {
+  public chooseRoot(uid: string): void {
+    this.afDb.collection('ownerAccount').doc(uid).snapshotChanges().subscribe(res => {
 
       if (res.payload.exists) {
-        this.ui.closeLoading();
         console.log('usuário é owner.');
+        this.ui.closeLoading();
+        
         this.navCtrl.setRoot(TabsPage);
       } else {
         this.ui.closeLoading();

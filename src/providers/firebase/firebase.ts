@@ -9,7 +9,6 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { UserAccount } from '../../models/user-account';
 import { OwnerAccount } from '../../models/owner-account';
 import { TenantAccount } from './../../models/tenant-account';
-import { UiProvider } from '../ui/ui';
 
 @Injectable()
 export class FirebaseProvider {
@@ -23,8 +22,7 @@ export class FirebaseProvider {
 
   constructor(
     private afAuth: AngularFireAuth,
-    private afDb: AngularFirestore,
-    private ui: UiProvider) {
+    private afDb: AngularFirestore) {
     //checking user state.  
     this.validator = false;
     afAuth.authState.subscribe(user => {
@@ -111,7 +109,8 @@ export class FirebaseProvider {
           //verificar através do res se isnew, se for então manda prompt
           //através do prompt definir se é owner ou não e pegar para criar nova conta..
           if (!(this.checkIfDocumentExists(res.user.uid, 'owner') && this.checkIfDocumentExists(res.user.uid, 'tenant'))) {
-            console.log('ok');
+            this.createNewAccount(this.account, this.profile, res.user);
+            this.validator = true;
           }
 
           this.message = "Login efetuado com sucesso! Seja bem vindo " +

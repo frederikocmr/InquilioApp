@@ -1,6 +1,5 @@
 import { Component } from "@angular/core";
 import { NavController, NavParams, ModalController } from "ionic-angular";
-import { Observable } from "rxjs/Observable";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { UiProvider, FirebaseProvider } from "../../providers";
 import { History } from "../../models/history";
@@ -14,7 +13,7 @@ export class TimelinePage {
   public cardColor: string;
   public iconColor: string;
   public textColor: string;
-  public items: Observable<any>;
+  // public items: Observable<any>;
   public itemsData: History[];
   public userType: string;
 
@@ -29,7 +28,15 @@ export class TimelinePage {
     if (navParams.get('userType')) this.userType = navParams.get('userType');
     else this.userType = "owner";
 
-    this.items = this.afDb.doc<any>('History/' + this.fb.user.uid).valueChanges();
+    this.afDb.doc<any>('History/' + this.fb.user.uid).valueChanges().subscribe(
+      (data) => {
+        if(data) {
+          this.itemsData = data.HistoryArray.reverse();
+          console.log(data);
+
+        }
+      }
+    );
     
 
   }

@@ -7,6 +7,7 @@ export class UserAccount {
     public birthdate: string;
     public genre: string;
     public password: string;
+    public photoURL: string;
     public active: boolean;
 
     constructor() {
@@ -18,6 +19,7 @@ export class UserAccount {
         this.birthdate = null;
         this.genre = null;
         this.password = null;
+        this.photoURL = '../../assets/imgs/user-y500.png';
         this.active = true;
     }
 

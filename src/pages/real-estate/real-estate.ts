@@ -32,6 +32,7 @@ export class RealEstatePage {
     private afDb: AngularFirestore
   ) {
     this.ui.showLoading();
+    
     this.realEstates = this.afDb.collection<RealEstate>(
       'RealEstate',
       ref => ref.where('ownerId', '==', this.fb.user.uid).where("active", "==", true)
@@ -41,20 +42,14 @@ export class RealEstatePage {
         const id = a.payload.doc.id;
         data.id = id;
 
-        this.realEstatesExists = true;
-
         this.ui.closeLoading(true);
         return { id, ...data };
       }))
     );
     // Subscribing and acessing methods - not necessary when using a view async.
-    // this.realEstates.subscribe((data) => {
-    //   if(data){
-    //     this.realEstatesExists = true;
-    //   } else {
-    //     this.realEstatesExists = false;
-    //   }
-    // });
+    this.realEstates.subscribe((data) => {
+      this.realEstatesExists = (data.length>0 ? true : false);
+    });
 
   }
 
