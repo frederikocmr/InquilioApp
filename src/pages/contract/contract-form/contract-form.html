@@ -48,7 +48,7 @@
       <ion-item>
         <ion-label floating>Selecione um imóvel</ion-label>
         <ion-select [formControl]="contractForm.controls['realEstateId']" name="realEstateId">
-          <ion-option *ngFor="let realEstate of realEstates | async" [value]="realEstate.id">{{ realEstate.name }}</ion-option>
+          <ion-option *ngFor="let realEstate of realEstates | async" [value]="realEstate.id" [selected]="realEstateObj.id">{{ realEstate.name }}</ion-option>
         </ion-select>
       </ion-item>
       <div *ngIf="!contractForm.controls.realEstateId.valid && contractForm.controls.realEstateId.dirty" class="validator-error">

@@ -15,21 +15,9 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 })
 export class ContractFormPage {
   public contract: Contract = new Contract();
-  contractForm: FormGroup;
-  public monthShortNames: String[] = [
-    "jan",
-    "fev",
-    "mar",
-    "abr",
-    "mai",
-    "jun",
-    "jul",
-    "ago",
-    "set",
-    "out",
-    "nov",
-    "dez"
-  ];
+  public realEstateObj: RealEstate = new RealEstate();
+  public contractForm: FormGroup;
+  public monthShortNames: String[] = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
   public realEstates: Observable<RealEstate[]> = null;
   public tenants: Observable<TenantAccount[]> = null;
   public today: Date = new Date();
@@ -44,15 +32,19 @@ export class ContractFormPage {
     private afDb: AngularFirestore
   ) {
     if (this.navParams.get("contract")) {
-      this.contract = navParams.get("contract");
+      this.contract = this.navParams.get("contract");
       this.editing = true;
     }
+
+    if (this.navParams.get('realEstateObj')) {
+      this.realEstateObj = this.navParams.get('realEstateObj');
+      this.editing = false;
+    } 
 
     this.realEstates = this.afDb
       .collection<RealEstate>("RealEstate", ref =>
         ref.where("ownerId", "==", this.fb.user.uid)
-      )
-      .snapshotChanges()
+      ).snapshotChanges()
       .pipe(
         map(actions =>
           actions.map(a => {
@@ -68,7 +60,7 @@ export class ContractFormPage {
       beginDate: [this.contract.beginDate ? this.contract.beginDate : "", Validators.required],
       endDate: [this.contract.endDate ? this.contract.endDate : "", Validators.required],
       duration: [this.contract.duration ? this.contract.duration : "", Validators.required],
-      realEstateId: [this.contract.realEstateId ? this.contract.realEstateId : "", Validators.required],
+      realEstateId: [this.contract.realEstateId ? this.contract.realEstateId : (this.realEstateObj ? this.realEstateObj.id  : ""), Validators.required],
       tenantId: [this.contract.tenantId ? this.contract.tenantId : ""]
     });
   }
@@ -121,15 +113,15 @@ export class ContractFormPage {
   public setMinDate(): string {
     return this.today.toISOString();
   }
-	
-	public getValuesFromForm() {
-		let newObject = this.contractForm.value as Contract;
-		this.contract.beginDate = newObject.beginDate;
-		this.contract.endDate = newObject.endDate;
-		this.contract.duration = newObject.duration;
-		this.contract.realEstateId = newObject.realEstateId;
-		this.contract.tenantId = newObject.tenantId;
-	}
+
+  public getValuesFromForm() {
+    let newObject = this.contractForm.value as Contract;
+    this.contract.beginDate = newObject.beginDate;
+    this.contract.endDate = newObject.endDate;
+    this.contract.duration = newObject.duration;
+    this.contract.realEstateId = newObject.realEstateId;
+    this.contract.tenantId = newObject.tenantId;
+  }
 
   public addContract(): void {
     this.ui.showLoading();
