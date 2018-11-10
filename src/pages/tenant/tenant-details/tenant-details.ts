@@ -9,13 +9,14 @@ import { TenantEvaluationPage } from '../tenant-evaluation/tenant-evaluation';
 })
 export class TenantDetailsPage {
   public tenant = new TenantAccount;
+  evaluationNumber = 1;
   overallScore = "4.5";
   // public isEvaluationTime: boolean = false;
   public isTenantAssociated: boolean = true;
   chips = [
-    {label: "Paga sempre em dia"},
-    {label: "Conserva bem o imóvel"},
-    {label: "Tem bom relacionamento com os vizinhos"}
+    "Paga sempre em dia",
+    "Conserva bem o imóvel",
+    "Tem bom relacionamento com os vizinhos"
   ];
 
   constructor(private modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams) {

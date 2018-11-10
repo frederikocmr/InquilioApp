@@ -17,9 +17,9 @@
       <h2>{{tenant.name}}</h2>
       <ion-row justify-content-start>
         <ion-icon class="evaluation-star" color="secondary" name="custom-star-full"></ion-icon>
-        <p>{{overallScore}} (2 avaliações)</p>
+        <p>{{( evaluationNumber > 1 ? overallScore+" ("+evaluationNumber+" avaliações)" : "Sem avaliações suficientes." )}}</p>
       </ion-row>
-      <p class="content-p">{{( contract ? contract : "Atualmente sem contrato" )}}</p>
+      <p class="content-p">{{( contract ? contract : "Atualmente sem contrato." )}}</p>
     </div>
 
     <div margin>
@@ -42,7 +42,7 @@
     <div margin *ngIf="chips">
       <ion-label color="secondary">Destaques</ion-label>
       <ion-chip color="primary" *ngFor="let chip of chips">
-        <ion-label>{{chip.label}}</ion-label>
+        <ion-label>{{chip}}</ion-label>
       </ion-chip>
     </div>
 
