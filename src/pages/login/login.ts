@@ -60,22 +60,6 @@ export class LoginPage {
     this.navCtrl.push(SignupPage);
   }
 
-  public doLoginWithGoogle(): void {
-    this.ui.showLoading();
-    this.firebase
-      .signInWithGoogle()
-      .then(() => {
-        this.ui.showToast(this.firebase.message, 3, "top");
-
-        if (this.firebase.validator) {
-          this.chooseRoot();
-        }
-      })
-      .catch(error => {
-        this.ui.showToast(error, 3, 'top');
-      });
-  }
-
   public doLoginWithEmail(): void {
     this.ui.showLoading();
     this.firebase
@@ -85,10 +69,13 @@ export class LoginPage {
 
         if (this.firebase.validator) {
           this.chooseRoot();
-        }
+        } else {
+					this.ui.closeLoading();
+				}
       })
       .catch(error => {
         this.ui.showToast(error, 3, 'top');
+        this.ui.closeLoading();
       });
   }
 

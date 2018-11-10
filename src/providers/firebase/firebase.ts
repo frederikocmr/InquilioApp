@@ -9,6 +9,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { UserAccount } from '../../models/user-account';
 import { OwnerAccount } from '../../models/owner-account';
 import { TenantAccount } from './../../models/tenant-account';
+import { UiProvider } from '../ui/ui';
 
 @Injectable()
 export class FirebaseProvider {
@@ -20,7 +21,10 @@ export class FirebaseProvider {
   public account: UserAccount;
   public profile: string;
 
-  constructor(private afAuth: AngularFireAuth, private afDb: AngularFirestore) {
+  constructor(
+    private afAuth: AngularFireAuth,
+    private afDb: AngularFirestore,
+    private ui: UiProvider) {
     //checking user state.  
     this.validator = false;
     afAuth.authState.subscribe(user => {
@@ -43,22 +47,28 @@ export class FirebaseProvider {
       this.account = account as TenantAccount;
     }
 
-    try {
-      await this.afAuth.auth.createUserWithEmailAndPassword(account.email, account.password).then(
-        (res) => {
-          this.createNewAccount(this.account, this.profile, res.user);
-          this.validator = true;
-        }
-      );
-    }
-    catch (error) {
+    return await this.afAuth.auth.createUserWithEmailAndPassword(account.email, account.password).then(
+      (res) => {
+        this.createNewAccount(this.account, this.profile, res.user);
+        this.validator = true;
+      }
+    ).catch((error) => {
       this.message = "Erro ao criar conta: " + error.message;
       this.validator = false;
-      console.log(error);
-    }
+    });
+
   }
 
   public checkIfDocumentExists(doc: string, profile: string): boolean {
+    this.afDb.collection(profile+'Account').doc(doc).snapshotChanges().subscribe(res => {
+
+      if (res.payload.exists) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    // arrumar esta funcao
     return true;
   }
 
@@ -96,12 +106,52 @@ export class FirebaseProvider {
     try {
       await this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(
         (res) => {
-          this.account = new OwnerAccount();
-          this.account.name = res.user.displayName;
-          this.account.email = res.user.email;
-          this.account.phone = res.user.phoneNumber;
+          console.log(res);
 
-          this.createNewAccount(this.account, 'owner', res.user);
+          //verificar através do res se isnew, se for então manda prompt
+          //através do prompt definir se é owner ou não e pegar para criar nova conta..
+          if (!(this.checkIfDocumentExists(res.user.uid, 'owner') && this.checkIfDocumentExists(res.user.uid, 'tenant'))) {
+            this.ui.alert = this.ui.alertCtrl.create({
+              title: 'Infos...',
+              subTitle: 'Informar...',
+              inputs: [
+                {
+                  id: 'document',
+                  name: 'Documento',
+                  placeholder: 'CPF ou CNPJ (somente números)',
+                  type: 'number'
+                }
+              ],
+              buttons: [
+                {
+                  text: 'Sou Dono de Imóvel',
+                  handler: data => {
+                    this.account = new OwnerAccount();
+                    this.account.name = res.user.displayName;
+                    this.account.email = res.user.email;
+                    this.account.phone = res.user.phoneNumber;
+                    console.log(data);
+                    this.account.document = data.Documento; 
+                    this.createNewAccount(this.account, 'owner', res.user);
+                  }
+                },
+                {
+                  text: 'Sou Inquilino',
+                  handler: data => {
+                    this.account = new OwnerAccount();
+                    this.account.name = res.user.displayName;
+                    this.account.email = res.user.email;
+                    this.account.phone = res.user.phoneNumber;
+                    this.account.document = data.Documento; 
+                    this.createNewAccount(this.account, 'tenant', res.user);
+
+                  }
+                }
+              ]
+            });
+            this.ui.alert.present();
+          }
+
           this.message = "Login efetuado com sucesso! Seja bem vindo " +
             (res.user.displayName ? res.user.displayName : '') + "!";
           this.validator = true;

@@ -22,10 +22,34 @@ export class UiProvider {
     this.alert.present();
   }
 
+  public showConfirm(title: string, message: string): void {
+
+    this.alert = this.alertCtrl.create({
+      title: title,
+      message: message,
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancela');
+          }
+        },
+        {
+          text: 'Confirmar',
+          handler: () => {
+            console.log('Ok');
+          }
+        }
+      ]
+    });
+    this.alert.present();
+  }
+
   public showToast(message: string, seconds: number, position: string): void {
     this.toast = this.toastCtrl.create({
       message: message,
-      duration: seconds*1000,
+      duration: seconds * 1000,
       position: position
     });
     this.toast.present();
@@ -42,9 +66,10 @@ export class UiProvider {
 
   // TODO: Verificar: removeView was not found
   public closeLoading(removeView?: boolean): void {
-    if (!this.loading.onDidDismiss && removeView){
+    console.log("tentou fechar o loading");
+    if (!this.loading.onDidDismiss && removeView) {
       this.loading.dismiss();
-    } else if (!removeView){
+    } else if (!removeView) {
       this.loading.dismiss();
     }
   }

@@ -133,12 +133,13 @@ export class SignupPage {
 		if(this.firebase.checkIfDocumentExists(this.account.document, this.profile ? this.profile : 'owner')){
 			this.firebase.signUp(this.account, (this.profile ? this.profile : 'owner')).then((user) => {
 				this.ui.showToast(this.firebase.message, 3, 'top');
-	
+				
 				if (this.firebase.validator) {
 					this.chooseRoot();
+				} else {
+					this.ui.closeLoading();
 				}
 			}).catch((error) => {
-				console.log(error);
 				this.ui.closeLoading();
 			});
 		}

@@ -44,12 +44,15 @@ export class WelcomePage {
   public doLoginWithGoogle(): void {
     this.ui.showLoading();
     if (this.platform.is('cordova')) {
-      this.nativeGoogleLogin().then(() => {
+      this.nativeGoogleLogin().then((user) => {
+        console.log(user);
         this.ui.showToast("Sucesso ao logar com o Google.", 3, 'top');
         this.chooseRoot();
 
+        // this.firebase.createNewAccount(objeto user, 'prompt ');
         // TODO - Chamar função que cria usuário.
       }).catch((error) => {
+        this.ui.closeLoading();
         console.log(error);
       });
     } else {
@@ -78,12 +81,16 @@ export class WelcomePage {
   public webGoogleLogin(): void {
     this.firebase.signInWithGoogle().then(() => {
       this.ui.showToast(this.firebase.message, 3, 'top');
-
-      if (this.firebase.validator) {
-        this.chooseRoot();
-      }
+      
+      // aqui usuário escolhe com o prompt se ele quer ser owner ou tenant, nao precisa do choose root
+      // if (this.firebase.validator) {
+      //   this.chooseRoot();
+      // } else {
+      //   this.ui.closeLoading();
+      // }
 
     }).catch((error) => {
+      this.ui.closeLoading();
       console.log(error);
     });
   }
