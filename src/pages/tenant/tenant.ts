@@ -37,6 +37,8 @@ export class TenantPage {
 
   public cancelSearch(): void {
     this.searchingTenants = false;
+    this.tenantsExists = false;
+    this.tenants = null;
   }
 
   public presentPopover(myEvent): void {
