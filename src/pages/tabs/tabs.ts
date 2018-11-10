@@ -30,6 +30,8 @@ export class TabsPage {
     this.user.subscribe((user) => {
       if(!user){
         this.navCtrl.setRoot(WelcomePage);
+      } else {
+        this.fb.getUserData(user.uid, false);
       } 
     });
   }

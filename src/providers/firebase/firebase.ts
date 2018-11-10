@@ -5,6 +5,7 @@ import firebase from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 
+import { UiProvider } from './../ui/ui';
 
 import { UserAccount } from '../../models/user-account';
 import { OwnerAccount } from '../../models/owner-account';
@@ -19,10 +20,12 @@ export class FirebaseProvider {
   public user: any;
   public account: UserAccount;
   public profile: string;
+  public userData: UserAccount;
 
   constructor(
     private afAuth: AngularFireAuth,
-    private afDb: AngularFirestore) {
+    private afDb: AngularFirestore,
+    private ui: UiProvider) {
     //checking user state.  
     this.validator = false;
     afAuth.authState.subscribe(user => {
@@ -58,12 +61,18 @@ export class FirebaseProvider {
   }
 
   public checkIfDocumentExists(doc: string, profile: string): boolean {
-    this.afDb.collection(profile+'Account').doc(doc).snapshotChanges().subscribe(res => {
-
+    
+    this.afDb.collection('ownerAccount').doc(doc).snapshotChanges().subscribe(res => {
       if (res.payload.exists) {
-        return true;
+        console.log(res);
       } else {
-        return false;
+        this.afDb.collection('tenantAccount').doc(doc).snapshotChanges().subscribe(res => {
+          if (res.payload.exists) {
+            console.log(res);
+          } else {
+            console.log('nao encontrado.')
+          }
+        });
       }
     });
     // arrumar esta funcao
@@ -194,6 +203,27 @@ export class FirebaseProvider {
       this.validator = false;
       console.log(error);
     }
+  }
+
+  public getUserData(uid: string, loading: boolean): void {
+    if(loading) { this.ui.showLoading(); }
+    this.afDb.doc<OwnerAccount>('ownerAccount/' + uid).valueChanges().subscribe(data => {
+      if (data) {
+        this.userData = data;
+        if(loading) { this.ui.closeLoading();}
+      } else {
+        this.afDb.doc<OwnerAccount>('tenantAccount/' + uid).valueChanges().subscribe(data => {
+          if (data) {
+            this.userData = data;
+            if(loading) { this.ui.closeLoading();}
+          } else {
+            this.ui.closeLoading();
+            if(loading) { this.ui.closeLoading();}
+          }
+        });
+      }
+    });
+    
   }
 
   public signOut() {

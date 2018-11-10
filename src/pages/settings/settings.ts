@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { FirebaseProvider, SettingsProvider } from '../../providers';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { User } from 'firebase';
@@ -20,20 +20,14 @@ export class SettingsPage {
   user: User;
   userType: string;
   version: string;
-  // TODO: Pegar dados do banco deste usuário logado... Por enquanto só está pegando do GoogleUser
-
   settingsReady = false;
-
   form: FormGroup;
-
   profileSettings = {
     page: 'profile',
     pageTitleKey: 'SETTINGS_PAGE_PROFILE'
   };
-
   page: string = 'main';
   pageTitleKey: string = 'SETTINGS_TITLE';
-
   subSettings: any = SettingsPage;
 
   constructor(
@@ -41,7 +35,8 @@ export class SettingsPage {
     public navCtrl: NavController,
     public settings: SettingsProvider,
     public formBuilder: FormBuilder,
-    public navParams: NavParams) {
+    public navParams: NavParams,
+    public modalCtrl: ModalController) {
     this.user = this.fb.user;
 
     if (navParams.get('userType')) this.userType = navParams.get('userType');
@@ -120,7 +115,8 @@ export class SettingsPage {
   }
 
   editUser() {
-    this.navCtrl.push(ProfileFormPage, { user: this.user, userType: this.userType });
+    let modal = this.modalCtrl.create(ProfileFormPage, { user: this.user, userType: this.userType });
+    modal.present();
   }
 
   ngOnChanges() {

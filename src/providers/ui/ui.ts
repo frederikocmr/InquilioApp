@@ -68,9 +68,9 @@ export class UiProvider {
   public closeLoading(removeView?: boolean): void {
 
     if (!this.loading.onDidDismiss && removeView) {
-      this.loading.dismiss();
+      this.loading.dismiss().catch(() => {});
     } else if (!removeView) {
-      this.loading.dismiss();
+      this.loading.dismiss().catch(() => {});
     }
   }
 }

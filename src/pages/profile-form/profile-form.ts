@@ -3,42 +3,56 @@ import { NavController, NavParams } from 'ionic-angular';
 import { User } from 'firebase';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { regexValidators } from '../../validators/validator';
+import { FirebaseProvider, UiProvider } from '../../providers';
+import { UserAccount } from '../../models/user-account';
 
 @Component({
   selector: 'page-profile-form',
   templateUrl: 'profile-form.html',
 })
 export class ProfileFormPage {
-  backgroundClass: string;
-  cardColor: string;
-  formClass: string;
-  iconColor: string;
-  textColor: string;
-  user: User;
-  userType: string;
-  profileForm: FormGroup;
+  public backgroundClass: string;
+  public cardColor: string;
+  public formClass: string;
+  public iconColor: string;
+  public textColor: string;
+  public user: User;
+  public userAccount: UserAccount = new UserAccount();
+  public userType: string;
+  public profileForm: FormGroup;
+  public monthShortNames: String[] = [
+    "jan", "fev", "mar", "abr", "mai", "jun",
+    "jul", "ago", "set", "out", "nov", "dez"
+  ];
 
-  constructor(private formBuilder: FormBuilder, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private fb: FirebaseProvider,
+    public ui: UiProvider,
+    public navCtrl: NavController,
+    public navParams: NavParams) {
 
-    if (navParams.get('user')) this.user = navParams.get('user');
+    if (navParams.get('user')) {
+      this.user = navParams.get('user');
+      this.fb.getUserData(this.user.uid, true);
+    }
+
+    if (navParams.get('userType')) {
+      this.userType = navParams.get('userType');
+    } else {
+      this.userType = "owner";
+    }
 
     this.profileForm = this.formBuilder.group({
-      document: ['', Validators.compose([Validators.pattern(regexValidators.cpfCpnj), Validators.required])],
-      name: ['', Validators.required],
-      email: ['', Validators.compose([Validators.pattern(regexValidators.email), Validators.required])],
-      password: ['', Validators.required],
-      phone: ['', Validators.compose([Validators.pattern(regexValidators.phone), Validators.required])],
-      birthdate: ['', Validators.required],
-      genre: ['', Validators.required]
+      document: [{ value: (this.fb.userData ? this.fb.userData.document : ''), disabled: true }, Validators.compose([Validators.pattern(regexValidators.cpfCpnj), Validators.required])],
+      name: [  (this.fb.userData ? this.fb.userData.name : '') , Validators.required],
+      email: [{ value: (this.fb.userData ? this.fb.userData.email : ''), disabled: true }, Validators.compose([Validators.pattern(regexValidators.email), Validators.required])],
+      phone: [(this.fb.userData ? this.fb.userData.phone : ''), Validators.required],
+      birthdate: [(this.fb.userData ? this.fb.userData.birthdate : ''), Validators.required],
+      genre: [(this.fb.userData ? this.fb.userData.genre : ''), Validators.required]
     });
 
-    if (navParams.get('userType')) this.userType = navParams.get('userType');
-    else this.userType = "owner";
     this.changeLayout(this.userType);
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ProfileFormPage');
   }
 
   // Changes the color of some elements depending on the type of user
@@ -58,9 +72,33 @@ export class ProfileFormPage {
     }
   }
 
-  // TODO: Criar método para salvar alterações no perfil
+  public getValuesFromForm() {
+    let newObject = this.profileForm.value as UserAccount;
+    this.userAccount.document = newObject.document;
+    this.userAccount.name = newObject.name;
+    this.userAccount.email = newObject.email;
+    this.userAccount.phone = newObject.phone;
+    this.userAccount.birthdate = newObject.birthdate;
+    this.userAccount.genre = newObject.genre;
+    this.userAccount.id  = this.user.uid;
+  }
+
   public saveProfile(): void {
-    this.navCtrl.pop();
+    this.ui.showLoading();
+    this.getValuesFromForm();
+    this.fb.updateDataFromCollection(this.userType + "Account", this.userAccount).then(
+      () => {
+        this.ui.showToast(this.fb.message, 2, 'top');
+
+        if (this.fb.validator) {
+          this.navCtrl.pop();
+        } 
+        this.ui.closeLoading();
+      }
+    ).catch(error => {
+      this.ui.closeLoading();
+      this.ui.showAlert("Erro ao atualizar perfil: ", error);
+    });;
   }
 
   public setMaxDate(): number {
