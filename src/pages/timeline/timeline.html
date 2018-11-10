@@ -17,17 +17,13 @@
       <ion-col col-12 padding>
         <timeline endIcon="md-arrow-round-up">
           <timeline-item *ngFor="let item of itemsData">
-            <timeline-time [id]="item.datetime" [datetime]="item.datetime"></timeline-time>
+            <timeline-time [class]="timeClass" [datetime]="item.datetime"></timeline-time>
             <div class="round-div">
               <div [class]="getIconName(item.type)"></div>
             </div>
             <ion-card [color]="cardColor">
-              <ion-card-header>
-                {{item.title}}
-              </ion-card-header>
-              <ion-card-content>
-                {{item.description}}
-              </ion-card-content>
+              <ion-card-header>{{item.title}}</ion-card-header>
+              <ion-card-content>{{item.description}}</ion-card-content>
             </ion-card>
           </timeline-item>
         </timeline>
