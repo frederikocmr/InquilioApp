@@ -1,5 +1,10 @@
 <ion-header>
   <ion-navbar color="primary">
+    <ion-buttons left [hidden]="isNewUser">
+      <button navPop ion-button icon-only style="margin: 0 6px; min-width: 36px;">
+        <ion-icon color="light" name="close"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-title>Editar Perfil</ion-title>
   </ion-navbar>
 </ion-header>
@@ -20,7 +25,7 @@
         <ion-input type="text" [formControl]="profileForm.controls['name']" name="name"></ion-input>
       </ion-item>
       <div *ngIf="!profileForm.controls.name.valid && profileForm.controls.name.dirty" class="validator-error">
-        Por favor, informe um nome. 
+        Por favor, informe um nome.
       </div>
 
       <ion-item>
@@ -53,7 +58,7 @@
 
       <ion-item>
         <ion-label floating>Informe seu email</ion-label>
-        <ion-input type="email" [formControl]="profileForm.controls['email']" name="email" ></ion-input>
+        <ion-input type="email" [formControl]="profileForm.controls['email']" name="email"></ion-input>
       </ion-item>
       <div *ngIf="!profileForm.controls.email.valid && profileForm.controls.email.dirty" class="validator-error">
         Por favor, informe um email válido.

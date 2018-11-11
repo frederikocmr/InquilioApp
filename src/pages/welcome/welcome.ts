@@ -6,10 +6,11 @@ import { Component } from '@angular/core';
 import { SignupPage } from '../signup/signup';
 import { LoginPage } from '../login/login';
 import { FirebaseProvider, UiProvider } from '../../providers';
-import { NavController, Platform } from 'ionic-angular';
+import { NavController, Platform, ModalController, AlertController } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { TenantTabsPage } from '../tenant-tabs/tenant-tabs';
+import { ProfileFormPage } from '../profile-form/profile-form';
 
 
 @Component({
@@ -29,6 +30,8 @@ export class WelcomePage {
     private afAuth: AngularFireAuth,
     private gplus: GooglePlus,
     private afDb: AngularFirestore,
+    private modalCtrl: ModalController,
+    private alertCtrl: AlertController,
     private platform: Platform) {
 
     this.descriptions = [
@@ -55,10 +58,34 @@ export class WelcomePage {
   public doLoginWithGoogle(): void {
     this.ui.showLoading();
     if (this.platform.is('cordova')) {
-      this.nativeGoogleLogin().then((user) => {
-        console.log(user);
+      this.nativeGoogleLogin().then((res) => {
+        //fazer consulta para ver se os dados existem no  banco pois o res é tipo User.
         this.ui.showToast("Sucesso ao logar com o Google.", 3, 'top');
-        this.chooseRoot(this.fb.user.uid);
+        if(res){
+          this.ui.alert = this.alertCtrl.create({
+            title: 'Antes de começar...',
+            subTitle: 'Por favor, escolha o seu perfil',
+            enableBackdropDismiss: false,
+            message: 'Selecione um dos itens abaixo',
+            buttons: [
+              {
+                text: 'Inquilino',
+                handler: () => {
+                  let modal = this.modalCtrl.create(ProfileFormPage, { user: res, userType: 'tenant', isNewUser: true});
+                  modal.present(); 
+                }
+              },
+              {
+                text: 'Dono de imóvel',
+                handler: () => {
+                  let modal = this.modalCtrl.create(ProfileFormPage, { user: res, userType: 'owner', isNewUser: true });
+                  modal.present(); 
+                }
+              }
+            ]
+          });
+          this.ui.alert.present();
+        }
 
         // this.fb.createNewAccount(objeto user, 'prompt ');
         // TODO - Chamar função que cria usuário.
@@ -90,16 +117,32 @@ export class WelcomePage {
 
 
   public webGoogleLogin(): void {
-    this.fb.signInWithGoogle().then(() => {
-      this.ui.showToast(this.fb.message, 3, 'top');
-      
-      // aqui usuário escolhe com o prompt se ele quer ser owner ou tenant, nao precisa do choose root
-      // if (this.firebase.validator) {
-      //   this.chooseRoot();
-      // } else {
-      //   this.ui.closeLoading();
-      // }
-
+    this.fb.signInWithGoogle().then((res) => {
+      if(res.additionalUserInfo.isNewUser){
+        this.ui.alert = this.alertCtrl.create({
+          title: 'Antes de começar...',
+          subTitle: 'Por favor, escolha o seu perfil',
+          enableBackdropDismiss: false,
+          message: 'Selecione um dos itens abaixo',
+          buttons: [
+            {
+              text: 'Inquilino',
+              handler: () => {
+                let modal = this.modalCtrl.create(ProfileFormPage, { user: res.user, userType: 'tenant', isNewUser: true});
+                modal.present(); 
+              }
+            },
+            {
+              text: 'Dono de imóvel',
+              handler: () => {
+                let modal = this.modalCtrl.create(ProfileFormPage, { user: res.user, userType: 'owner', isNewUser: true });
+                modal.present(); 
+              }
+            }
+          ]
+        });
+        this.ui.alert.present();
+      }
     }).catch((error) => {
       this.ui.closeLoading();
       console.log(error);

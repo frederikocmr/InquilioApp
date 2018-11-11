@@ -4,30 +4,32 @@ import { FirebaseProvider, SettingsProvider } from '../../providers';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { User } from 'firebase';
 import { ProfileFormPage } from '../profile-form/profile-form';
+import { UserAccount } from './../../models/user-account';
 
 @Component({
   selector: 'page-settings',
   templateUrl: 'settings.html',
 })
 export class SettingsPage {
-  backgroundClass: string;
-  cardColor: string;
-  formClass: string;
-  iconColor: string;
-  textColor: string;
-  options: any;
-  user: User;
-  userType: string;
-  version: string;
-  settingsReady = false;
-  form: FormGroup;
-  profileSettings = {
+  public backgroundClass: string;
+  public cardColor: string;
+  public formClass: string;
+  public iconColor: string;
+  public textColor: string;
+  public options: any;
+  public user: User;
+  public userData: UserAccount;
+  public userType: string;
+  public version: string;
+  public settingsReady = false;
+  public form: FormGroup;
+  public profileSettings = {
     page: 'profile',
     pageTitleKey: 'SETTINGS_PAGE_PROFILE'
   };
-  page: string = 'main';
-  pageTitleKey: string = 'SETTINGS_TITLE';
-  subSettings: any = SettingsPage;
+  public page: string = 'main';
+  public pageTitleKey: string = 'SETTINGS_TITLE';
+  public subSettings: any = SettingsPage;
 
   constructor(
     private fb: FirebaseProvider,
@@ -37,6 +39,7 @@ export class SettingsPage {
     public navParams: NavParams,
     public modalCtrl: ModalController) {
     this.user = this.fb.user;
+    this.userData = this.fb.userData;
 
     if (navParams.get('userType')) this.userType = navParams.get('userType');
     else this.userType = "owner";

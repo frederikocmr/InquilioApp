@@ -109,30 +109,10 @@ export class FirebaseProvider {
     }
   }
 
-  public async signInWithGoogle(): Promise<void> {
-    try {
-      await this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(
-        (res) => {
-          console.log(res);
+  public async signInWithGoogle(): Promise<any> {
+    return await this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
 
-          //verificar através do res se isnew, se for então manda prompt
-          //através do prompt definir se é owner ou não e pegar para criar nova conta..
-          if (!(this.checkIfDocumentExists(res.user.uid, 'owner') && this.checkIfDocumentExists(res.user.uid, 'tenant'))) {
-            this.createNewAccount(this.account, this.profile, res.user);
-            this.validator = true;
-          }
-
-          this.message = "Login efetuado com sucesso! Seja bem vindo " +
-            (res.user.displayName ? res.user.displayName : '') + "!";
-          this.validator = true;
-        }
-      );
-
-    }
-    catch (error) {
-      this.message = "Erro ao tentar logar: " + error;
-      this.validator = false;
-    }
+   
   }
 
   public async insertDataToDocument(collection, document, data): Promise<void> {
