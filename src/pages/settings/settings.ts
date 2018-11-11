@@ -14,6 +14,7 @@ export class SettingsPage {
   public backgroundClass: string;
   public cardColor: string;
   public formClass: string;
+  public hrClass: string;
   public iconColor: string;
   public textColor: string;
   public options: any;
@@ -101,13 +102,15 @@ export class SettingsPage {
       this.backgroundClass = "bg-owner-page";
       this.cardColor = "primary700";
       this.formClass = "custom-form";
-      this.iconColor = "light";
+      this.hrClass = "";
+      this.iconColor = "secondary";
       this.textColor = "light-text";
       this.version = "Versão Dono de Imóvel";
     } else {
       this.backgroundClass = "bg-tenant-page";
       this.cardColor = "light";
       this.formClass = "custom-form-tenant";
+      this.hrClass = "hr-class";
       this.iconColor = "primary"
       this.textColor = "primary-text";
       this.version = "Versão Inquilino";

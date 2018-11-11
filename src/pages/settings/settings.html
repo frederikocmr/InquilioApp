@@ -8,12 +8,12 @@
   <form [formGroup]="form" *ngIf="settingsReady">
     <ion-list [class]="formClass">
       <div text-center>
-        <ion-icon class="account-icon" color="secondary" name="custom-account-circle" *ngIf="!user.photoURL"></ion-icon>
+        <ion-icon class="account-icon" [color]="iconColor" name="custom-account-circle" *ngIf="!user.photoURL"></ion-icon>
         <img class="logo" *ngIf="user.photoURL" padding [src]="user.photoURL ? user.photoURL : '../../assets/imgs/user-y500.png'" />
         <h5 [class]="textColor" no-padding>{{(user.displayName?user.displayName: userData.name)}}</h5>
         <h6 [class]="textColor" no-padding>{{(user.email?user.email: userData.email)}}</h6>
       </div>
-      <hr>
+      <hr [class]="hrClass">
       <!-- <ion-item>
         <ion-label>Opção 1</ion-label>
         <ion-toggle formControlName="option1"></ion-toggle>

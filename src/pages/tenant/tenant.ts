@@ -42,6 +42,24 @@ export class TenantPage {
 
   }
 
+  public showListener(): void {
+    document.getElementById('searchbar').classList.add('keyboard-is-open');
+  }
+
+  public hideListener(): void {
+    document.getElementById('searchbar').classList.remove('keyboard-is-open');
+  }
+
+  public ionViewDidEnter(): void {
+    window.addEventListener('keyboardWillShow', this.showListener);
+    window.addEventListener('keyboardDidHide', this.hideListener);
+  }
+
+  public ionViewWillLeave(): void {
+    window.removeEventListener('keyboardWillShow', this.showListener);
+    window.removeEventListener('keyboardDidHide', this.hideListener);
+  }
+
   public cancelSearch(): void {
     this.searchingTenants = false;
     this.tenantsExists = false;

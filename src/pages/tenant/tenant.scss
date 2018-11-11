@@ -1,6 +1,11 @@
 page-tenant {
+  .keyboard-is-open {
+		bottom: 0 !important;
+  }
+
 	.my-footer {
-		bottom: 5rem;
+		background: none;
+		bottom: 5.5rem;
 		z-index: 999;
 	}
 

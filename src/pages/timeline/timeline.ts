@@ -13,6 +13,7 @@ export class TimelinePage {
   public cardColor: string;
   public iconColor: string;
   public textColor: string;
+  public timeClass: string;
   public itemsData: History[];
   public userType: string;
 
@@ -25,17 +26,15 @@ export class TimelinePage {
   ) {
     if (navParams.get('userType')) this.userType = navParams.get('userType');
     else this.userType = "owner";
+    
+    this.changeLayout(this.userType);
 
     this.afDb.doc<any>('History/' + this.fb.user.uid).valueChanges().subscribe(
       (data) => {
-        if(data) {
+        if (data) {
           this.itemsData = data.HistoryArray.reverse();
         }
       });
-  }
-
-  public ionViewDidEnter(): void {
-    this.changeLayout(this.userType);
   }
 
   // Changes the color of some elements depending on the type of user
@@ -45,26 +44,13 @@ export class TimelinePage {
       this.cardColor = "primary700";
       this.iconColor = "light";
       this.textColor = "light-text";
+      this.timeClass = "";
     } else {
       this.backgroundClass = "bg-tenant-page";
       this.cardColor = "light";
       this.iconColor = "primary"
       this.textColor = "primary-text";
-      this.changeTimeColor();
-    }
-  }
-
-  // Add the class "primary-text" to all span elements inside timeline-time to change
-  // the color of the text to primary
-  public changeTimeColor(): void {
-    let timelineTime = document.getElementsByTagName("timeline-time");
-    let length = timelineTime.length;
-    for (let i = 0; i < length; i++) {
-      let el = timelineTime[i].children;
-      let spanLength = el.length;
-      for (let j = 0; j < spanLength; j++) {
-        el[j].className = "primary-text";
-      }
+      this.timeClass = "primary-text";
     }
   }
 
@@ -73,7 +59,7 @@ export class TimelinePage {
       case 'ownerAccount':
         return 'custom-border-account-circle';
       case 'tenantAccount':
-        return 'custom-border-users';  
+        return 'custom-border-users';
       case 'Contract':
         return 'custom-border-contract';
       case 'RealEstate':

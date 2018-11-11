@@ -76,7 +76,7 @@
   </div>
 </ion-content>
 
-<ion-searchbar animated="true" cancelButtonText="Cancelar" class="my-footer" [(ngModel)]="searchString" placeholder="Buscar inquilino pelo CPF..."
+<ion-searchbar animated="true" cancelButtonText="Cancelar" class="my-footer" id="searchbar" [(ngModel)]="searchString" placeholder="Buscar inquilino pelo CPF..."
   name="document" [brmasker]="{mask:'000.000.000-00', len:14}" showCancelButton (ionCancel)="cancelSearch()" (ionClear)="cancelSearch()"
   (ionInput)="search()">
 </ion-searchbar>

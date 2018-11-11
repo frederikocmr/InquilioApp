@@ -2,8 +2,8 @@
 export class Contract {
   public id: string;
   public active: boolean;
-  public beginDate: Date;
-  public endDate: Date;
+  public beginDate: number;
+  public endDate: number;
   public duration: string;
   public tenantId: string;
   public ownerId: string;

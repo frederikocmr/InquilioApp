@@ -2,6 +2,9 @@ page-timeline {
 
 	.primary-text {
 		color: color($colors, primary) !important;
+		span {
+			color: color($colors, primary) !important;
+		}
 	}
 
 	.light-text {

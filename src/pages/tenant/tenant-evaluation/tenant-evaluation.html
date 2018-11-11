@@ -27,7 +27,7 @@
 
       <div margin>
         <h4>Avalie o inquilino durante o aluguel.</h4>
-        <ion-label color="light">Toque nas estrelas para classificar de 1 a 5.</ion-label>
+        <ion-note>Toque nas estrelas para classificar de 1 a 5.</ion-note>
         <div text-center>
           <ion-icon class="evaluation-star" color="secondary" (click)="getStarName(star.value)" [name]="star.name"
             *ngFor="let star of stars"></ion-icon>

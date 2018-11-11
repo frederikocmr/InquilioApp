@@ -5,12 +5,16 @@ page-settings {
 		width: 12rem;
 	}
 
-	.primary-text {
-		color: color($colors, primary) !important;
+	.hr-class {
+    border-bottom: 0.1rem solid color($colors, primary);
 	}
 
 	.light-text {
 		color: color($colors, light) !important;
+	}
+
+	.primary-text {
+		color: color($colors, primary) !important;
 	}
 
 }
