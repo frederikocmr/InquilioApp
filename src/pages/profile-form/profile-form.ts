@@ -49,7 +49,7 @@ export class ProfileFormPage {
     } else {
       this.userType = "owner";
     }
-
+    console.log(this.fb.userData);
     this.profileForm = this.formBuilder.group({
       document: [{ value: (this.fb.userData ? this.fb.userData.document : ''), disabled: !this.isNewUser }, Validators.compose([Validators.pattern(regexValidators.cpfCpnj), Validators.required])],
       name: [(this.fb.userData ? this.fb.userData.name : (this.user ? this.user.displayName : '')), Validators.required],
@@ -83,7 +83,7 @@ export class ProfileFormPage {
     let newObject = this.profileForm.value as UserAccount;
     this.userAccount.document = newObject.document;
     this.userAccount.name = newObject.name;
-    this.userAccount.email = newObject.email;
+    this.userAccount.email = (newObject.email ? newObject.email : this.user.email);
     this.userAccount.phone = newObject.phone;
     this.userAccount.birthdate = newObject.birthdate;
     this.userAccount.genre = newObject.genre;
