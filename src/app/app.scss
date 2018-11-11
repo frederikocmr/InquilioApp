@@ -97,8 +97,8 @@
   .item-md.item-input.item-input-has-focus .item-inner,
   .item-ios.item-input.item-input-has-focus .item-inner {
     border-bottom-color: color($colors, secondary);
-    -webkit-box-shadow: inset 0 -1px 0 0 color($colors, secondary);
-    box-shadow: inset 0 -1px 0 0 color($colors, secondary);
+    -webkit-box-shadow: inset 0 0px 0 0 color($colors, secondary);
+    box-shadow: inset 0 0px 0 0 color($colors, secondary);
   }
 
   .item-md.item-block .item-inner,
@@ -111,6 +111,19 @@
     font-size: 1.5rem;
     margin-top: 1rem;
   }
+}
+
+.item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner, 
+.item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+  border-bottom-color: color($colors, granted);
+  -webkit-box-shadow: inset 0 0px 0 0 color($colors, granted);
+  box-shadow: inset 0 0px 0 0 color($colors, granted);
+}
+
+.item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+  border-bottom-color: color($colors, danger);
+  -webkit-box-shadow: inset 0 0px 0 0 color($colors, danger);
+  box-shadow: inset 0 0px 0 0 color($colors, danger);
 }
 
 .custom-form-tenant {
@@ -137,9 +150,10 @@
   .item-md.item-input.item-input-has-focus .item-inner,
   .item-ios.item-input.item-input-has-focus .item-inner {
     border-bottom-color: color($colors, primary);
-    -webkit-box-shadow: inset 0 -1px 0 0 color($colors, primary);
-    box-shadow: inset 0 -1px 0 0 color($colors, primary);
+    -webkit-box-shadow: inset 0 0px 0 0 color($colors, primary);
+    box-shadow: inset 0 0px 0 0 color($colors, primary);
   }
+
 
   .item-md.item-block .item-inner,
   .item-ios.item-block .item-inner {

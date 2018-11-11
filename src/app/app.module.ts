@@ -50,9 +50,9 @@ export function provideSettings(storage: Storage) {
    * these values will not overwrite the saved values (this can be done manually if desired).
    */
   return new SettingsProvider(storage, {
-    option1: true,
+    notifications: true,
     option2: 'Opção',
-    option3: '3',
+    language: 'pt',
     option4: '...'
   });
 }
@@ -90,7 +90,18 @@ export function provideSettings(storage: Storage) {
     IonicModule.forRoot(MyApp, {
       scrollPadding: false,
       scrollAssist: true,
-      autoFocusAssist: false
+      autoFocusAssist: false,
+      modalEnter: 'modal-slide-in',
+      modalLeave: 'modal-slide-out',
+      pageTransition: 'ios-transition',
+      platforms: {
+        ios: {
+          backButtonText: 'Voltar'
+        },
+        core: {
+          tabsPlacement: 'top'
+        }
+      }
     }),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule.enablePersistence(),
@@ -98,7 +109,7 @@ export function provideSettings(storage: Storage) {
     AngularFirestoreModule,
     IonicStorageModule.forRoot({
       name: '__mydb',
-          driverOrder: ['indexeddb', 'sqlite', 'websql']
+      driverOrder: ['indexeddb', 'sqlite', 'websql']
     }),
     HttpClientModule
   ],
@@ -141,4 +152,4 @@ export function provideSettings(storage: Storage) {
     GooglePlus
   ]
 })
-export class AppModule {}
+export class AppModule { }

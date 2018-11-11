@@ -46,6 +46,7 @@
     "rxjs": "^6.3.2",
     "rxjs-compat": "^6.3.2",
     "sw-toolbox": "3.6.0",
+    "web": "0.0.2",
     "zone.js": "0.8.26"
   },
   "devDependencies": {

@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content [class]="backgroundClass" padding>
-  <form [formGroup]="form" *ngIf="settingsReady">
+  <form [formGroup]="settingsForm" *ngIf="settingsReady">
     <ion-list [class]="formClass">
       <div text-center>
         <ion-icon class="account-icon" [color]="iconColor" name="custom-account-circle" *ngIf="!user.photoURL"></ion-icon>
@@ -16,9 +16,9 @@
       <hr [class]="hrClass">
       <ion-item>
         <ion-label>Notificações</ion-label>
-        <ion-toggle formControlName="option1"></ion-toggle>
+        <ion-toggle formControlName="notifications"></ion-toggle>
       </ion-item>
-<!-- 
+      <!-- 
       <ion-item>
         <ion-label>Opção 2</ion-label>
         <ion-input formControlName="option2"></ion-input>
@@ -26,22 +26,30 @@
 
       <ion-item>
         <ion-label>Idioma</ion-label>
-        <ion-select formControlName="option3">
-          <ion-option value="1" checked="true">Português</ion-option>
+        <ion-select formControlName="language" cancelText="Cancelar" okText="Confirmar">
+          <ion-option value="pt" checked="true">Português (Brasil)</ion-option>
         </ion-select>
       </ion-item>
 
-      <br>
-      
+      <!-- <br>
+
       <ion-item>
         <ion-label (click)="editUser()">Editar Perfil</ion-label>
-      </ion-item>
+      </ion-item> -->
 
-      <div class="my-footer" text-center padding-top>
-        <button class="main-button btn-danger" ion-button large round color="danger" strong (click)="signOut()"
-          icon-start>
-          <ion-icon name="custom-exit"></ion-icon>Sair
-        </button>
+      <div class="footer" text-center padding-top>
+        <ion-row>
+          <button class="main-button btn-light" ion-button large round color="light" strong (click)="editUser()"
+            icon-start>
+            <ion-icon name="custom-edit"></ion-icon>Editar Perfil
+          </button>
+        </ion-row>
+        <ion-row>
+          <button class="main-button btn-danger" ion-button large round color="danger" strong (click)="signOut()"
+            icon-start>
+            <ion-icon name="custom-exit"></ion-icon>Sair
+          </button>
+        </ion-row>
         <p [class]="textColor">{{version}}</p>
       </div>
     </ion-list>

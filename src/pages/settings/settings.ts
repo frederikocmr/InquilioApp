@@ -23,7 +23,7 @@ export class SettingsPage {
   public userType: string;
   public version: string;
   public settingsReady = false;
-  public form: FormGroup;
+  public settingsForm: FormGroup;
   public profileSettings = {
     page: 'profile',
     pageTitleKey: 'SETTINGS_PAGE_PROFILE'
@@ -53,9 +53,9 @@ export class SettingsPage {
 
   _buildForm() {
     let group: any = {
-      option1: [this.options.option1],
-      option2: [this.options.option2],
-      option3: [this.options.option3]
+      notifications: [this.options.notifications],
+      // option2: [this.options.option2],
+      language: [this.options.language]
     };
 
     switch (this.page) {
@@ -67,22 +67,22 @@ export class SettingsPage {
         };
         break;
     }
-    this.form = this.formBuilder.group(group);
+    this.settingsForm = this.formBuilder.group(group);
 
     // Watch the form for changes, and
-    this.form.valueChanges.subscribe((v) => {
-      this.settings.merge(this.form.value);
+    this.settingsForm.valueChanges.subscribe((v) => {
+      this.settings.merge(this.settingsForm.value);
     });
   }
 
   ionViewDidLoad() {
     // Build an empty form for the template to render
-    this.form = this.formBuilder.group({});
+    this.settingsForm = this.formBuilder.group({});
   }
 
   ionViewWillEnter() {
     // Build an empty form for the template to render
-    this.form = this.formBuilder.group({});
+    this.settingsForm = this.formBuilder.group({});
 
     this.page = this.page;
     this.pageTitleKey = this.pageTitleKey;

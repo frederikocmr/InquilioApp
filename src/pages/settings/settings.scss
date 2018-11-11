@@ -13,8 +13,27 @@ page-settings {
 		color: color($colors, light) !important;
 	}
 
+	@media screen and (min-height: '640px'){
+		.footer {
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			width: 100%;
+		}
+	}
+
 	.primary-text {
 		color: color($colors, primary) !important;
+	}
+
+	ion-row {
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+	}
+
+	ion-select {
+		max-width: 60%;
 	}
 
 }
