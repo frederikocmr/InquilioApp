@@ -77,6 +77,24 @@ export class ContractDetailsPage {
     }
   }
 
+  public isContractActive(): boolean {
+    let today = + new Date();
+    if (today >= this.contract.beginDate && today <= this.contract.endDate) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public isContractTerminated(): boolean {    
+    let today = + new Date();
+    if (today > this.contract.endDate) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   public onEditContract(): void {
     let detailsModal = this.modalCtrl.create(ContractFormPage, { contract: this.contract });
     detailsModal.present();
@@ -103,6 +121,44 @@ export class ContractDetailsPage {
     });
 
     modal.present();
+  }
 
+  // TODO: Finalizar método de renovação de contrato
+  public renewContract(): void {
+    this.navCtrl.push(ContractFormPage);
+  }
+
+  // TODO: Verificar se há inquilino vinculado ao contrato, se existir, enviar solicitação, senão, aceitar a solicitação imediatamente
+  public revokeContract(): void {
+    let modal = this.ui.alertCtrl.create({
+      title: "Solicitar rescisão de contrato?",
+      subTitle: "Essa ação enviará uma solicitação de rescisão do contrato ao inquilino associado.",
+      buttons: ["Cancelar",
+        {
+          text: "Enviar",
+          handler: () => {
+            console.log('solicitação de rescisão enviada')
+          }
+        }]
+    });
+
+    modal.present();    
+  }
+
+  // TODO: Verificar se há inquilino vinculado ao contrato, se existir, enviar solicitação, senão, aceitar a solicitação imediatamente
+  public deactivateContract(): void {
+    let modal = this.ui.alertCtrl.create({
+      title: "Solicitar desativação do contrato?",
+      subTitle: "Uma solicitação de desativação do contrato será enviada ao inquilino associado para confirmar que ambos estão cientes da ação.",
+      buttons: ["Cancelar",
+        {
+          text: "Enviar",
+          handler: () => {
+            console.log('contrato desativado')
+          }
+        }]
+    });
+
+    modal.present();  
   }
 }

@@ -375,6 +375,10 @@ ion-icon {
     mask-image: url(../assets/icons/arrow-right.svg);
   }
 
+  &[class*="custom-cancel-circle"] {
+    mask-image: url(../assets/icons/cancel-circle-full.svg);
+  }
+
   &[class*="custom-contract"] {
     mask-image: url(../assets/icons/contract.svg);
   }
@@ -421,6 +425,10 @@ ion-icon {
 
   &[class*="custom-more-ios"] {
     mask-image: url(../assets/icons/more-ios.svg);
+  }
+
+  &[class*="custom-remove-circle"] {
+    mask-image: url(../assets/icons/remove-circle.svg);
   }
 
   &[class*="custom-save"] {

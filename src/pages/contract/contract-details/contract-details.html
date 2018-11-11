@@ -49,16 +49,34 @@
     </div>
 
     <div margin-top *ngIf="userType === 'owner'">
-      <ion-row>
+      <ion-row [hidden]="!isContractTerminated()">
+        <button class="main-button btn-secondary" ion-button large round color="secondary" strong (click)="renewContract()"
+          icon-start>
+          <ion-icon name="custom-done"></ion-icon>Renovar
+        </button>
+      </ion-row>
+      <ion-row [hidden]="isContractActive()">
         <button class="main-button btn-light" ion-button large round color="light" strong (click)="onEditContract()"
           icon-start>
           <ion-icon name="custom-edit"></ion-icon>Editar
         </button>
       </ion-row>
-      <ion-row>
+      <ion-row [hidden]="!isContractActive()">
+        <button class="main-button btn-light" ion-button large round color="light" strong (click)="deactivateContract()"
+          icon-start>
+          <ion-icon name="custom-remove-circle"></ion-icon>Inativar
+        </button>
+      </ion-row>
+      <ion-row [hidden]="isContractActive()">
         <button class="main-button btn-danger" ion-button large round color="danger" strong (click)="removeContract()"
           icon-start>
           <ion-icon name="custom-delete"></ion-icon>Remover
+        </button>
+      </ion-row>
+      <ion-row [hidden]="!isContractActive()">
+        <button class="main-button btn-danger" ion-button large round color="danger" strong (click)="revokeContract()"
+          icon-start>
+          <ion-icon name="custom-cancel-circle"></ion-icon>Rescindir
         </button>
       </ion-row>
     </div>
