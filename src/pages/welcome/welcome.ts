@@ -59,7 +59,6 @@ export class WelcomePage {
     this.ui.showLoading();
     if (this.platform.is('cordova')) {
       this.nativeGoogleLogin().then((res) => {
-        //fazer consulta para ver se os dados existem no  banco pois o res é tipo User.
         this.ui.showToast("Sucesso ao logar com o Google.", 3, 'top');
         if(res){
           this.ui.alert = this.alertCtrl.create({
@@ -86,9 +85,6 @@ export class WelcomePage {
           });
           this.ui.alert.present();
         }
-
-        // this.fb.createNewAccount(objeto user, 'prompt ');
-        // TODO - Chamar função que cria usuário.
       }).catch((error) => {
         this.ui.closeLoading();
         console.log(error);

@@ -1,5 +1,5 @@
 export class History {
-    public datetime: Date;
+    public datetime: number;
     public description: string;
     public title: string;
     public type: string;

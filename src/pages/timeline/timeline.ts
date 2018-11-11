@@ -41,6 +41,8 @@ export class TimelinePage {
             this.itemsData.push(data[element]);
           });
 
+          this.itemsData.sort(function(a, b) {return a.datetime - b.datetime}).reverse();
+
         }
       });
   }
