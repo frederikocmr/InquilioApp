@@ -56,9 +56,11 @@ export class TimelinePage {
 
   public getIconName(type: string): string {
     switch (type) {
-      case 'ownerAccount':
+      case 'User':
         return 'custom-border-account-circle';
-      case 'tenantAccount':
+      case 'Owner':
+        return 'custom-border-owner';
+      case 'Tenant':
         return 'custom-border-users';
       case 'Contract':
         return 'custom-border-contract';
@@ -67,7 +69,7 @@ export class TimelinePage {
       case 'EvaluationPending':
         return 'custom-border-star-border';
       case 'EvaluationDone':
-        return 'custom-border-star-full';
+        return 'custom-border-user-ok';
       default:
         return 'custom-border-timeline';
     }

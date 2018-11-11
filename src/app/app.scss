@@ -328,14 +328,19 @@ div {
     mask-image: url(../assets/icons/home.svg);
   }
 
+  // Owner icon
+  &[class*="custom-border-owner"] {
+    mask-image: url(../assets/icons/owner.svg);
+  }
+
   // Evaluation pending icon
   &[class*="custom-border-star-border"] {
     mask-image: url(../assets/icons/star-border.svg);
   }
 
   // Evaluation done icon
-  &[class*="custom-border-star-full"] {
-    mask-image: url(../assets/icons/star-full.svg);
+  &[class*="custom-border-user-ok"] {
+    mask-image: url(../assets/icons/user-ok.svg);
   }
 
   // Tenant icon
@@ -343,6 +348,7 @@ div {
     mask-image: url(../assets/icons/users.svg);
   }
 
+  // Default timeline icon
   &[class*="custom-border-timeline"] {
     mask-image: url(../assets/icons/timeline.svg);
   }
