@@ -61,10 +61,10 @@ export class ContractFormPage {
           })
         )
       );
-
+    
     this.contractForm = this.formBuilder.group({
-      beginDate: [this.contract.beginDate ? this.contract.beginDate : "", Validators.required],
-      endDate: [this.contract.endDate ? this.contract.endDate : "", Validators.required],
+      beginDate: [this.contract.beginDate ? Number(this.contract.beginDate) : "", Validators.required],
+      endDate: [this.contract.endDate ? Number(this.contract.endDate) : "", Validators.required],
       duration: [this.contract.duration ? this.contract.duration : "", Validators.required],
       realEstateId: [this.contract.realEstateId ? this.contract.realEstateId : (this.realEstateObj ? this.realEstateObj.id  : ""), Validators.required],
       tenantId: [this.contract.tenantId ? this.contract.tenantId : (this.tenantObj ? this.tenantObj.id : '')]
@@ -122,12 +122,14 @@ export class ContractFormPage {
 
   public getValuesFromForm() {
     let newObject = this.contractForm.value as Contract;
-    this.contract.beginDate = newObject.beginDate;
-    this.contract.endDate = newObject.endDate;
+    this.contract.beginDate =  Number(new Date(newObject.beginDate));
+    this.contract.endDate =  Number(new Date(newObject.endDate));
     this.contract.duration = newObject.duration;
     this.contract.realEstateId = newObject.realEstateId;
     this.contract.tenantId = newObject.tenantId;
     this.contract.status = ( !newObject.tenantId ? "detached" : "pending");
+
+    console.log(this.contract);
   }
 
   public addContract(): void {

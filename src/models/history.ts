@@ -3,6 +3,7 @@ export class History {
     public description: string;
     public title: string;
     public type: string;
+    public action: any;
 
     constructor() {
     }

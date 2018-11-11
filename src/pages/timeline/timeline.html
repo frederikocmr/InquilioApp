@@ -21,9 +21,9 @@
             <div class="round-div">
               <div [class]="getIconName(item.type)"></div>
             </div>
-            <ion-card [color]="cardColor">
+            <ion-card [color]="cardColor" (click)="doAction(item)">
               <ion-card-header>{{item.title}}</ion-card-header>
-              <ion-card-content>{{item.description}}</ion-card-content>
+              <ion-card-content>{{processTags(item.description)}}</ion-card-content>
             </ion-card>
           </timeline-item>
         </timeline>
