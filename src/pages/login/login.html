@@ -63,7 +63,7 @@
       <ion-item>
         <ion-label floating>Informe sua senha</ion-label>
         <ion-input [type]="isTextFieldType ? 'text' : 'password'" [formControl]="loginForm.controls['password']" name="password"></ion-input>
-        <button class="visibility-icon" clear (click)="togglePasswordFieldType()" icon-only ion-button item-right>
+        <button class="visibility-icon" clear (click)="togglePasswordFieldType()" icon-only ion-button item-right type="button">
           <ion-icon color="light" [name]="isTextFieldType ? 'custom-visibility-off' : 'custom-visibility'"></ion-icon>
         </button>
       </ion-item>
