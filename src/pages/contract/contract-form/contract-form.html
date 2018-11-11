@@ -58,7 +58,7 @@
       <ion-item>
         <ion-label floating>Selecione um inquilino (Opcional)</ion-label>
         <ion-select [formControl]="contractForm.controls['tenantId']" name="tenantId" cancelText="Cancelar" okText="Confirmar">
-          <!-- <ion-option *ngFor="let tenant of tenants | async" [value]="tenant.id">{{ tenant.name }}</ion-option> -->
+          <ion-option *ngIf="tenantObj" [value]="tenantObj.id">{{ tenantObj.name }}</ion-option>
         </ion-select>
       </ion-item>
 

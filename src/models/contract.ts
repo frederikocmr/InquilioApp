@@ -8,6 +8,7 @@ export class Contract {
   public tenantId: string;
   public ownerId: string;
   public realEstateId: string;
+  public status: string;
   // public realEstate: RealEstate;
 
   constructor() {
@@ -18,6 +19,7 @@ export class Contract {
     this.tenantId = null;
     this.ownerId = null;
     this.realEstateId = null;
+    this.status = null;
     // this.realEstate = null;
   }
 }

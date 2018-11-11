@@ -55,8 +55,8 @@ export class TenantPage {
     });
   }
 
-  public newContract(tenantId): void {
-    let modal = this.modalCtrl.create(ContractFormPage, {tenantId: tenantId});
+  public newContract(tenant): void {
+    let modal = this.modalCtrl.create(ContractFormPage, {tenantObj: tenant});
     modal.present();
   }
 
@@ -123,7 +123,7 @@ export class TenantPage {
         },{
           text: 'Vincular novo contrato',
           handler: () => {
-            this.newContract(tenant.id);
+            this.newContract(tenant);
           }
         },{
           text: 'Cancelar',

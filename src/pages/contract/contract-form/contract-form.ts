@@ -22,6 +22,7 @@ export class ContractFormPage {
   public tenants: Observable<TenantAccount[]> = null;
   public today: Date = new Date();
   public editing: boolean = false;
+  public tenantObj: TenantAccount;
 
   constructor(
     public formBuilder: FormBuilder,
@@ -41,9 +42,14 @@ export class ContractFormPage {
       this.editing = false;
     } 
 
+    if (this.navParams.get('tenantObj')) {
+      this.tenantObj = this.navParams.get('tenantObj');
+     // this.afDb.collection<TenantAccount>('tenantAccount',
+    } 
+
     this.realEstates = this.afDb
       .collection<RealEstate>("RealEstate", ref =>
-        ref.where("ownerId", "==", this.fb.user.uid)
+        ref.where("ownerId", "==", this.fb.user.uid).where("active", "==", true)
       ).snapshotChanges()
       .pipe(
         map(actions =>
@@ -61,7 +67,7 @@ export class ContractFormPage {
       endDate: [this.contract.endDate ? this.contract.endDate : "", Validators.required],
       duration: [this.contract.duration ? this.contract.duration : "", Validators.required],
       realEstateId: [this.contract.realEstateId ? this.contract.realEstateId : (this.realEstateObj ? this.realEstateObj.id  : ""), Validators.required],
-      tenantId: [this.contract.tenantId ? this.contract.tenantId : ""]
+      tenantId: [this.contract.tenantId ? this.contract.tenantId : (this.tenantObj ? this.tenantObj.id : '')]
     });
   }
 
@@ -121,6 +127,7 @@ export class ContractFormPage {
     this.contract.duration = newObject.duration;
     this.contract.realEstateId = newObject.realEstateId;
     this.contract.tenantId = newObject.tenantId;
+    this.contract.status = ( !newObject.tenantId ? "detached" : "pending");
   }
 
   public addContract(): void {
