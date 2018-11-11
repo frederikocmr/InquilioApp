@@ -48,6 +48,12 @@
       <p [class]="textClass">{{ (contract.duration ? contract.duration : "Sem duração definida.") }}</p>
     </div>
 
+    
+    <div margin>
+      <ion-label [color]="itemColor" no-margin>Status</ion-label>
+      <p [class]="textClass">{{ (contract.status ? getStatusDescription(contract.status) : "Sem status.") }}</p>
+    </div>
+
     <div margin-top *ngIf="userType === 'owner'">
       <ion-row [hidden]="!isContractTerminated()">
         <button class="main-button btn-secondary" ion-button large round color="secondary" strong (click)="renewContract()"

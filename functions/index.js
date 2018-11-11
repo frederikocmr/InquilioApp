@@ -12,22 +12,25 @@ function getStatusDescription(status) {
 
     switch (status) {
         case "detached":
-            statusDescription = "Sem inquilino associado.";
+            statusDescription = "Sem inquilino associado";
+            break;
+        case "rejected":
+            statusDescription = "Inquilino rejeitou o contrato";
             break;
         case "pending":
-            statusDescription = "Possui inquilino associado mas não confirmou contrato.";
+            statusDescription = "Possui inquilino associado mas não confirmou contrato";
             break;
         case "confirmed":
-            statusDescription = "Possui inquilino associado e confirmado.";
+            statusDescription = "Possui inquilino associado e confirmado";
             break;
         case "ended":
-            statusDescription = "Prazo concluído.";
+            statusDescription = "Prazo concluído";
             break;
         case "revoked":
-            statusDescription = "sem inquilino associado";
+            statusDescription = "Contrato revogado";
             break;
         default:
-            statusDescription = "sem status";
+            statusDescription = "Sem status";
             break;
     }
     return statusDescription;
@@ -39,20 +42,22 @@ exports.createRealEstateHistory = functions.firestore.document('RealEstate/{wild
         if (snap.data() === null) return null;
 
         const newValue = snap.data();
-        let newData = {
-            title: 'Novo imóvel adicionado',
-            description: newValue.name,
-            datetime: Number(new Date()),
-            type: 'RealEstate'
-        };
+        const dateTime = Number(new Date());
+        let json = `{"${dateTime}":{
+                    "title": "Novo imóvel adicionado",
+                    "description": "${newValue.name}",
+                    "datetime": ${dateTime},
+                    "type": "RealEstate",
+                    "action": null 
+                }}`;
+
+        let newData = JSON.parse(json);
 
         let historyCollectionRef = firestoreDB.collection('History').doc(newValue.ownerId);
 
-        return historyCollectionRef.update({
-            HistoryArray: admin.firestore.FieldValue.arrayUnion(newData)
-        }).then(() => {
+        return historyCollectionRef.set(newData, { merge: true }).then(() => {
             return console.log('Novo imóvel adicionado ao histórico.', newValue.ownerId)
-        })
+        });
 
     });
 
@@ -62,68 +67,98 @@ exports.createContractHistory = functions.firestore.document('Contract/{wildcard
 
         const newValue = snap.data();
 
-        let newData = {
-            title: 'Novo contrato adicionado',
-            description: ('Duração de ' + newValue.duration +
-                "\n" + getStatusDescription(newValue.status)),
-            datetime: Number(new Date()),
-            type: 'Contract',
-            action: null
-        };
+        const dateTime = Number(new Date());
+        let json = `{"${dateTime}":{
+                    "title": "Novo contrato adicionado",
+                    "description": "Duração de ${newValue.duration} - ${getStatusDescription(newValue.status)}",
+                    "datetime": ${dateTime},
+                    "type": "Contract",
+                    "action": null 
+                }}`;
+        let newData = JSON.parse(json);
 
         let historyCollectionRef = firestoreDB.collection('History').doc(newValue.ownerId);
 
-        return historyCollectionRef.update({
-            HistoryArray: admin.firestore.FieldValue.arrayUnion(newData)
-        }).then(() => {
+        return historyCollectionRef.set(newData, { merge: true }).then(() => {
             if (newValue.tenantId) {
                 let historyCollectionRef2 = firestoreDB.collection('History').doc(newValue.tenantId);
 
-                newData.title = 'Contrato com confirmação pendente';
-                newData.description = 'Vá até seus contratos para confirmar o vínculo';
-                newData.action = {id: context.params.wildcard, show: 'contractConfirmation', title:'Confirme os dados do contrato'};
+                let json = `{"${dateTime}":{
+                    "title": "Contrato com confirmação pendente",
+                    "description": "Vá até seus contratos para confirmar o vínculo.",
+                    "datetime": ${dateTime},
+                    "type": "Contract",
+                    "action": { "id": ${context.params.wildcard}, "show": "contractConfirmation", "title": "Confirme os dados do contrato" }
+                }}`;
+                newData = JSON.parse(json);
 
-                return historyCollectionRef2.update({
-                    HistoryArray: admin.firestore.FieldValue.arrayUnion(newData)
-                }).then(() => {
+                return historyCollectionRef2.set(newData, { merge: true }).then(() => {
                     return console.log('Novo contrato adicionado ao histórico do dono e inquilino.', newValue.ownerId);
                 })
+
             } else {
                 return console.log('Novo contrato adicionado ao histórico do dono.', newValue.ownerId);
             }
-        })
+        });
+    });
+
+exports.createContractHistoryUpdate = functions.firestore.document('Contract/{wildcard}')
+    .onUpdate((change, context) => {
+        if (change.after.data() === null) return null;
+
+        let newData;
+        const previousValue = change.before.data();
+        const newValue = change.after.data();
+
+        if (previousValue.status !== newValue.status) {
+            
+            const dateTime = Number(new Date());
+            let json = `{"${dateTime}":{
+                        "title": "Status de contrato atualizado",
+                        "description": "Mudança de status, de ${getStatusDescription(previousValue.status)} para ${getStatusDescription(newValue.status)}",
+                        "datetime": ${dateTime},
+                        "type": "Contract",
+                        "action": null 
+                    }}`;
+            newData = JSON.parse(json);
+
+        } else {
+            return null;
+        }
+
+        let historyCollectionRef = firestoreDB.collection('History').doc(newValue.ownerId);
+
+        return historyCollectionRef.set(newData, { merge: true }).then(() => {
+            if (newValue.tenantId) {
+                let historyCollectionRef2 = firestoreDB.collection('History').doc(newValue.tenantId);
+
+                return historyCollectionRef2.set(newData, { merge: true }).then(() => {
+                    return console.log('Contrato atualizado ao histórico do dono e inquilino.', newValue.ownerId);
+                })
+
+            } else {
+                return console.log('Contrato atualizado ao histórico do dono.', newValue.ownerId);
+            }
+        });
 
     });
 
 exports.createNewUserHistory = functions.auth.user().onCreate((user) => {
 
-    let newData = {
-        title: 'Seja bem-vindo!',
-        description: 'Você se cadastrou no app',
-        datetime: Number(new Date()),
-        type: 'User'
-    };
+    const dateTime = Number(new Date());
+    let json = `{"${dateTime}":{
+                "title": "Seja bem-vindo!",
+                "description": "Você se cadastrou no Inquilio App",
+                "datetime": ${dateTime},
+                "type": "User",
+                "action": null 
+            }}`;
+
+    let newData = JSON.parse(json);            
 
     let historyCollectionRef = firestoreDB.collection('History').doc(user.uid);
 
-    return historyCollectionRef.get()
-        .then((docSnapshot) => {
-            if (docSnapshot.exists) {
-                return historyCollectionRef.update(
-                    {
-                        HistoryArray: admin.firestore.FieldValue.arrayUnion(newData)
-                    }
-                ).then(() => {
-                    return console.log('Novo usuário cadastrado.', user.uid)
-                })
-            } else {
-                return historyCollectionRef.set(
-                    {
-                        HistoryArray: admin.firestore.FieldValue.arrayUnion(newData)
-                    }
-                ).then(() => {
-                    return console.log('Novo usuário cadastrado.', user.uid)
-                })
-            }
-        });
+    return historyCollectionRef.set(newData, { merge: true }).then(() => {
+        return console.log('Novo usuário cadastrado.', user.uid)
+    });
 });    

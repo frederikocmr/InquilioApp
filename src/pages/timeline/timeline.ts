@@ -34,7 +34,13 @@ export class TimelinePage {
     this.afDb.doc<any>('History/' + this.fb.user.uid).valueChanges().subscribe(
       (data) => {
         if (data) {
-          this.itemsData = data.HistoryArray.reverse();
+          this.itemsData = [];
+          let dataKeys = Object.keys(data);
+
+          dataKeys.forEach(element => {
+            this.itemsData.push(data[element]);
+          });
+
         }
       });
   }
@@ -56,7 +62,8 @@ export class TimelinePage {
     }
   }
 
-  public createNewContractConfirmation(actionObject: any, type: string) {
+  public createNewContractConfirmation(actionObject: any, type: string, datetime: number) {
+    console.log(datetime);
     this.afDb.doc<any>(type + '/' + actionObject.id).valueChanges().subscribe(
       (data ) => {
         if (data && (data.tenantId == this.fb.user.uid)) {
@@ -75,14 +82,25 @@ export class TimelinePage {
               {
                 text: 'Recusar',
                 handler: () => {
-                  console.log('Cancel clicked');
+                  console.log(actionObject);
                   //mudar status p recusado
+                  this.fb.updateDataFromCollection('Contract', {id: actionObject.id, status: "rejected" });
+                  this.fb.deleteDataFromArrayInDocument('History',this.fb.user.uid, datetime );
+                  // this.fb.updateDataFromCollection(
+                  //   'History', 
+                  //   {id: this.fb.user.uid, status: "rejected" }, 
+                  // {fieldPath: 'HistoryArray.action.id', opStr: '==', value: actionObject.id});
+                  // // criar funcao para dar update no historico deste usuario, onde HistoryArray.action.id = user.uid
+
                 }
               },
               {
                 text: 'Confirmar',
                 handler: () => {
-                  console.log('Ok clicked');
+                  console.log(actionObject);
+                  this.fb.updateDataFromCollection('Contract', {id: actionObject.id, status: "confirmed" });
+                  this.fb.deleteDataFromArrayInDocument('History',this.fb.user.uid, datetime );
+                  // this.fb.updateDataFromCollection('History', {id: this.fb.user.uid, status: "rejected" });
                   //actionObject.id
                   //dar update no contrato, mudar status
                   //criar outro cloud function para mostrar atualização
@@ -106,7 +124,7 @@ export class TimelinePage {
     if (item.action) {
       switch (item.action.show) {
         case 'contractConfirmation':
-          this.createNewContractConfirmation(item.action, item.type);
+          this.createNewContractConfirmation(item.action, item.type, Number(item.datetime));
           break;
 
         default:

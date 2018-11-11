@@ -185,6 +185,21 @@ export class FirebaseProvider {
     }
   }
 
+  public async deleteDataFromArrayInDocument(collection, id, dataToBeRemoved): Promise<void> {
+ 
+    try {
+      await this.afDb.collection(collection).doc(id).update({
+        HistoryArray : firebase.firestore.FieldValue.arrayRemove(dataToBeRemoved)
+    });
+      
+    }
+    catch (error) {
+      this.message = "Erro na exclusão: " + error;
+      this.validator = false;
+      console.log(error);
+    }
+  }
+
   public getUserData(uid: string, loading: boolean): void {
     if(loading) { this.ui.showLoading(); }
     this.afDb.doc<OwnerAccount>('ownerAccount/' + uid).valueChanges().subscribe(data => {

@@ -22,6 +22,7 @@ export class ContractDetailsPage {
   public currentRealEstate: RealEstate = null;
   public currentTenant: TenantAccount = null;
   public userType: string;
+  // public ActiveOrCoCities$: Observable<Contract[]>; https://medium.com/google-developer-experts/performing-or-queries-in-firebase-cloud-firestore-for-javascript-with-rxjs-c361671b201e
 
   constructor(
     public navCtrl: NavController,
@@ -32,14 +33,28 @@ export class ContractDetailsPage {
     private fb: FirebaseProvider
   ) {
     if (navParams.get('contract')) {
+      console.log('Tem contrato');
       this.contract = navParams.get('contract');
       this.contractExists = true;
 
-      this.afDb.doc<RealEstate>('RealEstate/' + this.contract.realEstateId).valueChanges().
-        subscribe((data) => {
-          this.currentRealEstate = data;
-          console.log(this.currentRealEstate);
-        });
+      this.getRealEstate();
+    } else if (navParams.get('userType') == "tenant") {
+      this.afDb.collection<Contract>(
+        'Contract',
+        ref => ref.where('tenantId', '==', this.fb.user.uid)
+        .where("active", "==", true)
+        .where("status", "==", "confirmed" )
+      ).valueChanges().subscribe(data => {
+        if(data.length > 0 ){
+          this.contractExists = true;
+          let contract = data[0] as Contract;
+          this.contract = contract;
+          if(this.contract.realEstateId) {this.getRealEstate()};
+        } else {
+          this.contractExists = false;
+          this.contract = null;
+        }
+      });
     }
 
     if (navParams.get('userType')) this.userType = navParams.get('userType');
@@ -60,6 +75,13 @@ export class ContractDetailsPage {
       this.itemColor = "dark";
       this.textClass = "primary-text";
     }
+  }
+
+  public getRealEstate(): void {
+    this.afDb.doc<RealEstate>('RealEstate/' + this.contract.realEstateId).valueChanges().
+      subscribe((data) => {
+        this.currentRealEstate = data;
+      });
   }
 
   public getDateString(date): string {
@@ -86,7 +108,7 @@ export class ContractDetailsPage {
     }
   }
 
-  public isContractTerminated(): boolean {    
+  public isContractTerminated(): boolean {
     let today = + new Date();
     if (today > this.contract.endDate) {
       return true;
@@ -142,7 +164,7 @@ export class ContractDetailsPage {
         }]
     });
 
-    modal.present();    
+    modal.present();
   }
 
   // TODO: Verificar se há inquilino vinculado ao contrato, se existir, enviar solicitação, senão, aceitar a solicitação imediatamente
@@ -159,6 +181,36 @@ export class ContractDetailsPage {
         }]
     });
 
-    modal.present();  
+    modal.present();
   }
+
+
+  public getStatusDescription(status: string): string {
+    let statusDescription = "";
+
+    switch (status) {
+        case "detached":
+            statusDescription = "Sem inquilino associado";
+            break;
+        case "rejected":
+            statusDescription = "Inquilino rejeitou o contrato";
+            break;    
+        case "pending":
+            statusDescription = "Possui inquilino associado mas não confirmou contrato";
+            break;
+        case "confirmed":
+            statusDescription = "Possui inquilino associado e confirmado";
+            break;
+        case "ended":
+            statusDescription = "Prazo concluído";
+            break;
+        case "revoked":
+            statusDescription = "Contrato revogado";
+            break;
+        default:
+            statusDescription = "Sem status";
+            break;
+    }
+    return statusDescription;
+}
 }
