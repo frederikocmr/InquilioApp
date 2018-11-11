@@ -10,8 +10,8 @@
       <div text-center>
         <ion-icon class="account-icon" [color]="iconColor" name="custom-account-circle" *ngIf="!user.photoURL"></ion-icon>
         <img class="logo" *ngIf="user.photoURL" padding [src]="user.photoURL ? user.photoURL : '../../assets/imgs/user-y500.png'" />
-        <h5 [class]="textColor" no-padding>{{ (user.displayName ? user.displayName : "Nome do Usuário") }}</h5>
-        <h6 [class]="textColor" no-padding>{{user.email}}</h6>
+        <h5 [class]="textColor" no-padding>{{(user.displayName?user.displayName: userData.name)}}</h5>
+        <h6 [class]="textColor" no-padding>{{(user.email?user.email: userData.email)}}</h6>
       </div>
       <hr [class]="hrClass">
       <!-- <ion-item>

@@ -1,3 +1,5 @@
+import { TenantTabsPage } from './../tenant-tabs/tenant-tabs';
+import { TabsPage } from './../tabs/tabs';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { User } from 'firebase';
@@ -20,6 +22,7 @@ export class ProfileFormPage {
   public userAccount: UserAccount = new UserAccount();
   public userType: string;
   public profileForm: FormGroup;
+  public isNewUser: boolean = false;
   public monthShortNames: String[] = [
     "jan", "fev", "mar", "abr", "mai", "jun",
     "jul", "ago", "set", "out", "nov", "dez"
@@ -37,6 +40,10 @@ export class ProfileFormPage {
       this.fb.getUserData(this.user.uid, true);
     }
 
+    if (navParams.get('isNewUser')) {
+      this.isNewUser = navParams.get('isNewUser');
+    }
+
     if (navParams.get('userType')) {
       this.userType = navParams.get('userType');
     } else {
@@ -44,10 +51,10 @@ export class ProfileFormPage {
     }
 
     this.profileForm = this.formBuilder.group({
-      document: [{ value: (this.fb.userData ? this.fb.userData.document : ''), disabled: true }, Validators.compose([Validators.pattern(regexValidators.cpfCpnj), Validators.required])],
-      name: [  (this.fb.userData ? this.fb.userData.name : '') , Validators.required],
-      email: [{ value: (this.fb.userData ? this.fb.userData.email : ''), disabled: true }, Validators.compose([Validators.pattern(regexValidators.email), Validators.required])],
-      phone: [(this.fb.userData ? this.fb.userData.phone : ''), Validators.required],
+      document: [{ value: (this.fb.userData ? this.fb.userData.document : ''), disabled: !this.isNewUser }, Validators.compose([Validators.pattern(regexValidators.cpfCpnj), Validators.required])],
+      name: [(this.fb.userData ? this.fb.userData.name : (this.user ? this.user.displayName : '')), Validators.required],
+      email: [{ value: (this.fb.userData ? this.fb.userData.email : (this.user ? this.user.email : '')), disabled: true }, Validators.compose([Validators.pattern(regexValidators.email), Validators.required])],
+      phone: [(this.fb.userData ? this.fb.userData.phone : (this.user ? this.user.phoneNumber : '')), Validators.required],
       birthdate: [(this.fb.userData ? this.fb.userData.birthdate : ''), Validators.required],
       genre: [(this.fb.userData ? this.fb.userData.genre : ''), Validators.required]
     });
@@ -80,25 +87,42 @@ export class ProfileFormPage {
     this.userAccount.phone = newObject.phone;
     this.userAccount.birthdate = newObject.birthdate;
     this.userAccount.genre = newObject.genre;
-    this.userAccount.id  = this.user.uid;
+    this.userAccount.id = this.user.uid;
   }
 
   public saveProfile(): void {
     this.ui.showLoading();
     this.getValuesFromForm();
-    this.fb.updateDataFromCollection(this.userType + "Account", this.userAccount).then(
-      () => {
-        this.ui.showToast(this.fb.message, 2, 'top');
+    if (!this.isNewUser) {
+      this.fb.updateDataFromCollection(this.userType + "Account", this.userAccount).then(
+        () => {
+          this.ui.showToast(this.fb.message, 2, 'top');
 
-        if (this.fb.validator) {
-          this.navCtrl.pop();
-        } 
+          if (this.fb.validator) {
+            this.navCtrl.pop();
+          }
+          this.ui.closeLoading();
+        }
+      ).catch(error => {
         this.ui.closeLoading();
-      }
-    ).catch(error => {
-      this.ui.closeLoading();
-      this.ui.showAlert("Erro ao atualizar perfil: ", error);
-    });;
+        this.ui.showAlert("Erro ao atualizar perfil: ", error);
+      });
+    } else { 
+      this.fb.insertDataToDocument(this.userType + "Account", this.user.uid , this.userAccount).then(
+        () => {
+          this.ui.showToast(this.fb.message, 2, 'top');
+
+          if (this.fb.validator) {
+            this.navCtrl.pop();
+            this.navCtrl.setRoot(this.userType == "owner" ? TabsPage : TenantTabsPage);
+          }
+          this.ui.closeLoading();
+        }
+      ).catch(error => {
+        this.ui.closeLoading();
+        this.ui.showAlert("Erro ao criar perfil: ", error);
+      });
+    }
   }
 
   public setMaxDate(): number {
