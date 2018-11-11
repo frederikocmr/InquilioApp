@@ -108,7 +108,7 @@ export class ProfileFormPage {
         this.ui.showAlert("Erro ao atualizar perfil: ", error);
       });
     } else { 
-      this.fb.insertDataToCollection(this.userType + "Account", this.userAccount).then(
+      this.fb.insertDataToDocument(this.userType + "Account", this.user.uid , this.userAccount).then(
         () => {
           this.ui.showToast(this.fb.message, 2, 'top');
 
