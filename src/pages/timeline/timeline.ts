@@ -85,15 +85,7 @@ export class TimelinePage {
                 text: 'Recusar',
                 handler: () => {
                   console.log(actionObject);
-                  //mudar status p recusado
                   this.fb.updateDataFromCollection('Contract', {id: actionObject.id, status: "rejected" });
-                  this.fb.deleteDataFromArrayInDocument('History',this.fb.user.uid, datetime );
-                  // this.fb.updateDataFromCollection(
-                  //   'History', 
-                  //   {id: this.fb.user.uid, status: "rejected" }, 
-                  // {fieldPath: 'HistoryArray.action.id', opStr: '==', value: actionObject.id});
-                  // // criar funcao para dar update no historico deste usuario, onde HistoryArray.action.id = user.uid
-
                 }
               },
               {
@@ -101,11 +93,6 @@ export class TimelinePage {
                 handler: () => {
                   console.log(actionObject);
                   this.fb.updateDataFromCollection('Contract', {id: actionObject.id, status: "confirmed" });
-                  this.fb.deleteDataFromArrayInDocument('History',this.fb.user.uid, datetime );
-                  // this.fb.updateDataFromCollection('History', {id: this.fb.user.uid, status: "rejected" });
-                  //actionObject.id
-                  //dar update no contrato, mudar status
-                  //criar outro cloud function para mostrar atualização
                 }
               }
             ]

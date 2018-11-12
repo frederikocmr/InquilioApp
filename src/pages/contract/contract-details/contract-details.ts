@@ -33,9 +33,21 @@ export class ContractDetailsPage {
     private fb: FirebaseProvider
   ) {
     if (navParams.get('contract')) {
-      console.log('Tem contrato');
       this.contract = navParams.get('contract');
       this.contractExists = true;
+
+      //buscar dados do inquilino se estiver inquilino = tenantId
+
+      if (this.contract.tenantId) {
+        afDb.doc<TenantAccount>('tenantAccount/'+ this.contract.tenantId).valueChanges().subscribe(
+          (data) => { 
+            if(data){
+              this.currentTenant = data as TenantAccount;
+            }
+          }
+        );
+      
+      }
 
       this.getRealEstate();
     } else if (navParams.get('userType') == "tenant") {

@@ -30,7 +30,7 @@ export class TenantDetailsPage {
 
   // Shows the tenant evaluation modal (page)
   public evaluateTenant(): void {
-    let modal = this.modalCtrl.create(TenantEvaluationPage);
+    let modal = this.modalCtrl.create(TenantEvaluationPage, { tenantObj: this.tenant  });
     modal.present();
   }
 

@@ -1,18 +1,20 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { UiProvider, FirebaseProvider } from '../../../providers';
+import { UiProvider } from '../../../providers';
+import { TenantAccount } from '../../../models/tenant-account';
 
 @Component({
   selector: 'page-tenant-evaluation',
   templateUrl: 'tenant-evaluation.html',
 })
 export class TenantEvaluationPage {
-  evaluationForm: FormGroup;
-  overallScore: number = 0;
-  scoreItems;
-  scoreQuestion;
-  stars = [
+  public tenant: TenantAccount;
+  public evaluationForm: FormGroup;
+  public overallScore: number = 0;
+  public scoreItems;
+  public scoreQuestion;
+  public stars = [
     { value: 1, name: "custom-star-border" },
     { value: 2, name: "custom-star-border" },
     { value: 3, name: "custom-star-border" },
@@ -24,9 +26,11 @@ export class TenantEvaluationPage {
     public formBuilder: FormBuilder,
     public navCtrl: NavController,
     public navParams: NavParams,
-    public ui: UiProvider,
-    private fb: FirebaseProvider) {
+    public ui: UiProvider) {
     this.evaluationForm = this.formBuilder.group({});
+    if (navParams.get('tenantObj')) {
+      this.tenant = navParams.get('tenantObj');
+    }
   }
 
   private getScoreItems(score) {
