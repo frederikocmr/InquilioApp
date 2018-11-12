@@ -2,15 +2,18 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { TenantAccount } from '../../../models/tenant-account';
 import { TenantEvaluationPage } from '../tenant-evaluation/tenant-evaluation';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Contract } from '../../../models/contract';
 
 @Component({
   selector: 'page-tenant-details',
   templateUrl: 'tenant-details.html',
 })
 export class TenantDetailsPage {
-  public tenant = new TenantAccount;
-  evaluationNumber = 1;
-  overallScore = "4.5";
+  public tenant: TenantAccount = new TenantAccount;
+  public contract: Contract;
+  public evaluationNumber = 1;
+  public overallScore = "4.5";
   // public isEvaluationTime: boolean = false;
   public isTenantAssociated: boolean = true;
   chips = [
@@ -19,12 +22,29 @@ export class TenantDetailsPage {
     "Tem bom relacionamento com os vizinhos"
   ];
 
-  constructor(private modalCtrl: ModalController, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    private modalCtrl: ModalController,
+    public navCtrl: NavController,
+    private afDb: AngularFirestore,
+    public navParams: NavParams) {
+
     if (navParams.get('tenant')) {
       this.tenant = navParams.get('tenant');
+      this.getContract();
     }
   }
 
+  public getContract(): void {
+    this.afDb.collection<Contract>(
+      'Contract',
+      ref => ref.where('tenantId', '==', this.tenant.id)
+      .where("active", "==", true)
+    ).valueChanges().subscribe(data => {
+      if(data.length > 0 ){
+        this.contract = data[0] as Contract;
+      } 
+    }); 
+  }
   // Allows the owner to associate a tenant with a real estate or a contract
   // public associateTenant(): void {}
 

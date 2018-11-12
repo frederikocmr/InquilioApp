@@ -28,10 +28,10 @@ export class RealEstateDetailsPage {
     private fb: FirebaseProvider) {
       this.realEstate = navParams.get('realEstateObj');
       this.getRealEstateType();
-      this.getRealEstate();
+      this.getContract();
   }
 
-  public getRealEstate(): void {
+  public getContract(): void {
     this.afDb.collection<Contract>(
       'Contract',
       ref => ref.where('realEstateId', '==', this.realEstate.id)

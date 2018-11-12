@@ -19,7 +19,9 @@
         <ion-icon class="evaluation-star" color="secondary" name="custom-star-full"></ion-icon>
         <p>{{( evaluationNumber > 1 ? overallScore+" ("+evaluationNumber+" avaliações)" : "Sem avaliações suficientes." )}}</p>
       </ion-row>
-      <p class="content-p">{{( contract ? contract : "Atualmente sem contrato." )}}</p>
+      <p class="content-p">
+        {{( contract ? ("Possui contrato com duração de " + contract.duration) : "Atualmente sem contrato." )}}
+      </p>
     </div>
 
     <div margin>
