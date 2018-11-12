@@ -27,7 +27,7 @@ export class TenantPage {
   public searchingTenants: boolean = false;
   public tenants: Observable<TenantAccount[]>;
   public tenantsExists: boolean = false;
-  public searchString: string = '';
+  public searchString: string = '000.000.000-00'; // apenas para teste
 
   constructor(
     public alertCtrl: AlertController,
@@ -39,7 +39,7 @@ export class TenantPage {
     public navParams: NavParams,
     public ui: UiProvider
   ) {
-
+    this.search(); // apenas para teste
   }
 
   public showListener(): void {

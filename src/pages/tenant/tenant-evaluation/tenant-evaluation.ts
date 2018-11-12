@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { UiProvider } from '../../../providers';
+import { RealEstate } from './../../../models/real-estate';
 import { TenantAccount } from '../../../models/tenant-account';
+import { Contract } from '../../../models/contract';
 
 @Component({
   selector: 'page-tenant-evaluation',
@@ -10,6 +13,8 @@ import { TenantAccount } from '../../../models/tenant-account';
 })
 export class TenantEvaluationPage {
   public tenant: TenantAccount;
+  public realEstate: RealEstate;
+  public contract: Contract;
   public evaluationForm: FormGroup;
   public overallScore: number = 0;
   public scoreItems;
@@ -26,11 +31,28 @@ export class TenantEvaluationPage {
     public formBuilder: FormBuilder,
     public navCtrl: NavController,
     public navParams: NavParams,
+    private afDb: AngularFirestore,
     public ui: UiProvider) {
     this.evaluationForm = this.formBuilder.group({});
     if (navParams.get('tenantObj')) {
       this.tenant = navParams.get('tenantObj');
     }
+    if(navParams.get('contractObj')){
+      this.contract = navParams.get('contractObj');
+      console.log(this.contract);
+      this.getRealEstate();
+    }
+  }
+
+  public getRealEstate(): void {
+    this.afDb.doc<RealEstate>('RealEstate/' + this.contract.realEstateId).valueChanges().
+      subscribe((data) => {
+        this.realEstate = data;
+      });
+  }
+
+  public getDateString(date): string {
+    return new Date(date).toLocaleDateString('pt-BR', { timeZone: 'UTC' });
   }
 
   private getScoreItems(score) {

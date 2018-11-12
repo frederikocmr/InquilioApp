@@ -17,8 +17,8 @@
     <ion-list class="custom-form" text-center>
       <div margin>
         <h2>{{ (tenant ? tenant.name : "Nome do Inquilino") }}</h2>
-        <p class="tenant-details-p">{{(realEstate ? realEstate.name : "Título do Imóvel")}}</p>
-        <p class="tenant-details-p">Contrato de {{(contract ? contract.beginDate + " a " + contract.endDate : "00/00/0000 a 11/11/1111")}}</p>
+        <p class="tenant-details-p">Imóvel: {{(realEstate ? realEstate.name : "Título do Imóvel")}}</p>
+        <p class="tenant-details-p">Contrato de {{(contract ? getDateString(contract.beginDate) + " a " + getDateString(contract.endDate) : " duração inválida")}}</p>
       </div>
 
       <div class="div-hr">
