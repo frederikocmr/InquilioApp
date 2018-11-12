@@ -9,6 +9,7 @@ import { FirebaseProvider, UiProvider } from "../../../providers";
 import { RealEstate } from "../../../models/real-estate";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
+// TODO: Adicionar contractID ao imóvel apos finalizar cadastro
 @Component({
   selector: "page-contract-form",
   templateUrl: "contract-form.html"
@@ -47,20 +48,7 @@ export class ContractFormPage {
      // this.afDb.collection<TenantAccount>('tenantAccount',
     } 
 
-    this.realEstates = this.afDb
-      .collection<RealEstate>("RealEstate", ref =>
-        ref.where("ownerId", "==", this.fb.user.uid).where("active", "==", true)
-      ).snapshotChanges()
-      .pipe(
-        map(actions =>
-          actions.map(a => {
-            const data = a.payload.doc.data() as RealEstate;
-            const id = a.payload.doc.id;
-            data.id = id;
-            return { id, ...data };
-          })
-        )
-      );
+    this.getRealEstates();
     
     this.contractForm = this.formBuilder.group({
       beginDate: [this.contract.beginDate ? Number(this.contract.beginDate) : "", Validators.required],
@@ -69,6 +57,25 @@ export class ContractFormPage {
       realEstateId: [this.contract.realEstateId ? this.contract.realEstateId : (this.realEstateObj ? this.realEstateObj.id  : ""), Validators.required],
       tenantId: [this.contract.tenantId ? this.contract.tenantId : (this.tenantObj ? this.tenantObj.id : '')]
     });
+  }
+
+  public getRealEstates(): void {
+    this.realEstates = this.afDb
+    .collection<RealEstate>("RealEstate", ref =>
+      ref.where("ownerId", "==", this.fb.user.uid)
+      .where("active", "==", true)
+      .where("contractId", "==", null) 
+    ).snapshotChanges()
+    .pipe(
+      map(actions =>
+        actions.map(a => {
+          const data = a.payload.doc.data() as RealEstate;
+          const id = a.payload.doc.id;
+          data.id = id;
+          return { id, ...data };
+        })
+      )
+    );
   }
 
   public calculateDuration(): void {

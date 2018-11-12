@@ -11,35 +11,55 @@ import { TenantFormPage } from "./tenant-form/tenant-form";
 import { TenantDetailsPage } from "./tenant-details/tenant-details";
 import { Observable } from "rxjs/Observable";
 import { TenantAccount } from "../../models/tenant-account";
-import { UiProvider } from "../../providers";
+import { UiProvider, FirebaseProvider } from "../../providers";
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/internal/operators/map';
 import { ListOptionsComponent } from "../../components/list-options/list-options";
 import { ContractFormPage } from "../contract/contract-form/contract-form";
+import { Contract } from "../../models/contract";
 
 @Component({
   selector: "page-tenant",
   templateUrl: "tenant.html"
 })
 export class TenantPage {
-  evaluationNumber = 1;
-  overallScore = "4.8"
+  public evaluationNumber = 1;
+  public overallScore = "4.8"
   public searchingTenants: boolean = false;
   public tenants: Observable<TenantAccount[]>;
   public tenantsExists: boolean = false;
   public searchString: string = '000.000.000-00'; // apenas para teste
-
+  public contracts: Contract[];
+  
   constructor(
-    public alertCtrl: AlertController,
-    public actionSheetCtrl: ActionSheetController,
     private popoverCtrl: PopoverController,
     private modalCtrl: ModalController,
+    private fb: FirebaseProvider,
     private afDb: AngularFirestore,
+    public alertCtrl: AlertController,
+    public actionSheetCtrl: ActionSheetController,
     public navCtrl: NavController,
     public navParams: NavParams,
     public ui: UiProvider
   ) {
     this.search(); // apenas para teste
+    this.getContracts();
+  }
+
+  public getContracts(){
+    this.afDb.collection<Contract>(
+      'Contract',
+      ref => ref.where('ownerId', '==', this.fb.user.uid)
+      .where("active", "==", true)
+      .where("status", "==", "detached")
+    ).valueChanges().subscribe((data) =>{
+      if(data.length > 0){
+        this.contracts = data;
+      } else {
+        this.contracts = null;
+      }
+    });
+    
   }
 
   public showListener(): void {
@@ -104,24 +124,32 @@ export class TenantPage {
   }
 
   public selectContract(): void {
-    let alert = this.alertCtrl.create();
-    alert.setTitle('Selecione o contrato');
+    if(this.contracts ){
+      let alert = this.alertCtrl.create();
+      alert.setTitle('Selecione o contrato');
+    
+        this.contracts.forEach(contract => {
+          alert.addInput({
+            type: 'radio',
+            label: "Imóvel: Casa X\n" + " Duração: "+ contract.duration,
+            value: contract.id,
+            checked: false
+          });
+  
+        });
 
-    alert.addInput({
-      type: 'radio',
-      label: 'Casa',
-      value: 'casa',
-      checked: false
-    });
-
-    alert.addButton('Cancelar');
-    alert.addButton({
-      text: 'Confirmar',
-      handler: data => {
-        console.log(data)
-      }
-    });
-    alert.present();
+      alert.addButton('Cancelar');
+      alert.addButton({
+        text: 'Confirmar',
+        handler: data => {
+          //update no contrato com tenantID preenchido
+          console.log(data)
+        }
+      });
+      alert.present();
+    } else {
+      this.ui.showAlert("Aviso", "Nenhum contrato cadastrado que esteja disponível!");
+    }
   }
 
   public tenantOptions(tenant: TenantAccount): void {

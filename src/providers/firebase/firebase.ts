@@ -145,7 +145,7 @@ export class FirebaseProvider {
 
   public async updateDataFromCollection(collection, data): Promise<void> {
     var parsedData = JSON.parse(JSON.stringify(data));
-
+    console.log(parsedData);
     try {
       await this.afDb.collection(collection).doc(data.id).update(parsedData);
       this.message = "Dados gravados com sucesso!";
