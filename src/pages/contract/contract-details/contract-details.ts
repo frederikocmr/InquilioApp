@@ -35,11 +35,8 @@ export class ContractDetailsPage {
     if (navParams.get('contract')) {
       this.contract = navParams.get('contract');
       this.contractExists = true;
-
-      //buscar dados do inquilino se estiver inquilino = tenantId
-
       if (this.contract.tenantId) {
-        afDb.doc<TenantAccount>('tenantAccount/'+ this.contract.tenantId).valueChanges().subscribe(
+        this.afDb.doc<TenantAccount>('tenantAccount/'+ this.contract.tenantId).valueChanges().subscribe(
           (data) => { 
             if(data){
               this.currentTenant = data as TenantAccount;

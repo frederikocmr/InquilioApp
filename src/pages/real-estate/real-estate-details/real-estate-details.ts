@@ -2,8 +2,11 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { FirebaseProvider, UiProvider } from './../../../providers';
 import { RealEstate } from '../../../models/real-estate';
+import { Contract } from './../../../models/contract';
+import { TenantAccount } from './../../../models/tenant-account';
 import { RealEstateFormPage } from './../real-estate-form/real-estate-form';
 import { ContractFormPage } from '../../contract/contract-form/contract-form';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'page-real-estate-details',
@@ -11,6 +14,8 @@ import { ContractFormPage } from '../../contract/contract-form/contract-form';
 })
 export class RealEstateDetailsPage {
   public inquilino = false;
+  public tenant: TenantAccount;
+  public contract: Contract;
   public realEstate: RealEstate = new RealEstate();
   public realEstateType: String = "";
 
@@ -18,10 +23,37 @@ export class RealEstateDetailsPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public ui: UiProvider,
+    private afDb: AngularFirestore,
     private modalCtrl: ModalController,
     private fb: FirebaseProvider) {
       this.realEstate = navParams.get('realEstateObj');
       this.getRealEstateType();
+      this.getRealEstate();
+  }
+
+  public getRealEstate(): void {
+    this.afDb.collection<Contract>(
+      'Contract',
+      ref => ref.where('realEstateId', '==', this.realEstate.id)
+      .where("active", "==", true)
+    ).valueChanges().subscribe(data => {
+      if(data.length > 0 ){
+        this.contract = data[0] as Contract;
+        if(this.contract.tenantId) {
+          this.getTenant();
+        }
+      } 
+    });
+  }
+
+  public getTenant(): void {
+    this.afDb.doc<TenantAccount>('tenantAccount/'+ this.contract.tenantId).valueChanges().subscribe(
+      (data) => { 
+        if(data){
+          this.tenant = data as TenantAccount;
+        }
+      }
+    );
   }
 
   public getRealEstateType(): string {

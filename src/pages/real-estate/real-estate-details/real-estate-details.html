@@ -41,12 +41,12 @@
 
     <div margin>
       <ion-label color="secondary" no-margin>Contrato</ion-label>
-      <p>{{ (realEstate.contractId ? "Válido até 00/00/0000." : "Sem contrato vinculado.") }}</p>
+      <p>{{ (contract ? contract.duration : "Sem contrato vinculado.") }}</p>
     </div>
 
     <div margin>
       <ion-label color="secondary" no-margin>Inquilino</ion-label>
-      <p>{{ (realEstate.contractId ? "Nome do Inquilino" : "Sem inquilino vinculado.") }}</p>
+      <p>{{ (tenant ? tenant.name : "Sem inquilino vinculado.") }}</p>
     </div>
 
     <div margin-top>
