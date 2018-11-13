@@ -4,7 +4,7 @@ import firebase from 'firebase/app';
 
 import 'rxjs/add/operator/toPromise';
 import 'firebase/storage';
-
+import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 
@@ -28,6 +28,7 @@ export class FirebaseProvider {
   constructor(
     private afAuth: AngularFireAuth,
     private afDb: AngularFirestore,
+    private afStorage: AngularFireStorage,
     private ui: UiProvider) {
     //checking user state.  
     this.validator = false;
@@ -246,16 +247,35 @@ export class FirebaseProvider {
   public uploadImage(imageURI, imageName){
     return new Promise<any>((resolve, reject) => {
       let storageRef = firebase.storage().ref();
-      let imageRef = storageRef.child(this.user.uid).child(imageName);
+      let imageRef = storageRef.child('images').child('imageName');
       this.encodeImageUri(imageURI, function(image64){
+
+        this.ui.showToast("image64:" + image64,3, 'top');
         imageRef.putString(image64, 'data_url')
         .then(snapshot => {
-          resolve(snapshot.downloadURL)
+          this.ui.showToast("Snapshot:" + snapshot,3, 'top');
+          resolve(snapshot.downloadURL);
         }, err => {
           reject(err);
-        })
+        }).catch()
       })
     })
+  }
+
+  public uploadToStorage(imageURI) {
+    let newName = `${new Date().getTime()}.txt`;
+    this.encodeImageUri(imageURI, function(image64){
+      let upload = this.afStorage.ref(`images/${newName}`).putString(image64);
+ 
+      // Perhaps this syntax might change, it's no error here!
+      upload.then().then(res => {
+        this.dataProvider.storeInfoToDatabase(res.metadata).then(() => {
+          this.ui.showToast("Adicionado",3, 'top');
+        });
+      });
+    });
+    
+   
   }
 
 
