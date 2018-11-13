@@ -41,7 +41,7 @@
       <p class="content-p">{{tenant.email}}</p>
     </div>
 
-    <div margin *ngIf="chips">
+    <div margin [hidden]="!chips">
       <ion-label color="secondary">Destaques</ion-label>
       <ion-chip color="primary" *ngFor="let chip of chips">
         <ion-label>{{chip}}</ion-label>
@@ -58,7 +58,7 @@
       <ion-row *ngIf="!isEvaluationTime">
         <button class="main-button btn-secondary" ion-button large round color="secondary" strong (click)="evaluateTenant()"
           icon-start>
-          <ion-icon name="custom-done"></ion-icon>Avaliar
+          <ion-icon name="custom-user-ok"></ion-icon>Avaliar
         </button>
       </ion-row>
       <ion-row *ngIf="isTenantAssociated">

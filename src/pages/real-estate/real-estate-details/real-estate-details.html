@@ -1,10 +1,5 @@
 <ion-header>
   <ion-navbar color="primary">
-    <!-- <ion-buttons left>
-      <button navPop ion-button icon-only style="margin: 0 6px; min-width: 36px;">
-        <ion-icon color="light" name="close"></ion-icon>
-      </button>
-    </ion-buttons> -->
     <ion-title>Detalhes do Imóvel</ion-title>
   </ion-navbar>
 </ion-header>
@@ -13,16 +8,14 @@
 <ion-content class="bg-owner-page">
   <ion-list>
     <div class="image" [style.background-image]="'url(' + realEstate.imgLink + ')'"></div>
-    <!-- <div text-center>
-      <ion-img [src]="realEstate.imgLink" style="width: 100%; height: 15rem;"></ion-img>
-    </div> -->
 
     <div margin>
       <h2>{{ realEstate.name }}</h2>
       <p>{{ (realEstate.type ? getRealEstateType() : '') }}</p>
     </div>
 
-    <div margin>
+    <!-- To future use -->
+    <!-- <div margin>
       <ion-label color="secondary" no-margin>Descrição</ion-label>
       <p>{{ (realEstate.description ? realEstate.description : "Nenhuma descrição informada.") }}</p>
     </div>
@@ -30,7 +23,7 @@
     <div margin>
       <ion-label color="secondary" no-margin>Link</ion-label>
       <p>{{ (realEstate.link ? realEstate.link : "Sem link cadastrado.") }}</p>
-    </div>
+    </div> -->
 
     <div margin>
       <ion-label color="secondary" no-margin>Endereço</ion-label>
@@ -51,9 +44,10 @@
 
     <div margin-top>
       <ion-row>
-        <button class="main-button btn-secondary" *ngIf="!realEstate.contractId" ion-button large round color="secondary"
-          strong (click)="newContract()" icon-start>
-          <ion-icon name="custom-contract-add"></ion-icon>Vincular Contrato</button>
+        <button class="main-button btn-secondary" [hidden]="contract" ion-button large round color="secondary" strong
+          (click)="newContract()" icon-start>
+          <ion-icon name="custom-contract-add"></ion-icon>Vincular Contrato
+        </button>
       </ion-row>
       <ion-row>
         <button class="main-button btn-light" ion-button large round color="light" strong (click)="onEditRealEstate()"

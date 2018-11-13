@@ -20,13 +20,12 @@
         <ion-input type="text" [formControl]="realEstateForm.controls['name']" name="name"></ion-input>
       </ion-item>
 
-      <ion-item>
+      <!-- <ion-item>
         <ion-label floating>Informe um link para o anúncio (Opcional)</ion-label>
         <ion-input type="text" [formControl]="realEstateForm.controls['link']" name="link"></ion-input>
-      </ion-item>
+      </ion-item> -->
 
       <ion-item>
-        <!-- <ion-label style="-webkit-flex: none !important; flex: none !important;">Tipo</ion-label> -->
         <ion-label floating>Selecione o tipo de imóvel</ion-label>
         <ion-select name="type" interface="popover" [formControl]="realEstateForm.controls['type']" name="type">
           <ion-option value="a">Apartamento</ion-option>
@@ -37,10 +36,10 @@
         </ion-select>
       </ion-item>
 
-      <ion-item>
+      <!-- <ion-item>
         <ion-label floating>Descreva o imóvel (Opcional)</ion-label>
         <ion-textarea [formControl]="realEstateForm.controls['description']" name="description" rows="3"></ion-textarea>
-      </ion-item>
+      </ion-item> -->
 
       <hr>
 
@@ -49,10 +48,10 @@
       <ion-toolbar transparent>
         <ion-buttons>
           <button ion-button icon-start clear color="secondary" type="button" (click)="openImagePickerCrop()">
-            <ion-icon name="camera"></ion-icon>Selecionar Imagem
+            <ion-icon name="custom-camera"></ion-icon> Selecionar Imagem
           </button>
           <button ion-button icon-start clear color="secondary" type="button" (click)="openImagePicker()">
-            <ion-icon name="cloud-upload"></ion-icon>Fazer Upload
+            <ion-icon name="custom-cloud-upload"></ion-icon> Fazer Upload
           </button>
         </ion-buttons>
       </ion-toolbar>

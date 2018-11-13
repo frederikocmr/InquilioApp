@@ -395,8 +395,16 @@ ion-icon {
     mask-image: url(../assets/icons/arrow-right.svg);
   }
 
+  &[class*="custom-camera"] {
+    mask-image: url(../assets/icons/camera.svg);
+  }
+
   &[class*="custom-cancel-circle"] {
     mask-image: url(../assets/icons/cancel-circle-full.svg);
+  }
+
+  &[class*="custom-cloud-upload"] {
+    mask-image: url(../assets/icons/cloud-upload.svg);
   }
 
   &[class*="custom-contract"] {
