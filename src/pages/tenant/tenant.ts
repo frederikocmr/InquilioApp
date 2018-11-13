@@ -52,7 +52,17 @@ export class TenantPage {
       ref => ref.where('ownerId', '==', this.fb.user.uid)
       .where("active", "==", true)
       .where("status", "==", "detached")
-    ).valueChanges().subscribe((data) =>{
+    ).snapshotChanges()
+    .pipe(
+      map(actions =>
+        actions.map(a => {
+          const data = a.payload.doc.data() as Contract;
+          const id = a.payload.doc.id;
+          data.id = id;
+          return { id, ...data };
+        })
+      )
+    ).subscribe((data) =>{
       if(data.length > 0){
         this.contracts = data;
       } else {
@@ -123,7 +133,7 @@ export class TenantPage {
     }
   }
 
-  public selectContract(): void {
+  public selectContract(tenant: TenantAccount): void {
     if(this.contracts ){
       let alert = this.alertCtrl.create();
       alert.setTitle('Selecione o contrato');
@@ -131,7 +141,8 @@ export class TenantPage {
         this.contracts.forEach(contract => {
           alert.addInput({
             type: 'radio',
-            label: "Imóvel: Casa X\n" + " Duração: "+ contract.duration,
+            label: "Início:" + new Date(contract.beginDate).toLocaleDateString() 
+            + "\nTérmino: "+ new Date(contract.endDate).toLocaleDateString(),
             value: contract.id,
             checked: false
           });
@@ -141,9 +152,10 @@ export class TenantPage {
       alert.addButton('Cancelar');
       alert.addButton({
         text: 'Confirmar',
-        handler: data => {
-          //update no contrato com tenantID preenchido
+        handler: (data:string) => {
+
           console.log(data)
+          this.fb.updateDataFromCollection('Contract', {id: data, tenantId: tenant.id, status: "pending" })
         }
       });
       alert.present();
@@ -164,7 +176,7 @@ export class TenantPage {
         },{
           text: 'Vincular contrato existente',
           handler: () => {
-            this.selectContract();
+            this.selectContract(tenant);
           }
         },{
           text: 'Vincular novo contrato',

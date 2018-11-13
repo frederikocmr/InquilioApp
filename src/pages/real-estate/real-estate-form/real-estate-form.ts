@@ -172,6 +172,6 @@ export class RealEstateFormPage {
         this.ui.showToast('Imagem enviada com sucesso', 3, 'top');
         this.ui.showAlert('Tire print desse link e me mande', photoURL);
       });
-  }
+  } 
 
 }
