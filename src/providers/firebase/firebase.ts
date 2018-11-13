@@ -246,14 +246,17 @@ export class FirebaseProvider {
   public uploadImage(imageURI, imageName){
     return new Promise<any>((resolve, reject) => {
       let storageRef = firebase.storage().ref();
-      let imageRef = storageRef.child('image').child('imageName');
+      let imageRef = storageRef.child('images').child('imageName');
       this.encodeImageUri(imageURI, function(image64){
+
+        this.ui.showToast("image64:" + image64,3, 'top');
         imageRef.putString(image64, 'data_url')
         .then(snapshot => {
-          resolve(snapshot.downloadURL)
+          this.ui.showToast("Snapshot:" + snapshot,3, 'top');
+          resolve(snapshot.downloadURL);
         }, err => {
           reject(err);
-        })
+        }).catch()
       })
     })
   }
