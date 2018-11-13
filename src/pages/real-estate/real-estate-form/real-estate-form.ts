@@ -171,6 +171,8 @@ export class RealEstateFormPage {
     .then(photoURL => {
         this.ui.showToast('Imagem enviada com sucesso', 3, 'top');
         this.ui.showAlert('Tire print desse link e me mande', photoURL);
+      }).catch( error => {
+        this.ui.showToast(error, 3, 'top');
       });
   } 
 
