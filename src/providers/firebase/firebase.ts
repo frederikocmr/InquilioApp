@@ -2,6 +2,9 @@
 import { Injectable } from '@angular/core';
 import firebase from 'firebase/app';
 
+import 'rxjs/add/operator/toPromise';
+import 'firebase/storage';
+
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 
@@ -224,5 +227,36 @@ export class FirebaseProvider {
   public signOut() {
     this.afAuth.auth.signOut();
   }
+
+  public encodeImageUri(imageUri, callback) {
+    var c = document.createElement('canvas');
+    var ctx = c.getContext("2d");
+    var img = new Image();
+    img.onload = function () {
+      var aux:any = this;
+      c.width = aux.width;
+      c.height = aux.height;
+      ctx.drawImage(img, 0, 0);
+      var dataURL = c.toDataURL("image/jpeg");
+      callback(dataURL);
+    };
+    img.src = imageUri;
+  };
+
+  public uploadImage(imageURI, imageName){
+    return new Promise<any>((resolve, reject) => {
+      let storageRef = firebase.storage().ref();
+      let imageRef = storageRef.child(this.user.uid).child(imageName);
+      this.encodeImageUri(imageURI, function(image64){
+        imageRef.putString(image64, 'data_url')
+        .then(snapshot => {
+          resolve(snapshot.downloadURL)
+        }, err => {
+          reject(err);
+        })
+      })
+    })
+  }
+
 
 }

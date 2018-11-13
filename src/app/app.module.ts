@@ -15,6 +15,9 @@ import { AngularFireModule } from "@angular/fire";
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
 
+import { ImagePicker } from '@ionic-native/image-picker';
+import { Crop } from '@ionic-native/crop';
+
 import { MyApp } from './app.component';
 import { WelcomePage } from '../pages/welcome/welcome';
 import { TimelinePage } from '../pages/timeline/timeline';
@@ -151,7 +154,9 @@ export function provideSettings(storage: Storage) {
     Keyboard,
     ViacepProvider,
     UiProvider,
-    GooglePlus
+    GooglePlus,
+    ImagePicker,
+    Crop
   ]
 })
 export class AppModule { }

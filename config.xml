@@ -99,4 +99,8 @@
     <engine name="android" spec="7.0.0" />
     <engine name="ios" spec="4.5.5" />
     <engine name="browser" spec="5.0.4" />
+    <plugin name="cordova-plugin-telerik-imagepicker" spec="^2.2.2">
+        <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="Enviar fotos tiradas aos modulos do aplicativo" />
+    </plugin>
+    <plugin name="cordova-plugin-crop" spec="^0.4.0" />
 </widget>
