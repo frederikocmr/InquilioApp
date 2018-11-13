@@ -1,8 +1,8 @@
 {
   "name": "app-tcc",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "http://ionicframework.com/",
+  "author": "Felipe Araujo & Frederiko Cesar",
+  "homepage": "https://github.com/frederikocmr/app-tcc",
   "private": true,
   "scripts": {
     "start": "ionic-app-scripts serve",

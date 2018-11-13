@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PopoverController, ViewController, NavParams, ActionSheetController } from 'ionic-angular';
+import { ActionSheetController, AlertController, NavParams, PopoverController, ViewController } from 'ionic-angular';
 
 @Component({
   selector: 'nav-options-component',
@@ -54,7 +54,7 @@ export class NavOptionsComponent {
   template: `
     <ion-list class="notification-list">
       <ion-list-header class="text-color">Notificações</ion-list-header>			
-      <ion-item *ngFor="let item of items" ion-item no-margin (click)="close(item.title)">
+      <ion-item *ngFor="let item of items" ion-item no-margin (click)="notificationAction(item.title)">
         <h2 class="text-color">{{item.title}}</h2>
         <p class="text-color">{{ item.datetime | date:"dd/MM/yyyy \'às\' HH:mm" }}</p>
         <button clear ion-button item-end>VER</button>
@@ -66,16 +66,25 @@ export class NavOptionsComponent {
 export class NotificationsComponent {
   public items: object[];
 
-  constructor(public viewCtrl: ViewController, public navParams: NavParams) {
+  constructor(private alertCtrl: AlertController, public viewCtrl: ViewController, public navParams: NavParams) {
     this.items = [
       { title: "Confirmar contrato", datetime: new Date('2018-10-01T00:12').getTime() },
       { title: "Rescindir contrato", datetime: new Date().getTime() }
     ];
   }
 
-  close(item) {
-    console.log(item);
+  public notificationAction(item): void {
+    const alert = this.alertCtrl.create({
+      title: item,
+      message: 'Testando alert',
+      buttons: [
+        {text: 'Cancelar', handler: () => { console.log('Cancelou') }},
+        {text: item.substring(0, item.indexOf(' ')), handler: () => { console.log('Confirmou') }}
+      ]
+    });
+
     this.viewCtrl.dismiss();
+    alert.present();
   }
 
 }
@@ -93,7 +102,7 @@ export class NotificationsComponent {
   `
 })
 export class FilterOrderComponent {
-  public items;
+  public items: object[];
 
   constructor(private actionSheetCtrl: ActionSheetController, public viewCtrl: ViewController, public navParams: NavParams) {
     this.items = this.getFilterButtons(navParams.get('type'));
@@ -122,6 +131,7 @@ export class FilterOrderComponent {
       let obj = {};
       obj['text'] = text;
       obj['handler'] = () => {
+        console.log("Filtrar por ", text);
         this.viewCtrl.dismiss();
       }
       buttons.push(obj);
@@ -138,8 +148,8 @@ export class FilterOrderComponent {
       title: 'Filtrar por',
       buttons: this.items
     });
-    this.viewCtrl.dismiss();
 
+    this.viewCtrl.dismiss();
     actionSheet.present();
   }
 
@@ -150,21 +160,25 @@ export class FilterOrderComponent {
         {
           text: 'Nome (A a Z)',
           handler: () => {
+            console.log("Ordenar por ", 'Nome (A a Z)');
             this.viewCtrl.dismiss();
           }
         }, {
           text: 'Nome (Z a A)',
           handler: () => {
+            console.log("Ordenar por ", 'Nome (Z a A)');
             this.viewCtrl.dismiss();
           }
         }, {
           text: 'Data (mais recente primeiro)',
           handler: () => {
+            console.log("Ordenar por ", 'Data (mais recente primeiro)');
             this.viewCtrl.dismiss();
           }
         }, {
           text: 'Data (mais antigo primeiro)',
           handler: () => {
+            console.log("Ordenar por ", 'Data (mais antigo primeiro)');
             this.viewCtrl.dismiss();
           }
         }, {
@@ -173,8 +187,8 @@ export class FilterOrderComponent {
         }
       ]
     });
-    this.viewCtrl.dismiss();
 
+    this.viewCtrl.dismiss();
     actionSheet.present();
   }
 }
