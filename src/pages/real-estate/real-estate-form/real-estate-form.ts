@@ -161,6 +161,7 @@ export class RealEstateFormPage {
           );
         }
       }, (err) => {
+        this.ui.showToast(err, 3, 'top')
         console.log(err);
       });
   }
