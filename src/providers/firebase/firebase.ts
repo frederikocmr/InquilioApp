@@ -229,52 +229,48 @@ export class FirebaseProvider {
     this.afAuth.auth.signOut();
   }
 
-  public encodeImageUri(imageUri, callback) {
-    var c = document.createElement('canvas');
-    var ctx = c.getContext("2d");
-    var img = new Image();
-    img.onload = function () {
+  public encodeImageUri(imageUri) {
+    var c=document.createElement('canvas');
+    var ctx=c.getContext("2d");
+    var img=new Image();
+    img.onload = function(){
       var aux:any = this;
-      c.width = aux.width;
-      c.height = aux.height;
-      ctx.drawImage(img, 0, 0);
-      var dataURL = c.toDataURL("image/jpeg");
-      callback(dataURL);
+      c.width=aux.width;
+      c.height=aux.height;
+      ctx.drawImage(img, 0,0);
     };
-    img.src = imageUri;
+    img.src=imageUri;
+    var dataURL = c.toDataURL("image/jpeg");
+    return dataURL;
   };
 
   public uploadImage(imageURI, imageName){
     return new Promise<any>((resolve, reject) => {
       let storageRef = firebase.storage().ref();
       let imageRef = storageRef.child('images').child('imageName');
-      this.encodeImageUri(imageURI, function(image64){
 
-        this.ui.showToast("image64:" + image64,3, 'top');
-        imageRef.putString(image64, 'data_url')
+        this.ui.showToast("image64:" + this.encodeImageUri(imageURI),3, 'top');
+        imageRef.putString(this.encodeImageUri(imageURI), 'data_url')
         .then(snapshot => {
           this.ui.showToast("Snapshot:" + snapshot,3, 'top');
           resolve(snapshot.downloadURL);
         }, err => {
           reject(err);
         }).catch()
-      })
+   
     })
   }
 
   public uploadToStorage(imageURI) {
     let newName = `${new Date().getTime()}.txt`;
-    this.encodeImageUri(imageURI, function(image64){
-      let upload = this.afStorage.ref(`images/${newName}`).putString(image64);
+      let upload = this.afStorage.ref(`images/${newName}`).putString(this.encodeImageUri(imageURI));
  
       // Perhaps this syntax might change, it's no error here!
       upload.then().then(res => {
-        this.dataProvider.storeInfoToDatabase(res.metadata).then(() => {
-          this.ui.showToast("Adicionado",3, 'top');
-        });
+        // this.dataProvider.storeInfoToDatabase(res.metadata).then(() => {
+          this.ui.showToast("Adicionado" + res,3, 'top');
+        // });
       });
-    });
-    
    
   }
 
