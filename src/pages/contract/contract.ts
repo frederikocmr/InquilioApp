@@ -11,6 +11,7 @@ import { ContractDetailsPage } from "./contract-details/contract-details";
 import { ContractFormPage } from "./contract-form/contract-form";
 import { FirebaseProvider, UiProvider } from "../../providers";
 import { Contract } from './../../models/contract';
+import { RealEstate } from "../../models/real-estate";
 // import { RealEstate } from "../../models/real-estate";
 
 @Component({
@@ -21,6 +22,8 @@ export class ContractPage {
   public contracts: Observable<Contract[]>;
   public contractsExists: boolean = false;
   // public currentRealEstate: RealEstate = null;
+  public realEstates: Observable<RealEstate[]> = null;
+  public realEstatesExists: boolean = false;
 
   constructor(
     private modalCtrl: ModalController,
@@ -39,34 +42,53 @@ export class ContractPage {
         const data = a.payload.doc.data() as Contract;
         const id = a.payload.doc.id;
         data.id = id;
-        
+
         this.ui.closeLoading(true);
-        
+
         return { id, ...data };
       }))
     );
 
     this.contracts.subscribe((data) => {
-      this.contractsExists = (data.length>0 ? true : false);
+      this.contractsExists = (data.length > 0 ? true : false);
     });
 
+    this.realEstates = this.afDb
+      .collection<RealEstate>("RealEstate", ref =>
+        ref.where("ownerId", "==", this.fb.user.uid)
+          .where("active", "==", true)
+          .where("contractId", "==", null)
+      ).snapshotChanges()
+      .pipe(
+        map(actions =>
+          actions.map(a => {
+            const data = a.payload.doc.data() as RealEstate;
+            const id = a.payload.doc.id;
+            data.id = id;
+            return { id, ...data };
+          })
+        )
+      );
+
+    this.realEstates.subscribe((data) => {
+      this.realEstatesExists = (data.length > 0 ? true : false);
+    });
   }
 
   public getDateString(date): string {
-    return new Date(date).toLocaleDateString('pt-BR', {timeZone: 'UTC'});
+    return new Date(date).toLocaleDateString('pt-BR', { timeZone: 'UTC' });
   }
 
-  // TODO: verificar se o usuário possui imóveis e inquilinos cadastrados, se sim entra na modal para criar um contrato, senão mostra um alert pedindo que cadastre o que falta.
   public newContract(): void {
-    let modal = this.modalCtrl.create(ContractFormPage);
-    modal.present();
+    if (this.realEstatesExists) {
+      let modal = this.modalCtrl.create(ContractFormPage);
+      modal.present();
+    } else {
+      this.ui.showAlert("Atenção", "Por favor, cadastre um imóvel (na aba Imóveis) antes de adicionar um contrato.");
+    }
   }
 
   public viewDetails(contract): void {
     this.navCtrl.push(ContractDetailsPage, { contract: contract });
-    // let detailsModal = this.modalCtrl.create(ContractDetailsPage, {contract: contract});
-    // detailsModal.present();   
-    console.log(this.contracts);
-
   }
 }

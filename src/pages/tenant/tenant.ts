@@ -15,6 +15,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/internal/operators/map';
 import { ContractFormPage } from "../contract/contract-form/contract-form";
 import { Contract } from "../../models/contract";
+import { RealEstate } from "../../models/real-estate";
 
 @Component({
   selector: "page-tenant",
@@ -28,7 +29,8 @@ export class TenantPage {
   public tenantsExists: boolean = false;
   public searchString: string = '000.000.000-00'; // apenas para teste
   public contracts: Contract[];
-  
+  public realEstates: RealEstate[];
+
   constructor(
     private modalCtrl: ModalController,
     private fb: FirebaseProvider,
@@ -43,30 +45,54 @@ export class TenantPage {
     this.getContracts();
   }
 
-  public getContracts(){
+  public getContracts() {
     this.afDb.collection<Contract>(
       'Contract',
       ref => ref.where('ownerId', '==', this.fb.user.uid)
-      .where("active", "==", true)
-      .where("status", "==", "detached")
+        .where("active", "==", true)
+        .where("status", "==", "detached")
     ).snapshotChanges()
-    .pipe(
-      map(actions =>
-        actions.map(a => {
-          const data = a.payload.doc.data() as Contract;
-          const id = a.payload.doc.id;
-          data.id = id;
-          return { id, ...data };
-        })
-      )
-    ).subscribe((data) =>{
-      if(data.length > 0){
-        this.contracts = data;
-      } else {
-        this.contracts = null;
-      }
-    });
-    
+      .pipe(
+        map(actions =>
+          actions.map(a => {
+            const data = a.payload.doc.data() as Contract;
+            const id = a.payload.doc.id;
+            data.id = id;
+            return { id, ...data };
+          })
+        )
+      ).subscribe((data) => {
+        if (data.length > 0) {
+          this.contracts = data;
+        } else {
+          this.contracts = null;
+        }
+      });
+  }
+
+  public getRealEstates() {
+    this.afDb.collection<RealEstate>(
+      "RealEstate",
+      ref => ref.where("ownerId", "==", this.fb.user.uid)
+        .where("active", "==", true)
+        .where("contractId", "==", null)
+    ).snapshotChanges()
+      .pipe(
+        map(actions =>
+          actions.map(a => {
+            const data = a.payload.doc.data() as RealEstate;
+            const id = a.payload.doc.id;
+            data.id = id;
+            return { id, ...data };
+          })
+        )
+      ).subscribe((data) => {
+        if (data.length > 0) {
+          this.realEstates = data;
+        } else {
+          this.realEstates = null;
+        }
+      });
   }
 
   public showListener(): void {
@@ -94,8 +120,12 @@ export class TenantPage {
   }
 
   public newContract(tenant): void {
-    let modal = this.modalCtrl.create(ContractFormPage, {tenantObj: tenant});
-    modal.present();
+    if (this.realEstates) {
+      let modal = this.modalCtrl.create(ContractFormPage, { tenantObj: tenant });
+      modal.present();
+    } else {
+      this.ui.showAlert("Atenção", "Por favor, cadastre um imóvel (na aba Imóveis) antes de adicionar um contrato.");
+    }
   }
 
   public newTenant(): void {
@@ -124,28 +154,28 @@ export class TenantPage {
   }
 
   public selectContract(tenant: TenantAccount): void {
-    if(this.contracts ){
+    if (this.contracts) {
       let alert = this.alertCtrl.create();
       alert.setTitle('Selecione o contrato');
-    
-        this.contracts.forEach(contract => {
-          alert.addInput({
-            type: 'radio',
-            label: "Início:" + new Date(contract.beginDate).toLocaleDateString() 
-            + "\nTérmino: "+ new Date(contract.endDate).toLocaleDateString(),
-            value: contract.id,
-            checked: false
-          });
-  
+
+      this.contracts.forEach(contract => {
+        alert.addInput({
+          type: 'radio',
+          label: "Início:" + new Date(contract.beginDate).toLocaleDateString()
+            + "\nTérmino: " + new Date(contract.endDate).toLocaleDateString(),
+          value: contract.id,
+          checked: false
         });
+
+      });
 
       alert.addButton('Cancelar');
       alert.addButton({
         text: 'Confirmar',
-        handler: (data:string) => {
+        handler: (data: string) => {
 
           console.log(data)
-          this.fb.updateDataFromCollection('Contract', {id: data, tenantId: tenant.id, status: "pending" })
+          this.fb.updateDataFromCollection('Contract', { id: data, tenantId: tenant.id, status: "pending" })
         }
       });
       alert.present();
@@ -163,17 +193,17 @@ export class TenantPage {
           handler: () => {
             this.viewDetails(tenant);
           }
-        },{
+        }, {
           text: 'Vincular contrato existente',
           handler: () => {
             this.selectContract(tenant);
           }
-        },{
+        }, {
           text: 'Vincular novo contrato',
           handler: () => {
             this.newContract(tenant);
           }
-        },{
+        }, {
           text: 'Cancelar',
           role: 'cancel'
         }

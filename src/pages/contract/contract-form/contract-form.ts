@@ -53,7 +53,7 @@ export class ContractFormPage {
     this.contractForm = this.formBuilder.group({
       beginDate: [this.contract.beginDate ? Number(this.contract.beginDate) : "", Validators.required],
       endDate: [this.contract.endDate ? Number(this.contract.endDate) : "", Validators.required],
-      duration: [this.contract.duration ? this.contract.duration : "", Validators.required],
+      duration: [{value: this.contract.duration ? this.contract.duration : "", disabled: true}, Validators.required],
       realEstateId: [this.contract.realEstateId ? this.contract.realEstateId : (this.realEstateObj ? this.realEstateObj.id : ""), Validators.required],
       tenantId: [this.contract.tenantId ? this.contract.tenantId : (this.tenantObj ? this.tenantObj.id : '')]
     });

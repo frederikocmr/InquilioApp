@@ -254,6 +254,29 @@ ion-loading.custom-loading {
   width: 100%;
 }
 
+.picker-columns,
+.picker-toolbar,
+.picker-md .picker-wrapper,
+.picker-md .picker-toolbar {
+  background: color($colors, primary50);
+  background-size: cover !important;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.picker-md .picker-opt {
+  color: color($colors, primary200);
+}
+
+.picker-md .picker-button,
+.picker-md .picker-button.activated,
+.picker-md .picker-prefix,
+.picker-md .picker-suffix,
+.picker-md .picker-opt.picker-opt-selected {
+  color: color($colors, primary);
+}
+
 .popover-content {
   border-radius: 0.5rem !important;
 }

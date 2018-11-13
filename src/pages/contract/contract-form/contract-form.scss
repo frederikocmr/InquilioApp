@@ -2,4 +2,8 @@ page-contract-form {
   .scroll-content {
 		padding-top: 0rem !important;
   }
+
+  .text-input[disabled] {
+    opacity: .7;
+  }
 }
