@@ -153,15 +153,15 @@ export class RealEstateFormPage {
             maximumImagesCount: 1
           }).then(
             (results) => {
-              this.ui.showToast(results, 3, 'top');
-              for (var i = 0; i < results.length; i++) {
-                this.uploadImageToFirebase(results[i]);
-              }
-            }, (err) => this.ui.showToast(err, 3, 'top')
+              this.ui.showToast("IMAGEM: "+ results, 3, 'top');
+              
+              this.uploadImageToFirebase(results);
+              
+            }, (err) => this.ui.showToast("ERRO 1:" + err, 3, 'top')
           );
         }
       }, (err) => {
-        this.ui.showToast(err, 3, 'top')
+        this.ui.showToast("ERRO 2:" + err, 3, 'top')
         console.log(err);
       });
   }
@@ -169,12 +169,13 @@ export class RealEstateFormPage {
   public uploadImageToFirebase(image): any{
     image = normalizeURL(image);
     let imageName = new Date().toString(); 
+    this.ui.showToast("Image name 3:" + imageName,3, 'top');
     this.fb.uploadImage(image, imageName)
     .then(photoURL => {
         this.ui.showToast('Imagem enviada com sucesso', 3, 'top');
         this.ui.showAlert('Tire print desse link e me mande', photoURL);
       }).catch( error => {
-        this.ui.showToast(error, 3, 'top');
+        this.ui.showToast("ERRO 3:" + error, 3, 'top');
       });
   } 
 
