@@ -18,3 +18,18 @@
 .text-color {
 	color: color($colors, primary) !important;
 }
+
+button {
+	ion-badge {
+		border-radius: 1rem !important;
+		position: absolute;
+		top: -.5rem;
+		right: -.1rem;
+		opacity: 0.8;
+		z-index: 10;
+
+		& ~ ion-icon {
+			margin-right: 1.2rem;
+		}
+	}
+}

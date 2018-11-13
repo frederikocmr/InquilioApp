@@ -8,6 +8,7 @@ import { ActionSheetController, AlertController, NavParams, PopoverController, V
       <ion-title>{{title}}</ion-title>
       <ion-buttons end>
         <button ion-button icon-only (click)="presentPopover($event, 'notification')">
+          <ion-badge [hidden]="!notificationsNumber" color="danger">{{notificationsNumber}}</ion-badge>
           <ion-icon name="custom-notifications"></ion-icon>
         </button>
         <button [hidden]="type === 'settings'" ion-button icon-only (click)="presentPopover($event, type)">
@@ -18,6 +19,8 @@ import { ActionSheetController, AlertController, NavParams, PopoverController, V
   `
 })
 export class NavOptionsComponent {
+  public notificationsItems: object[];
+  public notificationsNumber: number = 0;
   public title: string;
   public type: string;
 
@@ -29,6 +32,14 @@ export class NavOptionsComponent {
     if (this.navParams.get('type')) {
       this.type = this.navParams.get('type');
     }
+    
+    // TODO: Importar os dados das ações aqui
+    this.notificationsItems = [
+      { title: "Confirmar contrato", datetime: new Date('2018-10-01T00:12').getTime() },
+      { title: "Rescindir contrato", datetime: new Date().getTime() }
+    ];
+
+    this.notificationsNumber = this.notificationsItems.length;
   }
 
   public presentPopover(myEvent, itemType: string): void {
@@ -37,10 +48,11 @@ export class NavOptionsComponent {
 
     if (itemType === 'notification') {
       component = NotificationsComponent;
+      params['notifications'] = this.notificationsItems;
     } else {
       component = FilterOrderComponent;
     }
-    
+
     let popover = this.popoverCtrl.create(component, params);
     popover.present({
       ev: myEvent
@@ -54,7 +66,7 @@ export class NavOptionsComponent {
   template: `
     <ion-list class="notification-list">
       <ion-list-header class="text-color">Notificações</ion-list-header>			
-      <ion-item *ngFor="let item of items" ion-item no-margin (click)="notificationAction(item.title)">
+      <ion-item *ngFor="let item of notifications" ion-item no-margin (click)="notificationAction(item.title)">
         <h2 class="text-color">{{item.title}}</h2>
         <p class="text-color">{{ item.datetime | date:"dd/MM/yyyy \'às\' HH:mm" }}</p>
         <button clear ion-button item-end>VER</button>
@@ -64,13 +76,10 @@ export class NavOptionsComponent {
 })
 
 export class NotificationsComponent {
-  public items: object[];
+  public notifications: object[];
 
   constructor(private alertCtrl: AlertController, public viewCtrl: ViewController, public navParams: NavParams) {
-    this.items = [
-      { title: "Confirmar contrato", datetime: new Date('2018-10-01T00:12').getTime() },
-      { title: "Rescindir contrato", datetime: new Date().getTime() }
-    ];
+    this.notifications = this.navParams.get('notifications');
   }
 
   public notificationAction(item): void {
@@ -78,8 +87,8 @@ export class NotificationsComponent {
       title: item,
       message: 'Testando alert',
       buttons: [
-        {text: 'Cancelar', handler: () => { console.log('Cancelou') }},
-        {text: item.substring(0, item.indexOf(' ')), handler: () => { console.log('Confirmou') }}
+        { text: 'Cancelar', handler: () => { console.log('Cancelou') } },
+        { text: item.substring(0, item.indexOf(' ')), handler: () => { console.log('Confirmou') } }
       ]
     });
 
