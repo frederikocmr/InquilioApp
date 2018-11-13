@@ -47,20 +47,26 @@
 
       <ion-item>
         <ion-label floating>Selecione um imóvel</ion-label>
-        <ion-select [formControl]="contractForm.controls['realEstateId']" name="realEstateId" cancelText="Cancelar" okText="Confirmar">
-          <ion-option *ngFor="let realEstate of realEstates | async" [value]="realEstate.id" [selected]="realEstateObj.id">{{ realEstate.name }}</ion-option>
+        <ion-select [formControl]="contractForm.controls['realEstateId']" name="realEstateId" cancelText="Cancelar"
+          okText="Confirmar">
+          <ion-option *ngFor="let realEstate of realEstates | async" [value]="realEstate.id" [selected]="realEstateObj.id">{{
+            realEstate.name }}</ion-option>
         </ion-select>
       </ion-item>
       <div *ngIf="!contractForm.controls.realEstateId.valid && contractForm.controls.realEstateId.dirty" class="validator-error">
         Por favor, selecione um imóvel.
       </div>
 
-      <ion-item>
+      <ion-item [hidden]="!tenantObj">
         <ion-label floating>Selecione um inquilino (Opcional)</ion-label>
         <ion-select [formControl]="contractForm.controls['tenantId']" name="tenantId" cancelText="Cancelar" okText="Confirmar">
           <ion-option *ngIf="tenantObj" [value]="tenantObj.id">{{ tenantObj.name }}</ion-option>
         </ion-select>
       </ion-item>
+
+      <div margin-top>
+        <ion-note [hidden]="tenantObj">Vincule este contrato a um inquilino buscando-o na aba de Inquilinos.</ion-note>
+      </div>
 
       <button class="main-button btn-secondary" ion-button large round color="secondary" [disabled]="!contractForm.valid"
         (click)="addContract()" type="submit" strong margin-top icon-start>
