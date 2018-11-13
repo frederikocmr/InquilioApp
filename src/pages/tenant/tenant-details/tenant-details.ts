@@ -16,8 +16,9 @@ export class TenantDetailsPage {
   public overallScore = "4.5";
   // public isEvaluationTime: boolean = false;
   public isTenantAssociated: boolean = true;
-  chips = [
+  public chips = [
     "Paga sempre em dia",
+    "Cumpre bem o contrato",
     "Conserva bem o imóvel",
     "Tem bom relacionamento com os vizinhos"
   ];
@@ -45,8 +46,6 @@ export class TenantDetailsPage {
       } 
     }); 
   }
-  // Allows the owner to associate a tenant with a real estate or a contract
-  // public associateTenant(): void {}
 
   // Shows the tenant evaluation modal (page)
   public evaluateTenant(): void {

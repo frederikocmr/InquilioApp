@@ -31,9 +31,9 @@ export class RealEstateFormPage {
 
     this.realEstateForm = this.formBuilder.group({
       name: [this.realEstate.name ? this.realEstate.name : "", Validators.required],
-      link: [this.realEstate.link ? this.realEstate.link : ""],
+      // link: [this.realEstate.link ? this.realEstate.link : ""],
       type: [this.realEstate.type ? this.realEstate.type : "", Validators.required],
-      description: [this.realEstate.description ? this.realEstate.description : ""],
+      // description: [this.realEstate.description ? this.realEstate.description : ""],
       zip: [this.realEstate.zip ? this.realEstate.zip : "", Validators.required],
       street: [this.realEstate.street ? this.realEstate.street : "", Validators.required],
       district: [this.realEstate.district ? this.realEstate.district : "", Validators.required],
@@ -45,9 +45,9 @@ export class RealEstateFormPage {
   public getValuesFromForm(): void {
     let newObject = this.realEstateForm.value as RealEstate;
     this.realEstate.name = newObject.name;
-    this.realEstate.link = newObject.link;
+    // this.realEstate.link = newObject.link;
     this.realEstate.type = newObject.type;
-    this.realEstate.description = newObject.description;
+    // this.realEstate.description = newObject.description;
     this.realEstate.zip = newObject.zip;
     this.realEstate.street = newObject.street;
     this.realEstate.district = newObject.district;
