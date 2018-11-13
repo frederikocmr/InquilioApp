@@ -153,10 +153,11 @@ export class RealEstateFormPage {
             maximumImagesCount: 1
           }).then(
             (results) => {
+              this.ui.showToast(results, 3, 'top');
               for (var i = 0; i < results.length; i++) {
                 this.uploadImageToFirebase(results[i]);
               }
-            }, (err) => console.log(err)
+            }, (err) => this.ui.showToast(err, 3, 'top')
           );
         }
       }, (err) => {
