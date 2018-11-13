@@ -42,21 +42,20 @@
         <ion-textarea [formControl]="realEstateForm.controls['description']" name="description" rows="3"></ion-textarea>
       </ion-item>
 
-      <!-- Descomentar ao implementar captura ou importação de imagens
       <hr>
 
       <ion-label color="light" text-left>Imagens</ion-label>
 
       <ion-toolbar transparent>
         <ion-buttons>
-          <button ion-button icon-start clear color="secondary">
+          <button ion-button icon-start clear color="secondary" type="button" (click)="openImagePickerCrop()">
             <ion-icon name="camera"></ion-icon>Selecionar Imagem
           </button>
-          <button ion-button icon-start clear color="secondary">
+          <button ion-button icon-start clear color="secondary" type="button" (click)="openImagePicker()">
             <ion-icon name="cloud-upload"></ion-icon>Fazer Upload
           </button>
         </ion-buttons>
-      </ion-toolbar> -->
+      </ion-toolbar>
 
       <hr>
 
