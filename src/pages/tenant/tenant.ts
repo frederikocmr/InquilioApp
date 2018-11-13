@@ -150,7 +150,7 @@ export class TenantPage {
       });
       alert.present();
     } else {
-      this.ui.showAlert("Aviso", "Nenhum contrato cadastrado que esteja disponível!");
+      this.ui.showAlert("Atenção", "Nenhum contrato disponível! Por favor, cadastre um novo contrato.");
     }
   }
 

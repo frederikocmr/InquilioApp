@@ -41,41 +41,41 @@ export class ContractFormPage {
     if (this.navParams.get('realEstateObj')) {
       this.realEstateObj = this.navParams.get('realEstateObj');
       this.editing = false;
-    } 
+    }
 
     if (this.navParams.get('tenantObj')) {
       this.tenantObj = this.navParams.get('tenantObj');
-     // this.afDb.collection<TenantAccount>('tenantAccount',
-    } 
+      // this.afDb.collection<TenantAccount>('tenantAccount',
+    }
 
     this.getRealEstates();
-    
+
     this.contractForm = this.formBuilder.group({
       beginDate: [this.contract.beginDate ? Number(this.contract.beginDate) : "", Validators.required],
       endDate: [this.contract.endDate ? Number(this.contract.endDate) : "", Validators.required],
       duration: [this.contract.duration ? this.contract.duration : "", Validators.required],
-      realEstateId: [this.contract.realEstateId ? this.contract.realEstateId : (this.realEstateObj ? this.realEstateObj.id  : ""), Validators.required],
+      realEstateId: [this.contract.realEstateId ? this.contract.realEstateId : (this.realEstateObj ? this.realEstateObj.id : ""), Validators.required],
       tenantId: [this.contract.tenantId ? this.contract.tenantId : (this.tenantObj ? this.tenantObj.id : '')]
     });
   }
 
   public getRealEstates(): void {
     this.realEstates = this.afDb
-    .collection<RealEstate>("RealEstate", ref =>
-      ref.where("ownerId", "==", this.fb.user.uid)
-      .where("active", "==", true)
-      .where("contractId", "==", null) 
-    ).snapshotChanges()
-    .pipe(
-      map(actions =>
-        actions.map(a => {
-          const data = a.payload.doc.data() as RealEstate;
-          const id = a.payload.doc.id;
-          data.id = id;
-          return { id, ...data };
-        })
-      )
-    );
+      .collection<RealEstate>("RealEstate", ref =>
+        ref.where("ownerId", "==", this.fb.user.uid)
+          .where("active", "==", true)
+          .where("contractId", "==", null)
+      ).snapshotChanges()
+      .pipe(
+        map(actions =>
+          actions.map(a => {
+            const data = a.payload.doc.data() as RealEstate;
+            const id = a.payload.doc.id;
+            data.id = id;
+            return { id, ...data };
+          })
+        )
+      );
   }
 
   public calculateDuration(): void {
@@ -124,17 +124,18 @@ export class ContractFormPage {
   }
 
   public setMinDate(): string {
-    return this.today.toISOString();
+    let beginDate = this.contractForm.value.beginDate;
+    return beginDate ? new Date(beginDate).toISOString() : this.today.toISOString();
   }
 
   public getValuesFromForm() {
     let newObject = this.contractForm.value as Contract;
-    this.contract.beginDate =  Number(new Date(newObject.beginDate));
-    this.contract.endDate =  Number(new Date(newObject.endDate));
+    this.contract.beginDate = Number(new Date(newObject.beginDate));
+    this.contract.endDate = Number(new Date(newObject.endDate));
     this.contract.duration = newObject.duration;
     this.contract.realEstateId = newObject.realEstateId;
     this.contract.tenantId = newObject.tenantId;
-    this.contract.status = ( !newObject.tenantId ? "detached" : "pending");
+    this.contract.status = (!newObject.tenantId ? "detached" : "pending");
 
     console.log(this.contract);
   }
