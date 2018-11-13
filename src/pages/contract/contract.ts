@@ -3,7 +3,6 @@ import {
   NavController,
   NavParams,
   ModalController,
-  PopoverController
 } from "ionic-angular";
 import { Observable } from "rxjs/Observable";
 import { map } from "rxjs/operators";
@@ -12,7 +11,6 @@ import { ContractDetailsPage } from "./contract-details/contract-details";
 import { ContractFormPage } from "./contract-form/contract-form";
 import { FirebaseProvider, UiProvider } from "../../providers";
 import { Contract } from './../../models/contract';
-import { ListOptionsComponent } from "../../components/list-options/list-options";
 // import { RealEstate } from "../../models/real-estate";
 
 @Component({
@@ -25,7 +23,6 @@ export class ContractPage {
   // public currentRealEstate: RealEstate = null;
 
   constructor(
-    private popoverCtrl: PopoverController,
     private modalCtrl: ModalController,
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -53,13 +50,6 @@ export class ContractPage {
       this.contractsExists = (data.length>0 ? true : false);
     });
 
-  }
-
-  public presentPopover(myEvent): void {
-    let popover = this.popoverCtrl.create(ListOptionsComponent, {type: 'contract'});
-    popover.present({
-      ev: myEvent
-    });
   }
 
   public getDateString(date): string {

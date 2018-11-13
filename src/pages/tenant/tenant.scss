@@ -1,11 +1,14 @@
 page-tenant {
-  .keyboard-is-open {
+  .keyboard-open {
 		bottom: 0 !important;
   }
 
-	.my-footer {
+	.footer-searchbar {
 		background: none;
 		bottom: 5.5rem;
+		left: 0;
+		position: absolute;
+	  width: 100%;
 		z-index: 999;
 	}
 
