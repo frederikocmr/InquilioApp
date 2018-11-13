@@ -447,6 +447,10 @@ ion-icon {
     mask-image: url(../assets/icons/more-ios.svg);
   }
 
+  &[class*="custom-notifications"] {
+    mask-image: url(../assets/icons/notifications.svg);
+  }
+
   &[class*="custom-remove-circle"] {
     mask-image: url(../assets/icons/remove-circle.svg);
   }

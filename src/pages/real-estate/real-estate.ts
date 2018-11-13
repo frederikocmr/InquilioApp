@@ -2,8 +2,7 @@ import { Component } from "@angular/core";
 import {
   NavController,
   NavParams,
-  ModalController,
-  PopoverController
+  ModalController
 } from "ionic-angular";
 import { Observable } from "rxjs/Observable";
 import { map } from "rxjs/operators";
@@ -12,7 +11,6 @@ import { UiProvider, FirebaseProvider } from '../../providers';
 import { RealEstateFormPage } from "../real-estate/real-estate-form/real-estate-form";
 import { RealEstateDetailsPage } from "../real-estate/real-estate-details/real-estate-details";
 import { RealEstate } from "../../models/real-estate";
-import { ListOptionsComponent } from "../../components/list-options/list-options";
 
 @Component({
   selector: "page-real-estate",
@@ -23,7 +21,6 @@ export class RealEstatePage {
   public realEstatesExists: boolean = false;
 
   constructor(
-    private popoverCtrl: PopoverController,
     public navCtrl: NavController,
     public navParams: NavParams,
     public modalCtrl: ModalController,
@@ -51,13 +48,6 @@ export class RealEstatePage {
       this.realEstatesExists = (data.length>0 ? true : false);
     });
 
-  }
-
-  public presentPopover(myEvent): void {
-    let popover = this.popoverCtrl.create(ListOptionsComponent, {type: 'realEstate'});
-    popover.present({
-      ev: myEvent
-    });
   }
 
   public newRealEstate(): void {

@@ -1,12 +1,5 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>Inquilinos</ion-title>
-    <ion-buttons end>
-      <button ion-button icon-only (click)="presentPopover($event)">
-        <ion-icon name="custom-filter-list"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-toolbar>
+  <nav-options-component></nav-options-component>
 </ion-header>
 
 
@@ -45,6 +38,7 @@
             <div padding-bottom>
               <h3 *ngIf="!tenant.overallScore">Inquilino sem avaliação.</h3>
               <div *ngIf="tenant.overallScore">
+                <!-- TODO: Criar exibição da média do inquilino -->
                 <!-- <p>
               <ion-icon *ngFor="let item of scores" [name]="item.starName" color="secondary"></ion-icon>
               {{ tenant.overallScore }} ({{ tenant.scoresTotal }} avaliações)
@@ -67,16 +61,10 @@
         </ion-card>
       </ion-col>
     </ion-row>
-
-    <!-- <ion-fab right bottom>
-      <button ion-fab color="secondary" (click)="newTenant()">
-        <ion-icon name="custom-add"></ion-icon>
-      </button>
-    </ion-fab> -->
   </div>
 </ion-content>
 
-<ion-searchbar animated="true" cancelButtonText="Cancelar" class="my-footer" id="searchbar" [(ngModel)]="searchString" placeholder="Buscar inquilino pelo CPF..."
-  name="document" [brmasker]="{mask:'000.000.000-00', len:14}" showCancelButton (ionCancel)="cancelSearch()" (ionClear)="cancelSearch()"
+<ion-searchbar animated="true" cancelButtonText="Cancelar" class="footer-searchbar" id="searchbar" [(ngModel)]="searchString" placeholder="Buscar inquilino pelo CPF..."
+  name="document" [brmasker]="{person: true}" showCancelButton (ionCancel)="cancelSearch()" (ionClear)="cancelSearch()"
   (ionInput)="search()">
 </ion-searchbar>

@@ -38,7 +38,7 @@ import { TenantTabsPage } from '../pages/tenant-tabs/tenant-tabs';
 import { TenantEvaluationPage } from '../pages/tenant/tenant-evaluation/tenant-evaluation';
 import { TimelineComponent, TimelineItemComponent, TimelineTimeComponent } from '../components/timeline/timeline';
 import { ProfileFormPage } from '../pages/profile-form/profile-form';
-import { ListOptionsComponent } from '../components/list-options/list-options';
+import { NavOptionsComponent, FilterOrderComponent, NotificationsComponent } from '../components/nav-options/nav-options';
 
 registerLocaleData(localePtBr);
 
@@ -81,7 +81,9 @@ export function provideSettings(storage: Storage) {
     TimelineItemComponent,
     TimelineTimeComponent,
     ProfileFormPage,
-    ListOptionsComponent
+    NotificationsComponent,
+    NavOptionsComponent,
+    FilterOrderComponent
   ],
   imports: [
     BrowserModule,
@@ -91,8 +93,6 @@ export function provideSettings(storage: Storage) {
       scrollPadding: false,
       scrollAssist: true,
       autoFocusAssist: false,
-      modalEnter: 'modal-slide-in',
-      modalLeave: 'modal-slide-out',
       pageTransition: 'ios-transition',
       platforms: {
         ios: {
@@ -137,7 +137,9 @@ export function provideSettings(storage: Storage) {
     TimelineItemComponent,
     TimelineTimeComponent,
     ProfileFormPage,
-    ListOptionsComponent
+    NotificationsComponent,
+    NavOptionsComponent,
+    FilterOrderComponent
   ],
   providers: [
     StatusBar,

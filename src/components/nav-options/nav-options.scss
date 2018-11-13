@@ -1,0 +1,20 @@
+.list-options {
+	ion-label {
+		white-space: pre-line;
+	}
+	.list-md, .list-ios, .list-header-md, .list-header-ios {
+		margin: 0;
+	}
+}
+
+.notification-list.list-md, .notification-list.list-ios, .list-header-md, .list-header-ios {
+	margin: 0;
+}
+
+.popover-content {
+	width: 30rem !important;
+}
+
+.text-color {
+	color: color($colors, primary) !important;
+}

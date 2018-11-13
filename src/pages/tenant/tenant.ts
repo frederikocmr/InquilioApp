@@ -3,7 +3,6 @@ import {
   NavController,
   NavParams,
   ModalController,
-  PopoverController,
   ActionSheetController,
   AlertController
 } from "ionic-angular";
@@ -14,7 +13,6 @@ import { TenantAccount } from "../../models/tenant-account";
 import { UiProvider, FirebaseProvider } from "../../providers";
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/internal/operators/map';
-import { ListOptionsComponent } from "../../components/list-options/list-options";
 import { ContractFormPage } from "../contract/contract-form/contract-form";
 import { Contract } from "../../models/contract";
 
@@ -32,7 +30,6 @@ export class TenantPage {
   public contracts: Contract[];
   
   constructor(
-    private popoverCtrl: PopoverController,
     private modalCtrl: ModalController,
     private fb: FirebaseProvider,
     private afDb: AngularFirestore,
@@ -63,11 +60,11 @@ export class TenantPage {
   }
 
   public showListener(): void {
-    document.getElementById('searchbar').classList.add('keyboard-is-open');
+    document.getElementById('searchbar').classList.add('keyboard-open');
   }
 
   public hideListener(): void {
-    document.getElementById('searchbar').classList.remove('keyboard-is-open');
+    document.getElementById('searchbar').classList.remove('keyboard-open');
   }
 
   public ionViewDidEnter(): void {
@@ -84,13 +81,6 @@ export class TenantPage {
     this.searchingTenants = false;
     this.tenantsExists = false;
     this.tenants = null;
-  }
-
-  public presentPopover(myEvent): void {
-    let popover = this.popoverCtrl.create(ListOptionsComponent, {type: 'tenant'});
-    popover.present({
-      ev: myEvent
-    });
   }
 
   public newContract(tenant): void {

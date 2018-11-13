@@ -21,6 +21,7 @@ export class TabsPage {
   public realEstatePage = RealEstatePage;
   public tenantPage = TenantPage;
   public settingsPage = SettingsPage;
+  public tabs;
 
   constructor(
     private fb: FirebaseProvider,
@@ -34,6 +35,13 @@ export class TabsPage {
         this.fb.getUserData(user.uid, false);
       } 
     });
+    this.tabs = [
+      {icon: 'custom-timeline', root: this.timelinePage, title: 'Atividades', type: 'timeline'},
+      {icon: 'custom-contract', root: this.contractPage, title: 'Contratos', type: 'contract'},
+      {icon: 'custom-home', root: this.realEstatePage, title: 'Imóveis', type: 'realEstate'},
+      {icon: 'custom-users', root: this.tenantPage, title: 'Inquilinos', type: 'tenants'},
+      {icon: 'custom-settings', root: this.settingsPage, title: 'Ajustes', type: 'settings'}
+    ];
   }
 
 
