@@ -128,7 +128,7 @@ export class RealEstateFormPage {
               for (var i = 0; i < results.length; i++) {
                 this.cropService.crop(results[i], {quality: 75}).then(
                   newImage => {
-                    this.uploadImageToFirebase(newImage);
+                    this.uploadImageToFirebase2(newImage);
                   },
                   error => console.error("Erro ao cortar imagem", error)
                 );
@@ -177,6 +177,12 @@ export class RealEstateFormPage {
       }).catch( error => {
         this.ui.showToast("ERRO 3:" + error, 3, 'top');
       });
+  } 
+
+  public uploadImageToFirebase2(image): any{
+    image = normalizeURL(image);
+
+    this.fb.uploadToStorage(image);
   } 
 
 }
