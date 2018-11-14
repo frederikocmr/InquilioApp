@@ -46,6 +46,9 @@
               <ion-datetime cancelText="Cancelar" doneText="Confirmar" displayFormat="DD/MMM/YYYY" [max]="setMaxDate()"
                 [monthShortNames]="monthShortNames" [formControl]="signupForm.controls['birthdate']" name="birthdate"></ion-datetime>
             </ion-item>
+            <ion-note [hidden]="signupForm.value.birthdate">
+              Deslize para selecionar uma data.
+            </ion-note>
             <div *ngIf="!signupForm.controls.birthdate.valid && signupForm.controls.birthdate.dirty" class="validator-error">
               Por favor, selecione uma data de nascimento.
             </div>
@@ -105,7 +108,7 @@
         </ion-slide>
       </ion-slides>
 
-      <div id="footer" class="my-footer">
+      <div id="footer">
         <ion-row>
           <ion-col>
             <button class="btn-slides-pagination" type="button" ion-button outline round color="secondary" (click)="slidePrev()"

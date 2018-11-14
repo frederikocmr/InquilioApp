@@ -17,39 +17,41 @@ page-welcome {
 		text-align: center;
 	}
 
-	@media screen and (min-height: '490px'){
-		.description-slides {
-			height: 26vh;
+	.content-ios, .content-md {
+		@media screen and (max-height: '589px'){
+			.toolbar-ios, .toolbar-md {
+				margin-top: 6rem;
+			}
 		}
-	}
 
-	@media screen and (min-height: '576px'){
-		.description-slides {
-			height: 30vh;
+		@media screen and (min-height: '590px'){
+			.description-slides {
+				height: 30vh;
+			}
 		}
-	}
 
-	@media screen and (min-height: '667px'){
-		.description-slides {
-			height: 35vh;
+		@media screen and (min-height: '667px'){
+			.description-slides {
+				height: 35vh;
+			}
 		}
-	}
 
-	@media screen and (min-height: '768px'){
-		.description-slides {
-			height: 45vh;
+		@media screen and (min-height: '768px'){
+			.description-slides {
+				height: 45vh;
+			}
 		}
-	}
 
-	@media screen and (min-height: '992px'){
-		.description-slides {
-			height: 55vh;
+		@media screen and (min-height: '992px'){
+			.description-slides {
+				height: 55vh;
+			}
 		}
-	}
 
-	@media screen and (min-height: '1200px'){
-		.description-slides {
-			height: 60vh;
+		@media screen and (min-height: '1200px'){
+			.description-slides {
+				height: 60vh;
+			}
 		}
 	}
 }
