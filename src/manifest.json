@@ -1,6 +1,6 @@
 {
-  "name": "Aplicativo TCC",
-  "short_name": "App TCC",
+  "name": "Inquilio",
+  "short_name": "Inquilio",
   "start_url": "index.html",
   "display": "standalone",
   "icons": [{

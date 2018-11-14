@@ -1,5 +1,5 @@
 {
-  "name": "app-tcc",
+  "name": "inquilio",
   "version": "0.0.1",
   "author": "Felipe Araujo & Frederiko Cesar",
   "homepage": "https://github.com/frederikocmr/app-tcc",
@@ -57,7 +57,7 @@
     "@ionic/app-scripts": "3.1.11",
     "typescript": "~2.6.2"
   },
-  "description": "An Ionic project",
+  "description": "App para auxiliar pessoas envolvidas diretamente com aluguéis.",
   "cordova": {
     "plugins": {
       "cordova-plugin-whitelist": {},
