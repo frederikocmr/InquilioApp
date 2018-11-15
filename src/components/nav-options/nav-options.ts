@@ -4,7 +4,7 @@ import { ActionSheetController, AlertController, NavParams, PopoverController, V
 @Component({
   selector: 'nav-options-component',
   template: `
-    <ion-toolbar color="primary">
+    <ion-navbar color="primary">
       <ion-title>{{title}}</ion-title>
       <ion-buttons end>
         <button ion-button icon-only (click)="presentPopover($event, 'notification')">
@@ -15,7 +15,7 @@ import { ActionSheetController, AlertController, NavParams, PopoverController, V
           <ion-icon ios="custom-more-ios" md="custom-more-android"></ion-icon>
         </button>
       </ion-buttons>
-    </ion-toolbar>
+    </ion-navbar>
   `
 })
 export class NavOptionsComponent {

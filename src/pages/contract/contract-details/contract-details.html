@@ -1,12 +1,8 @@
 <ion-header>
-  <ion-navbar color="primary">
-    <!-- <ion-buttons left>
-      <button navPop ion-button icon-only style="margin: 0 6px; min-width: 36px;">
-        <ion-icon color="light" name="close"></ion-icon>
-      </button>
-    </ion-buttons> -->
-    <ion-title>{{(userType === "owner" ? "Detalhes do" : "Meu")}} Contrato</ion-title>
+  <ion-navbar color="primary" *ngIf="userType === 'owner'">
+    <ion-title>Detalhes do Contrato</ion-title>
   </ion-navbar>
+  <nav-options-component *ngIf="userType === 'tenant'"></nav-options-component>
 </ion-header>
 
 
