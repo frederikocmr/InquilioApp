@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { ActionSheetController, AlertController, NavParams, PopoverController, ViewController } from 'ionic-angular';
+import { FirebaseProvider, UiProvider } from '../../providers';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { History } from "../../models/history";
 
 @Component({
   selector: 'nav-options-component',
@@ -19,12 +22,15 @@ import { ActionSheetController, AlertController, NavParams, PopoverController, V
   `
 })
 export class NavOptionsComponent {
+  public history: History[];
   public notificationsItems: object[];
   public notificationsNumber: number = 0;
   public title: string;
   public type: string;
 
-  constructor(private popoverCtrl: PopoverController, private navParams: NavParams) {
+  constructor(private popoverCtrl: PopoverController, private navParams: NavParams,
+    private fb: FirebaseProvider,
+    private afDb: AngularFirestore, private ui: UiProvider) {
     if (this.navParams.get('title')) {
       this.title = this.navParams.get('title');
     }
@@ -34,9 +40,29 @@ export class NavOptionsComponent {
     }
     
     // TODO: Importar os dados das ações aqui
+    // this.afDb.doc<any>('History/' + this.fb.user.uid).valueChanges().subscribe(
+    //   (data) => {
+    //     if (data) {
+    //       this.history = [];
+    //       let dataKeys = Object.keys(data);
+
+    //       dataKeys.forEach(element => {
+    //         this.history.push(data[element]);
+    //       });
+
+    //       this.history.sort(function(a, b) {return a.datetime - b.datetime}).reverse();
+
+    //       this.history.forEach(item => {
+    //         if (item.action) {
+    //           this.notificationsItems.push(item);
+    //         }
+    //       });
+    //     }
+    //   });
+
     this.notificationsItems = [
-      { title: "Confirmar contrato", datetime: new Date('2018-10-01T00:12').getTime() },
-      { title: "Rescindir contrato", datetime: new Date().getTime() }
+      { action: {title: "Confirmar Contrato", id: "iohjoisaDS0w232309dsfoadfh", show: "contractConfirmation"}, datetime: new Date('2018-10-01T00:12').getTime(), type: 'contract' },
+      { action: {title: "Rescindir Contrato", id: "iohjoisaDS0w2dfdfgdsfoadfh", show: "contractRevoke"}, datetime: new Date().getTime(), type: 'contract' }
     ];
 
     this.notificationsNumber = this.notificationsItems.length;
@@ -66,8 +92,8 @@ export class NavOptionsComponent {
   template: `
     <ion-list class="notification-list">
       <ion-list-header class="text-color">Notificações</ion-list-header>			
-      <ion-item *ngFor="let item of notifications" ion-item no-margin (click)="notificationAction(item.title)">
-        <h2 class="text-color">{{item.title}}</h2>
+      <ion-item *ngFor="let item of notifications" ion-item no-margin (click)="notificationAction(item)">
+        <h2 class="text-color">{{item.action.title}}</h2>
         <p class="text-color">{{ item.datetime | date:"dd/MM/yyyy \'às\' HH:mm" }}</p>
         <button clear ion-button item-end>VER</button>
       </ion-item>
@@ -83,12 +109,19 @@ export class NotificationsComponent {
   }
 
   public notificationAction(item): void {
+    let message = '';
+    message += "Data de início: " + "15/11/2018" + "\n";
+    message += "Data de fim: " + "15/11/2019" + "\n";
+    message += "Duração: " + "1 ano" + "\n";
+    message += "Endereço do imóvel: Rua Teste Estático \n";
+    message = message.replace(/\n/g, "<br />");
+
     const alert = this.alertCtrl.create({
-      title: item,
-      message: 'Testando alert',
+      title: item.action.title,
+      message: message,
       buttons: [
-        { text: 'Cancelar', handler: () => { console.log('Cancelou') } },
-        { text: item.substring(0, item.indexOf(' ')), handler: () => { console.log('Confirmou') } }
+        { text: "Recusar", handler: () => { console.log('Recusou') } },
+        { text: "Confirmar", handler: () => { console.log('Confirmou') } }
       ]
     });
 
