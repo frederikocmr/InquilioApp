@@ -261,6 +261,10 @@ export class FirebaseProvider {
     })
   }
 
+  // TODO: Ajustar dado que está sendo salvo no banco. (verificar existentes)
+  // Ajustar quando é acionado essa função para fazer upload: somente após imovel cadastrado no bd.
+  // Ajustar mensagens e escolher o melhor metodo que funciona.
+
   public uploadToStorage(imageURI) {
     let newName = `${new Date().getTime()}.txt`;
       let upload = this.afStorage.ref(`images/${newName}`).putString(this.encodeImageUri(imageURI));

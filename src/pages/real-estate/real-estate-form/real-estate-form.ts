@@ -14,7 +14,8 @@ export class RealEstateFormPage {
   public realEstate: RealEstate = new RealEstate();
   public realEstateForm: FormGroup;
   public editing: boolean = false;
-
+  public img: any; 
+  
   constructor(
     public formBuilder: FormBuilder,
     public navCtrl: NavController,
@@ -66,7 +67,9 @@ export class RealEstateFormPage {
       this.fb.insertDataToCollection('RealEstate', this.realEstate).then(() => {
         this.ui.closeLoading();
         this.ui.showToast(this.fb.message, 2, 'top');
-
+        this.uploadImageToFirebase2();
+        // this.uploadImageToFirebase();
+        
         if (this.fb.validator) {
           this.navCtrl.pop();
         }
@@ -79,6 +82,8 @@ export class RealEstateFormPage {
       this.fb.updateDataFromCollection('RealEstate', this.realEstate).then(() => {
         this.ui.closeLoading();
         this.ui.showToast(this.fb.message, 2, 'top');
+        this.uploadImageToFirebase2();
+        // this.uploadImageToFirebase();
 
         if (this.fb.validator) {
           this.navCtrl.pop();
@@ -128,7 +133,7 @@ export class RealEstateFormPage {
               for (var i = 0; i < results.length; i++) {
                 this.cropService.crop(results[i], {quality: 75}).then(
                   newImage => {
-                    this.uploadImageToFirebase2(newImage);
+                    this.img = newImage;
                   },
                   error => console.error("Erro ao cortar imagem", error)
                 );
@@ -155,7 +160,7 @@ export class RealEstateFormPage {
             (results) => {
               this.ui.showToast("IMAGEM: "+ results, 3, 'top');
               
-              this.uploadImageToFirebase(results);
+              this.img = results; 
               
             }, (err) => this.ui.showToast("ERRO 1:" + err, 3, 'top')
           );
@@ -166,8 +171,9 @@ export class RealEstateFormPage {
       });
   }
 
-  public uploadImageToFirebase(image): any{
-    image = normalizeURL(image);
+  public uploadImageToFirebase(): any{
+
+    let image = normalizeURL(this.img);
     let imageName = new Date().toString(); 
     this.ui.showToast("Image name 3:" + imageName,3, 'top');
     this.fb.uploadImage(image, imageName)
@@ -179,9 +185,9 @@ export class RealEstateFormPage {
       });
   } 
 
-  public uploadImageToFirebase2(image): any{
-    image = normalizeURL(image);
+  public uploadImageToFirebase2(): any{
 
+    let image = normalizeURL(this.img);
     this.fb.uploadToStorage(image);
   } 
 
