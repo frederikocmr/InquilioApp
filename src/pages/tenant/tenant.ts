@@ -43,6 +43,7 @@ export class TenantPage {
   ) {
     this.search(); // apenas para teste
     this.getContracts();
+    this.getRealEstates();
   }
 
   public getContracts() {

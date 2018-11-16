@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { ActionSheetController, AlertController, NavParams, PopoverController, ViewController } from 'ionic-angular';
 import { FirebaseProvider, UiProvider } from '../../providers';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { History } from "../../models/history";
+import { Notification } from "../../models/notification";
+import { Contract } from '../../models/contract';
+import { RealEstate } from '../../models/real-estate';
 
 @Component({
   selector: 'nav-options-component',
@@ -22,15 +24,17 @@ import { History } from "../../models/history";
   `
 })
 export class NavOptionsComponent {
-  public history: History[];
-  public notificationsItems: object[];
+  public notification: Notification[];
+  public notificationsItems: any[];
   public notificationsNumber: number = 0;
   public title: string;
   public type: string;
 
-  constructor(private popoverCtrl: PopoverController, private navParams: NavParams,
+  constructor(
+    private popoverCtrl: PopoverController,
+    private navParams: NavParams,
     private fb: FirebaseProvider,
-    private afDb: AngularFirestore, private ui: UiProvider) {
+    private afDb: AngularFirestore) {
     if (this.navParams.get('title')) {
       this.title = this.navParams.get('title');
     }
@@ -38,34 +42,41 @@ export class NavOptionsComponent {
     if (this.navParams.get('type')) {
       this.type = this.navParams.get('type');
     }
-    
-    // TODO: Importar os dados das ações aqui
-    // this.afDb.doc<any>('History/' + this.fb.user.uid).valueChanges().subscribe(
-    //   (data) => {
-    //     if (data) {
-    //       this.history = [];
-    //       let dataKeys = Object.keys(data);
 
-    //       dataKeys.forEach(element => {
-    //         this.history.push(data[element]);
-    //       });
+    this.getNotifications();
 
-    //       this.history.sort(function(a, b) {return a.datetime - b.datetime}).reverse();
+    // this.notificationsItems = [
+    //   { action: {title: "Confirmar Contrato", id: "iohjoisaDS0w232309dsfoadfh", show: "contractConfirmation"}, datetime: new Date('2018-10-01T00:12').getTime(), type: 'contract' },
+    //   { action: {title: "Rescindir Contrato", id: "iohjoisaDS0w2dfdfgdsfoadfh", show: "contractRevoke"}, datetime: new Date().getTime(), type: 'contract' }
+    // ];
 
-    //       this.history.forEach(item => {
-    //         if (item.action) {
-    //           this.notificationsItems.push(item);
-    //         }
-    //       });
-    //     }
-    //   });
 
-    this.notificationsItems = [
-      { action: {title: "Confirmar Contrato", id: "iohjoisaDS0w232309dsfoadfh", show: "contractConfirmation"}, datetime: new Date('2018-10-01T00:12').getTime(), type: 'contract' },
-      { action: {title: "Rescindir Contrato", id: "iohjoisaDS0w2dfdfgdsfoadfh", show: "contractRevoke"}, datetime: new Date().getTime(), type: 'contract' }
-    ];
+  }
 
-    this.notificationsNumber = this.notificationsItems.length;
+  private getNotifications(): void {
+    this.afDb.doc<any>('Notification/' + this.fb.user.uid).valueChanges().subscribe(
+      (data) => {
+        if (data) {
+          this.notification = [];
+          this.notificationsItems = [];
+
+          let dataKeys = Object.keys(data);
+
+          dataKeys.forEach(element => {
+            this.notification.push(data[element]);
+          });
+
+          this.notification.sort(function (a, b) { return a.datetime - b.datetime }).reverse();
+
+          this.notification.forEach(item => {
+            if (item.action && item.active) {
+              this.notificationsItems.push(item);
+            }
+          });
+
+          this.notificationsNumber = this.notificationsItems.length;
+        }
+      });
   }
 
   public presentPopover(myEvent, itemType: string): void {
@@ -86,12 +97,13 @@ export class NavOptionsComponent {
   }
 
 }
-
+// TODO: colocar tratamento para nenhuma notificação. Ps.: fiz aqui rápido de um jeito
 
 @Component({
   template: `
     <ion-list class="notification-list">
-      <ion-list-header class="text-color">Notificações</ion-list-header>			
+      <ion-list-header class="text-color">Notificações</ion-list-header>	
+      <p class="text-color" *ngIf="!notificationsItems">Nenhuma notificação</p>
       <ion-item *ngFor="let item of notifications" ion-item no-margin (click)="notificationAction(item)">
         <h2 class="text-color">{{item.action.title}}</h2>
         <p class="text-color">{{ item.datetime | date:"dd/MM/yyyy \'às\' HH:mm" }}</p>
@@ -102,31 +114,128 @@ export class NavOptionsComponent {
 })
 
 export class NotificationsComponent {
-  public notifications: object[];
+  public notifications: Notification[];
+  public notification: Notification;
+  private contract: Contract;
+  public realEstate: RealEstate = null;
 
-  constructor(private alertCtrl: AlertController, public viewCtrl: ViewController, public navParams: NavParams) {
+  constructor(
+    private alertCtrl: AlertController,
+    private afDb: AngularFirestore,
+    private fb: FirebaseProvider,
+    public viewCtrl: ViewController,
+    public navParams: NavParams,
+    public ui: UiProvider) {
     this.notifications = this.navParams.get('notifications');
+
   }
 
   public notificationAction(item): void {
-    let message = '';
-    message += "Data de início: " + "15/11/2018" + "\n";
-    message += "Data de fim: " + "15/11/2019" + "\n";
-    message += "Duração: " + "1 ano" + "\n";
-    message += "Endereço do imóvel: Rua Teste Estático \n";
-    message = message.replace(/\n/g, "<br />");
+    this.notification = item;
+    if (this.notification.action.show == "contractConfirmation") {
+      this.ui.showLoading();
+      this.afDb.doc<Contract>('Contract/' + item.action.id).valueChanges()
+        .subscribe((data) => {
+          this.contract = data;
+          this.contract.id = item.action.id;
+          this.calculateDuration();
 
-    const alert = this.alertCtrl.create({
-      title: item.action.title,
-      message: message,
-      buttons: [
-        { text: "Recusar", handler: () => { console.log('Recusou') } },
-        { text: "Confirmar", handler: () => { console.log('Confirmou') } }
-      ]
-    });
+          this.afDb.doc<RealEstate>('RealEstate/' + this.contract.realEstateId).valueChanges().
+            subscribe((data) => {
+              this.realEstate = data;
+              let message = '';
+              message += "Data de início: " + (new Date(this.contract.beginDate).toLocaleDateString('pt-BR', { timeZone: 'UTC' })) + "\n";
+              message += "Data de fim: " + (new Date(this.contract.endDate).toLocaleDateString('pt-BR', { timeZone: 'UTC' })) + "\n";
+              message += "Duração: " + this.contract.duration + "\n";
+              message += "Endereço do imóvel: " + this.realEstate.street + ", " + this.realEstate.district + ", " + this.realEstate.city + " - " + this.realEstate.state + "\n";
+              message = message.replace(/\n/g, "<br />");
 
-    this.viewCtrl.dismiss();
-    alert.present();
+              const alert = this.alertCtrl.create({
+                title: item.action.title,
+                message: message,
+                buttons: [
+                  { text: "Recusar", handler: () => { this.denyAction() } },
+                  { text: "Confirmar", handler: () => { this.confirmAction() } }
+                ]
+              });
+              this.ui.closeLoading();
+              this.viewCtrl.dismiss();
+              alert.present();
+            });
+        });
+    }
+  }
+
+  public denyAction(): void {
+    if (this.notification.action.show == "contractConfirmation") {
+      this.contract.status = "rejected";
+      this.fb.updateDataFromCollection("Contract", this.contract);
+      this.ui.showToast("O contrato foi recusado. Para mais informações, visite suas atividades.", 4, 'top');
+    }
+    this.clearNotification();
+  }
+
+  public confirmAction(): void {
+    if (this.notification.action.show == "contractConfirmation") {
+      this.contract.status = "confirmed";
+      this.fb.updateDataFromCollection("Contract", this.contract);
+      this.ui.showToast("O contrato foi confirmado e será inserido na aba 'Meu Contrato'", 4, 'top');
+    }
+
+    this.clearNotification();
+  }
+
+  private clearNotification(): void{
+
+    let json = `{"${this.notification.datetime}":{
+      "active": false,
+      "datetime": ${this.notification.datetime},
+      "type": "Contract"
+  }}`;
+   let updateData = JSON.parse(json);
+
+    this.afDb.collection("Notification").doc(this.fb.user.uid).update(updateData);
+  }
+
+  public calculateDuration(): void {
+    let beginDate = this.contract.beginDate;
+    let endDate = this.contract.endDate;
+    if (endDate && beginDate) {
+      let timestamp =
+        new Date(endDate).getTime() -
+        new Date(beginDate).getTime();
+      let seconds = Math.floor(timestamp / 1000);
+      let minutes = Math.floor(seconds / 60);
+      let hours = Math.floor(minutes / 60);
+      let days = Math.floor(hours / 24);
+      this.contract.duration = this.convertToString(days);
+    } else {
+      this.contract.duration = "";
+    }
+  }
+
+  public convertToString(days): string {
+    let y = 365;
+    let y2 = 31;
+    let remainder = days % y;
+    let day = remainder % y2;
+    let year = (days - remainder) / y;
+    let month = (remainder - day) / y2;
+
+    var result =
+      (year > 1
+        ? year + " anos, "
+        : year == 1
+          ? year + " ano" + (month ? " , " : day ? " e " : " ")
+          : "") +
+      (month > 1
+        ? month + " meses " + (day && year ? "e " : day ? "e " : "")
+        : month == 1
+          ? month + " mês " + (day ? "e " : "")
+          : "") +
+      (day > 1 ? day + " dias" : day == 1 ? day + " dia" : "");
+
+    return result;
   }
 
 }

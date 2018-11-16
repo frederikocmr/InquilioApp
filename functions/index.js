@@ -70,7 +70,7 @@ exports.createContractHistory = functions.firestore.document('Contract/{wildcard
         const dateTime = Number(new Date());
         let json = `{"${dateTime}":{
                     "title": "Novo contrato adicionado",
-                    "description": "Duração de ${newValue.duration} - ${getStatusDescription(newValue.status)}",
+                    "description": "Data inicio ${ (new Date(newValue.beginDate).toLocaleDateString('pt-BR', { timeZone: 'UTC' })) } - Data final ${(new Date(newValue.endDate).toLocaleDateString('pt-BR', { timeZone: 'UTC' }))} - ${getStatusDescription(newValue.status)}",
                     "datetime": ${dateTime},
                     "type": "Contract",
                     "action": null 
@@ -81,19 +81,18 @@ exports.createContractHistory = functions.firestore.document('Contract/{wildcard
 
         return historyCollectionRef.set(newData, { merge: true }).then(() => {
             if (newValue.tenantId) {
-                let historyCollectionRef2 = firestoreDB.collection('History').doc(newValue.tenantId);
-
+                let notificationsCollectionRef2 = firestoreDB.collection('Notification').doc(newValue.tenantId);
+                
                 let json = `{"${dateTime}":{
-                    "title": "Contrato com confirmação pendente",
-                    "description": "Vá até seus contratos para confirmar o vínculo.",
+                    "active": true,
                     "datetime": ${dateTime},
                     "type": "Contract",
-                    "action": { "id": ${context.params.wildcard}, "show": "contractConfirmation", "title": "Confirme os dados do contrato" }
+                    "action": { "id": "${context.params.wildcard}", "show": "contractConfirmation", "title": "Confirme os dados do contrato" }
                 }}`;
                 newData = JSON.parse(json);
 
-                return historyCollectionRef2.set(newData, { merge: true }).then(() => {
-                    return console.log('Novo contrato adicionado ao histórico do dono e inquilino.', newValue.ownerId);
+                return notificationsCollectionRef2.set(newData, { merge: true }).then(() => {
+                    return console.log('Novo contrato adicionado ao histórico do dono e notificacao ao inquilino.', newValue.ownerId);
                 })
 
             } else {
