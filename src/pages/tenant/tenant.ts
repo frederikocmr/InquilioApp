@@ -109,6 +109,17 @@ export class TenantPage {
     window.addEventListener('keyboardDidHide', this.hideListener);
   }
 
+  public ionViewDidLoad(): void {
+    let searchbar = window.document.getElementById('searchbar');
+    let tabs = window.document.getElementById('footer');
+
+    if (tabs.getAttribute('tabsplacement') === "top") {
+      searchbar.classList.add('bottom-0');
+    } else {
+      searchbar.classList.remove('bottom-0');
+    }
+  }
+
   public ionViewWillLeave(): void {
     window.removeEventListener('keyboardWillShow', this.showListener);
     window.removeEventListener('keyboardDidHide', this.hideListener);
