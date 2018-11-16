@@ -36,14 +36,14 @@ export class ContractDetailsPage {
       this.contract = navParams.get('contract');
       this.contractExists = true;
       if (this.contract.tenantId) {
-        this.afDb.doc<TenantAccount>('tenantAccount/'+ this.contract.tenantId).valueChanges().subscribe(
-          (data) => { 
-            if(data){
+        this.afDb.doc<TenantAccount>('tenantAccount/' + this.contract.tenantId).valueChanges().subscribe(
+          (data) => {
+            if (data) {
               this.currentTenant = data as TenantAccount;
             }
           }
         );
-      
+
       }
 
       this.getRealEstate();
@@ -51,14 +51,14 @@ export class ContractDetailsPage {
       this.afDb.collection<Contract>(
         'Contract',
         ref => ref.where('tenantId', '==', this.fb.user.uid)
-        .where("active", "==", true)
-        .where("status", "==", "confirmed" )
+          .where("active", "==", true)
+          .where("status", "==", "confirmed")
       ).valueChanges().subscribe(data => {
-        if(data.length > 0 ){
+        if (data.length > 0) {
           this.contractExists = true;
           let contract = data[0] as Contract;
           this.contract = contract;
-          if(this.contract.realEstateId) {this.getRealEstate()};
+          if (this.contract.realEstateId) { this.getRealEstate() };
         } else {
           this.contractExists = false;
           this.contract = null;
@@ -177,49 +177,31 @@ export class ContractDetailsPage {
   }
 
   // TODO: Verificar se há inquilino vinculado ao contrato, se existir, enviar solicitação, senão, aceitar a solicitação imediatamente
-  public deactivateContract(): void {
-    let modal = this.ui.alertCtrl.create({
-      title: "Solicitar desativação do contrato?",
-      subTitle: "Uma solicitação de desativação do contrato será enviada ao inquilino associado para confirmar que ambos estão cientes da ação.",
-      buttons: ["Cancelar",
-        {
-          text: "Enviar",
-          handler: () => {
-            console.log('contrato desativado')
-          }
-        }]
-    });
+  // public deactivateContract(): void {
+  //   let modal = this.ui.alertCtrl.create({
+  //     title: "Solicitar desativação do contrato?",
+  //     subTitle: "Uma solicitação de desativação do contrato será enviada ao inquilino associado para confirmar que ambos estão cientes da ação.",
+  //     buttons: ["Cancelar",
+  //       {
+  //         text: "Enviar",
+  //         handler: () => {
+  //           console.log('contrato desativado')
+  //         }
+  //       }]
+  //   });
 
-    modal.present();
-  }
-
+  //   modal.present();
+  // }
 
   public getStatusDescription(status: string): string {
-    let statusDescription = "";
-
     switch (status) {
-        case "detached":
-            statusDescription = "Sem inquilino associado";
-            break;
-        case "rejected":
-            statusDescription = "Inquilino rejeitou o contrato";
-            break;    
-        case "pending":
-            statusDescription = "Possui inquilino associado mas não confirmou contrato";
-            break;
-        case "confirmed":
-            statusDescription = "Possui inquilino associado e confirmado";
-            break;
-        case "ended":
-            statusDescription = "Prazo concluído";
-            break;
-        case "revoked":
-            statusDescription = "Contrato revogado";
-            break;
-        default:
-            statusDescription = "Sem status";
-            break;
+      case "detached": return "Sem inquilino associado";
+      case "rejected": return "Rejeitado pelo inquilino";
+      case "pending": return "Inquilino associado, mas não confirmado";
+      case "confirmed": return "Inquilino associado e confirmado";
+      case "ended": return "Prazo concluído";
+      case "revoked": return "Rescindido";
+      default: return "Sem status";
     }
-    return statusDescription;
-}
+  }
 }

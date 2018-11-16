@@ -46,6 +46,10 @@ export class TenantDetailsPage {
       } 
     }); 
   }
+  
+  public getDateString(date): string {
+    return new Date(date).toLocaleDateString('pt-BR', { timeZone: 'UTC' });
+  }
 
   // Shows the tenant evaluation modal (page)
   public evaluateTenant(): void {

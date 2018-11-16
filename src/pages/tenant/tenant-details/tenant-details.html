@@ -20,14 +20,14 @@
         <p>{{( evaluationNumber > 1 ? overallScore+" ("+evaluationNumber+" avaliações)" : "Sem avaliações suficientes." )}}</p>
       </ion-row>
       <p class="content-p">
-        {{( contract ? ("Possui contrato com duração de " + contract.duration) : "Atualmente sem contrato." )}}
+        {{( contract ? ("Possui contrato de " + getDateString(contract.beginDate) + " a " + getDateString(contract.endDate)) : "Atualmente sem contrato." )}}
       </p>
     </div>
 
     <div margin>
       <ion-label color="secondary" no-margin>CPF</ion-label>
       <!-- Format example: ***.***.*00-00 -->
-      <p class="content-p">{{tenant.document}}</p>
+      <p class="content-p">{{(tenant.document.length === 14 ? "***.***.*" + tenant.document.substr(9) : tenant.document)}}</p>
     </div>
 
     <div margin>

@@ -8,32 +8,15 @@ admin.initializeApp(functions.config().firestore);
 const firestoreDB = admin.firestore();
 
 function getStatusDescription(status) {
-    let statusDescription = "";
-
     switch (status) {
-        case "detached":
-            statusDescription = "Sem inquilino associado";
-            break;
-        case "rejected":
-            statusDescription = "Inquilino rejeitou o contrato";
-            break;
-        case "pending":
-            statusDescription = "Possui inquilino associado mas não confirmou contrato";
-            break;
-        case "confirmed":
-            statusDescription = "Possui inquilino associado e confirmado";
-            break;
-        case "ended":
-            statusDescription = "Prazo concluído";
-            break;
-        case "revoked":
-            statusDescription = "Contrato revogado";
-            break;
-        default:
-            statusDescription = "Sem status";
-            break;
+        case "detached": return "Sem inquilino associado";
+        case "rejected": return "Rejeitado pelo inquilino";
+        case "pending": return "Inquilino associado, mas não confirmado";
+        case "confirmed": return "Inquilino associado e confirmado";
+        case "ended": return "Prazo concluído";
+        case "revoked": return "Rescindido";
+        default: return "Sem status";
     }
-    return statusDescription;
 }
 
 
@@ -70,7 +53,9 @@ exports.createContractHistory = functions.firestore.document('Contract/{wildcard
         const dateTime = Number(new Date());
         let json = `{"${dateTime}":{
                     "title": "Novo contrato adicionado",
-                    "description": "Data inicio ${ (new Date(newValue.beginDate).toLocaleDateString('pt-BR', { timeZone: 'UTC' })) } - Data final ${(new Date(newValue.endDate).toLocaleDateString('pt-BR', { timeZone: 'UTC' }))} - ${getStatusDescription(newValue.status)}",
+                    "description": "Início: ${ (new Date(newValue.beginDate).toLocaleDateString('pt-BR', { timeZone: 'UTC' }))}\n
+                                    Fim: ${(new Date(newValue.endDate).toLocaleDateString('pt-BR', { timeZone: 'UTC' }))}\n\n
+                                    Status: ${getStatusDescription(newValue.status)}",
                     "datetime": ${dateTime},
                     "type": "Contract",
                     "action": null 
@@ -82,17 +67,17 @@ exports.createContractHistory = functions.firestore.document('Contract/{wildcard
         return historyCollectionRef.set(newData, { merge: true }).then(() => {
             if (newValue.tenantId) {
                 let notificationsCollectionRef2 = firestoreDB.collection('Notification').doc(newValue.tenantId);
-                
+
                 let json = `{"${dateTime}":{
                     "active": true,
                     "datetime": ${dateTime},
                     "type": "Contract",
-                    "action": { "id": "${context.params.wildcard}", "show": "contractConfirmation", "title": "Confirme os dados do contrato" }
+                    "action": { "id": "${context.params.wildcard}", "show": "contractConfirmation", "title": "Confirmar contrato" }
                 }}`;
                 newData = JSON.parse(json);
 
                 return notificationsCollectionRef2.set(newData, { merge: true }).then(() => {
-                    return console.log('Novo contrato adicionado ao histórico do dono e notificacao ao inquilino.', newValue.ownerId);
+                    return console.log('Novo contrato adicionado ao histórico do dono e notificação ao inquilino.', newValue.ownerId);
                 })
 
             } else {
@@ -110,11 +95,12 @@ exports.createContractHistoryUpdate = functions.firestore.document('Contract/{wi
         const newValue = change.after.data();
 
         if (previousValue.status !== newValue.status) {
-            
+
             const dateTime = Number(new Date());
             let json = `{"${dateTime}":{
-                        "title": "Status de contrato atualizado",
-                        "description": "Mudança de status, de ${getStatusDescription(previousValue.status)} para ${getStatusDescription(newValue.status)}",
+                        "title": "Contrato atualizado",
+                        "description": "Status anterior: ${getStatusDescription(previousValue.status)}\n\n
+                                        Novo status: ${getStatusDescription(newValue.status)}",
                         "datetime": ${dateTime},
                         "type": "Contract",
                         "action": null 
@@ -147,13 +133,13 @@ exports.createNewUserHistory = functions.auth.user().onCreate((user) => {
     const dateTime = Number(new Date());
     let json = `{"${dateTime}":{
                 "title": "Seja bem-vindo!",
-                "description": "Você se cadastrou no Inquilio App",
+                "description": "Você se cadastrou no Inquilio",
                 "datetime": ${dateTime},
                 "type": "User",
                 "action": null 
             }}`;
 
-    let newData = JSON.parse(json);            
+    let newData = JSON.parse(json);
 
     let historyCollectionRef = firestoreDB.collection('History').doc(user.uid);
 

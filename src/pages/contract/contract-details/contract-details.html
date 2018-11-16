@@ -63,12 +63,12 @@
           <ion-icon name="custom-edit"></ion-icon>Editar
         </button>
       </ion-row>
-      <ion-row [hidden]="!isContractActive()">
+      <!-- <ion-row [hidden]="!isContractActive()">
         <button class="main-button btn-light" ion-button large round color="light" strong (click)="deactivateContract()"
           icon-start>
           <ion-icon name="custom-remove-circle"></ion-icon>Inativar
         </button>
-      </ion-row>
+      </ion-row> -->
       <ion-row [hidden]="isContractActive()">
         <button class="main-button btn-danger" ion-button large round color="danger" strong (click)="removeContract()"
           icon-start>

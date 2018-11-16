@@ -34,7 +34,8 @@
 
     <div margin>
       <ion-label color="secondary" no-margin>Contrato</ion-label>
-      <p>{{ (contract ? contract.duration : "Sem contrato vinculado.") }}</p>
+      <p class="address-p">{{ (contract ? getDateString(contract.beginDate) + " a " + getDateString(contract.endDate) : "Sem contrato vinculado.") }}</p>
+      <p>{{ (contract ? contract.duration : "") }}</p>
     </div>
 
     <div margin>

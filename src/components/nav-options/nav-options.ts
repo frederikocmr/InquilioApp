@@ -97,13 +97,15 @@ export class NavOptionsComponent {
   }
 
 }
-// TODO: colocar tratamento para nenhuma notificação. Ps.: fiz aqui rápido de um jeito
+
 
 @Component({
   template: `
     <ion-list class="notification-list">
-      <ion-list-header class="text-color">Notificações</ion-list-header>	
-      <p class="text-color" *ngIf="!notificationsItems">Nenhuma notificação</p>
+      <ion-list-header class="text-color">Notificações</ion-list-header>
+      <ion-item [hidden]="notifications">
+        <h2 class="text-color">Sem notificações pendentes.</h2>
+      </ion-item>
       <ion-item *ngFor="let item of notifications" ion-item no-margin (click)="notificationAction(item)">
         <h2 class="text-color">{{item.action.title}}</h2>
         <p class="text-color">{{ item.datetime | date:"dd/MM/yyyy \'às\' HH:mm" }}</p>
@@ -144,10 +146,10 @@ export class NotificationsComponent {
             subscribe((data) => {
               this.realEstate = data;
               let message = '';
-              message += "Data de início: " + (new Date(this.contract.beginDate).toLocaleDateString('pt-BR', { timeZone: 'UTC' })) + "\n";
-              message += "Data de fim: " + (new Date(this.contract.endDate).toLocaleDateString('pt-BR', { timeZone: 'UTC' })) + "\n";
-              message += "Duração: " + this.contract.duration + "\n";
-              message += "Endereço do imóvel: " + this.realEstate.street + ", " + this.realEstate.district + ", " + this.realEstate.city + " - " + this.realEstate.state + "\n";
+              message += "Início: " + (new Date(this.contract.beginDate).toLocaleDateString('pt-BR', { timeZone: 'UTC' })) + "\n";
+              message += "Fim: " + (new Date(this.contract.endDate).toLocaleDateString('pt-BR', { timeZone: 'UTC' })) + "\n";
+              message += "Duração: " + this.contract.duration + "\n\n";
+              message += "Endereço do imóvel:\n" + this.realEstate.street + " - " + this.realEstate.district + "\n" + this.realEstate.city + " - " + this.realEstate.state;// + "\n";
               message = message.replace(/\n/g, "<br />");
 
               const alert = this.alertCtrl.create({
@@ -245,7 +247,7 @@ export class NotificationsComponent {
   template: `
 		<div class="list-options">
 			<ion-list>
-				<ion-list-header>Opções</ion-list-header>
+				<ion-list-header class="text-color">Opções</ion-list-header>
 				<button ion-item (click)="filterOptions()">Filtrar</button>		
 				<button ion-item (click)="orderOptions()">Ordenar</button>		
 			</ion-list>

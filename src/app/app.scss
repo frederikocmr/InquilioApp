@@ -17,6 +17,10 @@
 @import "../theme/icons";
 
 // Classes, attributes and pseudo-classes
+.alert-md .alert-message, .alert-ios .alert-message {
+  color: color($colors, dark);
+}
+
 .alert-radio-label {
   // Quebra a linha de uma opção dentro de um alert para exibir todo o seu conteúdo
   white-space: pre-line !important;

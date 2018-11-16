@@ -79,6 +79,27 @@ export class ContractPage {
     return new Date(date).toLocaleDateString('pt-BR', { timeZone: 'UTC' });
   }
 
+  // TODO: Buscar nome do imóvel para exibi-lo no card
+  // public getRealEstateNameById(id: string): string {
+  //   this.realEstates.forEach(realEstate => {
+  //     if (realEstate.id == id) {
+  //       return realEstate.name;
+  //     }
+  //   });
+  // }
+
+  public getStatusDescription(status): string {
+    switch (status) {
+      case "detached": return "Sem inquilino associado";
+      case "rejected": return "Rejeitado pelo inquilino";
+      case "pending": return "Inquilino associado, mas não confirmado";
+      case "confirmed": return "Inquilino associado e confirmado";
+      case "ended": return "Prazo concluído";
+      case "revoked": return "Rescindido";
+      default: return "Sem status";
+    }
+  }
+
   public newContract(): void {
     if (this.realEstatesExists) {
       let modal = this.modalCtrl.create(ContractFormPage);

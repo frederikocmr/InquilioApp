@@ -45,6 +45,10 @@ export class RealEstateDetailsPage {
       } 
     });
   }
+  
+  public getDateString(date): string {
+    return new Date(date).toLocaleDateString('pt-BR', { timeZone: 'UTC' });
+  }
 
   public getTenant(): void {
     this.afDb.doc<TenantAccount>('tenantAccount/'+ this.contract.tenantId).valueChanges().subscribe(

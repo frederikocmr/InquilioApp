@@ -14,11 +14,12 @@
     <ion-col *ngFor="let contract of contracts | async" col-12 col-sm-6 col-md-4 col-lg-3 no-padding>
       <ion-card color="primary700">
         <ion-card-content>
-          <h2>{{ (contract.realEstateId ? "Possui imóvel associado" : "Sem imóvel associado")}} - {{contract.status }}</h2>
-          <h3 padding-top>{{ (contract.tenantId ? "Possui inquilino associado." : "Sem inquilino associado.") }}</h3>
+          <h2 padding-bottom>{{ (contract.realEstateId ? "Possui imóvel associado" : "Sem imóvel associado")}}</h2>
+          <!-- <h3>{{ (contract.tenantId ? "Possui inquilino associado." : "Sem inquilino associado.") }}</h3> -->
           <p>{{ (contract.beginDate ? "Início em "+getDateString(contract.beginDate) : "Sem data de início.") }}</p>
           <p>{{ (contract.endDate ? "Válido até "+getDateString(contract.endDate) : "Sem data de encerramento.") }}</p>
-          <p>{{ (contract.duration ? "Duração de "+contract.duration : "Sem duração definida.") }}</p>
+          <p>{{ (contract.duration ? "Duração de "+contract.duration : "Duração não calculada.") }}</p>
+          <p>{{ getStatusDescription(contract.status) }}</p>
         </ion-card-content>
         <button ion-button clear color="secondary" (click)="viewDetails(contract)">
           VER DETALHES
