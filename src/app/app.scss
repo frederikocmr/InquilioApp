@@ -168,8 +168,16 @@
   }
 }
 
-.empty-state-active {
-  margin-top: 25vh;
+@media screen and (min-height: '480px'){
+  .empty-state-active {
+    margin-top: 20vh;
+  }
+}
+
+@media screen and (min-height: '550px'){
+  .empty-state-active {
+    margin-top: 25vh;
+  }
 }
 
 .empty-state-icon {
@@ -247,11 +255,13 @@ ion-loading.custom-loading {
   }
 }
 
-.my-footer {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
+@media screen and (min-height: '600px'){
+  .my-footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+  }
 }
 
 .picker-columns,
@@ -319,12 +329,7 @@ body {
   background: color($colors, dark);
 }
 
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
+h1, h2, h3, h4, h5, h6, p {
   color: color($colors, light) !important;
 }
 

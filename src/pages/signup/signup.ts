@@ -61,6 +61,9 @@ export class SignupPage {
   public ionViewDidEnter() {
     window.addEventListener('keyboardWillShow', this.showListener);
     window.addEventListener('keyboardDidHide', this.hideListener);
+  }
+
+  public ionViewDidLoad(): void {
     if (window.innerHeight > 560) {
       document.getElementById('footer').classList.add('my-footer');
     } else {
