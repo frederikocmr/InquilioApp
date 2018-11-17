@@ -40,13 +40,27 @@
   color: color($colors, light);
 }
 
+.bar-button-default-md:hover:not(.disable-hover), .bar-button-clear-md-default:hover:not(.disable-hover), .bar-button-md-default:hover:not(.disable-hover) {
+  color: color($colors, primary100);
+}
+
 .bg-owner-page {
   background: color($colors, primary400);
+  background-image: linear-gradient(
+    to bottom right,
+    color($colors, primary300) 0%,
+    color($colors, primary400) 100%
+  );
   height: 100%;
 }
 
 .bg-tenant-page {
   background: color($colors, primary50);
+  background-image: linear-gradient(
+    to bottom right,
+    color($colors, light) 0%,
+    color($colors, primary100) 100%
+  );
   height: 100%;
 }
 
@@ -72,8 +86,24 @@
   color: color($colors, dark);
   background-image: linear-gradient(
     to right,
-    color($colors, secondaryAlt) 0%,
-    color($colors, secondary) 100%
+    color($colors, secondary) 0%,
+    color($colors, secondaryAlt) 100%
+  );
+}
+
+.card-md-primary700, .card-ios-primary700 {
+  background-image: linear-gradient(
+    to bottom right,
+    color($colors, primary400) 0%,
+    color($colors, primary700) 100%
+  );
+}
+
+.chip-md-primary, .chip-ios-primary {
+  background-image: linear-gradient(
+    to top right, 
+    #37425a 0%, 
+    #14213d 100%
   );
 }
 
@@ -115,19 +145,6 @@
     font-size: 1.5rem;
     margin-top: 1rem;
   }
-}
-
-.item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner, 
-.item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
-  border-bottom-color: color($colors, granted);
-  -webkit-box-shadow: inset 0 0px 0 0 color($colors, granted);
-  box-shadow: inset 0 0px 0 0 color($colors, granted);
-}
-
-.item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
-  border-bottom-color: color($colors, danger);
-  -webkit-box-shadow: inset 0 0px 0 0 color($colors, danger);
-  box-shadow: inset 0 0px 0 0 color($colors, danger);
 }
 
 .custom-form-tenant {
@@ -209,6 +226,11 @@ ion-app.ios, ion-app.md, .modal-wrapper {
 
 .intro-background {
   background: color($colors, primary);
+  background-image: linear-gradient(
+    to bottom right,
+    color($colors, primary400) 0%,
+    color($colors, primary) 100%
+  );
   // background: radial-gradient(circle farthest-corner at center center, color($colors, primary) 0%, color($colors, primary400) 100%);
   height: 100%;
 
@@ -223,6 +245,19 @@ ion-loading.custom-loading {
   .loading-wrapper {
     border-radius: 1rem !important;
   }
+}
+
+.item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner, 
+.item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+  border-bottom-color: color($colors, granted);
+  -webkit-box-shadow: inset 0 0px 0 0 color($colors, granted);
+  box-shadow: inset 0 0px 0 0 color($colors, granted);
+}
+
+.item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+  border-bottom-color: color($colors, danger);
+  -webkit-box-shadow: inset 0 0px 0 0 color($colors, danger);
+  box-shadow: inset 0 0px 0 0 color($colors, danger);
 }
 
 .keyboard-is-open .tabbar {
@@ -328,9 +363,36 @@ ion-loading.custom-loading {
   color: color($colors, secondary) !important;
 }
 
+.tabs-ios-primary, .tabs-md-primary { 
+  .tabbar {
+    background-image: linear-gradient(
+      to right,
+      color($colors, primary) 0%,
+      color($colors, primary400) 200%
+    );
+  }
+}
+
+[tabsPlacement=top] > .tabbar {
+  background-image: linear-gradient(
+    to right,
+    color($colors, primary) 0%,
+    color($colors, primary400) 150%
+  );
+}
+
+.toolbar-ios-primary .toolbar-background-ios, 
+.toolbar-md-primary .toolbar-background-md {
+  background-image: linear-gradient(
+    to right,
+    color($colors, primary) 0%,
+    color($colors, primary400) 150%
+  );
+}
+
 // Elements and pseudo-elements
 body {
-  background: color($colors, dark);
+  background: color($colors, primary);
 }
 
 h1, h2, h3, h4, h5, h6, p {
