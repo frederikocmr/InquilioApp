@@ -73,7 +73,7 @@
   );
 }
 
-btn-granted, .chip-md-granted, .chip-ios-granted {
+.btn-granted, .chip-md-granted, .chip-ios-granted {
   color: color($colors, light);
   background-image: linear-gradient(
     to right,
@@ -91,7 +91,7 @@ btn-granted, .chip-md-granted, .chip-ios-granted {
   );
 }
 
-btn-primary, .chip-md-primary, .chip-ios-primary {
+.btn-primary, .chip-md-primary, .chip-ios-primary {
   background-image: linear-gradient(
     to top right, 
     color($colors, primary400) 0%, 
