@@ -32,7 +32,7 @@
         <ion-icon class="evaluation-star" color="secondary" (click)="getStarName(star.value)" [name]="star.name" *ngFor="let star of stars"></ion-icon>
       </div>
 
-      <div [hidden]="overallScore < 1 || overallScore > 5" margin-top>
+      <div [hidden]="score.overallScore < 1 || score.overallScore > 5" margin-top>
         <h5>{{scoreQuestion}}</h5>
         <ion-note>Selecione quantas opções quiser.</ion-note>
         <ion-list>
@@ -47,7 +47,7 @@
 
       <ion-item>
         <ion-label floating>Deixe um comentário. (Opcional)</ion-label>
-        <ion-textarea [(ngModel)]="comment"></ion-textarea>
+        <ion-textarea [(ngModel)]="score.observation"></ion-textarea>
       </ion-item>
 
       <p></p>
@@ -55,7 +55,7 @@
     <ion-note margin text-justify>Sua avaliação ficará anonimamente disponível para outros locadores e ela é muito
       importante para termos uma base cada vez mais confiável.</ion-note>
 
-    <button class="main-button btn-secondary" ion-button large round color="secondary" strong [disabled]="overallScore < 1 || overallScore > 5" margin-top (click)="saveEvaluation()" icon-start>
+    <button class="main-button btn-secondary" ion-button large round color="secondary" strong [disabled]="score.overallScore < 1 || score.overallScore > 5" margin-top (click)="saveEvaluation()" icon-start>
       <ion-icon name="custom-save"></ion-icon>Salvar
     </button>
   </ion-list>

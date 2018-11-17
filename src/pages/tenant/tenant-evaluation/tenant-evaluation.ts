@@ -1,26 +1,21 @@
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { UiProvider } from '../../../providers';
+import { UiProvider, FirebaseProvider } from '../../../providers';
 import { RealEstate } from './../../../models/real-estate';
 import { TenantAccount } from '../../../models/tenant-account';
 import { Contract } from '../../../models/contract';
+import { Score } from '../../../models/score';
 
 @Component({
   selector: 'page-tenant-evaluation',
   templateUrl: 'tenant-evaluation.html',
 })
 export class TenantEvaluationPage {
-  public comment: string;
   public tenant: TenantAccount;
   public realEstate: RealEstate;
   public contract: Contract;
-  // public evaluationForm: FormGroup;
-  public overallScore: number = 0;
-  public paymentScore: number = 0;
-  public contractScore: number = 0;
-  public carefulScore: number = 0;
-  public discretionScore: number = 0;
+  public score: Score = new Score();
   public scoreItems;
   public scoreQuestion;
   public scoreItemsValue;
@@ -36,6 +31,7 @@ export class TenantEvaluationPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public ui: UiProvider,
+    public fb: FirebaseProvider,
     private afDb: AngularFirestore,
     private alertCtrl: AlertController) {
     
@@ -133,7 +129,7 @@ export class TenantEvaluationPage {
       }
     });
 
-    this.overallScore = value;
+    this.score.overallScore = value;
     this.getScoreItems(value);
 
     let evaluateDiv = window.document.getElementById("evaluate");
@@ -143,30 +139,19 @@ export class TenantEvaluationPage {
   public getScoreCalc():void {
     // this.overallScore += (this.tenant.overallScore ? this.tenant.overallScore : 0 );
     
-    this.paymentScore = (this.scoreItems[0].checked ? this.overallScore : null);
-    this.contractScore = (this.scoreItems[1].checked ? this.overallScore : null);
-    this.carefulScore = (this.scoreItems[2].checked ? this.overallScore : null);
-    this.discretionScore = (this.scoreItems[3].checked ? this.overallScore : null);
+    this.score.paymentScore = (this.scoreItems[0].checked ? this.score.overallScore : null);
+    this.score.contractScore = (this.scoreItems[1].checked ? this.score.overallScore : null);
+    this.score.carefulScore = (this.scoreItems[2].checked ? this.score.overallScore : null);
+    this.score.discretionScore = (this.scoreItems[3].checked ? this.score.overallScore : null);
   }
 
   public saveEvaluation(): void { 
     this.getScoreCalc();
 
-    console.log("Tenant", this.tenant);
-    console.log("Stars Selected", this.overallScore);
-    console.log("Items", this.scoreItems);
-    console.log("\nScores");
-    console.log("Payment", this.paymentScore);
-    console.log("Contract", this.contractScore);
-    console.log("Careful", this.carefulScore);
-    console.log("Discretion", this.discretionScore);
-    console.log("\nComment", this.comment);
+    this.score.contractId = this.contract.id;
+    this.score.tenantId = this.contract.tenantId;
 
-
-    this.tenant.overallScore = this.overallScore; 
-    this.tenant.paymentScore = null;
-    this.tenant.carefulScore = null;
-    this.tenant.discretionScore = null;
-    //this.tenant.contracts.push(this.contract.id);
+    // TODO: salvar no banco o Score. Na hora de recuperar, percorrer os resultados e pegar a média de cada item...
+    this.fb.insertDataToCollection('Score', this.score);
   }
 }

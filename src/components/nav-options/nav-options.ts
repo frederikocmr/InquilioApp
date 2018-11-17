@@ -7,6 +7,7 @@ import { Notification } from "../../models/notification";
 import { Contract } from '../../models/contract';
 import { RealEstate } from '../../models/real-estate';
 import { TenantEvaluationPage } from '../../pages/tenant/tenant-evaluation/tenant-evaluation';
+import { map } from 'rxjs/internal/operators/map';
 
 @Component({
   selector: 'nav-options-component',
@@ -194,8 +195,20 @@ export class NotificationsComponent {
         'Contract',
         ref => ref.where('tenantId', '==', this.tenant.id)
         .where("active", "==", true)
-      ).valueChanges().subscribe(data => {
-        if(data.length > 0 ){
+        .where("status", "==", "confirmed")
+        .where("ownerId", "==", this.fb.user.uid)
+      ).snapshotChanges()
+      .pipe(
+        map(actions =>
+          actions.map(a => {
+            const data = a.payload.doc.data() as Contract;
+            const id = a.payload.doc.id;
+            data.id = id;
+            return { id, ...data };
+          })
+        )
+      ).subscribe(data => {
+        if(data){
           this.contract = data[0] as Contract;
         } 
         this.ui.closeLoading();
