@@ -64,7 +64,7 @@
   height: 100%;
 }
 
-.btn-danger {
+.btn-danger, .chip-md-danger, .chip-ios-danger {
   color: color($colors, light);
   background-image: linear-gradient(
     to right,
@@ -73,7 +73,16 @@
   );
 }
 
-.btn-light {
+btn-granted, .chip-md-granted, .chip-ios-granted {
+  color: color($colors, light);
+  background-image: linear-gradient(
+    to right,
+    color($colors, granted) 0%,
+    color($colors, grantedAlt) 100%
+  );
+}
+
+.btn-light, .chip-md-light, .chip-ios-light {
   color: color($colors, dark);
   background-image: linear-gradient(
     to right,
@@ -82,7 +91,15 @@
   );
 }
 
-.btn-secondary {
+btn-primary, .chip-md-primary, .chip-ios-primary {
+  background-image: linear-gradient(
+    to top right, 
+    color($colors, primary400) 0%, 
+    color($colors, primary) 100%
+  );
+}
+
+.btn-secondary, .chip-md-secondary, .chip-ios-secondary {
   color: color($colors, dark);
   background-image: linear-gradient(
     to right,
@@ -96,14 +113,6 @@
     to bottom right,
     color($colors, primary400) 0%,
     color($colors, primary700) 100%
-  );
-}
-
-.chip-md-primary, .chip-ios-primary {
-  background-image: linear-gradient(
-    to top right, 
-    #37425a 0%, 
-    #14213d 100%
   );
 }
 

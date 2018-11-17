@@ -21,33 +21,33 @@
 
     <div margin *ngIf="userType === 'owner'">
       <ion-label [color]="itemColor" no-margin>Inquilino</ion-label>
-      <p [class]="textClass">{{ (currentTenant ? currentTenant.name : 'Sem inquilino associado.') }}</p>
+      <p [class]="textClass">{{ (currentTenant ? currentTenant.name : 'Sem inquilino associado') }}</p>
     </div>
 
     <div margin *ngIf="userType === 'tenant'">
       <ion-label [color]="itemColor" no-margin>Proprietário</ion-label>
-      <p [class]="textClass">{{ (currentOwner ? currentOwner.name : 'Nome do dono do imóvel.') }}</p>
+      <p [class]="textClass">{{ (currentOwner ? currentOwner.name : 'Nome do dono do imóvel') }}</p>
     </div>
 
     <div margin>
       <ion-label [color]="itemColor" no-margin>Data de Início</ion-label>
-      <p [class]="textClass">{{ (contract.beginDate ? "Início em "+getDateString(contract.beginDate) : "Sem data de início.") }}</p>
+      <p [class]="textClass">{{ (contract.beginDate ? "Início em "+getDateString(contract.beginDate) : "Sem data de início") }}</p>
     </div>
 
     <div margin>
       <ion-label [color]="itemColor" no-margin>Data de Encerramento </ion-label>
-      <p [class]="textClass">{{ (contract.endDate ? "Válido até "+getDateString(contract.endDate) : "Sem data de encerramento.") }}</p>
+      <p [class]="textClass">{{ (contract.endDate ? "Válido até "+getDateString(contract.endDate) : "Sem data de encerramento") }}</p>
     </div>
 
     <div margin>
       <ion-label [color]="itemColor" no-margin>Duração</ion-label>
-      <p [class]="textClass">{{ (contract.duration ? contract.duration : "Sem duração definida.") }}</p>
+      <p [class]="textClass">{{ (contract.duration ? contract.duration : "Sem duração definida") }}</p>
     </div>
 
     
     <div margin>
       <ion-label [color]="itemColor" no-margin>Status</ion-label>
-      <p [class]="textClass">{{ (contract.status ? getStatusDescription(contract.status) : "Sem status.") }}</p>
+      <p [class]="textClass">{{ (contract.status ? getStatusDescription(contract.status) : "Sem status") }}</p>
     </div>
 
     <div margin-top *ngIf="userType === 'owner'">

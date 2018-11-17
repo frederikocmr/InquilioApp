@@ -13,14 +13,13 @@
 <ion-content class="bg-owner-page">
   <ion-list>
     <div margin>
-      <!-- <h2>{{ tenant.name }}</h2> -->
       <h2>{{tenant.name}}</h2>
       <ion-row justify-content-start>
         <ion-icon class="evaluation-star" color="secondary" name="custom-star-full"></ion-icon>
-        <p>{{( evaluationNumber > 1 ? overallScore+" ("+evaluationNumber+" avaliações)" : "Sem avaliações suficientes." )}}</p>
+        <p>{{( evaluationNumber > 1 ? overallScore+" ("+evaluationNumber+" avaliações)" : " Sem avaliações suficientes" )}}</p>
       </ion-row>
       <p class="content-p">
-        {{( contract ? ("Possui contrato de " + getDateString(contract.beginDate) + " a " + getDateString(contract.endDate)) : "Atualmente sem contrato." )}}
+        {{( contract ? ("Possui contrato de " + getDateString(contract.beginDate) + " a " + getDateString(contract.endDate)) : "Atualmente sem contrato" )}}
       </p>
     </div>
 
@@ -55,7 +54,7 @@
           <ion-icon name="custom-group-add"></ion-icon>Vincular
         </button>
       </ion-row> -->
-      <ion-row *ngIf="!isEvaluationTime">
+      <ion-row *ngIf="isEvaluationTime">
         <button class="main-button btn-secondary" ion-button large round color="secondary" strong (click)="evaluateTenant()"
           icon-start>
           <ion-icon name="custom-user-ok"></ion-icon>Avaliar

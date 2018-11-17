@@ -12,18 +12,21 @@
 
   <ion-row [hidden]="!realEstatesExists" justify-content-center>
     <ion-col *ngFor="let realEstate of realEstates | async" col-12 col-sm-6 col-md-4 no-padding>
-      <ion-card color="primary700">
+      <ion-card color="primary700" (click)="viewDetails(realEstate)">
         <div class="image" [style.background-image]="'url(' + realEstate.imgLink + ')'"></div>
-        <ion-item>
-          <h2>{{realEstate.name}}</h2>
-          <p>{{realEstate.contractId ? "Contrato até 00/00/0000" : "Sem Contrato"}}</p>
-        </ion-item>
         <ion-card-content>
+          <div margin-bottom>
+            <h2>{{realEstate.name}}</h2>
+            <!-- <p>{{realEstate.contractId ? "Contrato até 00/00/0000" : "Sem Contrato"}}</p> -->
+            <ion-chip [color]="realEstate.contractId ? 'secondary' : 'granted'">
+              <ion-label>{{ (realEstate.contractId ? "Alugado" : "Disponível") }}</ion-label>
+            </ion-chip>
+          </div>
           <ion-label color="primary100" no-margin>Endereço</ion-label>
           <p>{{ realEstate.street }} - {{ realEstate.district }}</p>
           <p>{{ realEstate.city }} - {{ realEstate.state }}</p>
         </ion-card-content>
-        <button ion-button clear color="secondary" (click)="viewDetails(realEstate)">VER DETALHES
+        <button ion-button clear color="secondary">VER DETALHES
         </button>
       </ion-card>
     </ion-col>

@@ -14,8 +14,8 @@
         <h2>{{tenant.name}}</h2>
         <ion-row justify-content-start>
           <ion-icon class="evaluation-star" color="secondary" name="custom-star-full"></ion-icon>
-          <p>{{( evaluationNumber > 1 ? overallScore+" ("+evaluationNumber+" avaliações)" : "Sem avaliações
-            suficientes." )}}</p>
+          <p>{{( evaluationNumber > 1 ? overallScore+" ("+evaluationNumber+" avaliações)" : " Sem avaliações
+            suficientes" )}}</p>
         </ion-row>
         <button ion-button clear color="secondary" item-end>OPÇÕES</button>
       </ion-item>
@@ -32,30 +32,18 @@
 
     <ion-row [hidden]="!tenantsExists" justify-content-center>
       <ion-col *ngFor="let tenant of tenants | async" col-12 col-sm-6 col-md-4 col-lg-3 no-padding>
-        <ion-card color="primary700">
+        <ion-card color="primary700" (click)="viewDetails(tenant)">
           <ion-card-content>
             <h2>{{ tenant.name }}</h2>
-            <div padding-bottom>
-              <h3 *ngIf="!tenant.overallScore">Inquilino sem avaliação.</h3>
-              <div *ngIf="tenant.overallScore">
-                <!-- TODO: Criar exibição da média do inquilino -->
-                <!-- <p>
-              <ion-icon *ngFor="let item of scores" [name]="item.starName" color="secondary"></ion-icon>
-              {{ tenant.overallScore }} ({{ tenant.scoresTotal }} avaliações)
-            </p> -->
-              </div>
-            </div>
-            <p>{{ (tenant.phone ? tenant.phone : "Nenhum telefone encontrado.") }}</p>
-            <p>{{ (tenant.email ? tenant.email : "Nenhum email encontrado.") }}</p>
-            <!-- <div *ngIf="realEstate">
-          <ion-label color="secondary" no-margin padding-top>Imóvel</ion-label>
-          <p>{{ realEstate }}</p>
-        </div> -->
-            <!-- <div *ngIf="!realEstate">
-          <p>Sem imóvel vinculado.</p>
-        </div> -->
+            <ion-row justify-content-start padding-bottom>
+              <ion-icon class="evaluation-star" color="secondary" name="custom-star-full"></ion-icon>
+              <p>{{( evaluationNumber > 1 ? overallScore+" ("+evaluationNumber+" avaliações)" : " Sem avaliações
+                suficientes" )}}</p>
+            </ion-row>
+            <p>{{ (tenant.phone ? tenant.phone : "Nenhum telefone encontrado") }}</p>
+            <p>{{ (tenant.email ? tenant.email : "Nenhum email encontrado") }}</p>            
           </ion-card-content>
-          <button ion-button clear color="secondary" (click)="viewDetails(tenant)">
+          <button ion-button clear color="secondary">
             VER DETALHES
           </button>
         </ion-card>
