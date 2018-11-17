@@ -1,65 +1,62 @@
 <ion-header>
-
   <ion-navbar color="primary">
     <ion-buttons left>
-      <button  ion-button icon-only style="margin: 0 6px; min-width: 36px;" (click)="onClose()">
-        <ion-icon color="light" name="close" ></ion-icon>
+      <button ion-button icon-only style="margin: 0 6px; min-width: 36px;" (click)="onClose()">
+        <ion-icon color="light" name="close"></ion-icon>
       </button>
     </ion-buttons>
     <ion-title>Avaliar Inquilino</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
 <ion-content class="bg-owner-page">
-  <form [formGroup]="evaluationForm">
-    <ion-list class="custom-form" text-center>
-      <div margin>
-        <h2>{{ (tenant ? tenant.name : "Nome do Inquilino") }}</h2>
-        <p class="tenant-details-p">Imóvel: {{(realEstate ? realEstate.name : "Título do Imóvel")}}</p>
-        <p class="tenant-details-p">Contrato de {{(contract ? getDateString(contract.beginDate) + " a " + getDateString(contract.endDate) : " duração inválida")}}</p>
+  <ion-list class="custom-form" text-center>
+    <div margin>
+      <ion-icon class="account-icon" color="secondary" name="custom-account-circle" [hidden]="tenant.photoURL"></ion-icon>
+      <img class="logo" [hidden]="!tenant.photoURL" padding [src]="tenant.photoURL ? tenant.photoURL : '../../assets/imgs/user-y500.png'" />
+      <h2>{{ (tenant ? tenant.name : "Nome do Inquilino") }}</h2>
+      <p class="tenant-details-p">Imóvel: {{(realEstate ? realEstate.name : "Título do Imóvel")}}</p>
+      <p class="tenant-details-p">Contrato de {{(contract ? getDateString(contract.beginDate) + " a " +
+        getDateString(contract.endDate) : " duração inválida")}}</p>
+    </div>
+
+    <div class="div-hr" id="evaluate">
+      <hr>
+    </div>
+
+    <div margin>
+      <h4>Avalie o inquilino durante o aluguel.</h4>
+      <ion-note>Toque nas estrelas para classificar de 1 a 5.</ion-note>
+      <div text-center>
+        <ion-icon class="evaluation-star" color="secondary" (click)="getStarName(star.value)" [name]="star.name" *ngFor="let star of stars"></ion-icon>
       </div>
 
-      <div class="div-hr">
-        <hr>
+      <div [hidden]="overallScore < 1 || overallScore > 5" margin-top>
+        <h5>{{scoreQuestion}}</h5>
+        <ion-note>Selecione quantas opções quiser.</ion-note>
+        <ion-list>
+          <ion-item *ngFor="let item of scoreItems">
+            <ion-label>{{item.text}}</ion-label>
+            <ion-checkbox color="secondary" [checked]="item.checked" (ionChange)="item.checked = !item.checked"></ion-checkbox>
+          </ion-item>
+        </ion-list>
       </div>
 
-      <div margin>
-        <h4>Avalie o inquilino durante o aluguel.</h4>
-        <ion-note>Toque nas estrelas para classificar de 1 a 5.</ion-note>
-        <div text-center>
-          <ion-icon class="evaluation-star" color="secondary" (click)="getStarName(star.value)" [name]="star.name"
-            *ngFor="let star of stars"></ion-icon>
-        </div>
+      <hr>
 
-        <div *ngIf="overallScore > 0 && overallScore < 6" margin-top>
-          <h5>{{scoreQuestion}}</h5>
-          <ion-note>Selecione quantas opções quiser.</ion-note>
-          <ion-list>
-            <ion-item *ngFor="let item of scoreItems; let i = index">
-              <ion-label>{{item}}</ion-label>
-              <ion-checkbox [formControlName]='"score"+i' color="secondary" checked="false"></ion-checkbox>
-            </ion-item>
-          </ion-list>
-        </div>
+      <ion-item>
+        <ion-label floating>Deixe um comentário. (Opcional)</ion-label>
+        <ion-textarea [(ngModel)]="comment"></ion-textarea>
+      </ion-item>
 
-        <hr>
+      <p></p>
+    </div>
+    <ion-note margin text-justify>Sua avaliação ficará anonimamente disponível para outros locadores e ela é muito
+      importante para termos uma base cada vez mais confiável.</ion-note>
 
-        <ion-item>
-          <ion-label floating>Deixe um comentário. (Opcional)</ion-label>
-          <ion-textarea></ion-textarea>
-        </ion-item>
-
-        <p></p>
-      </div>
-      <ion-note margin text-justify>Sua avaliação ficará anonimamente disponível para outros locadores e ela é muito
-        importante para termos uma base cada vez mais confiável.</ion-note>
-
-      <button class="main-button btn-secondary" ion-button large round color="secondary" strong margin-top [disabled]="!evaluationForm.valid"
-        (click)="saveEvaluation()" icon-start>
-        <ion-icon name="custom-save"></ion-icon>Salvar
-      </button>
-    </ion-list>
-  </form>
+    <button class="main-button btn-secondary" ion-button large round color="secondary" strong [disabled]="overallScore < 1 || overallScore > 5" margin-top (click)="saveEvaluation()" icon-start>
+      <ion-icon name="custom-save"></ion-icon>Salvar
+    </button>
+  </ion-list>
 </ion-content>

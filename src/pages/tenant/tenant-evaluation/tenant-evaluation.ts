@@ -1,5 +1,4 @@
 import { NavController, NavParams, AlertController } from 'ionic-angular';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { UiProvider } from '../../../providers';
@@ -12,11 +11,16 @@ import { Contract } from '../../../models/contract';
   templateUrl: 'tenant-evaluation.html',
 })
 export class TenantEvaluationPage {
+  public comment: string;
   public tenant: TenantAccount;
   public realEstate: RealEstate;
   public contract: Contract;
-  public evaluationForm: FormGroup;
+  // public evaluationForm: FormGroup;
   public overallScore: number = 0;
+  public paymentScore: number = 0;
+  public contractScore: number = 0;
+  public carefulScore: number = 0;
+  public discretionScore: number = 0;
   public scoreItems;
   public scoreQuestion;
   public scoreItemsValue;
@@ -29,35 +33,30 @@ export class TenantEvaluationPage {
   ];
 
   constructor(
-    public formBuilder: FormBuilder,
     public navCtrl: NavController,
     public navParams: NavParams,
     public ui: UiProvider,
     private afDb: AngularFirestore,
     private alertCtrl: AlertController) {
-      // TODO = Arrumar erro que está dando. Isso foi feito aqui por que preciso pegar quais deles está marcado...
-    this.evaluationForm = this.formBuilder.group({
-      score1: [''],
-      score2: [''],
-      score3: [''],
-      score4: ['']
-    });
+    
     if (navParams.get('tenantObj')) {
       this.tenant = navParams.get('tenantObj');
     }
+
     if(navParams.get('contractObj')){
       this.contract = navParams.get('contractObj');
       this.getRealEstate();
     }
+
   }
 
   public onClose(): void {
     const alert = this.alertCtrl.create({
-      title: "Você tem certeza de que deseja sair?",
-      message: "Se fizer isto agora, perderá a chance de avaliar desta vez.",
+      title: "Tem certeza?",
+      message: "Ao sair você perderá esta chance de avaliar seu inquilino.",
       buttons: [
-        { text: "Recusar", role: 'cancel' },
-        { text: "Confirmar", handler: () => {  this.navCtrl.pop(); } }
+        { text: "Cancelar", role: 'cancel' },
+        { text: "Sair", handler: () => {  this.navCtrl.pop(); } }
       ]
     });
     alert.present();
@@ -79,46 +78,46 @@ export class TenantEvaluationPage {
     switch (score) {
       case 1:
         this.scoreItems = [
-          "Nunca pagou em dia",
-          "Não cumpriu integralmente as normas do contrato",
-          "Não conservou o imóvel",
-          "Péssimo relacionamento com os vizinhos"
+          {checked: false, text: "Nunca pagou em dia"},
+          {checked: false, text: "Não cumpriu integralmente as normas do contrato"},
+          {checked: false, text: "Não conservou o imóvel"},
+          {checked: false, text: "Péssimo relacionamento com os vizinhos"}
         ];
         this.scoreQuestion = "Nossa, o que aconteceu?";
         break;
       case 2:
         this.scoreItems = [
-          "Atrasou o pagamento (algumas vezes)",
-          "Não cumpriu parte das normas do contrato",
-          "Não se preocupou em conservar o imóvel",
-          "Relacionamento instável com os vizinhos"
+          {checked: false, text: "Atrasou o pagamento (algumas vezes)"},
+          {checked: false, text: "Não cumpriu parte das normas do contrato"},
+          {checked: false, text: "Não se preocupou em conservar o imóvel"},
+          {checked: false, text: "Relacionamento instável com os vizinhos"}
         ];
         this.scoreQuestion = "Ué, qual foi o problema?";
         break;
       case 3:
         this.scoreItems = [
-          "Não atrasar o pagamento",
-          "Se atentar as normas do contrato",
-          "Conservar o imóvel",
-          "Relacionamento com os vizinhos"
+          {checked: false, text: "Não atrasar o pagamento"},
+          {checked: false, text: "Se atentar as normas do contrato"},
+          {checked: false, text: "Conservar o imóvel"},
+          {checked: false, text: "Relacionamento com os vizinhos"}
         ];
         this.scoreQuestion = "O que poderia ser melhor?";
         break;
       case 4:
         this.scoreItems = [
-          "Pagou em dia",
-          "Cumpriu o contrato",
-          "Conservou bem o imóvel",
-          "Bom relacionamento com os vizinhos"
+          {checked: false, text: "Pagou em dia"},
+          {checked: false, text: "Cumpriu o contrato"},
+          {checked: false, text: "Conservou bem o imóvel"},
+          {checked: false, text: "Bom relacionamento com os vizinhos"}
         ];
         this.scoreQuestion = "O que foi bom?";
         break;
       case 5:
         this.scoreItems = [
-          "Pagou sempre em dia ou antecipadamente",
-          "Cumpriu integralmente o contrato",
-          "Se preocupou em manter a conservação do imóvel",
-          "Excelente relacionamento com os vizinhos"
+          {checked: false, text: "Pagou sempre em dia ou antecipadamente"},
+          {checked: false, text: "Cumpriu integralmente o contrato"},
+          {checked: false, text: "Se preocupou em manter a conservação do imóvel"},
+          {checked: false, text: "Excelente relacionamento com os vizinhos"}
         ];
         this.scoreQuestion = "Perfeito, gostaria de destacar algo?";
         break;
@@ -136,17 +135,32 @@ export class TenantEvaluationPage {
 
     this.overallScore = value;
     this.getScoreItems(value);
+
+    let evaluateDiv = window.document.getElementById("evaluate");
+    evaluateDiv.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});    
   }
 
   public getScoreCalc():void {
-    this.overallScore += (this.tenant.overallScore ? this.tenant.overallScore : 0 );
+    // this.overallScore += (this.tenant.overallScore ? this.tenant.overallScore : 0 );
+    
+    this.paymentScore = (this.scoreItems[0].checked ? this.overallScore : null);
+    this.contractScore = (this.scoreItems[1].checked ? this.overallScore : null);
+    this.carefulScore = (this.scoreItems[2].checked ? this.overallScore : null);
+    this.discretionScore = (this.scoreItems[3].checked ? this.overallScore : null);
   }
 
   public saveEvaluation(): void { 
     this.getScoreCalc();
-    console.log(this.evaluationForm);
-    console.log(this.scoreItems);
-    console.log(this.overallScore);
+
+    console.log("Tenant", this.tenant);
+    console.log("Stars Selected", this.overallScore);
+    console.log("Items", this.scoreItems);
+    console.log("\nScores");
+    console.log("Payment", this.paymentScore);
+    console.log("Contract", this.contractScore);
+    console.log("Careful", this.carefulScore);
+    console.log("Discretion", this.discretionScore);
+    console.log("\nComment", this.comment);
 
 
     this.tenant.overallScore = this.overallScore; 
