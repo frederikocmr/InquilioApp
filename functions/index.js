@@ -146,4 +146,49 @@ exports.createNewUserHistory = functions.auth.user().onCreate((user) => {
     return historyCollectionRef.set(newData, { merge: true }).then(() => {
         return console.log('Novo usuário cadastrado.', user.uid)
     });
-});    
+});
+
+// https://cron-job.org - Scheduled execution
+exports.checkContractsForEvaluation = functions.https.onRequest((req, res) => {
+    // Gera notificação
+    // 1 - consulta contratos que possuem inquilinos e estão ativos (e data inicial >= hoje && data final <= hoje, deixar esta por ultimo)
+    // 2 - gera notificação para os donos que estão vinculados nestes contratos
+    // 3 - o corpo da notificação deve conter um redirect para a tenant evaluation passando o id do tenant.
+
+    var contractsRef = firestoreDB.collection('Contract');
+    var query = contractsRef
+        .where('tenantId', '>', '')
+        .where('status', '==', 'confirmed')
+        .where('active', '==', true).get()
+            .then(snapshot => {
+                const dateTime = Number(new Date());
+                snapshot.forEach(doc => {
+                    console.log(doc.id, '=>', doc.data());
+
+                    let notificationsCollectionRef2 = firestoreDB.collection('Notification').doc(doc.data().ownerId);
+
+                    let json = `{"${dateTime}":{
+                        "active": true,
+                        "datetime": ${dateTime},
+                        "type": "EvaluationPending",
+                        "action": { "id": "${doc.data().tenantId}", "show": "tenantEvaluation", "title": "Avaliar Inquilino" }
+                    }}`;
+                    newData = JSON.parse(json);
+
+                    notificationsCollectionRef2.set(newData, { merge: true }).then(() => {
+                        return console.log('Nova notificação inserida ao inquilino.', doc.data().ownerId);
+                    }).catch(err => {
+                        console.log('Error inserindo notificacao', err);
+                        throw new Error("Error inserindo notificacao");
+                    });
+                });
+                res.redirect(200);
+                return true;
+            })
+            .catch(err => {
+                console.log('Error buscando contrato', err);
+                throw new Error("Error buscando contrato");
+            });
+  
+    
+  });
