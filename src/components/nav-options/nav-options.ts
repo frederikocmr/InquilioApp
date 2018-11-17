@@ -1,10 +1,12 @@
+import { TenantAccount } from './../../models/tenant-account';
 import { Component } from '@angular/core';
-import { ActionSheetController, AlertController, NavParams, PopoverController, ViewController } from 'ionic-angular';
+import { ActionSheetController, AlertController, NavParams, PopoverController, ViewController, ModalController } from 'ionic-angular';
 import { FirebaseProvider, UiProvider } from '../../providers';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Notification } from "../../models/notification";
 import { Contract } from '../../models/contract';
 import { RealEstate } from '../../models/real-estate';
+import { TenantEvaluationPage } from '../../pages/tenant/tenant-evaluation/tenant-evaluation';
 
 @Component({
   selector: 'nav-options-component',
@@ -119,10 +121,12 @@ export class NotificationsComponent {
   public notifications: Notification[];
   public notification: Notification;
   private contract: Contract;
+  private tenant: TenantAccount;
   public realEstate: RealEstate = null;
 
   constructor(
     private alertCtrl: AlertController,
+    private modalCtrl: ModalController,
     private afDb: AngularFirestore,
     private fb: FirebaseProvider,
     public viewCtrl: ViewController,
@@ -166,8 +170,46 @@ export class NotificationsComponent {
             });
         });
     } else if (this.notification.action.show == "tenantEvaluation"){
-      console.log(this.notification);
+
+      const alert = this.alertCtrl.create({
+        title: "Deseja ir para a tela de avaliação?",
+        message: "Após confirmar, a avaliação deverá ser feita.",
+        buttons: [
+          { text: "Agora não", role: 'cancel'  },
+          { text: "Avaliar", handler: () => { this.tenantEvaluationAction(item) } }
+        ]
+      });
+      alert.present();
     }
+  }
+
+  public tenantEvaluationAction(item: any): void {
+    this.ui.showLoading();
+    this.afDb.doc<TenantAccount>('tenantAccount/' + item.action.id).valueChanges()
+    .subscribe((data) => {
+      data.id = item.action.id;
+      this.tenant = data;
+
+      this.afDb.collection<Contract>(
+        'Contract',
+        ref => ref.where('tenantId', '==', this.tenant.id)
+        .where("active", "==", true)
+      ).valueChanges().subscribe(data => {
+        if(data.length > 0 ){
+          this.contract = data[0] as Contract;
+        } 
+        this.ui.closeLoading();
+        this.evaluateTenant();
+      }); 
+    });
+  }
+
+  public evaluateTenant(): void {
+    // TODO: mandar outro argumento para dar clearNotification após avaliação feita... 
+    // Para o cara poder voltar a tela sem ter avaliado... 
+    let modal = this.modalCtrl.create(TenantEvaluationPage, { tenantObj: this.tenant, contractObj: this.contract  });
+    modal.present();
+    //this.clearNotification();
   }
 
   public denyAction(): void {

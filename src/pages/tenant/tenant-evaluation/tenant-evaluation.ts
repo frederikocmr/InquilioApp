@@ -1,4 +1,4 @@
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -31,17 +31,30 @@ export class TenantEvaluationPage {
     public formBuilder: FormBuilder,
     public navCtrl: NavController,
     public navParams: NavParams,
+    public ui: UiProvider,
     private afDb: AngularFirestore,
-    public ui: UiProvider) {
+    private alertCtrl: AlertController) {
     this.evaluationForm = this.formBuilder.group({});
     if (navParams.get('tenantObj')) {
       this.tenant = navParams.get('tenantObj');
     }
     if(navParams.get('contractObj')){
       this.contract = navParams.get('contractObj');
-      console.log(this.contract);
       this.getRealEstate();
     }
+  }
+
+  public onClose(): void {
+    const alert = this.alertCtrl.create({
+      title: "Você tem certeza de que deseja sair?",
+      message: "Se fizer isto agora, perderá a chance de avaliar desta vez.",
+      buttons: [
+        { text: "Recusar", role: 'cancel' },
+        { text: "Confirmar", handler: () => {  this.navCtrl.pop(); } }
+      ]
+    });
+    alert.present();
+   
   }
 
   public getRealEstate(): void {
