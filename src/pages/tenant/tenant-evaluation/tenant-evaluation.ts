@@ -16,6 +16,7 @@ export class TenantEvaluationPage {
   public realEstate: RealEstate;
   public contract: Contract;
   public score: Score = new Score();
+  public notification: number;
   public scoreItems;
   public scoreQuestion;
   public scoreItemsValue;
@@ -44,6 +45,10 @@ export class TenantEvaluationPage {
       this.getRealEstate();
     }
 
+    if(navParams.get('notificationId')){
+      this.notification = navParams.get('notificationId');
+    }
+
   }
 
   public onClose(): void {
@@ -57,6 +62,18 @@ export class TenantEvaluationPage {
     });
     alert.present();
    
+  }
+
+  private clearNotification(): void{
+
+    let json = `{"${this.notification}":{
+      "active": false,
+      "datetime": ${this.notification},
+      "type": "Contract"
+  }}`;
+   let updateData = JSON.parse(json);
+
+   this.afDb.collection("Notification").doc(this.fb.user.uid).update(updateData);
   }
 
   public getRealEstate(): void {
@@ -136,22 +153,22 @@ export class TenantEvaluationPage {
     evaluateDiv.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});    
   }
 
-  public getScoreCalc():void {
-    // this.overallScore += (this.tenant.overallScore ? this.tenant.overallScore : 0 );
-    
+  public saveEvaluation(): void { 
     this.score.paymentScore = (this.scoreItems[0].checked ? this.score.overallScore : null);
     this.score.contractScore = (this.scoreItems[1].checked ? this.score.overallScore : null);
     this.score.carefulScore = (this.scoreItems[2].checked ? this.score.overallScore : null);
     this.score.discretionScore = (this.scoreItems[3].checked ? this.score.overallScore : null);
-  }
-
-  public saveEvaluation(): void { 
-    this.getScoreCalc();
 
     this.score.contractId = this.contract.id;
     this.score.tenantId = this.contract.tenantId;
 
     // TODO: salvar no banco o Score. Na hora de recuperar, percorrer os resultados e pegar a média de cada item...
-    this.fb.insertDataToCollection('Score', this.score);
+    this.fb.insertDataToCollection('Score', this.score).then(()=>{
+      this.ui.showToast("Avaliação salva com sucesso!", 4, "top");
+      if(this.notification){
+        this.clearNotification();
+      }
+      this.navCtrl.pop();
+    });
   }
 }

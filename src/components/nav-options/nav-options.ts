@@ -170,13 +170,13 @@ export class NotificationsComponent {
               alert.present();
             });
         });
-    } else if (this.notification.action.show == "tenantEvaluation"){
+    } else if (this.notification.action.show == "tenantEvaluation") {
 
       const alert = this.alertCtrl.create({
         title: "Deseja ir para a tela de avaliação?",
         message: "Após confirmar, a avaliação deverá ser feita.",
         buttons: [
-          { text: "Agora não", role: 'cancel'  },
+          { text: "Agora não", role: 'cancel' },
           { text: "Avaliar", handler: () => { this.tenantEvaluationAction(item) } }
         ]
       });
@@ -187,42 +187,43 @@ export class NotificationsComponent {
   public tenantEvaluationAction(item: any): void {
     this.ui.showLoading();
     this.afDb.doc<TenantAccount>('tenantAccount/' + item.action.id).valueChanges()
-    .subscribe((data) => {
-      data.id = item.action.id;
-      this.tenant = data;
+      .subscribe((data) => {
+        data.id = item.action.id;
+        this.tenant = data;
 
-      this.afDb.collection<Contract>(
-        'Contract',
-        ref => ref.where('tenantId', '==', this.tenant.id)
-        .where("active", "==", true)
-        .where("status", "==", "confirmed")
-        .where("ownerId", "==", this.fb.user.uid)
-      ).snapshotChanges()
-      .pipe(
-        map(actions =>
-          actions.map(a => {
-            const data = a.payload.doc.data() as Contract;
-            const id = a.payload.doc.id;
-            data.id = id;
-            return { id, ...data };
-          })
-        )
-      ).subscribe(data => {
-        if(data){
-          this.contract = data[0] as Contract;
-        } 
-        this.ui.closeLoading();
-        this.evaluateTenant();
-      }); 
-    });
+        this.afDb.collection<Contract>(
+          'Contract',
+          ref => ref.where('tenantId', '==', this.tenant.id)
+            .where("active", "==", true)
+            .where("status", "==", "confirmed")
+            .where("ownerId", "==", this.fb.user.uid)
+        ).snapshotChanges()
+          .pipe(
+            map(actions =>
+              actions.map(a => {
+                const data = a.payload.doc.data() as Contract;
+                const id = a.payload.doc.id;
+                data.id = id;
+                return { id, ...data };
+              })
+            )
+          ).subscribe(data => {
+            if (data) {
+              this.contract = data[0] as Contract;
+            }
+            this.ui.closeLoading();
+            this.evaluateTenant();
+          });
+      });
   }
 
   public evaluateTenant(): void {
-    // TODO: mandar outro argumento para dar clearNotification após avaliação feita... 
-    // Para o cara poder voltar a tela sem ter avaliado... 
-    let modal = this.modalCtrl.create(TenantEvaluationPage, { tenantObj: this.tenant, contractObj: this.contract  });
+    let modal = this.modalCtrl.create(TenantEvaluationPage, { 
+      tenantObj: this.tenant, 
+      contractObj: this.contract, 
+      notificationId: this.notification.datetime }
+    );
     modal.present();
-    //this.clearNotification();
   }
 
   public denyAction(): void {
@@ -244,14 +245,14 @@ export class NotificationsComponent {
     this.clearNotification();
   }
 
-  private clearNotification(): void{
+  private clearNotification(): void {
 
     let json = `{"${this.notification.datetime}":{
       "active": false,
       "datetime": ${this.notification.datetime},
       "type": "Contract"
   }}`;
-   let updateData = JSON.parse(json);
+    let updateData = JSON.parse(json);
 
     this.afDb.collection("Notification").doc(this.fb.user.uid).update(updateData);
   }
