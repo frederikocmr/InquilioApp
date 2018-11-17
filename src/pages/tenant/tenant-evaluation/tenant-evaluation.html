@@ -37,9 +37,9 @@
           <h5>{{scoreQuestion}}</h5>
           <ion-note>Selecione quantas opções quiser.</ion-note>
           <ion-list>
-            <ion-item *ngFor="let item of scoreItems">
+            <ion-item *ngFor="let item of scoreItems; let i = index">
               <ion-label>{{item}}</ion-label>
-              <ion-checkbox color="secondary" checked="false"></ion-checkbox>
+              <ion-checkbox [formControlName]='"score"+i' color="secondary" checked="false"></ion-checkbox>
             </ion-item>
           </ion-list>
         </div>

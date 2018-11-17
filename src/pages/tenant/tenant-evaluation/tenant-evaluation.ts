@@ -19,6 +19,7 @@ export class TenantEvaluationPage {
   public overallScore: number = 0;
   public scoreItems;
   public scoreQuestion;
+  public scoreItemsValue;
   public stars = [
     { value: 1, name: "custom-star-border" },
     { value: 2, name: "custom-star-border" },
@@ -34,7 +35,13 @@ export class TenantEvaluationPage {
     public ui: UiProvider,
     private afDb: AngularFirestore,
     private alertCtrl: AlertController) {
-    this.evaluationForm = this.formBuilder.group({});
+      // TODO = Arrumar erro que está dando. Isso foi feito aqui por que preciso pegar quais deles está marcado...
+    this.evaluationForm = this.formBuilder.group({
+      score1: [''],
+      score2: [''],
+      score3: [''],
+      score4: ['']
+    });
     if (navParams.get('tenantObj')) {
       this.tenant = navParams.get('tenantObj');
     }
@@ -131,5 +138,21 @@ export class TenantEvaluationPage {
     this.getScoreItems(value);
   }
 
-  public saveEvaluation(): void { }
+  public getScoreCalc():void {
+    this.overallScore += (this.tenant.overallScore ? this.tenant.overallScore : 0 );
+  }
+
+  public saveEvaluation(): void { 
+    this.getScoreCalc();
+    console.log(this.evaluationForm);
+    console.log(this.scoreItems);
+    console.log(this.overallScore);
+
+
+    this.tenant.overallScore = this.overallScore; 
+    this.tenant.paymentScore = null;
+    this.tenant.carefulScore = null;
+    this.tenant.discretionScore = null;
+    //this.tenant.contracts.push(this.contract.id);
+  }
 }

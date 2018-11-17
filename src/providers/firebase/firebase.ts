@@ -4,7 +4,7 @@ import firebase from 'firebase/app';
 
 import 'rxjs/add/operator/toPromise';
 import 'firebase/storage';
-import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
+import { AngularFireStorage } from '@angular/fire/storage';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 
