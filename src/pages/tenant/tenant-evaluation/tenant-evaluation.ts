@@ -161,6 +161,7 @@ export class TenantEvaluationPage {
 
     this.score.contractId = this.contract.id;
     this.score.tenantId = this.contract.tenantId;
+    this.score.ownerId = this.contract.ownerId;
 
     // TODO: salvar no banco o Score. Na hora de recuperar, percorrer os resultados e pegar a média de cada item...
     this.fb.insertDataToCollection('Score', this.score).then(()=>{

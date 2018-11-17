@@ -150,45 +150,79 @@ exports.createNewUserHistory = functions.auth.user().onCreate((user) => {
 
 // https://cron-job.org - Scheduled execution
 exports.checkContractsForEvaluation = functions.https.onRequest((req, res) => {
-    // Gera notificação
-    // 1 - consulta contratos que possuem inquilinos e estão ativos (e data inicial >= hoje && data final <= hoje, deixar esta por ultimo)
-    // 2 - gera notificação para os donos que estão vinculados nestes contratos
-    // 3 - o corpo da notificação deve conter um redirect para a tenant evaluation passando o id do tenant.
 
     var contractsRef = firestoreDB.collection('Contract');
     var query = contractsRef
         .where('tenantId', '>', '')
         .where('status', '==', 'confirmed')
         .where('active', '==', true).get()
-            .then(snapshot => {
-                const dateTime = Number(new Date());
-                snapshot.forEach(doc => {
-                    console.log(doc.id, '=>', doc.data());
+        .then(snapshot => {
+            const dateTime = Number(new Date());
+            snapshot.forEach(doc => {
+                console.log(doc.id, '=>', doc.data());
 
-                    let notificationsCollectionRef2 = firestoreDB.collection('Notification').doc(doc.data().ownerId);
+                let notificationsCollectionRef2 = firestoreDB.collection('Notification').doc(doc.data().ownerId);
 
-                    let json = `{"${dateTime}":{
+                let json = `{"${dateTime}":{
                         "active": true,
                         "datetime": ${dateTime},
                         "type": "EvaluationPending",
                         "action": { "id": "${doc.data().tenantId}", "show": "tenantEvaluation", "title": "Avaliar Inquilino" }
                     }}`;
-                    newData = JSON.parse(json);
+                newData = JSON.parse(json);
 
-                    notificationsCollectionRef2.set(newData, { merge: true }).then(() => {
-                        return console.log('Nova notificação inserida ao inquilino.', doc.data().ownerId);
-                    }).catch(err => {
-                        console.log('Error inserindo notificacao', err);
-                        throw new Error("Error inserindo notificacao");
-                    });
+                notificationsCollectionRef2.set(newData, { merge: true }).then(() => {
+                    return console.log('Nova notificação inserida ao inquilino.', doc.data().ownerId);
+                }).catch(err => {
+                    console.log('Error inserindo notificacao', err);
+                    throw new Error("Error inserindo notificacao");
                 });
-                res.redirect(200);
+            });
+            res.redirect(200);
+            return true;
+        })
+        .catch(err => {
+            console.log('Error buscando contrato', err);
+            throw new Error("Error buscando contrato");
+        });
+});
+
+
+exports.createScoreHistory = functions.firestore.document('Score/{wildcard}')
+    .onCreate((snap, context) => {
+        if (snap.data() === null) return null;
+
+        const newValue = snap.data();
+        const dateTime = Number(new Date());
+        let tenant;
+
+        let tenantRef = firestoreDB.collection('tenantAccount').doc(newValue.tenantId);
+        return tenantRef.get()
+            .then(doc => {
+                if (doc.exists) {
+                    tenant = doc.data();
+                    console.log('Document data:', doc.data());
+
+                    let json = `{"${dateTime}":{
+                        "title": "Avaliação de inquilino realizada",
+                        "description": Inquilino: "${tenant.name}",
+                        "datetime": ${dateTime},
+                        "type": "EvaluationDone",
+                        "action": null 
+                    }}`;
+
+                    let newData = JSON.parse(json);
+
+                    let historyCollectionRef = firestoreDB.collection('History').doc(newValue.ownerId);
+
+                    return historyCollectionRef.set(newData, { merge: true }).then(() => {
+                        return console.log('Novo score adicionado ao histórico.', newValue.ownerId)
+                    });
+
+                } 
                 return true;
             })
             .catch(err => {
-                console.log('Error buscando contrato', err);
-                throw new Error("Error buscando contrato");
+                console.log('Error tenant:', err);
             });
-  
-    
-  });
+    });

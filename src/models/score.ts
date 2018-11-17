@@ -1,6 +1,7 @@
 export class Score {
     public tenantId: string;
     public contractId: string;
+    public ownerId: string;
     public overallScore: number;
     public paymentScore: number;
     public carefulScore: number;
