@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget defaultlocale="pt" id="com.felipefrederiko.inquilio" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget defaultlocale="pt" id="com.frederikofelipe.apptcc" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Inquilio</name>
     <description xml:lang="pt">App para auxiliar pessoas envolvidas diretamente com aluguéis.</description>
     <author email="felipefagyn@gmail.com" href="https://github.com/frederikocmr/app-tcc">Felipe F. Araujo e Frederiko Cesar</author>

@@ -165,6 +165,8 @@ export class NotificationsComponent {
               alert.present();
             });
         });
+    } else if (this.notification.action.show == "tenantEvaluation"){
+      console.log(this.notification);
     }
   }
 
