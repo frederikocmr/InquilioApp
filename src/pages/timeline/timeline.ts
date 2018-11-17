@@ -119,6 +119,18 @@ export class TimelinePage {
         default:
           break;
       }
+    } else {
+      // TODO: Abrir página de detalhes do item de acordo com seu tipo
+      switch (item.type) {
+        case 'Contract':
+          console.log(item);
+          break;
+        case 'RealEstate':
+          console.log(item);
+          break;
+        default:
+          break;
+      }
     }
   }
 

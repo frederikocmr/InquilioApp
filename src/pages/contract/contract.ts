@@ -88,13 +88,25 @@ export class ContractPage {
   //   });
   // }
 
-  public getStatusDescription(status): string {
+  public getStatusColor(status): string {
     switch (status) {
-      case "detached": return "Sem inquilino associado";
-      case "rejected": return "Rejeitado pelo inquilino";
-      case "pending": return "Inquilino associado, mas não confirmado";
-      case "confirmed": return "Inquilino associado e confirmado";
-      case "ended": return "Prazo concluído";
+      case "detached": return "secondary";
+      case "rejected": return "danger";
+      case "pending": return "secondary";
+      case "confirmed": return "granted";
+      case "ended": return "granted";
+      case "revoked": return "danger";
+      default: return "light";
+    }
+  }
+
+  public getStatusPt(status): string {
+    switch (status) {
+      case "detached": return "Sem inquilino";
+      case "rejected": return "Rejeitado";
+      case "pending": return "Pendente";
+      case "confirmed": return "Confirmado";
+      case "ended": return "Encerrado";
       case "revoked": return "Rescindido";
       default: return "Sem status";
     }

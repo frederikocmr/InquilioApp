@@ -12,16 +12,18 @@
 
   <ion-row [hidden]="!contractsExists" justify-content-center>
     <ion-col *ngFor="let contract of contracts | async" col-12 col-sm-6 col-md-4 col-lg-3 no-padding>
-      <ion-card color="primary700">
+      <ion-card color="primary700" (click)="viewDetails(contract)">
         <ion-card-content>
-          <h2 padding-bottom>{{ (contract.realEstateId ? "Possui imóvel associado" : "Sem imóvel associado")}}</h2>
-          <!-- <h3>{{ (contract.tenantId ? "Possui inquilino associado." : "Sem inquilino associado.") }}</h3> -->
-          <p>{{ (contract.beginDate ? "Início em "+getDateString(contract.beginDate) : "Sem data de início.") }}</p>
-          <p>{{ (contract.endDate ? "Válido até "+getDateString(contract.endDate) : "Sem data de encerramento.") }}</p>
-          <p>{{ (contract.duration ? "Duração de "+contract.duration : "Duração não calculada.") }}</p>
-          <p>{{ getStatusDescription(contract.status) }}</p>
+          <h2>{{ (contract.realEstateId ? "Possui imóvel associado" : "Sem imóvel associado")}}</h2>
+          <!-- <p>{{ getStatusDescription(contract.status) }}</p> -->
+          <ion-chip [color]="getStatusColor(contract.status)">
+            <ion-label>{{ (getStatusPt(contract.status)) }}</ion-label>
+          </ion-chip>
+          <p margin-top>{{ (contract.beginDate ? "Início em "+getDateString(contract.beginDate) : "Sem data de início") }}</p>
+          <p>{{ (contract.endDate ? "Válido até "+getDateString(contract.endDate) : "Sem data de encerramento") }}</p>
+          <!-- <p>{{ (contract.duration ? "Duração de "+contract.duration : "Duração não calculada") }}</p> -->
         </ion-card-content>
-        <button ion-button clear color="secondary" (click)="viewDetails(contract)">
+        <button ion-button clear color="secondary">
           VER DETALHES
         </button>
       </ion-card>

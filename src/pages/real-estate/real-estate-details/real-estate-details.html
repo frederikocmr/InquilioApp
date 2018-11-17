@@ -34,13 +34,13 @@
 
     <div margin>
       <ion-label color="secondary" no-margin>Contrato</ion-label>
-      <p class="address-p">{{ (contract ? getDateString(contract.beginDate) + " a " + getDateString(contract.endDate) : "Sem contrato vinculado.") }}</p>
+      <p class="address-p">{{ (contract ? getDateString(contract.beginDate) + " a " + getDateString(contract.endDate) : "Sem contrato vinculado") }}</p>
       <p>{{ (contract ? contract.duration : "") }}</p>
     </div>
 
     <div margin>
       <ion-label color="secondary" no-margin>Inquilino</ion-label>
-      <p>{{ (tenant ? tenant.name : "Sem inquilino vinculado.") }}</p>
+      <p>{{ (tenant ? tenant.name : "Sem inquilino vinculado") }}</p>
     </div>
 
     <div margin-top>
