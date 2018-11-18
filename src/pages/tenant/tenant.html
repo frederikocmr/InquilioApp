@@ -52,15 +52,15 @@
   </div>
 </ion-content>
 
-<div class="footer-searchbar" id="searchbar">
+<div class="footer-searchbar" id="searchbar" text-center>
   <ion-row>
-    <ion-col col-8>
+    <ion-col align-self-center col-8 col-sm-9 col-md-10 col-lg-11>
       <ion-searchbar animated="true" cancelButtonText="Cancelar" [(ngModel)]="searchString" placeholder="Buscar inquilino"
         name="tenantSearchName" (ionClear)="cancelSearch()">
       </ion-searchbar>
     </ion-col>
-    <ion-col align-self-center col-4>
-      <button color="light" (click)="search()" ion-button round>Buscar</button>
+    <ion-col align-self-center col-4 col-sm-3 col-md-2 col-lg-1>
+      <button class="btn-light" (click)="search()" color="light" ion-button round>Buscar</button>
     </ion-col>
   </ion-row>
 </div>
