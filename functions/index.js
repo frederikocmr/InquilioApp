@@ -201,11 +201,9 @@ exports.createScoreHistory = functions.firestore.document('Score/{wildcard}')
             .then(doc => {
                 if (doc.exists) {
                     tenant = doc.data();
-                    console.log('Document data:', doc.data());
-
                     let json = `{"${dateTime}":{
                         "title": "Avaliação de inquilino realizada",
-                        "description": Inquilino: "${tenant.name}",
+                        "description": "Inquilino: ${tenant.name}",
                         "datetime": ${dateTime},
                         "type": "EvaluationDone",
                         "action": null 
