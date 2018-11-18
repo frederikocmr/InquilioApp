@@ -4,6 +4,7 @@ import { TenantAccount } from '../../../models/tenant-account';
 import { TenantEvaluationPage } from '../tenant-evaluation/tenant-evaluation';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Contract } from '../../../models/contract';
+import { Score } from '../../../models/score';
 
 @Component({
   selector: 'page-tenant-details',
@@ -13,7 +14,8 @@ export class TenantDetailsPage {
   public tenant: TenantAccount = new TenantAccount;
   public contract: Contract;
   public evaluationNumber = 1;
-  public overallScore = "4.5";
+  public overallScore: number = 0;
+  public countScore: number = 0;
   // public isEvaluationTime: boolean = false;
   public isTenantAssociated: boolean = true;
   public chips = [
@@ -32,7 +34,22 @@ export class TenantDetailsPage {
     if (navParams.get('tenant')) {
       this.tenant = navParams.get('tenant');
       this.getContract();
+      this.getScore();
     }
+  }
+
+  public getScore(): void {
+    this.afDb.collection<Score>(
+      'Score',
+      ref => ref.where('tenantId', '==', this.tenant.id)
+    ).valueChanges().subscribe(data => {
+      let scoreAux = 0;
+      data.forEach(item => {
+        scoreAux += item.overallScore;
+        this.evaluationNumber += 1;
+      });
+      this.overallScore =  scoreAux / this.evaluationNumber;
+    }); 
   }
 
   public getContract(): void {

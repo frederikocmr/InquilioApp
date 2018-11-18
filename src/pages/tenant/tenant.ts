@@ -146,6 +146,7 @@ export class TenantPage {
   }
 
   public search(): void {
+    this.searchString = "000.000.000-00"; //teste
     if (this.searchString.length == 14) {
       //TODO: Quando ativar esta funcao, criar um loading na tela sem ser o do ui...
       this.tenants = this.afDb.collection<TenantAccount>(
