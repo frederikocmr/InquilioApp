@@ -1,7 +1,7 @@
-# app-tcc
+# Inquilio
 TCC Project.
-IONIC
+Made with Ionic
 
-# **Principais funcionalidades**
+## **Principais funcionalidades**
 
-# **Documentação**
+## **Documentação**
