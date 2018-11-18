@@ -27,7 +27,7 @@ export class TenantPage {
   public searchingTenants: boolean = false;
   public tenants: Observable<TenantAccount[]>;
   public tenantsExists: boolean = false;
-  public searchString: string = '000.000.000-00'; // apenas para teste
+  public searchString: string = ''; // apenas para teste
   public contracts: Contract[];
   public realEstates: RealEstate[];
 
@@ -41,7 +41,7 @@ export class TenantPage {
     public navParams: NavParams,
     public ui: UiProvider
   ) {
-    this.search(); // apenas para teste
+    // this.search(); // apenas para teste
     this.getContracts();
     this.getRealEstates();
   }

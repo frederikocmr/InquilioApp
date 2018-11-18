@@ -41,7 +41,7 @@
                 suficientes" )}}</p>
             </ion-row>
             <p>{{ (tenant.phone ? tenant.phone : "Nenhum telefone encontrado") }}</p>
-            <p>{{ (tenant.email ? tenant.email : "Nenhum email encontrado") }}</p>            
+            <p>{{ (tenant.email ? tenant.email : "Nenhum email encontrado") }}</p>
           </ion-card-content>
           <button ion-button clear color="secondary">
             VER DETALHES
@@ -52,7 +52,15 @@
   </div>
 </ion-content>
 
-<ion-searchbar animated="true" cancelButtonText="Cancelar" class="footer-searchbar" id="searchbar" [(ngModel)]="searchString" placeholder="Buscar inquilino pelo CPF..."
-  name="document" [brmasker]="{person: true}" showCancelButton (ionCancel)="cancelSearch()" (ionClear)="cancelSearch()"
-  (ionInput)="search()">
-</ion-searchbar>
+<div class="footer-searchbar" id="searchbar">
+  <ion-row>
+    <ion-col col-8>
+      <ion-searchbar animated="true" cancelButtonText="Cancelar" [(ngModel)]="searchString" placeholder="Buscar inquilino"
+        name="tenantSearchName" (ionClear)="cancelSearch()">
+      </ion-searchbar>
+    </ion-col>
+    <ion-col align-self-center col-4>
+      <button color="light" (click)="search()" ion-button round>Buscar</button>
+    </ion-col>
+  </ion-row>
+</div>
