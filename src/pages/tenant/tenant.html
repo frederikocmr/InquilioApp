@@ -15,7 +15,7 @@
         <ion-row justify-content-start>
           <!-- Removido por que para pegar o score fica muito chato... 
             <ion-icon class="evaluation-star" color="secondary" name="custom-star-full"></ion-icon> -->
-          <p>Documento: {{ tenant.document }}</p>
+          <p>Documento: {{(tenant.document.length === 14 ? "***.***.*" + tenant.document.substr(9) : tenant.document)}}</p>
         </ion-row>
         <button ion-button clear color="secondary" item-end>OPÇÕES</button>
       </ion-item>

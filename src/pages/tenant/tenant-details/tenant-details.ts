@@ -18,7 +18,8 @@ export class TenantDetailsPage {
   public countScore: number = 0;
   // public isEvaluationTime: boolean = false;
   public isTenantAssociated: boolean = true;
-  public chips = new Array();
+  public chips: string[] = null;
+  public searchingTenants: boolean = false;
 
   constructor(
     private modalCtrl: ModalController,
@@ -30,6 +31,11 @@ export class TenantDetailsPage {
       this.tenant = navParams.get('tenant');
       this.getContract();
       this.getScore();
+    }
+
+    // Used to hide interaction buttons when this page is shown after a search
+    if (navParams.get('searchingTenants')) {
+      this.searchingTenants = navParams.get('searchingTenants');
     }
   }
 
@@ -101,9 +107,9 @@ export class TenantDetailsPage {
   }
   public getCarefulScore(score) {
     if ((score >= 4) && (score < 5)) {
-      this.chips.push("Conserva bem o imóvel");
+      this.chips.push("Conserva o imóvel");
     } else if (score >= 5) {
-      this.chips.push("Se preocupa em manter a conservação do imóvel");
+      this.chips.push("Se preocupa em conservar o imóvel");
     }
   }
   public getDiscretionScore(score) {

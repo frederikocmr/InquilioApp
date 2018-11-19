@@ -24,7 +24,7 @@
     </div>
 
     <div margin>
-      <ion-label color="secondary" no-margin>CPF</ion-label>
+      <ion-label color="secondary" no-margin>Documento</ion-label>
       <!-- Format example: ***.***.*00-00 -->
       <p class="content-p">{{(tenant.document.length === 14 ? "***.***.*" + tenant.document.substr(9) : tenant.document)}}</p>
     </div>
@@ -47,7 +47,7 @@
       </ion-chip>
     </div>
 
-    <div margin-top>
+    <div margin-top *ngIf="!searchingTenants">
       <!-- <ion-row *ngIf="!isTenantAssociated">
         <button class="main-button btn-secondary" ion-button large round color="secondary" strong (click)="associateTenant()"
           icon-start>
