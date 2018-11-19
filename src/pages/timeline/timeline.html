@@ -13,7 +13,7 @@
   <div *ngIf="itemsData">
     <ion-row justify-content-center>
       <ion-col col-12 padding>
-        <timeline endIcon="md-arrow-round-up">
+        <timeline>
           <timeline-item *ngFor="let item of itemsData">
             <timeline-time [class]="timeClass" [datetime]="item.datetime"></timeline-time>
             <div class="round-div">

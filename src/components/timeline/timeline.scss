@@ -103,4 +103,19 @@
       }
     }
   }
+
+	.first-round-div {
+		color: #fff;
+		background: color($colors, primary);
+		width: 40px;
+		height: 40px;
+		font-size: 1em;
+		position: absolute;
+		border-radius: 50%;
+		// box-shadow: 0 0 0 8px color($colors, secondaryAlt);
+		text-align: center;
+		left: 0.5rem;
+		top: 0;
+		line-height: 40px;
+	}
 }
