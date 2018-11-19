@@ -60,7 +60,9 @@ export class WelcomePage {
     if (this.platform.is('cordova')) {
       this.nativeGoogleLogin().then((res) => {
         this.ui.showToast("Sucesso ao logar com o Google.", 3, 'top');
+        
         if(res){
+          this.ui.closeLoading();
           this.ui.alert = this.alertCtrl.create({
             title: 'Antes de começar...',
             subTitle: 'Por favor, escolha o seu perfil',
@@ -92,7 +94,6 @@ export class WelcomePage {
     } else {
       this.webGoogleLogin();
     }
-
   }
 
   async nativeGoogleLogin(): Promise<firebase.User> {
