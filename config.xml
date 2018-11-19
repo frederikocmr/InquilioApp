@@ -12,7 +12,6 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <preference name="orientation" value="portrait" />
-    <preference name="Fullscreen" value="true" />
     <preference name="ScrollEnabled" value="false" />
     <preference name="android-minSdkVersion" value="19" />
     <preference name="BackupWebStorage" value="none" />
