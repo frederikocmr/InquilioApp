@@ -132,12 +132,12 @@ export class ContractFormPage {
     let newObject = this.contractForm.value as Contract;
     this.contract.beginDate = Number(new Date(newObject.beginDate));
     this.contract.endDate = Number(new Date(newObject.endDate));
-    this.contract.duration = newObject.duration;
+    // this.contract.duration = newObject.duration;
     this.contract.realEstateId = newObject.realEstateId;
     this.contract.tenantId = newObject.tenantId;
     this.contract.status = (!newObject.tenantId ? "detached" : "pending");
 
-    console.log(this.contract);
+    // console.log(this.contract);
   }
 
   public addContract(): void {
