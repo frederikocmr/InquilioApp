@@ -42,7 +42,7 @@ export class SignupPage {
 			password: ['', Validators.required],
 			phone: ['', Validators.required],
 			birthdate: ['', Validators.required],
-			genre: ['', Validators.required]
+			// genre: ['', Validators.required]
 		});
 	}
 
@@ -84,12 +84,27 @@ export class SignupPage {
 		this.account.password = newObject.password;
 		this.account.phone = newObject.phone;
 		this.account.birthdate = newObject.birthdate;
-		this.account.genre = newObject.genre;
+		// this.account.genre = newObject.genre;
 	}
 
 	public openCalendar() {
 		this.account.birthdate = new Date().toISOString();
 	}
+
+  public setGenreSelected(genreValue: string): void {
+    let elements = window.document.getElementsByName('genre');
+    let id = `genre-${genreValue}`;
+
+    for (let i = 0; i < elements.length; i++) {
+      if (elements[i].id === id) {
+        elements[i].classList.add('genre-selected');
+      } else {        
+        elements[i].classList.remove('genre-selected');
+      }
+    }
+
+    this.account.genre = genreValue;
+  }
 
 	public setMaxDate(): number {
 		return new Date().getFullYear() - 18;

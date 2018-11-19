@@ -37,17 +37,23 @@
         Por favor, selecione uma data de nascimento.
       </div>
 
-      <ion-item>
-        <ion-label floating>Selecione seu sexo</ion-label>
-        <ion-select name="genre" interface="popover" [formControl]="profileForm.controls['genre']">
+      <ion-row>
+        <p [class]="textColor">Selecione seu gênero</p>
+      </ion-row>
+      <ion-row>
+        <div class="col genre left-border" id="genre-f" name="genre" (click)="setGenreSelected('f')">Feminino</div>
+        <div class="col genre" id="genre-m" name="genre" (click)="setGenreSelected('m')">Masculino</div>
+        <div class="col genre right-border" id="genre-o" name="genre" (click)="setGenreSelected('o')">Outro</div>
+        <!-- <ion-select name="genre" interface="popover" [formControl]="profileForm.controls['genre']">
           <ion-option value="f">Feminino</ion-option>
           <ion-option value="m">Masculino</ion-option>
           <ion-option value="o">Prefiro não informar</ion-option>
-        </ion-select>
-      </ion-item>
-      <div *ngIf="!profileForm.controls.genre.valid && profileForm.controls.genre.dirty" class="validator-error">
-        Por favor, selecione seu sexo.
-      </div>
+        </ion-select> -->
+      </ion-row>
+      <!-- <div *ngIf="!profileForm.controls.genre.valid && profileForm.controls.genre.dirty" class="validator-error">
+        Por favor, selecione seu gênero.
+      </div> -->
+
       <ion-item>
         <ion-label floating>Informe seu número de celular</ion-label>
         <ion-input type="text" [formControl]="profileForm.controls['phone']" name="phone" [brmasker]="{phone: true}"></ion-input>

@@ -53,8 +53,8 @@
               Por favor, selecione uma data de nascimento.
             </div>
 
-            <ion-item>
-              <ion-label floating>Selecione seu sexo</ion-label>
+            <!-- <ion-item>
+              <ion-label floating>Selecione seu gênero</ion-label>
               <ion-select name="genre" interface="popover" [formControl]="signupForm.controls['genre']">
                 <ion-option value="f">Feminino</ion-option>
                 <ion-option value="m">Masculino</ion-option>
@@ -62,8 +62,16 @@
               </ion-select>
             </ion-item>
             <div *ngIf="!signupForm.controls.genre.valid && signupForm.controls.genre.dirty" class="validator-error">
-              Por favor, selecione seu sexo.
-            </div>
+              Por favor, selecione seu gênero.
+            </div> -->
+            <ion-row class="genre-row" text-left>
+              <p>Selecione seu gênero</p>
+            </ion-row>
+            <ion-row class="genre-row">
+              <div class="col genre left-border" id="genre-f" name="genre" (click)="setGenreSelected('f')">Feminino</div>
+              <div class="col genre" id="genre-m" name="genre" (click)="setGenreSelected('m')">Masculino</div>
+              <div class="col genre right-border" id="genre-o" name="genre" (click)="setGenreSelected('o')">Outro</div>
+            </ion-row>
 
             <ion-item hidden="true">
             </ion-item>
@@ -94,7 +102,8 @@
               <ion-label floating>Informe uma senha</ion-label>
               <ion-input [type]="isTextFieldType ? 'text' : 'password'" [formControl]="signupForm.controls['password']"
                 name="password"></ion-input>
-              <button class="visibility-icon" clear (click)="togglePasswordFieldType()" icon-only ion-button item-right type="button">
+              <button class="visibility-icon" clear (click)="togglePasswordFieldType()" icon-only ion-button item-right
+                type="button">
                 <ion-icon color="light" [name]="isTextFieldType ? 'custom-visibility-off' : 'custom-visibility'"></ion-icon>
               </button>
             </ion-item>
@@ -109,7 +118,7 @@
       </ion-slides>
 
       <div id="footer">
-        <ion-row>
+        <ion-row id="previous-next">
           <ion-col>
             <button class="btn-slides-pagination" type="button" ion-button outline round color="secondary" (click)="slidePrev()"
               [disabled]="isFirstSlide()">Anterior</button>

@@ -1,8 +1,42 @@
 page-signup {
+
+  #previous-next {
+    margin: auto;
+    max-width: 50rem;
+  }
   
   .btn-slides-pagination {
     width: 10rem;
-  }
+  }  
+
+	.genre {
+    border: 1px solid color($colors, secondary);
+    color: color($colors, light);
+    cursor: pointer;
+	}
+
+	.genre-row {
+    font-size: 1.6rem;
+    justify-content: left;
+		margin: auto;
+		max-width: 50rem;
+		padding: 0 1rem 0 1rem;
+	}
+
+	.genre-selected {
+		background: color($colors, secondary);
+    box-shadow: inset 0 0 10px #000000;
+    color: color($colors, dark);
+    font-weight: bold;
+	}
+
+	.left-border {
+		border-radius: 1rem 0 0 1rem;
+	}
+
+	.right-border {			
+		border-radius: 0 1rem 1rem 0;
+	}
 
   .keyboard-is-open {
     display: none;
@@ -39,6 +73,10 @@ page-signup {
   //   padding: 0 !important;
   //   margin: 0 !important;
   // }
+
+  ion-note {
+    font-size: 1.6rem;
+  }
 
   ion-slide {
     padding: 0 1rem 0 1rem;

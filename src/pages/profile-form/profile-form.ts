@@ -55,27 +55,39 @@ export class ProfileFormPage {
       name: [(this.fb.userData ? this.fb.userData.name : (this.user ? this.user.displayName : '')), Validators.required],
       email: [{ value: (this.fb.userData ? this.fb.userData.email : (this.user ? this.user.email : '')), disabled: true }, Validators.compose([Validators.pattern(regexValidators.email), Validators.required])],
       phone: [(this.fb.userData ? this.fb.userData.phone : (this.user ? this.user.phoneNumber : '')), Validators.required],
-      birthdate: [(this.fb.userData ? this.fb.userData.birthdate : ''), Validators.required],
-      genre: [(this.fb.userData ? this.fb.userData.genre : ''), Validators.required]
+      birthdate: [(this.fb.userData ? this.fb.userData.birthdate : ''), Validators.required]
+      // genre: [(this.fb.userData ? this.fb.userData.genre : ''), Validators.required]
     });
+  }
 
+  public ionViewWillEnter(): void {
     this.changeLayout(this.userType);
+    this.setGenreSelected(this.fb.userData.genre);
   }
 
   // Changes the color of some elements depending on the type of user
   private changeLayout(user: string): void {
+    let genreElements = window.document.getElementsByName('genre');
+    let genreTypeClass = "";
+
     if (user == "owner") {
       this.backgroundClass = "bg-owner-page";
       this.cardColor = "primary700";
       this.formClass = "custom-form";
+      genreTypeClass = "genre-owner";
       this.iconColor = "light";
       this.textColor = "light-text";
     } else {
       this.backgroundClass = "bg-tenant-page";
       this.cardColor = "light";
       this.formClass = "custom-form-tenant";
+      genreTypeClass = "genre-tenant";
       this.iconColor = "primary"
       this.textColor = "primary-text";
+    }
+
+    for (let i = 0; i < genreElements.length; i++) {
+      genreElements[i].classList.add(genreTypeClass);
     }
   }
 
@@ -86,7 +98,7 @@ export class ProfileFormPage {
     this.userAccount.email = (newObject.email ? newObject.email : this.user.email);
     this.userAccount.phone = newObject.phone;
     this.userAccount.birthdate = newObject.birthdate;
-    this.userAccount.genre = newObject.genre;
+    // this.userAccount.genre = newObject.genre;
     this.userAccount.id = this.user.uid;
   }
 
@@ -123,6 +135,21 @@ export class ProfileFormPage {
         this.ui.showAlert("Erro ao criar perfil: ", error);
       });
     }
+  }
+
+  public setGenreSelected(genreValue: string): void {
+    let elements = window.document.getElementsByName('genre');
+    let id = `genre-${genreValue}`;
+
+    for (let i = 0; i < elements.length; i++) {
+      if (elements[i].id === id) {
+        elements[i].classList.add('genre-selected');
+      } else {        
+        elements[i].classList.remove('genre-selected');
+      }
+    }
+
+    this.userAccount.genre = genreValue;
   }
 
   public setMaxDate(): number {
