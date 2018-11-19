@@ -59,8 +59,11 @@ export class WelcomePage {
     this.ui.showLoading();
     if (this.platform.is('cordova')) {
       this.nativeGoogleLogin().then((res) => {
-        this.ui.showToast("Sucesso ao logar com o Google.", 3, 'top');
+        
+        
         if(res){
+          this.ui.showToast("Sucesso ao logar com o Google.", 3, 'top');
+          this.ui.closeLoading();
           this.ui.alert = this.alertCtrl.create({
             title: 'Antes de começar...',
             subTitle: 'Por favor, escolha o seu perfil',
@@ -84,6 +87,9 @@ export class WelcomePage {
             ]
           });
           this.ui.alert.present();
+        } else {
+          this.ui.showToast("Não foi possível logar com o Google! Tente novamente mais tarde.", 3, 'top');
+          this.ui.closeLoading();
         }
       }).catch((error) => {
         this.ui.closeLoading();
@@ -92,7 +98,6 @@ export class WelcomePage {
     } else {
       this.webGoogleLogin();
     }
-
   }
 
   async nativeGoogleLogin(): Promise<firebase.User> {
