@@ -21,6 +21,7 @@
     <preference name="ShowSplashScreenSpinner" value="false" />
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="10000" />
+    <preference name="StatusBarBackgroundColor" value="#000000" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
@@ -63,6 +64,7 @@
         <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="Enviar fotos tiradas aos modulos do aplicativo" />
     </plugin>
     <plugin name="cordova-plugin-crop" spec="0.4.0" />
+    <plugin name="cordova-plugin-statusbar" spec="2.4.2" />
     <engine name="android" spec="7.0.0" />
     <engine name="ios" spec="4.5.5" />
     <engine name="browser" spec="5.0.4" />

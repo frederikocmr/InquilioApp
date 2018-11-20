@@ -2,23 +2,26 @@ import { Component, ViewChild } from '@angular/core';
 import { Platform, NavController } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { WelcomePage } from '../pages/welcome/welcome';
+import { StatusBar } from '@ionic-native/status-bar';
 
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage: any;
   @ViewChild('nav') nav: NavController;
+  rootPage: any;
 
   constructor(
     platform: Platform,
-    splashScreen: SplashScreen) {
+    splashScreen: SplashScreen,
+    statusBar: StatusBar) {
       this.rootPage = WelcomePage;
 
 
     platform.ready().then(() => {
-      // statusBar.styleDefault();
+      statusBar.styleLightContent();
+      statusBar.overlaysWebView(false);
       splashScreen.hide();
     });
   }
