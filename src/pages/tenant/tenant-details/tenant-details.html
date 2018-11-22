@@ -13,6 +13,9 @@
 <ion-content class="bg-owner-page">
   <ion-list>
     <div margin>
+      <div text-center>
+        <img class="logo" padding [src]="tenant.photoURL ? tenant.photoURL : '../../assets/imgs/user-y500.png'" />
+      </div>
       <h2>{{tenant.name}}</h2>
       <ion-row justify-content-start>
         <ion-icon class="evaluation-star" color="secondary" name="custom-star-full"></ion-icon>
