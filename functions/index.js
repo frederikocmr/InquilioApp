@@ -53,9 +53,7 @@ exports.createContractHistory = functions.firestore.document('Contract/{wildcard
         const dateTime = Number(new Date());
         let json = `{"${dateTime}":{
                     "title": "Novo contrato adicionado",
-                    "description": "Início: ${ (new Date(newValue.beginDate).toLocaleDateString('pt-BR', { timeZone: 'UTC' }))}\n
-                                    Fim: ${(new Date(newValue.endDate).toLocaleDateString('pt-BR', { timeZone: 'UTC' }))}\n\n
-                                    Status: ${getStatusDescription(newValue.status)}",
+                    "description": "Início: ${ (new Date(newValue.beginDate).toLocaleDateString('pt-BR', { timeZone: 'UTC' }))}\nFim: ${(new Date(newValue.endDate).toLocaleDateString('pt-BR', { timeZone: 'UTC' }))}\n\nStatus: ${getStatusDescription(newValue.status)}",
                     "datetime": ${dateTime},
                     "type": "Contract",
                     "action": null 
@@ -99,8 +97,7 @@ exports.createContractHistoryUpdate = functions.firestore.document('Contract/{wi
             const dateTime = Number(new Date());
             let json = `{"${dateTime}":{
                         "title": "Contrato atualizado",
-                        "description": "Status anterior: ${getStatusDescription(previousValue.status)}\n\n
-                                        Novo status: ${getStatusDescription(newValue.status)}",
+                        "description": "Status anterior: ${getStatusDescription(previousValue.status)}\n\nNovo status: ${getStatusDescription(newValue.status)}",
                         "datetime": ${dateTime},
                         "type": "Contract",
                         "action": null 
