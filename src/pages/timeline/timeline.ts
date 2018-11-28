@@ -105,7 +105,7 @@ export class TimelinePage {
   }
 
   public processTags(text: string){
-    text = text.replace(/\n/g, "<br />");
+    text = text.replace(/\n/g, "<br>");
     return text;
   }
 

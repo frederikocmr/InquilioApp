@@ -21,7 +21,7 @@
             </div>
             <ion-card [color]="cardColor" (click)="doAction(item)">
               <ion-card-header>{{item.title}}</ion-card-header>
-              <ion-card-content>{{processTags(item.description)}}</ion-card-content>
+              <ion-card-content [innerHTML]="processTags(item.description)"></ion-card-content>
             </ion-card>
           </timeline-item>
         </timeline>
