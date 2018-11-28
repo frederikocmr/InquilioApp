@@ -215,14 +215,15 @@ export class NotificationsComponent {
             this.evaluateTenant();
           });
       });
+    this.viewCtrl.dismiss();
   }
 
   public evaluateTenant(): void {
-    let modal = this.modalCtrl.create(TenantEvaluationPage, { 
-      tenantObj: this.tenant, 
-      contractObj: this.contract, 
-      notificationId: this.notification.datetime }
-    );
+    let modal = this.modalCtrl.create(TenantEvaluationPage, {
+      tenantObj: this.tenant,
+      contractObj: this.contract,
+      notificationId: this.notification.datetime
+    });
     modal.present();
   }
 
@@ -233,6 +234,7 @@ export class NotificationsComponent {
       this.ui.showToast("O contrato foi recusado. Para mais informações, visite suas atividades.", 4, 'top');
     }
     this.clearNotification();
+    this.viewCtrl.dismiss();
   }
 
   public confirmAction(): void {
@@ -241,17 +243,19 @@ export class NotificationsComponent {
       this.fb.updateDataFromCollection("Contract", this.contract);
       this.ui.showToast("O contrato foi confirmado e será inserido na aba 'Meu Contrato'", 4, 'top');
     }
-
     this.clearNotification();
+    this.viewCtrl.dismiss();
   }
 
   private clearNotification(): void {
 
-    let json = `{"${this.notification.datetime}":{
-      "active": false,
-      "datetime": ${this.notification.datetime},
-      "type": "Contract"
-  }}`;
+    let json = `{
+      "${this.notification.datetime}": {
+        "active": false,
+        "datetime": ${this.notification.datetime},
+        "type": "Contract"
+      }
+    }`;
     let updateData = JSON.parse(json);
 
     this.afDb.collection("Notification").doc(this.fb.user.uid).update(updateData);
