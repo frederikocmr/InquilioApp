@@ -52,7 +52,7 @@ exports.createContractHistory = functions.firestore.document('Contract/{wildcard
 
         const dateTime = Number(new Date());
         let json = 
-`{"${dateTime}":{"title": "Novo contrato adicionado","description": "Início: ${ (new Date(newValue.beginDate).toLocaleDateString('pt-BR', { timeZone: 'UTC' }))}\\nFim: ${(new Date(newValue.endDate).toLocaleDateString('pt-BR', { timeZone: 'UTC' }))}\\n\\nStatus: ${getStatusDescription(newValue.status)}",
+`{"${dateTime}":{"title": "Novo contrato adicionado","description": "Início: ${ (new Date(newValue.beginDate).toLocaleDateString('pt-BR', { timeZone: 'UTC' }))}\\nFim: ${(new Date(newValue.endDate).toLocaleDateString('pt-BR', { timeZone: 'UTC' }))}\\n\\nSituação atual:\\n${getStatusDescription(newValue.status)}",
                     "datetime": ${dateTime},
                     "type": "Contract",
                     "action": null 
@@ -96,7 +96,7 @@ exports.createContractHistoryUpdate = functions.firestore.document('Contract/{wi
             const dateTime = Number(new Date());
             let json = `{"${dateTime}":{
                         "title": "Contrato atualizado",
-                        "description": "Status anterior: ${getStatusDescription(previousValue.status)}\\n\\nNovo status: ${getStatusDescription(newValue.status)}",
+                        "description": "Situação anterior:\\n${getStatusDescription(previousValue.status)}\\n\\nSituação atual:\\n${getStatusDescription(newValue.status)}",
                         "datetime": ${dateTime},
                         "type": "Contract",
                         "action": null 
@@ -128,7 +128,7 @@ exports.createNewUserHistory = functions.auth.user().onCreate((user) => {
 
     const dateTime = Number(new Date());
     let json = `{"${dateTime}":{
-                "title": "Seja bem-vindo!",
+                "title": "Seja bem-vind@!",
                 "description": "Você se cadastrou no Inquilio",
                 "datetime": ${dateTime},
                 "type": "User",
@@ -198,8 +198,8 @@ exports.createScoreHistory = functions.firestore.document('Score/{wildcard}')
                 if (doc.exists) {
                     tenant = doc.data();
                     let json = `{"${dateTime}":{
-                        "title": "Avaliação de inquilino realizada",
-                        "description": "Inquilino: ${tenant.name}",
+                        "title": "Avaliação realizada",
+                        "description": "Inquilino avaliado:\\n${tenant.name}",
                         "datetime": ${dateTime},
                         "type": "EvaluationDone",
                         "action": null 
