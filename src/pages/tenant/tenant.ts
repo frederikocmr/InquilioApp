@@ -27,7 +27,7 @@ export class TenantPage {
   public searchingTenants: boolean = false;
   public tenants: Observable<TenantAccount[]>;
   public tenantsExists: boolean = false;
-  public searchString: string = '000.000.000-00'; // apenas para teste
+  public searchString: string = ''; // apenas para teste
   public contracts: Contract[];
   public realEstates: RealEstate[];
 
@@ -146,6 +146,7 @@ export class TenantPage {
   }
 
   public search(): void {
+    this.searchString = '000.000.000-00';
     if (this.searchString.length == 14) {
       //TODO: Quando ativar esta funcao, criar um loading na tela sem ser o do ui...
       this.tenants = this.afDb.collection<TenantAccount>(
